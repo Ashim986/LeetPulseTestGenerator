@@ -1,0 +1,467 @@
+{
+  "topic": "arrays-hashing",
+  "problems": {
+    "1-bit-and-2-bit-characters": {
+      "questionId": "717",
+      "title": "1-bit and 2-bit Characters",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= bits.length <= 1000",
+        "bits[i] is either 0 or 1."
+      ],
+      "description": "We have two special characters:\n\tThe first character can be represented by one bit 0.\n\tThe second character can be represented by two bits (10 or 11).\nGiven a binary array bits that ends with 0, return true if the last character must be a one-bit character.\nExample 1:\nInput: bits = [1,0,0]\nOutput: true\nExplanation: The only way to decode it is two-bit character and one-bit character.\nSo the last character is one-bit character.\nExample 2:\nInput: bits = [1,1,1,0]\nOutput: false\nExplanation: The only way to decode it is two-bit character and two-bit character.\nSo the last character is not one-bit character."
+    },
+    "4sum-ii": {
+      "questionId": "454",
+      "title": "4Sum II",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == nums1.length",
+        "n == nums2.length",
+        "n == nums3.length",
+        "n == nums4.length",
+        "1 <= n <= 200",
+        "-228 <= nums1[i], nums2[i], nums3[i], nums4[i] <= 228"
+      ],
+      "description": "Given four integer arrays nums1, nums2, nums3, and nums4 all of length n, return the number of tuples (i, j, k, l) such that:\n\t0 <= i, j, k, l < n\n\tnums1[i] + nums2[j] + nums3[k] + nums4[l] == 0\nExample 1:\nInput: nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]\nOutput: 2\nExplanation:\nThe two tuples are:\n1. (0, 0, 0, 1) -> nums1[0] + nums2[0] + nums3[0] + nums4[1] = 1 + (-2) + (-1) + 2 = 0\n2. (1, 1, 0, 0) -> nums1[1] + nums2[1] + nums3[0] + nums4[0] = 2 + (-1) + (-1) + 0 = 0\nExample 2:\nInput: nums1 = [0], nums2 = [0], nums3 = [0], nums4 = [0]\nOutput: 1"
+    },
+    "array-nesting": {
+      "questionId": "565",
+      "title": "Array Nesting",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "0 <= nums[i] < nums.length",
+        "All the values of nums are unique."
+      ],
+      "description": "You are given an integer array nums of length n where nums is a permutation of the numbers in the range [0, n - 1].\nYou should build a set s[k] = {nums[k], nums[nums[k]], nums[nums[nums[k]]], ... } subjected to the following rule:\n\tThe first element in s[k] starts with the selection of the element nums[k] of index = k.\n\tThe next element in s[k] should be nums[nums[k]], and then nums[nums[nums[k]]], and so on.\n\tWe stop adding right before a duplicate element occurs in s[k].\nReturn the longest length of a set s[k].\nExample 1:\nInput: nums = [5,4,0,3,1,6,2]\nOutput: 4\nExplanation: \nnums[0] = 5, nums[1] = 4, nums[2] = 0, nums[3] = 3, nums[4] = 1, nums[5] = 6, nums[6] = 2.\nOne of the longest sets s[k]:\ns[0] = {nums[0], nums[5], nums[6], nums[2]} = {5, 6, 2, 0}\nExample 2:\nInput: nums = [0,1,2]\nOutput: 1"
+    },
+    "available-captures-for-rook": {
+      "questionId": "999",
+      "title": "Available Captures for Rook",
+      "difficulty": "Easy",
+      "constraints": [
+        "board.length == 8",
+        "board[i].length == 8",
+        "board[i][j] is either 'R', '.', 'B', or 'p'",
+        "There is exactly one cell with board[i][j] == 'R'"
+      ],
+      "description": "You are given an 8 x 8 matrix representing a chessboard. There is exactly one white rook represented by 'R', some number of white bishops 'B', and some number of black pawns 'p'. Empty squares are represented by '.'.\nA rook can move any number of squares horizontally or vertically (up, down, left, right) until it reaches another piece or the edge of the board. A rook is attacking a pawn if it can move to the pawn's square in one move.\nNote: A rook cannot move through other pieces, such as bishops or pawns. This means a rook cannot attack a pawn if there is another piece blocking the path.\nReturn the number of pawns the white rook is attacking.\nExample 1:\nInput: board = [[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"p\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"R\",\".\",\".\",\".\",\"p\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"p\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"]]\nOutput: 3\nExplanation:\nIn this example, the rook is attacking all the pawns.\nExample 2:\nInput: board = [[\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\"p\",\"p\",\"p\",\"p\",\"p\",\".\",\".\"],[\".\",\"p\",\"p\",\"B\",\"p\",\"p\",\".\",\".\"],[\".\",\"p\",\"B\",\"R\",\"B\",\"p\",\".\",\".\"],[\".\",\"p\",\"p\",\"B\",\"p\",\"p\",\".\",\".\"],[\".\",\"p\",\"p\",\"p\",\"p\",\"p\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"]]\nOutput: 0\nExplanation:\nThe bishops are blocking the rook from attacking any of the pawns.\nExample 3:\nInput: board = [[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"p\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"p\",\".\",\".\",\".\",\".\"],[\"p\",\"p\",\".\",\"R\",\".\",\"p\",\"B\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"B\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\"p\",\".\",\".\",\".\",\".\"],[\".\",\".\",\".\",\".\",\".\",\".\",\".\",\".\"]]\nOutput: 3\nExplanation:\nThe rook is attacking the pawns at positions b5, d6, and f5."
+    },
+    "battleships-in-a-board": {
+      "questionId": "419",
+      "title": "Battleships in a Board",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 <= m, n <= 200",
+        "board[i][j] is either '.' or 'X'."
+      ],
+      "description": "Given an m x n matrix board where each cell is a battleship 'X' or empty '.', return the number of the battleships on board.\nBattleships can only be placed horizontally or vertically on board. In other words, they can only be made of the shape 1 x k (1 row, k columns) or k x 1 (k rows, 1 column), where k can be of any size. At least one horizontal or vertical cell separates between two battleships (i.e., there are no adjacent battleships).\nExample 1:\nInput: board = [[\"X\",\".\",\".\",\"X\"],[\".\",\".\",\".\",\"X\"],[\".\",\".\",\".\",\"X\"]]\nOutput: 2\nExample 2:\nInput: board = [[\".\"]]\nOutput: 0"
+    },
+    "brick-wall": {
+      "questionId": "554",
+      "title": "Brick Wall",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == wall.length",
+        "1 <= n <= 104",
+        "1 <= wall[i].length <= 104",
+        "1 <= sum(wall[i].length) <= 2 * 104",
+        "sum(wall[i]) is the same for each row i.",
+        "1 <= wall[i][j] <= 231 - 1"
+      ],
+      "description": "There is a rectangular brick wall in front of you with n rows of bricks. The ith row has some number of bricks each of the same height (i.e., one unit) but they can be of different widths. The total width of each row is the same.\nDraw a vertical line from the top to the bottom and cross the least bricks. If your line goes through the edge of a brick, then the brick is not considered as crossed. You cannot draw a line just along one of the two vertical edges of the wall, in which case the line will obviously cross no bricks.\nGiven the 2D array wall that contains the information about the wall, return the minimum number of crossed bricks after drawing such a vertical line.\nExample 1:\nInput: wall = [[1,2,2,1],[3,1,2],[1,3,2],[2,4],[3,1,2],[1,3,1,1]]\nOutput: 2\nExample 2:\nInput: wall = [[1],[1],[1]]\nOutput: 3"
+    },
+    "buddy-strings": {
+      "questionId": "859",
+      "title": "Buddy Strings",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length, goal.length <= 2 * 104",
+        "s and goal consist of lowercase letters."
+      ],
+      "description": "Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.\nSwapping letters is defined as taking two indices i and j (0-indexed) such that i != j and swapping the characters at s[i] and s[j].\n\tFor example, swapping at indices 0 and 2 in \"abcd\" results in \"cbad\".\nExample 1:\nInput: s = \"ab\", goal = \"ba\"\nOutput: true\nExplanation: You can swap s[0] = 'a' and s[1] = 'b' to get \"ba\", which is equal to goal.\nExample 2:\nInput: s = \"ab\", goal = \"ab\"\nOutput: false\nExplanation: The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in \"ba\" != goal.\nExample 3:\nInput: s = \"aa\", goal = \"aa\"\nOutput: true\nExplanation: You can swap s[0] = 'a' and s[1] = 'a' to get \"aa\", which is equal to goal."
+    },
+    "bulls-and-cows": {
+      "questionId": "299",
+      "title": "Bulls and Cows",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= secret.length, guess.length <= 1000",
+        "secret.length == guess.length",
+        "secret and guess consist of digits only."
+      ],
+      "description": "You are playing the Bulls and Cows game with your friend.\nYou write down a secret number and ask your friend to guess what the number is. When your friend makes a guess, you provide a hint with the following info:\n\tThe number of \"bulls\", which are digits in the guess that are in the correct position.\n\tThe number of \"cows\", which are digits in the guess that are in your secret number but are located in the wrong position. Specifically, the non-bull digits in the guess that could be rearranged such that they become bulls.\nGiven the secret number secret and your friend's guess guess, return the hint for your friend's guess.\nThe hint should be formatted as \"xAyB\", where x is the number of bulls and y is the number of cows. Note that both secret and guess may contain duplicate digits.\nExample 1:\nInput: secret = \"1807\", guess = \"7810\"\nOutput: \"1A3B\"\nExplanation: Bulls are connected with a '|' and cows are underlined:\n\"1807\"\n  |\n\"7810\"\nExample 2:\nInput: secret = \"1123\", guess = \"0111\"\nOutput: \"1A1B\"\nExplanation: Bulls are connected with a '|' and cows are underlined:\n\"1123\"        \"1123\"\n  |      or     |\n\"0111\"        \"0111\"\nNote that only one of the two unmatched 1s is counted as a cow since the non-bull digits can only be rearranged to allow one 1 to be a bull."
+    },
+    "card-flipping-game": {
+      "questionId": "822",
+      "title": "Card Flipping Game",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == fronts.length == backs.length",
+        "1 <= n <= 1000",
+        "1 <= fronts[i], backs[i] <= 2000"
+      ],
+      "description": "You are given two 0-indexed integer arrays fronts and backs of length n, where the ith card has the positive integer fronts[i] printed on the front and backs[i] printed on the back. Initially, each card is placed on a table such that the front number is facing up and the other is facing down. You may flip over any number of cards (possibly zero).\nAfter flipping the cards, an integer is considered good if it is facing down on some card and not facing up on any card.\nReturn the minimum possible good integer after flipping the cards. If there are no good integers, return 0.\nExample 1:\nInput: fronts = [1,2,4,4,7], backs = [1,3,4,1,3]\nOutput: 2\nExplanation:\nIf we flip the second card, the face up numbers are [1,3,4,4,7] and the face down are [1,2,4,1,3].\n2 is the minimum good integer as it appears facing down but not facing up.\nIt can be shown that 2 is the minimum possible good integer obtainable after flipping some cards.\nExample 2:\nInput: fronts = [1], backs = [1]\nOutput: 0\nExplanation:\nThere are no good integers no matter how we flip the cards, so we return 0."
+    },
+    "contains-duplicate": {
+      "questionId": "217",
+      "title": "Contains Duplicate",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "-109 <= nums[i] <= 109"
+      ],
+      "description": "Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.\nExample 1:\nInput: nums = [1,2,3,1]\nOutput: true\nExplanation:\nThe element 1 occurs at the indices 0 and 3.\nExample 2:\nInput: nums = [1,2,3,4]\nOutput: false\nExplanation:\nAll elements are distinct.\nExample 3:\nInput: nums = [1,1,1,3,3,4,3,2,4,2]\nOutput: true"
+    },
+    "contiguous-array": {
+      "questionId": "525",
+      "title": "Contiguous Array",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "nums[i] is either 0 or 1."
+      ],
+      "description": "Given a binary array nums, return the maximum length of a contiguous subarray with an equal number of 0 and 1.\nExample 1:\nInput: nums = [0,1]\nOutput: 2\nExplanation: [0, 1] is the longest contiguous subarray with an equal number of 0 and 1.\nExample 2:\nInput: nums = [0,1,0]\nOutput: 2\nExplanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal number of 0 and 1.\nExample 3:\nInput: nums = [0,1,1,1,1,1,0,0,0]\nOutput: 6\nExplanation: [1,1,1,0,0,0] is the longest contiguous subarray with equal number of 0 and 1."
+    },
+    "custom-sort-string": {
+      "questionId": "791",
+      "title": "Custom Sort String",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= order.length <= 26",
+        "1 <= s.length <= 200",
+        "order and s consist of lowercase English letters.",
+        "All the characters of order are unique."
+      ],
+      "description": "You are given two strings order and s. All the characters of order are unique and were sorted in some custom order previously.\nPermute the characters of s so that they match the order that order was sorted. More specifically, if a character x occurs before a character y in order, then x should occur before y in the permuted string.\nReturn any permutation of s that satisfies this property.\nExample 1:\nInput:   order = \"cba\", s = \"abcd\" \nOutput:   \"cbad\" \nExplanation:  \"a\", \"b\", \"c\" appear in order, so the order of \"a\", \"b\", \"c\" should be \"c\", \"b\", and \"a\".\nSince \"d\" does not appear in order, it can be at any position in the returned string. \"dcba\", \"cdba\", \"cbda\" are also valid outputs.\nExample 2:\nInput:   order = \"bcafg\", s = \"abcd\" \nOutput:   \"bcad\" \nExplanation:  The characters \"b\", \"c\", and \"a\" from order dictate the order for the characters in s. The character \"d\" in s does not appear in order, so its position is flexible.\nFollowing the order of appearance in order, \"b\", \"c\", and \"a\" from s should be arranged as \"b\", \"c\", \"a\". \"d\" can be placed at any position since it's not in order. The output \"bcad\" correctly follows this rule. Other arrangements like \"dbca\" or \"bcda\" would also be valid, as long as \"b\", \"c\", \"a\" maintain their order."
+    },
+    "degree-of-an-array": {
+      "questionId": "697",
+      "title": "Degree of an Array",
+      "difficulty": "Easy",
+      "constraints": [
+        "nums.length will be between 1 and 50,000.",
+        "nums[i] will be an integer between 0 and 49,999."
+      ],
+      "description": "Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.\nYour task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same degree as nums.\nExample 1:\nInput: nums = [1,2,2,3,1]\nOutput: 2\nExplanation: \nThe input array has a degree of 2 because both elements 1 and 2 appear twice.\nOf the subarrays that have the same degree:\n[1, 2, 2, 3, 1], [1, 2, 2, 3], [2, 2, 3, 1], [1, 2, 2], [2, 2, 3], [2, 2]\nThe shortest length is 2. So return 2.\nExample 2:\nInput: nums = [1,2,2,3,1,4,2]\nOutput: 6\nExplanation: \nThe degree is 3 because the element 2 is repeated 3 times.\nSo [2,2,3,1,4,2] is the shortest subarray, therefore returning 6."
+    },
+    "delete-columns-to-make-sorted": {
+      "questionId": "944",
+      "title": "Delete Columns to Make Sorted",
+      "difficulty": "Easy",
+      "constraints": [
+        "n == strs.length",
+        "1 <= n <= 100",
+        "1 <= strs[i].length <= 1000",
+        "strs[i] consists of lowercase English letters."
+      ],
+      "description": "You are given an array of n strings strs, all of the same length.\nThe strings can be arranged such that there is one on each line, making a grid.\n\tFor example, strs = [\"abc\", \"bce\", \"cae\"] can be arranged as follows:\nabc\nbce\ncae\nYou want to delete the columns that are not sorted lexicographically. In the above example (0-indexed), columns 0 ('a', 'b', 'c') and 2 ('c', 'e', 'e') are sorted, while column 1 ('b', 'c', 'a') is not, so you would delete column 1.\nReturn the number of columns that you will delete.\nExample 1:\nInput: strs = [\"cba\",\"daf\",\"ghi\"]\nOutput: 1\nExplanation: The grid looks as follows:\n  cba\n  daf\n  ghi\nColumns 0 and 2 are sorted, but column 1 is not, so you only need to delete 1 column.\nExample 2:\nInput: strs = [\"a\",\"b\"]\nOutput: 0\nExplanation: The grid looks as follows:\n  a\n  b\nColumn 0 is the only column and is sorted, so you will not delete any columns.\nExample 3:\nInput: strs = [\"zyx\",\"wvu\",\"tsr\"]\nOutput: 3\nExplanation: The grid looks as follows:\n  zyx\n  wvu\n  tsr\nAll 3 columns are not sorted, so you will delete all 3."
+    },
+    "diagonal-traverse": {
+      "questionId": "498",
+      "title": "Diagonal Traverse",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == mat.length",
+        "n == mat[i].length",
+        "1 <= m, n <= 104",
+        "1 <= m * n <= 104",
+        "-105 <= mat[i][j] <= 105"
+      ],
+      "description": "Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.\nExample 1:\nInput: mat = [[1,2,3],[4,5,6],[7,8,9]]\nOutput: [1,2,4,7,5,3,6,8,9]\nExample 2:\nInput: mat = [[1,2],[3,4]]\nOutput: [1,2,3,4]"
+    },
+    "distribute-candies": {
+      "questionId": "575",
+      "title": "Distribute Candies",
+      "difficulty": "Easy",
+      "constraints": [
+        "n == candyType.length",
+        "2 <= n <= 104",
+        "n\u00a0is even.",
+        "-105 <= candyType[i] <= 105"
+      ],
+      "description": "Alice has n candies, where the ith candy is of type candyType[i]. Alice noticed that she started to gain weight, so she visited a doctor.\nThe doctor advised Alice to only eat n / 2 of the candies she has (n is always even). Alice likes her candies very much, and she wants to eat the maximum number of different types of candies while still following the doctor's advice.\nGiven the integer array candyType of length n, return the maximum number of different types of candies she can eat if she only eats n / 2 of them.\nExample 1:\nInput: candyType = [1,1,2,2,3,3]\nOutput: 3\nExplanation: Alice can only eat 6 / 2 = 3 candies. Since there are only 3 types, she can eat one of each type.\nExample 2:\nInput: candyType = [1,1,2,3]\nOutput: 2\nExplanation: Alice can only eat 4 / 2 = 2 candies. Whether she eats types [1,2], [1,3], or [2,3], she still can only eat 2 different types.\nExample 3:\nInput: candyType = [6,6,6,6]\nOutput: 1\nExplanation: Alice can only eat 4 / 2 = 2 candies. Even though she can eat 2 candies, she only has 1 type."
+    },
+    "encode-and-decode-tinyurl": {
+      "questionId": "535",
+      "title": "Encode and Decode TinyURL",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= url.length <= 104",
+        "url is guranteed to be a valid URL."
+      ],
+      "description": "Note: This is a companion problem to the System Design problem: Design TinyURL.\nTinyURL is a URL shortening service where you enter a URL such as https://leetcode.com/problems/design-tinyurl and it returns a short URL such as http://tinyurl.com/4e9iAk. Design a class to encode a URL and decode a tiny URL.\nThere is no restriction on how your encode/decode algorithm should work. You just need to ensure that a URL can be encoded to a tiny URL and the tiny URL can be decoded to the original URL.\nImplement the Solution class:\n\tSolution() Initializes the object of the system.\n\tString encode(String longUrl) Returns a tiny URL for the given longUrl.\n\tString decode(String shortUrl) Returns the original long URL for the given shortUrl. It is guaranteed that the given shortUrl was encoded by the same object.\nExample 1:\nInput: url = \"https://leetcode.com/problems/design-tinyurl\"\nOutput: \"https://leetcode.com/problems/design-tinyurl\"\nExplanation:\nSolution obj = new Solution();\nstring tiny = obj.encode(url); // returns the encoded tiny url.\nstring ans = obj.decode(tiny); // returns the original url after decoding it."
+    },
+    "find-all-duplicates-in-an-array": {
+      "questionId": "442",
+      "title": "Find All Duplicates in an Array",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == nums.length",
+        "1 <= n <= 105",
+        "1 <= nums[i] <= n",
+        "Each element in nums appears once or twice."
+      ],
+      "description": "Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears at most twice, return an array of all the integers that appears twice.\nYou must write an algorithm that runs in O(n) time and uses only constant auxiliary space, excluding the space needed to store the output\nExample 1:\nInput: nums = [4,3,2,7,8,2,3,1]\nOutput: [2,3]\nExample 2:\nInput: nums = [1,1,2]\nOutput: [1]\nExample 3:\nInput: nums = [1]\nOutput: []"
+    },
+    "find-all-numbers-disappeared-in-an-array": {
+      "questionId": "448",
+      "title": "Find All Numbers Disappeared in an Array",
+      "difficulty": "Easy",
+      "constraints": [
+        "n == nums.length",
+        "1 <= n <= 105",
+        "1 <= nums[i] <= n"
+      ],
+      "description": "Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.\nExample 1:\nInput: nums = [4,3,2,7,8,2,3,1]\nOutput: [5,6]\nExample 2:\nInput: nums = [1,1]\nOutput: [2]"
+    },
+    "find-and-replace-in-string": {
+      "questionId": "833",
+      "title": "Find And Replace in String",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 1000",
+        "k == indices.length == sources.length == targets.length",
+        "1 <= k <= 100",
+        "0 <= indexes[i] < s.length",
+        "1 <= sources[i].length, targets[i].length <= 50",
+        "s consists of only lowercase English letters.",
+        "sources[i] and targets[i] consist of only lowercase English letters."
+      ],
+      "description": "You are given a 0-indexed string s that you must perform k replacement operations on. The replacement operations are given as three 0-indexed parallel arrays, indices, sources, and targets, all of length k.\nTo complete the ith replacement operation:\n\tCheck if the substring sources[i] occurs at index indices[i] in the original string s.\n\tIf it does not occur, do nothing.\n\tOtherwise if it does occur, replace that substring with targets[i].\nFor example, if s = \"abcd\", indices[i] = 0, sources[i] = \"ab\", and targets[i] = \"eee\", then the result of this replacement will be \"eeecd\".\nAll replacement operations must occur simultaneously, meaning the replacement operations should not affect the indexing of each other. The testcases will be generated such that the replacements will not overlap.\n\tFor example, a testcase with s = \"abc\", indices = [0, 1], and sources = [\"ab\",\"bc\"] will not be generated because the \"ab\" and \"bc\" replacements overlap.\nReturn the resulting string after performing all replacement operations on s.\nA substring is a contiguous sequence of characters in a string.\nExample 1:\nInput: s = \"abcd\", indices = [0, 2], sources = [\"a\", \"cd\"], targets = [\"eee\", \"ffff\"]\nOutput: \"eeebffff\"\nExplanation:\n\"a\" occurs at index 0 in s, so we replace it with \"eee\".\n\"cd\" occurs at index 2 in s, so we replace it with \"ffff\".\nExample 2:\nInput: s = \"abcd\", indices = [0, 2], sources = [\"ab\",\"ec\"], targets = [\"eee\",\"ffff\"]\nOutput: \"eeecd\"\nExplanation:\n\"ab\" occurs at index 0 in s, so we replace it with \"eee\".\n\"ec\" does not occur at index 2 in s, so we do nothing."
+    },
+    "find-and-replace-pattern": {
+      "questionId": "890",
+      "title": "Find and Replace Pattern",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= pattern.length <= 20",
+        "1 <= words.length <= 50",
+        "words[i].length == pattern.length",
+        "pattern and words[i] are lowercase English letters."
+      ],
+      "description": "Given a list of strings words and a string pattern, return a list of words[i] that match pattern. You may return the answer in any order.\nA word matches the pattern if there exists a permutation of letters p so that after replacing every letter x in the pattern with p(x), we get the desired word.\nRecall that a permutation of letters is a bijection from letters to letters: every letter maps to another letter, and no two letters map to the same letter.\nExample 1:\nInput: words = [\"abc\",\"deq\",\"mee\",\"aqq\",\"dkd\",\"ccc\"], pattern = \"abb\"\nOutput: [\"mee\",\"aqq\"]\nExplanation: \"mee\" matches the pattern because there is a permutation {a -> m, b -> e, ...}. \n\"ccc\" does not match the pattern because {a -> c, b -> c, ...} is not a permutation, since a and b map to the same letter.\nExample 2:\nInput: words = [\"a\",\"b\",\"c\"], pattern = \"a\"\nOutput: [\"a\",\"b\",\"c\"]"
+    },
+    "find-common-characters": {
+      "questionId": "1002",
+      "title": "Find Common Characters",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= words.length <= 100",
+        "1 <= words[i].length <= 100",
+        "words[i] consists of lowercase English letters."
+      ],
+      "description": "Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates). You may return the answer in any order.\nExample 1:\nInput: words = [\"bella\",\"label\",\"roller\"]\nOutput: [\"e\",\"l\",\"l\"]\nExample 2:\nInput: words = [\"cool\",\"lock\",\"cook\"]\nOutput: [\"c\",\"o\"]"
+    },
+    "find-duplicate-file-in-system": {
+      "questionId": "609",
+      "title": "Find Duplicate File in System",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= paths.length <= 2 * 104",
+        "1 <= paths[i].length <= 3000",
+        "1 <= sum(paths[i].length) <= 5 * 105",
+        "paths[i] consist of English letters, digits, '/', '.', '(', ')', and ' '.",
+        "You may assume no files or directories share the same name in the same directory.",
+        "You may assume each given directory info represents a unique directory. A single blank space separates the directory path and file info."
+      ],
+      "description": "Given a list paths of directory info, including the directory path, and all the files with contents in this directory, return all the duplicate files in the file system in terms of their paths. You may return the answer in any order.\nA group of duplicate files consists of at least two files that have the same content.\nA single directory info string in the input list has the following format:\n\t\"root/d1/d2/.../dm f1.txt(f1_content) f2.txt(f2_content) ... fn.txt(fn_content)\"\nIt means there are n files (f1.txt, f2.txt ... fn.txt) with content (f1_content, f2_content ... fn_content) respectively in the directory \"root/d1/d2/.../dm\". Note that n >= 1 and m >= 0. If m = 0, it means the directory is just the root directory.\nThe output is a list of groups of duplicate file paths. For each group, it contains all the file paths of the files that have the same content. A file path is a string that has the following format:\n\t\"directory_path/file_name.txt\"\nExample 1:\nInput: paths = [\"root/a 1.txt(abcd) 2.txt(efgh)\",\"root/c 3.txt(abcd)\",\"root/c/d 4.txt(efgh)\",\"root 4.txt(efgh)\"]\nOutput: [[\"root/a/2.txt\",\"root/c/d/4.txt\",\"root/4.txt\"],[\"root/a/1.txt\",\"root/c/3.txt\"]]\nExample 2:\nInput: paths = [\"root/a 1.txt(abcd) 2.txt(efgh)\",\"root/c 3.txt(abcd)\",\"root/c/d 4.txt(efgh)\"]\nOutput: [[\"root/a/2.txt\",\"root/c/d/4.txt\"],[\"root/a/1.txt\",\"root/c/3.txt\"]]"
+    },
+    "find-pivot-index": {
+      "questionId": "724",
+      "title": "Find Pivot Index",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= nums.length <= 104",
+        "-1000 <= nums[i] <= 1000"
+      ],
+      "description": "Given an array of integers nums, calculate the pivot index of this array.\nThe pivot index is the index where the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right.\nIf the index is on the left edge of the array, then the left sum is 0 because there are no elements to the left. This also applies to the right edge of the array.\nReturn the leftmost pivot index. If no such index exists, return -1.\nExample 1:\nInput: nums = [1,7,3,6,5,6]\nOutput: 3\nExplanation:\nThe pivot index is 3.\nLeft sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11\nRight sum = nums[4] + nums[5] = 5 + 6 = 11\nExample 2:\nInput: nums = [1,2,3]\nOutput: -1\nExplanation:\nThere is no index that satisfies the conditions in the problem statement.\nExample 3:\nInput: nums = [2,1,-1]\nOutput: 0\nExplanation:\nThe pivot index is 0.\nLeft sum = 0 (no elements to the left of index 0)\nRight sum = nums[1] + nums[2] = 1 + -1 = 0"
+    },
+    "find-the-town-judge": {
+      "questionId": "997",
+      "title": "Find the Town Judge",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= n <= 1000",
+        "0 <= trust.length <= 104",
+        "trust[i].length == 2",
+        "All the pairs of trust are unique.",
+        "ai != bi",
+        "1 <= ai, bi <= n"
+      ],
+      "description": "In a town, there are n people labeled from 1 to n. There is a rumor that one of these people is secretly the town judge.\nIf the town judge exists, then:\n\tThe town judge trusts nobody.\n\tEverybody (except for the town judge) trusts the town judge.\n\tThere is exactly one person that satisfies properties 1 and 2.\nYou are given an array trust where trust[i] = [ai, bi] representing that the person labeled ai trusts the person labeled bi. If a trust relationship does not exist in trust array, then such a trust relationship does not exist.\nReturn the label of the town judge if the town judge exists and can be identified, or return -1 otherwise.\nExample 1:\nInput: n = 2, trust = [[1,2]]\nOutput: 2\nExample 2:\nInput: n = 3, trust = [[1,3],[2,3]]\nOutput: 3\nExample 3:\nInput: n = 3, trust = [[1,3],[2,3],[3,1]]\nOutput: -1"
+    },
+    "first-missing-positive": {
+      "questionId": "41",
+      "title": "First Missing Positive",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "-231 <= nums[i] <= 231 - 1"
+      ],
+      "description": "Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums.\nYou must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.\nExample 1:\nInput: nums = [1,2,0]\nOutput: 3\nExplanation: The numbers in the range [1,2] are all in the array.\nExample 2:\nInput: nums = [3,4,-1,1]\nOutput: 2\nExplanation: 1 is in the array but 2 is missing.\nExample 3:\nInput: nums = [7,8,9,11,12]\nOutput: 1\nExplanation: The smallest positive integer 1 is missing."
+    },
+    "first-unique-character-in-a-string": {
+      "questionId": "387",
+      "title": "First Unique Character in a String",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 105",
+        "s consists of only lowercase English letters."
+      ],
+      "description": "Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.\nExample 1:\nInput: s = \"leetcode\"\nOutput: 0\nExplanation:\nThe character 'l' at index 0 is the first character that does not occur at any other index.\nExample 2:\nInput: s = \"loveleetcode\"\nOutput: 2\nExample 3:\nInput: s = \"aabb\"\nOutput: -1"
+    },
+    "game-of-life": {
+      "questionId": "289",
+      "title": "Game of Life",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 <= m, n <= 25",
+        "board[i][j] is 0 or 1."
+      ],
+      "description": "According to Wikipedia's article: \"The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.\"\nThe board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):\n\tAny live cell with fewer than two live neighbors dies as if caused by under-population.\n\tAny live cell with two or three live neighbors lives on to the next generation.\n\tAny live cell with more than three live neighbors dies, as if by over-population.\n\tAny dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.\nThe next state of the board is determined by applying the above rules simultaneously to every cell in the current state of the m x n grid board. In this process, births and deaths occur simultaneously.\nGiven the current state of the board, update the board to reflect its next state.\nNote that you do not need to return anything.\nExample 1:\nInput: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]\nOutput: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]\nExample 2:\nInput: board = [[1,1],[1,0]]\nOutput: [[1,1],[1,1]]"
+    },
+    "group-anagrams": {
+      "questionId": "49",
+      "title": "Group Anagrams",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= strs.length <= 104",
+        "0 <= strs[i].length <= 100",
+        "strs[i] consists of lowercase English letters."
+      ],
+      "description": "Given an array of strings strs, group the anagrams together. You can return the answer in any order.\nExample 1:\nInput: strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]\nOutput: [[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]\nExplanation:\n\tThere is no string in strs that can be rearranged to form \"bat\".\n\tThe strings \"nat\" and \"tan\" are anagrams as they can be rearranged to form each other.\n\tThe strings \"ate\", \"eat\", and \"tea\" are anagrams as they can be rearranged to form each other.\nExample 2:\nInput: strs = [\"\"]\nOutput: [[\"\"]]\nExample 3:\nInput: strs = [\"a\"]\nOutput: [[\"a\"]]"
+    },
+    "groups-of-special-equivalent-strings": {
+      "questionId": "893",
+      "title": "Groups of Special-Equivalent Strings",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= words.length <= 1000",
+        "1 <= words[i].length <= 20",
+        "words[i] consist of lowercase English letters.",
+        "All the strings are of the same length."
+      ],
+      "description": "You are given an array of strings of the same length words.\nIn one move, you can swap any two even indexed characters or any two odd indexed characters of a string words[i].\nTwo strings words[i] and words[j] are special-equivalent if after any number of moves, words[i] == words[j].\n\tFor example, words[i] = \"zzxy\" and words[j] = \"xyzz\" are special-equivalent because we may make the moves \"zzxy\" -> \"xzzy\" -> \"xyzz\".\nA group of special-equivalent strings from words is a non-empty subset of words such that:\n\tEvery pair of strings in the group are special equivalent, and\n\tThe group is the largest size possible (i.e., there is not a string words[i] not in the group such that words[i] is special-equivalent to every string in the group).\nReturn the number of groups of special-equivalent strings from words.\nExample 1:\nInput: words = [\"abcd\",\"cdab\",\"cbad\",\"xyzz\",\"zzxy\",\"zzyx\"]\nOutput: 3\nExplanation: \nOne group is [\"abcd\", \"cdab\", \"cbad\"], since they are all pairwise special equivalent, and none of the other strings is all pairwise special equivalent to these.\nThe other two groups are [\"xyzz\", \"zzxy\"] and [\"zzyx\"].\nNote that in particular, \"zzxy\" is not special equivalent to \"zzyx\".\nExample 2:\nInput: words = [\"abc\",\"acb\",\"bac\",\"bca\",\"cab\",\"cba\"]\nOutput: 3"
+    },
+    "h-index": {
+      "questionId": "274",
+      "title": "H-Index",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == citations.length",
+        "1 <= n <= 5000",
+        "0 <= citations[i] <= 1000"
+      ],
+      "description": "Given an array of integers citations where citations[i] is the number of citations a researcher received for their ith paper, return the researcher's h-index.\nAccording to the definition of h-index on Wikipedia: The h-index is defined as the maximum value of h such that the given researcher has published at least h papers that have each been cited at least h times.\nExample 1:\nInput: citations = [3,0,6,1,5]\nOutput: 3\nExplanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively.\nSince the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, their h-index is 3.\nExample 2:\nInput: citations = [1,3,1]\nOutput: 1"
+    },
+    "image-overlap": {
+      "questionId": "835",
+      "title": "Image Overlap",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == img1.length == img1[i].length",
+        "n == img2.length == img2[i].length",
+        "1 <= n <= 30",
+        "img1[i][j] is either 0 or 1.",
+        "img2[i][j] is either 0 or 1."
+      ],
+      "description": "You are given two images, img1 and img2, represented as binary, square matrices of size n x n. A binary matrix has only 0s and 1s as values.\nWe translate one image however we choose by sliding all the 1 bits left, right, up, and/or down any number of units. We then place it on top of the other image. We can then calculate the overlap by counting the number of positions that have a 1 in both images.\nNote also that a translation does not include any kind of rotation. Any 1 bits that are translated outside of the matrix borders are erased.\nReturn the largest possible overlap.\nExample 1:\nInput: img1 = [[1,1,0],[0,1,0],[0,1,0]], img2 = [[0,0,0],[0,1,1],[0,0,1]]\nOutput: 3\nExplanation: We translate img1 to right by 1 unit and down by 1 unit.\nThe number of positions that have a 1 in both images is 3 (shown in red).\nExample 2:\nInput: img1 = [[1]], img2 = [[1]]\nOutput: 1\nExample 3:\nInput: img1 = [[0]], img2 = [[0]]\nOutput: 0"
+    },
+    "image-smoother": {
+      "questionId": "661",
+      "title": "Image Smoother",
+      "difficulty": "Easy",
+      "constraints": [
+        "m == img.length",
+        "n == img[i].length",
+        "1 <= m, n <= 200",
+        "0 <= img[i][j] <= 255"
+      ],
+      "description": "An image smoother is a filter of the size 3 x 3 that can be applied to each cell of an image by rounding down the average of the cell and the eight surrounding cells (i.e., the average of the nine cells in the blue smoother). If one or more of the surrounding cells of a cell is not present, we do not consider it in the average (i.e., the average of the four cells in the red smoother).\nGiven an m x n integer matrix img representing the grayscale of an image, return the image after applying the smoother on each cell of it.\nExample 1:\nInput: img = [[1,1,1],[1,0,1],[1,1,1]]\nOutput: [[0,0,0],[0,0,0],[0,0,0]]\nExplanation:\nFor the points (0,0), (0,2), (2,0), (2,2): floor(3/4) = floor(0.75) = 0\nFor the points (0,1), (1,0), (1,2), (2,1): floor(5/6) = floor(0.83333333) = 0\nFor the point (1,1): floor(8/9) = floor(0.88888889) = 0\nExample 2:\nInput: img = [[100,200,100],[200,50,200],[100,200,100]]\nOutput: [[137,141,137],[141,138,141],[137,141,137]]\nExplanation:\nFor the points (0,0), (0,2), (2,0), (2,2): floor((100+200+200+50)/4) = floor(137.5) = 137\nFor the points (0,1), (1,0), (1,2), (2,1): floor((200+200+50+200+100+100)/6) = floor(141.666667) = 141\nFor the point (1,1): floor((50+200+200+200+200+100+100+100+100)/9) = floor(138.888889) = 138"
+    },
+    "island-perimeter": {
+      "questionId": "463",
+      "title": "Island Perimeter",
+      "difficulty": "Easy",
+      "constraints": [
+        "row == grid.length",
+        "col == grid[i].length",
+        "1 <= row, col <= 100",
+        "grid[i][j] is 0 or 1.",
+        "There is exactly one island in grid."
+      ],
+      "description": "You are given row x col grid representing a map where grid[i][j] = 1 represents\u00a0land and grid[i][j] = 0 represents water.\nGrid cells are connected horizontally/vertically (not diagonally). The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells).\nThe island doesn't have \"lakes\", meaning the water inside isn't connected to the water around the island. One cell is a square with side length 1. The grid is rectangular, width and height don't exceed 100. Determine the perimeter of the island.\nExample 1:\nInput: grid = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]\nOutput: 16\nExplanation: The perimeter is the 16 yellow stripes in the image above.\nExample 2:\nInput: grid = [[1]]\nOutput: 4\nExample 3:\nInput: grid = [[1,0]]\nOutput: 4"
+    },
+    "isomorphic-strings": {
+      "questionId": "205",
+      "title": "Isomorphic Strings",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 5 * 104",
+        "t.length == s.length",
+        "s and t consist of any valid ascii character."
+      ],
+      "description": "Given two strings s and t, determine if they are isomorphic.\nTwo strings s and t are isomorphic if the characters in s can be replaced to get t.\nAll occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.\nExample 1:\nInput: s = \"egg\", t = \"add\"\nOutput: true\nExplanation:\nThe strings s and t can be made identical by:\n\tMapping 'e' to 'a'.\n\tMapping 'g' to 'd'.\nExample 2:\nInput: s = \"f11\", t = \"b23\"\nOutput: false\nExplanation:\nThe strings s and t can not be made identical as '1' needs to be mapped to both '2' and '3'.\nExample 3:\nInput: s = \"paper\", t = \"title\"\nOutput: true"
+    },
+    "jewels-and-stones": {
+      "questionId": "771",
+      "title": "Jewels and Stones",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <=\u00a0jewels.length, stones.length <= 50",
+        "jewels and stones consist of only English letters.",
+        "All the characters of\u00a0jewels are unique."
+      ],
+      "description": "You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.\nLetters are case sensitive, so \"a\" is considered a different type of stone from \"A\".\nExample 1:\nInput: jewels = \"aA\", stones = \"aAAbbbb\"\nOutput: 3\nExample 2:\nInput: jewels = \"z\", stones = \"ZZ\"\nOutput: 0"
+    },
+    "keyboard-row": {
+      "questionId": "500",
+      "title": "Keyboard Row",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= words.length <= 20",
+        "1 <= words[i].length <= 100",
+        "words[i] consists of English letters (both lowercase and uppercase).\u00a0"
+      ],
+      "description": "Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.\nNote that the strings are case-insensitive, both lowercased and uppercased of the same letter are treated as if they are at the same row.\nIn the American keyboard:\n\tthe first row consists of the characters \"qwertyuiop\",\n\tthe second row consists of the characters \"asdfghjkl\", and\n\tthe third row consists of the characters \"zxcvbnm\".\nExample 1:\nInput: words = [\"Hello\",\"Alaska\",\"Dad\",\"Peace\"]\nOutput: [\"Alaska\",\"Dad\"]\nExplanation:\nBoth \"a\" and \"A\" are in the 2nd row of the American keyboard due to case insensitivity.\nExample 2:\nInput: words = [\"omk\"]\nOutput: []\nExample 3:\nInput: words = [\"adsdf\",\"sfd\"]\nOutput: [\"adsdf\",\"sfd\"]"
+    },
+    "largest-number-at-least-twice-of-others": {
+      "questionId": "747",
+      "title": "Largest Number At Least Twice of Others",
+      "difficulty": "Easy",
+      "constraints": [
+        "2 <= nums.length <= 50",
+        "0 <= nums[i] <= 100",
+        "The largest element in nums is unique."
+      ],
+      "description": "You are given an integer array nums where the largest integer is unique.\nDetermine whether the largest element in the array is at least twice as much as every other number in the array. If it is, return the index of the largest element, or return -1 otherwise.\nExample 1:\nInput: nums = [3,6,1,0]\nOutput: 1\nExplanation: 6 is the largest integer.\nFor every other number in the array x, 6 is at least twice as big as x.\nThe index of value 6 is 1, so we return 1.\nExample 2:\nInput: nums = [1,2,3,4]\nOutput: -1\nExplanation: 4 is less than twice the value of 3, so we return -1."
+    },
+    "longest-common-prefix": {
+      "questionId": "14",
+      "title": "Longest Common Prefix",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= strs.length <= 200",
+        "0 <= strs[i].length <= 200",
+        "strs[i] consists of only lowercase English letters if it is non-empty."
+      ],
+      "description": "Write a function to find the longest common prefix string amongst an array of strings.\nIf there is no common prefix, return an empty string \"\".\nExample 1:\nInput: strs = [\"flower\",\"flow\",\"flight\"]\nOutput: \"fl\"\nExample 2:\nInput: strs = [\"dog\",\"racecar\",\"car\"]\nOutput: \"\"\nExplanation: There is no common prefix among the input strings."
+    },
+    "longest-consecutive-sequence": {
+      "questionId": "128",
+      "title": "Longest Consecutive Sequence",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= nums.length <= 105",
+        "-109 <= nums[i] <= 109"
+      ],
+      "description": "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.\nYou must write an algorithm that runs in\u00a0O(n)\u00a0time.\nExample 1:\nInput: nums = [100,4,200,1,3,2]\nOutput: 4\nExplanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.\nExample 2:\nInput: nums = [0,3,7,2,5,8,4,6,0,1]\nOutput: 9\nExample 3:\nInput: nums = [1,0,1,2]\nOutput: 3"
+    }
+  }
+}
