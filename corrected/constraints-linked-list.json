@@ -1,0 +1,421 @@
+{
+  "topic": "linked-list",
+  "problems": {
+    "add-two-numbers": {
+      "questionId": "2",
+      "title": "Add Two Numbers",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in each linked list is in the range [1, 100].",
+        "0 <= Node.val <= 9",
+        "It is guaranteed that the list represents a number that does not have leading zeros."
+      ],
+      "description": "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum\u00a0as a linked list.\nYou may assume the two numbers do not contain any leading zero, except the number 0 itself.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "add-two-numbers-ii": {
+      "questionId": "445",
+      "title": "Add Two Numbers II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in each linked list is in the range [1, 100].",
+        "0 <= Node.val <= 9",
+        "It is guaranteed that the list represents a number that does not have leading zeros."
+      ],
+      "description": "You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\nYou may assume the two numbers do not contain any leading zero, except the number 0 itself.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up:\u00a0Could you solve it without reversing the input lists?"
+    },
+    "convert-sorted-list-to-binary-search-tree": {
+      "questionId": "109",
+      "title": "Convert Sorted List to Binary Search Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in head is in the range [0, 2 * 104].",
+        "-105 <= Node.val <= 105"
+      ],
+      "description": "Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height-balanced binary search tree.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "copy-list-with-random-pointer": {
+      "questionId": "138",
+      "title": "Copy List with Random Pointer",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= n <= 1000",
+        "-104 <= Node.val <= 104",
+        "Node.random is null or is pointing to some node in the linked list."
+      ],
+      "description": "A linked list of length n is given such that each node contains an additional random pointer, which could point to any node in the list, or null.\nConstruct a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the pointers in the original list and copied list represent the same list state. None of the pointers in the new list should point to nodes in the original list.\nFor example, if there are two nodes X and Y in the original list, where X.random --> Y, then for the corresponding two nodes x and y in the copied list, x.random --> y.\nReturn the head of the copied linked list.\nThe linked list is represented in the input/output as a list of n nodes. Each node is represented as a pair of [val, random_index] where:\nYour code will only be given the head of the original linked list.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "delete-node-in-a-linked-list": {
+      "questionId": "237",
+      "title": "Delete Node in a Linked List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of the nodes in the given list is in the range [2, 1000].",
+        "-1000 <= Node.val <= 1000",
+        "The value of each node in the list is unique.",
+        "The node to be deleted is in the list and is not a tail node."
+      ],
+      "description": "There is a singly-linked list head and we want to delete a node node in it.\nYou are given the node to be deleted node. You will not be given access to the first node of head.\nAll the values of the linked list are unique, and it is guaranteed that the given node node is not the last node in the linked list.\nDelete the given node. Note that by deleting the node, we do not mean removing it from memory. We mean:\nCustom testing:\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "design-circular-deque": {
+      "questionId": "641",
+      "title": "Design Circular Deque",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= k <= 1000",
+        "0 <= value <= 1000",
+        "At most 2000 calls will be made to insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, isFull."
+      ],
+      "description": "Design your implementation of the circular double-ended queue (deque).\nImplement the MyCircularDeque class:\nExample 1:\nConstraints:"
+    },
+    "design-hashmap": {
+      "questionId": "706",
+      "title": "Design HashMap",
+      "difficulty": "Easy",
+      "constraints": [
+        "0 <= key, value <= 106",
+        "At most 104 calls will be made to put, get, and remove."
+      ],
+      "description": "Design a HashMap without using any built-in hash table libraries.\nImplement the MyHashMap class:\nExample 1:\nConstraints:"
+    },
+    "design-hashset": {
+      "questionId": "705",
+      "title": "Design HashSet",
+      "difficulty": "Easy",
+      "constraints": [
+        "0 <= key <= 106",
+        "At most 104 calls will be made to add, remove, and contains."
+      ],
+      "description": "Design a HashSet without using any built-in hash table libraries.\nImplement MyHashSet class:\nExample 1:\nConstraints:"
+    },
+    "design-linked-list": {
+      "questionId": "707",
+      "title": "Design Linked List",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= index, val <= 1000",
+        "Please do not use the built-in LinkedList library.",
+        "At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex."
+      ],
+      "description": "Design your implementation of the linked list. You can choose to use a singly or doubly linked list.\nA node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node.\nIf you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list. Assume all nodes in the linked list are 0-indexed.\nImplement the MyLinkedList class:\nExample 1:\nConstraints:"
+    },
+    "flatten-a-multilevel-doubly-linked-list": {
+      "questionId": "430",
+      "title": "Flatten a Multilevel Doubly Linked List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of Nodes will not exceed 1000.",
+        "1 <= Node.val <= 105"
+      ],
+      "description": "You are given a doubly linked list, which contains nodes that have a next pointer, a previous pointer, and an additional child pointer. This child pointer may or may not point to a separate doubly linked list, also containing these special nodes. These child lists may have one or more children of their own, and so on, to produce a multilevel data structure as shown in the example below.\nGiven the head of the first level of the list, flatten the list so that all the nodes appear in a single-level, doubly linked list. Let curr be a node with a child list. The nodes in the child list should appear after curr and before curr.next in the flattened list.\nReturn the head of the flattened list. The nodes in the list must have all of their child pointers set to null.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nHow the multilevel linked list is represented in test cases:\nWe use the multilevel linked list from Example 1 above:\nThe serialization of each level is as follows:\nTo serialize all levels together, we will add nulls in each level to signify no node connects to the upper node of the previous level. The serialization becomes:\nMerging the serialization of each level and removing trailing nulls we obtain:"
+    },
+    "flatten-binary-tree-to-linked-list": {
+      "questionId": "114",
+      "title": "Flatten Binary Tree to Linked List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 2000].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, flatten the tree into a \"linked list\":\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "insertion-sort-list": {
+      "questionId": "147",
+      "title": "Insertion Sort List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [1, 5000].",
+        "-5000 <= Node.val <= 5000"
+      ],
+      "description": "Given the head of a singly linked list, sort the list using insertion sort, and return the sorted list's head.\nThe steps of the insertion sort algorithm:\nThe following is a graphical example of the insertion sort algorithm. The partially sorted list (black) initially contains only the first element in the list. One element (red) is removed from the input data and inserted in-place into the sorted list with each iteration.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "intersection-of-two-linked-lists": {
+      "questionId": "160",
+      "title": "Intersection of Two Linked Lists",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes of listA is in the m.",
+        "The number of nodes of listB is in the n.",
+        "1 <= m, n <= 3 * 104",
+        "1 <= Node.val <= 105",
+        "0 <= skipA <= m",
+        "0 <= skipB <= n",
+        "intersectVal is 0 if listA and listB do not intersect.",
+        "intersectVal == listA[skipA] == listB[skipB] if listA and listB intersect."
+      ],
+      "description": "Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.\nFor example, the following two linked lists begin to intersect at node c1:\nThe test cases are generated such that there are no cycles anywhere in the entire linked structure.\nNote that the linked lists must retain their original structure after the function returns.\nCustom Judge:\nThe inputs to the judge are given as follows (your program is not given these inputs):\nThe judge will then create the linked structure based on these inputs and pass the two heads, headA and headB to your program. If you correctly return the intersected node, then your solution will be accepted.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "linked-list-components": {
+      "questionId": "817",
+      "title": "Linked List Components",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the linked list is n.",
+        "1 <= n <= 104",
+        "0 <= Node.val < n",
+        "All the values Node.val are unique.",
+        "1 <= nums.length <= n",
+        "0 <= nums[i] < n",
+        "All the values of nums are unique."
+      ],
+      "description": "You are given the head of a linked list containing unique integer values and an integer array nums that is a subset of the linked list values.\nReturn the number of connected components in nums where two values are connected if they appear consecutively in the linked list.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "linked-list-cycle": {
+      "questionId": "141",
+      "title": "Linked List Cycle",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of the nodes in the list is in the range [0, 104].",
+        "-105 <= Node.val <= 105",
+        "pos is -1 or a valid index in the linked-list."
+      ],
+      "description": "Given head, the head of a linked list, determine if the linked list has a cycle in it.\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the\u00a0next\u00a0pointer. Internally, pos\u00a0is used to denote the index of the node that\u00a0tail's\u00a0next\u00a0pointer is connected to.\u00a0Note that\u00a0pos\u00a0is not passed as a parameter.\nReturn\u00a0true if there is a cycle in the linked list. Otherwise, return false.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Can you solve it using O(1) (i.e. constant) memory?"
+    },
+    "linked-list-cycle-ii": {
+      "questionId": "142",
+      "title": "Linked List Cycle II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of the nodes in the list is in the range [0, 104].",
+        "-105 <= Node.val <= 105",
+        "pos is -1 or a valid index in the linked-list."
+      ],
+      "description": "Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.\nThere is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.\nDo not modify the linked list.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Can you solve it using O(1) (i.e. constant) memory?"
+    },
+    "linked-list-random-node": {
+      "questionId": "382",
+      "title": "Linked List Random Node",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the linked list will be in the range [1, 104].",
+        "-104 <= Node.val <= 104",
+        "At most 104 calls will be made to getRandom."
+      ],
+      "description": "Given a singly linked list, return a random node's value from the linked list. Each node must have the same probability of being chosen.\nImplement the Solution class:\nExample 1:\nConstraints:\nFollow up:"
+    },
+    "lru-cache": {
+      "questionId": "146",
+      "title": "LRU Cache",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= capacity <= 3000",
+        "0 <= key <= 104",
+        "0 <= value <= 105",
+        "At most 2 * 105 calls will be made to get and put."
+      ],
+      "description": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.\nImplement the LRUCache class:\nThe functions get and put must each run in O(1) average time complexity.\nExample 1:\nConstraints:"
+    },
+    "merge-two-sorted-lists": {
+      "questionId": "21",
+      "title": "Merge Two Sorted Lists",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in both lists is in the range [0, 50].",
+        "-100 <= Node.val <= 100",
+        "Both list1 and list2 are sorted in non-decreasing order."
+      ],
+      "description": "You are given the heads of two sorted linked lists list1 and list2.\nMerge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.\nReturn the head of the merged linked list.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "middle-of-the-linked-list": {
+      "questionId": "876",
+      "title": "Middle of the Linked List",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the list is in the range [1, 100].",
+        "1 <= Node.val <= 100"
+      ],
+      "description": "Given the head of a singly linked list, return the middle node of the linked list.\nIf there are two middle nodes, return the second middle node.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "next-greater-node-in-linked-list": {
+      "questionId": "1019",
+      "title": "Next Greater Node In Linked List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is n.",
+        "1 <= n <= 104",
+        "1 <= Node.val <= 109"
+      ],
+      "description": "You are given the head of a linked list with n nodes.\nFor each node in the list, find the value of the next greater node. That is, for each node, find the value of the first node that is next to it and has a strictly larger value than it.\nReturn an integer array answer where answer[i] is the value of the next greater node of the ith node (1-indexed). If the ith node does not have a next greater node, set answer[i] = 0.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "odd-even-linked-list": {
+      "questionId": "328",
+      "title": "Odd Even Linked List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the linked list is in the range [0, 104].",
+        "-106 <= Node.val <= 106"
+      ],
+      "description": "Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.\nThe first node is considered odd, and the second node is even, and so on.\nNote that the relative order inside both the even and odd groups should remain as it was in the input.\nYou must solve the problem\u00a0in O(1)\u00a0extra space complexity and O(n) time complexity.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "palindrome-linked-list": {
+      "questionId": "234",
+      "title": "Palindrome Linked List",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the list is in the range [1, 105].",
+        "0 <= Node.val <= 9"
+      ],
+      "description": "Given the head of a singly linked list, return true if it is a palindrome or false otherwise.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "partition-list": {
+      "questionId": "86",
+      "title": "Partition List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 200].",
+        "-100 <= Node.val <= 100",
+        "-200 <= x <= 200"
+      ],
+      "description": "Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.\nYou should preserve the original relative order of the nodes in each of the two partitions.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "populating-next-right-pointers-in-each-node": {
+      "questionId": "116",
+      "title": "Populating Next Right Pointers in Each Node",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 212 - 1].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:\nPopulate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.\nInitially, all next pointers are set to NULL.\nExample 1:\nExample 2:\nConstraints:\nFollow-up:"
+    },
+    "populating-next-right-pointers-in-each-node-ii": {
+      "questionId": "117",
+      "title": "Populating Next Right Pointers in Each Node II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 6000].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given a binary tree\nPopulate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.\nInitially, all next pointers are set to NULL.\nExample 1:\nExample 2:\nConstraints:\nFollow-up:"
+    },
+    "remove-duplicates-from-sorted-list": {
+      "questionId": "83",
+      "title": "Remove Duplicates from Sorted List",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 300].",
+        "-100 <= Node.val <= 100",
+        "The list is guaranteed to be sorted in ascending order."
+      ],
+      "description": "Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "remove-duplicates-from-sorted-list-ii": {
+      "questionId": "82",
+      "title": "Remove Duplicates from Sorted List II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 300].",
+        "-100 <= Node.val <= 100",
+        "The list is guaranteed to be sorted in ascending order."
+      ],
+      "description": "Given the head of a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list. Return the linked list sorted as well.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "remove-linked-list-elements": {
+      "questionId": "203",
+      "title": "Remove Linked List Elements",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 104].",
+        "1 <= Node.val <= 50",
+        "0 <= val <= 50"
+      ],
+      "description": "Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "remove-nth-node-from-end-of-list": {
+      "questionId": "19",
+      "title": "Remove Nth Node From End of List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is sz.",
+        "1 <= sz <= 30",
+        "0 <= Node.val <= 100",
+        "1 <= n <= sz"
+      ],
+      "description": "Given the head of a linked list, remove the nth node from the end of the list and return its head.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Could you do this in one pass?"
+    },
+    "reorder-list": {
+      "questionId": "143",
+      "title": "Reorder List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [1, 5 * 104].",
+        "1 <= Node.val <= 1000"
+      ],
+      "description": "You are given the head of a singly linked-list. The list can be represented as:\nReorder the list to be on the following form:\nYou may not modify the values in the list's nodes. Only nodes themselves may be changed.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "reverse-linked-list": {
+      "questionId": "206",
+      "title": "Reverse Linked List",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the list is the range [0, 5000].",
+        "-5000 <= Node.val <= 5000"
+      ],
+      "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: A linked list can be reversed either iteratively or recursively. Could you implement both?"
+    },
+    "reverse-linked-list-ii": {
+      "questionId": "92",
+      "title": "Reverse Linked List II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is n.",
+        "1 <= n <= 500",
+        "-500 <= Node.val <= 500",
+        "1 <= left <= right <= n"
+      ],
+      "description": "Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "rotate-list": {
+      "questionId": "61",
+      "title": "Rotate List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 500].",
+        "-100 <= Node.val <= 100",
+        "0 <= k <= 2 * 109"
+      ],
+      "description": "Given the head of a linked\u00a0list, rotate the list to the right by k places.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sort-list": {
+      "questionId": "148",
+      "title": "Sort List",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 5 * 104].",
+        "-105 <= Node.val <= 105"
+      ],
+      "description": "Given the head of a linked list, return the list after sorting it in ascending order.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?"
+    },
+    "split-linked-list-in-parts": {
+      "questionId": "725",
+      "title": "Split Linked List in Parts",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 1000].",
+        "0 <= Node.val <= 1000",
+        "1 <= k <= 50"
+      ],
+      "description": "Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.\nThe length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.\nThe parts should be in the order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal to parts occurring later.\nReturn an array of the k parts.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "swap-nodes-in-pairs": {
+      "questionId": "24",
+      "title": "Swap Nodes in Pairs",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the\u00a0list\u00a0is in the range [0, 100].",
+        "0 <= Node.val <= 100"
+      ],
+      "description": "Given a\u00a0linked list, swap every two adjacent nodes and return its head. You must solve the problem without\u00a0modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nConstraints:"
+    },
+    "design-circular-queue": {
+      "questionId": "622",
+      "title": "Design Circular Queue",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= k <= 1000",
+        "0 <= value <= 1000",
+        "At most 3000 calls will be made to\u00a0enQueue, deQueue,\u00a0Front,\u00a0Rear,\u00a0isEmpty, and\u00a0isFull."
+      ],
+      "description": "Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle, and the last position is connected back to the first position to make a circle. It is also called \"Ring Buffer\".\nOne of the benefits of the circular queue is that we can make use of the spaces in front of the queue. In a normal queue, once the queue becomes full, we cannot insert the next element even if there is a space in front of the queue. But using the circular queue, we can use the space to store new values.\nImplement the MyCircularQueue class:\nYou must solve the problem without using the built-in queue data structure in your programming language.\nExample 1:\nConstraints:"
+    }
+  }
+}

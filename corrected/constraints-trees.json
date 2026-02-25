@@ -1,0 +1,774 @@
+{
+  "topic": "trees",
+  "problems": {
+    "add-one-row-to-tree": {
+      "questionId": "623",
+      "title": "Add One Row to Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "The depth of the tree is in the range [1, 104].",
+        "-100 <= Node.val <= 100",
+        "-105 <= val <= 105",
+        "1 <= depth <= the depth of tree + 1"
+      ],
+      "description": "Given the root of a binary tree and two integers val and depth, add a row of nodes with value val at the given depth depth.\nNote that the root node is at depth 1.\nThe adding rule is:\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "all-nodes-distance-k-in-binary-tree": {
+      "questionId": "863",
+      "title": "All Nodes Distance K in Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 500].",
+        "0 <= Node.val <= 500",
+        "All the values Node.val are unique.",
+        "target is the value of one of the nodes in the tree.",
+        "0 <= k <= 1000"
+      ],
+      "description": "Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.\nYou can return the answer in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "average-of-levels-in-binary-tree": {
+      "questionId": "637",
+      "title": "Average of Levels in Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-231 <= Node.val <= 231 - 1"
+      ],
+      "description": "Example 1:\nExample 2:\nConstraints:"
+    },
+    "balanced-binary-tree": {
+      "questionId": "110",
+      "title": "Balanced Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 5000].",
+        "-104 <= Node.val <= 104"
+      ],
+      "description": "Given a binary tree, determine if it is height-balanced.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-tree-level-order-traversal": {
+      "questionId": "102",
+      "title": "Binary Tree Level Order Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 2000].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-tree-level-order-traversal-ii": {
+      "questionId": "107",
+      "title": "Binary Tree Level Order Traversal II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 2000].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Given the root of a binary tree, return the bottom-up level order traversal of its nodes' values. (i.e., from left to right, level by level from leaf to root).\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-tree-pruning": {
+      "questionId": "814",
+      "title": "Binary Tree Pruning",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 200].",
+        "Node.val is either 0 or 1."
+      ],
+      "description": "Given the root of a binary tree, return the same tree where every subtree (of the given tree) not containing a 1 has been removed.\nA subtree of a node node is node plus every node that is a descendant of node.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-tree-right-side-view": {
+      "questionId": "199",
+      "title": "Binary Tree Right Side View",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 100].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nConstraints:"
+    },
+    "binary-tree-tilt": {
+      "questionId": "563",
+      "title": "Binary Tree Tilt",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Given the root of a binary tree, return the sum of every tree node's tilt.\nThe tilt of a tree node is the absolute difference between the sum of all left subtree node values and all right subtree node values. If a node does not have a left child, then the sum of the left subtree node values is treated as 0. The rule is similar if the node does not have a right child.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-tree-zigzag-level-order-traversal": {
+      "questionId": "103",
+      "title": "Binary Tree Zigzag Level Order Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 2000].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "check-completeness-of-a-binary-tree": {
+      "questionId": "958",
+      "title": "Check Completeness of a Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 100].",
+        "1 <= Node.val <= 1000"
+      ],
+      "description": "Given the root of a binary tree, determine if it is a complete binary tree.\nIn a complete binary tree, every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "complete-binary-tree-inserter": {
+      "questionId": "919",
+      "title": "Complete Binary Tree Inserter",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree will be in the range [1, 1000].",
+        "0 <= Node.val <= 5000",
+        "root is a complete binary tree.",
+        "0 <= val <= 5000",
+        "At most 104 calls will be made to insert and get_root."
+      ],
+      "description": "A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.\nDesign an algorithm to insert a new node to a complete binary tree keeping it complete after the insertion.\nImplement the CBTInserter class:\nExample 1:\nConstraints:"
+    },
+    "construct-binary-tree-from-inorder-and-postorder-traversal": {
+      "questionId": "106",
+      "title": "Construct Binary Tree from Inorder and Postorder Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= inorder.length <= 3000",
+        "postorder.length == inorder.length",
+        "-3000 <= inorder[i], postorder[i] <= 3000",
+        "inorder and postorder consist of unique values.",
+        "Each value of postorder also appears in inorder.",
+        "inorder is guaranteed to be the inorder traversal of the tree.",
+        "postorder is guaranteed to be the postorder traversal of the tree."
+      ],
+      "description": "Given two integer arrays inorder and postorder where inorder is the inorder traversal of a binary tree and postorder is the postorder traversal of the same tree, construct and return the binary tree.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "construct-binary-tree-from-preorder-and-inorder-traversal": {
+      "questionId": "105",
+      "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= preorder.length <= 3000",
+        "inorder.length == preorder.length",
+        "-3000 <= preorder[i], inorder[i] <= 3000",
+        "preorder and inorder consist of unique values.",
+        "Each value of inorder also appears in preorder.",
+        "preorder is guaranteed to be the preorder traversal of the tree.",
+        "inorder is guaranteed to be the inorder traversal of the tree."
+      ],
+      "description": "Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "construct-binary-tree-from-preorder-and-postorder-traversal": {
+      "questionId": "889",
+      "title": "Construct Binary Tree from Preorder and Postorder Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= preorder.length <= 30",
+        "1 <= preorder[i] <= preorder.length",
+        "All the values of preorder are unique.",
+        "postorder.length == preorder.length",
+        "1 <= postorder[i] <= postorder.length",
+        "All the values of postorder are unique.",
+        "It is guaranteed that preorder and postorder are the preorder traversal and postorder traversal of the same binary tree."
+      ],
+      "description": "Given two integer arrays, preorder and postorder where preorder is the preorder traversal of a binary tree of distinct values and postorder is the postorder traversal of the same tree, reconstruct and return the binary tree.\nIf there exist multiple answers, you can return any of them.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "construct-quad-tree": {
+      "questionId": "427",
+      "title": "Construct Quad Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == grid.length == grid[i].length",
+        "n == 2x where 0 <= x <= 6"
+      ],
+      "description": "Given a n * n matrix grid of 0's and 1's only. We want to represent grid with a Quad-Tree.\nReturn the root of the Quad-Tree representing grid.\nA Quad-Tree is a tree data structure in which each internal node has exactly four children. Besides, each node has two attributes:\nWe can construct a Quad-Tree from a two-dimensional area using the following steps:\nIf you want to know more about the Quad-Tree, you can refer to the wiki.\nQuad-Tree format:\nYou don't need to read this section for solving the problem. This is only if you want to understand the output format here. The output represents the serialized format of a Quad-Tree using level order traversal, where null signifies a path terminator where no node exists below.\nIt is very similar to the serialization of the binary tree. The only difference is that the node is represented as a list [isLeaf, val].\nIf the value of isLeaf or val is True we represent it as 1 in the list [isLeaf, val] and if the value of isLeaf or val is False we represent it as 0.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "construct-string-from-binary-tree": {
+      "questionId": "606",
+      "title": "Construct String from Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Given the root node of a binary tree, your task is to create a string representation of the tree following a specific set of formatting rules. The representation should be based on a preorder traversal of the binary tree and must adhere to the following guidelines:\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "convert-bst-to-greater-tree": {
+      "questionId": "538",
+      "title": "Convert BST to Greater Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "-104 <= Node.val <= 104",
+        "All the values in the tree are unique.",
+        "root is guaranteed to be a valid binary search tree."
+      ],
+      "description": "Given the root of a Binary Search Tree (BST), convert it to a Greater Tree such that every key of the original BST is changed to the original key plus the sum of all keys greater than the original key in BST.\nAs a reminder, a binary search tree is a tree that satisfies these constraints:\nExample 1:\nExample 2:\nConstraints:\nNote: This question is the same as 1038: https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/"
+    },
+    "convert-sorted-array-to-binary-search-tree": {
+      "questionId": "108",
+      "title": "Convert Sorted Array to Binary Search Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= nums.length <= 104",
+        "-104 <= nums[i] <= 104",
+        "nums is sorted in a strictly increasing order."
+      ],
+      "description": "Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "count-good-nodes-in-binary-tree": {
+      "questionId": "1448",
+      "title": "Count Good Nodes in Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the binary tree is in the range\u00a0[1, 10^5].",
+        "Each node's value is between [-10^4, 10^4]."
+      ],
+      "description": "Given a binary tree root, a node X in the tree is named\u00a0good if in the path from root to X there are no nodes with a value greater than X.\nReturn the number of good nodes in the binary tree.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "cousins-in-binary-tree": {
+      "questionId": "993",
+      "title": "Cousins in Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 100].",
+        "1 <= Node.val <= 100",
+        "Each node has a unique value.",
+        "x != y",
+        "x and y are exist in the tree."
+      ],
+      "description": "Given the root of a binary tree with unique values and the values of two different nodes of the tree x and y, return true if the nodes corresponding to the values x and y in the tree are cousins, or false otherwise.\nTwo nodes of a binary tree are cousins if they have the same depth with different parents.\nNote that in a binary tree, the root node is at the depth 0, and children of each depth k node are at the depth k + 1.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "delete-node-in-a-bst": {
+      "questionId": "450",
+      "title": "Delete Node in a BST",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "-105 <= Node.val <= 105",
+        "Each node has a unique value.",
+        "root is a valid binary search tree.",
+        "-105 <= key <= 105"
+      ],
+      "description": "Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.\nBasically, the deletion can be divided into two stages:\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Could you solve it with time complexity O(height of tree)?"
+    },
+    "diameter-of-binary-tree": {
+      "questionId": "543",
+      "title": "Diameter of Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return the length of the diameter of the tree.\nThe diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.\nThe length of a path between two nodes is represented by the number of edges between them.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "distribute-coins-in-binary-tree": {
+      "questionId": "979",
+      "title": "Distribute Coins in Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is n.",
+        "1 <= n <= 100",
+        "0 <= Node.val <= n",
+        "The sum of all Node.val is n."
+      ],
+      "description": "You are given the root of a binary tree with n nodes where each node in the tree has node.val coins. There are n coins in total throughout the whole tree.\nIn one move, we may choose two adjacent nodes and move one coin from one node to another. A move may be from parent to child, or from child to parent.\nReturn the minimum number of moves required to make every node have exactly one coin.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "employee-importance": {
+      "questionId": "690",
+      "title": "Employee Importance",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= employees.length <= 2000",
+        "1 <= employees[i].id <= 2000",
+        "All employees[i].id are unique.",
+        "-100 <= employees[i].importance <= 100",
+        "One employee has at most one direct leader and may have several subordinates.",
+        "The IDs in employees[i].subordinates are valid IDs."
+      ],
+      "description": "You have a data structure of employee information, including the employee's unique ID, importance value, and direct subordinates' IDs.\nYou are given an array of employees employees where:\nGiven an integer id that represents an employee's ID, return the total importance value of this employee and all their direct and indirect subordinates.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "find-bottom-left-tree-value": {
+      "questionId": "513",
+      "title": "Find Bottom Left Tree Value",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-231 <= Node.val <= 231 - 1"
+      ],
+      "description": "Given the root of a binary tree, return the leftmost value in the last row of the tree.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "find-duplicate-subtrees": {
+      "questionId": "652",
+      "title": "Find Duplicate Subtrees",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of the nodes in the tree will be in the range [1, 5000]",
+        "-200 <= Node.val <= 200"
+      ],
+      "description": "Given the root\u00a0of a binary tree, return all duplicate subtrees.\nFor each kind of duplicate subtrees, you only need to return the root node of any one of them.\nTwo trees are duplicate if they have the same structure with the same node values.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "find-largest-value-in-each-tree-row": {
+      "questionId": "515",
+      "title": "Find Largest Value in Each Tree Row",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree will be in the range [0, 104].",
+        "-231 <= Node.val <= 231 - 1"
+      ],
+      "description": "Given the root of a binary tree, return an array of the largest value in each row of the tree (0-indexed).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "find-mode-in-binary-search-tree": {
+      "questionId": "501",
+      "title": "Find Mode in Binary Search Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-105 <= Node.val <= 105"
+      ],
+      "description": "Given the root of a binary search tree (BST) with duplicates, return all the mode(s) (i.e., the most frequently occurred element) in it.\nIf the tree has more than one mode, return them in any order.\nAssume a BST is defined as follows:\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "flip-binary-tree-to-match-preorder-traversal": {
+      "questionId": "971",
+      "title": "Flip Binary Tree To Match Preorder Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is n.",
+        "n == voyage.length",
+        "1 <= n <= 100",
+        "1 <= Node.val, voyage[i] <= n",
+        "All the values in the tree are unique.",
+        "All the values in voyage are unique."
+      ],
+      "description": "You are given the root of a binary tree with n nodes, where each node is uniquely assigned a value from 1 to n. You are also given a sequence of n values voyage, which is the desired pre-order traversal of the binary tree.\nAny node in the binary tree can be flipped by swapping its left and right subtrees. For example, flipping node 1 will have the following effect:\nFlip the smallest number of nodes so that the pre-order traversal of the tree matches voyage.\nReturn a list of the values of all flipped nodes. You may return the answer in any order. If it is impossible to flip the nodes in the tree to make the pre-order traversal match voyage, return the list [-1].\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "flip-equivalent-binary-trees": {
+      "questionId": "951",
+      "title": "Flip Equivalent Binary Trees",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in each tree is in the range [0, 100].",
+        "Each tree will have unique node values in the range [0, 99]."
+      ],
+      "description": "For a binary tree T, we can define a flip operation as follows: choose any node, and swap the left and right child subtrees.\nA binary tree X\u00a0is flip equivalent to a binary tree Y if and only if we can make X equal to Y after some number of flip operations.\nGiven the roots of two binary trees root1 and root2, return true if the two trees are flip equivalent or false otherwise.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "insert-into-a-binary-search-tree": {
+      "questionId": "701",
+      "title": "Insert into a Binary Search Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in\u00a0the tree will be in the range [0,\u00a0104].",
+        "-108 <= Node.val <= 108",
+        "All the values Node.val are unique.",
+        "-108 <= val <= 108",
+        "It's guaranteed that val does not exist in the original BST."
+      ],
+      "description": "You are given the root node of a binary search tree (BST) and a value to insert into the tree. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.\nNotice\u00a0that there may exist\u00a0multiple valid ways for the\u00a0insertion, as long as the tree remains a BST after insertion. You can return any of them.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "invert-binary-tree": {
+      "questionId": "226",
+      "title": "Invert Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 100].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, invert the tree, and return its root.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "kth-smallest-element-in-a-bst": {
+      "questionId": "230",
+      "title": "Kth Smallest Element in a BST",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is n.",
+        "1 <= k <= n <= 104",
+        "0 <= Node.val <= 104"
+      ],
+      "description": "Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.\nExample 1:\nExample 2:\nConstraints:\nFollow up: If the BST is modified often (i.e., we can do insert and delete operations) and you need to find the kth smallest frequently, how would you optimize?"
+    },
+    "leaf-similar-trees": {
+      "questionId": "872",
+      "title": "Leaf-Similar Trees",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in each tree will be in the range [1, 200].",
+        "Both of the given trees will have values in the range [0, 200]."
+      ],
+      "description": "Consider all the leaves of a binary tree, from\u00a0left to right order, the values of those\u00a0leaves form a leaf value sequence.\nFor example, in the given tree above, the leaf value sequence is (6, 7, 4, 9, 8).\nTwo binary trees are considered leaf-similar\u00a0if their leaf value sequence is the same.\nReturn true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "logical-or-of-two-binary-grids-represented-as-quad-trees": {
+      "questionId": "558",
+      "title": "Logical OR of Two Binary Grids Represented as Quad-Trees",
+      "difficulty": "Medium",
+      "constraints": [
+        "quadTree1 and quadTree2 are both valid Quad-Trees each representing a n * n grid.",
+        "n == 2x where 0 <= x <= 9."
+      ],
+      "description": "A Binary Matrix is a matrix in which all the elements are either 0 or 1.\nGiven quadTree1 and quadTree2. quadTree1 represents a n * n binary matrix and quadTree2 represents another n * n binary matrix.\nReturn a Quad-Tree representing the n * n binary matrix which is the result of logical bitwise OR of the two binary matrixes represented by quadTree1 and quadTree2.\nNotice that you can assign the value of a node to True or False when isLeaf is False, and both are accepted in the answer.\nA Quad-Tree is a tree data structure in which each internal node has exactly four children. Besides, each node has two attributes:\nWe can construct a Quad-Tree from a two-dimensional area using the following steps:\nIf you want to know more about the Quad-Tree, you can refer to the wiki.\nQuad-Tree format:\nThe input/output represents the serialized format of a Quad-Tree using level order traversal, where null signifies a path terminator where no node exists below.\nIt is very similar to the serialization of the binary tree. The only difference is that the node is represented as a list [isLeaf, val].\nIf the value of isLeaf or val is True we represent it as 1 in the list [isLeaf, val] and if the value of isLeaf or val is False we represent it as 0.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "longest-univalue-path": {
+      "questionId": "687",
+      "title": "Longest Univalue Path",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "-1000 <= Node.val <= 1000",
+        "The depth of the tree will not exceed 1000."
+      ],
+      "description": "Given the root of a binary tree, return the length of the longest path, where each node in the path has the same value. This path may or may not pass through the root.\nThe length of the path between two nodes is represented by the number of edges between them.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "lowest-common-ancestor-of-a-binary-search-tree": {
+      "questionId": "235",
+      "title": "Lowest Common Ancestor of a Binary Search Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 105].",
+        "-109 <= Node.val <= 109",
+        "All Node.val are unique.",
+        "p != q",
+        "p and q will exist in the BST."
+      ],
+      "description": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.\nAccording to the definition of LCA on Wikipedia: \u201cThe lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).\u201d\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "lowest-common-ancestor-of-a-binary-tree": {
+      "questionId": "236",
+      "title": "Lowest Common Ancestor of a Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 105].",
+        "-109 <= Node.val <= 109",
+        "All Node.val are unique.",
+        "p != q",
+        "p and q will exist in the tree."
+      ],
+      "description": "Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.\nAccording to the definition of LCA on Wikipedia: \u201cThe lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).\u201d\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "maximum-binary-tree-ii": {
+      "questionId": "998",
+      "title": "Maximum Binary Tree II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 100].",
+        "1 <= Node.val <= 100",
+        "All the values of the tree are unique.",
+        "1 <= val <= 100"
+      ],
+      "description": "A maximum tree is a tree where every node has a value greater than any other value in its subtree.\nYou are given the root of a maximum binary tree and an integer val.\nJust as in the previous problem, the given tree was constructed from a list a (root = Construct(a)) recursively with the following Construct(a) routine:\nNote that we were not given a directly, only a root node root = Construct(a).\nSuppose b is a copy of a with the value val appended to it. It is guaranteed that b has unique values.\nReturn Construct(b).\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "maximum-depth-of-binary-tree": {
+      "questionId": "104",
+      "title": "Maximum Depth of Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return its maximum depth.\nA binary tree's maximum depth\u00a0is the number of nodes along the longest path from the root node down to the farthest leaf node.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "maximum-depth-of-n-ary-tree": {
+      "questionId": "559",
+      "title": "Maximum Depth of N-ary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The total number of nodes is in the range [0, 104].",
+        "The depth of the n-ary tree is less than or equal to 1000."
+      ],
+      "description": "Given a n-ary tree, find its maximum depth.\nThe maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.\nNary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "maximum-difference-between-node-and-ancestor": {
+      "questionId": "1026",
+      "title": "Maximum Difference Between Node and Ancestor",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 5000].",
+        "0 <= Node.val <= 105"
+      ],
+      "description": "Given the root of a binary tree, find the maximum value v for which there exist different nodes a and b where v = |a.val - b.val| and a is an ancestor of b.\nA node a is an ancestor of b if either: any child of a is equal to b\u00a0or any child of a is an ancestor of b.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "maximum-width-of-binary-tree": {
+      "questionId": "662",
+      "title": "Maximum Width of Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 3000].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return the maximum width of the given tree.\nThe maximum width of a tree is the maximum width among all levels.\nThe width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree extending down to that level are also counted into the length calculation.\nIt is guaranteed that the answer will in the range of a 32-bit signed integer.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "merge-two-binary-trees": {
+      "questionId": "617",
+      "title": "Merge Two Binary Trees",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in both trees is in the range [0, 2000].",
+        "-104 <= Node.val <= 104"
+      ],
+      "description": "You are given two binary trees root1 and root2.\nImagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.\nReturn the merged tree.\nNote: The merging process must start from the root nodes of both trees.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "minimum-absolute-difference-in-bst": {
+      "questionId": "530",
+      "title": "Minimum Absolute Difference in BST",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 104].",
+        "0 <= Node.val <= 105"
+      ],
+      "description": "Given the root of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.\nExample 1:\nExample 2:\nConstraints:\nNote: This question is the same as 783: https://leetcode.com/problems/minimum-distance-between-bst-nodes/"
+    },
+    "minimum-depth-of-binary-tree": {
+      "questionId": "111",
+      "title": "Minimum Depth of Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 105].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Given a binary tree, find its minimum depth.\nThe minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.\nNote:\u00a0A leaf is a node with no children.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "minimum-distance-between-bst-nodes": {
+      "questionId": "783",
+      "title": "Minimum Distance Between BST Nodes",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 100].",
+        "0 <= Node.val <= 105"
+      ],
+      "description": "Given the root of a Binary Search Tree (BST), return the minimum difference between the values of any two different nodes in the tree.\nExample 1:\nExample 2:\nConstraints:\nNote: This question is the same as 530: https://leetcode.com/problems/minimum-absolute-difference-in-bst/"
+    },
+    "most-frequent-subtree-sum": {
+      "questionId": "508",
+      "title": "Most Frequent Subtree Sum",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-105 <= Node.val <= 105"
+      ],
+      "description": "Given the root of a binary tree, return the most frequent subtree sum. If there is a tie, return all the values with the highest frequency in any order.\nThe subtree sum of a node is defined as the sum of all the node values formed by the subtree rooted at that node (including the node itself).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "n-ary-tree-level-order-traversal": {
+      "questionId": "429",
+      "title": "N-ary Tree Level Order Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "The height of the n-ary tree is less than or equal to 1000",
+        "The total number of nodes is between [0, 104]"
+      ],
+      "description": "Given an n-ary tree, return the level order traversal of its nodes' values.\nNary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "path-sum": {
+      "questionId": "112",
+      "title": "Path Sum",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 5000].",
+        "-1000 <= Node.val <= 1000",
+        "-1000 <= targetSum <= 1000"
+      ],
+      "description": "Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.\nA leaf is a node with no children.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "path-sum-iii": {
+      "questionId": "437",
+      "title": "Path Sum III",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 1000].",
+        "-109 <= Node.val <= 109",
+        "-1000 <= targetSum <= 1000"
+      ],
+      "description": "Given the root of a binary tree and an integer targetSum, return the number of paths where the sum of the values\u00a0along the path equals\u00a0targetSum.\nThe path does not need to start or end at the root or a leaf, but it must go downwards (i.e., traveling only from parent nodes to child nodes).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "print-binary-tree": {
+      "questionId": "655",
+      "title": "Print Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 210].",
+        "-99 <= Node.val <= 99",
+        "The depth of the tree will be in the range [1, 10]."
+      ],
+      "description": "Given the root of a binary tree, construct a 0-indexed m x n string matrix res that represents a formatted layout of the tree. The formatted layout matrix should be constructed using the following rules:\nReturn the constructed matrix res.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "range-sum-of-bst": {
+      "questionId": "938",
+      "title": "Range Sum of BST",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 2 * 104].",
+        "1 <= Node.val <= 105",
+        "1 <= low <= high <= 105",
+        "All Node.val are unique."
+      ],
+      "description": "Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "recover-binary-search-tree": {
+      "questionId": "99",
+      "title": "Recover Binary Search Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [2, 1000].",
+        "-231 <= Node.val <= 231 - 1"
+      ],
+      "description": "You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "same-tree": {
+      "questionId": "100",
+      "title": "Same Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in both trees is in the range [0, 100].",
+        "-104 <= Node.val <= 104"
+      ],
+      "description": "Given the roots of two binary trees p and q, write a function to check if they are the same or not.\nTwo binary trees are considered the same if they are structurally identical, and the nodes have the same value.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "search-in-a-binary-search-tree": {
+      "questionId": "700",
+      "title": "Search in a Binary Search Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 5000].",
+        "1 <= Node.val <= 107",
+        "root is a binary search tree.",
+        "1 <= val <= 107"
+      ],
+      "description": "You are given the root of a binary search tree (BST) and an integer val.\nFind the node in the BST that the node's value equals val and return the subtree rooted with that node. If such a node does not exist, return null.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "second-minimum-node-in-a-binary-tree": {
+      "questionId": "671",
+      "title": "Second Minimum Node In a Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 25].",
+        "1 <= Node.val <= 231 - 1",
+        "root.val == min(root.left.val, root.right.val)\u00a0for each internal node of the tree."
+      ],
+      "description": "Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property\u00a0root.val = min(root.left.val, root.right.val)\u00a0always holds.\nGiven such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.\nIf no such second minimum value exists, output -1 instead.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "serialize-and-deserialize-bst": {
+      "questionId": "449",
+      "title": "Serialize and Deserialize BST",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "0 <= Node.val <= 104",
+        "The input tree is guaranteed to be a binary search tree."
+      ],
+      "description": "Serialization is converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\nDesign an algorithm to serialize and deserialize a binary search tree. There is no restriction on how your serialization/deserialization algorithm should work. You need to ensure that a binary search tree can be serialized to a string, and this string can be deserialized to the original tree structure.\nThe encoded string should be as compact as possible.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "smallest-subtree-with-all-the-deepest-nodes": {
+      "questionId": "865",
+      "title": "Smallest Subtree with all the Deepest Nodes",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree will be in the range [1, 500].",
+        "0 <= Node.val <= 500",
+        "The values of the nodes in the tree are unique."
+      ],
+      "description": "Given the root of a binary tree, the depth of each node is the shortest distance to the root.\nReturn the smallest subtree such that it contains all the deepest nodes in the original tree.\nA node is called the deepest if it has the largest depth possible among any node in the entire tree.\nThe subtree of a node is a tree consisting of that node, plus the set of all descendants of that node.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nNote: This question is the same as 1123: https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/"
+    },
+    "subtree-of-another-tree": {
+      "questionId": "572",
+      "title": "Subtree of Another Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the root tree is in the range [1, 2000].",
+        "The number of nodes in the subRoot tree is in the range [1, 1000].",
+        "-104 <= root.val <= 104",
+        "-104 <= subRoot.val <= 104"
+      ],
+      "description": "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.\nA subtree of a binary tree tree is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sum-of-left-leaves": {
+      "questionId": "404",
+      "title": "Sum of Left Leaves",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 1000].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Given the root of a binary tree, return the sum of all left leaves.\nA leaf is a node with no children. A left leaf is a leaf that is the left child of another node.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sum-of-root-to-leaf-binary-numbers": {
+      "questionId": "1022",
+      "title": "Sum of Root To Leaf Binary Numbers",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 1000].",
+        "Node.val is 0 or 1."
+      ],
+      "description": "You are given the root of a binary tree where each node has a value 0 or 1. Each root-to-leaf path represents a binary number starting with the most significant bit.\nFor all leaves in the tree, consider the numbers represented by the path from the root to that leaf. Return the sum of these numbers.\nThe test cases are generated so that the answer fits in a 32-bits integer.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sum-root-to-leaf-numbers": {
+      "questionId": "129",
+      "title": "Sum Root to Leaf Numbers",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 1000].",
+        "0 <= Node.val <= 9",
+        "The depth of the tree will not exceed 10."
+      ],
+      "description": "You are given the root of a binary tree containing digits from 0 to 9 only.\nEach root-to-leaf path in the tree represents a number.\nReturn the total sum of all root-to-leaf numbers. Test cases are generated so that the answer will fit in a 32-bit integer.\nA leaf node is a node with no children.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "symmetric-tree": {
+      "questionId": "101",
+      "title": "Symmetric Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 1000].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "time-needed-to-inform-all-employees": {
+      "questionId": "1376",
+      "title": "Time Needed to Inform All Employees",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 105",
+        "0 <= headID < n",
+        "manager.length == n",
+        "0 <= manager[i] < n",
+        "manager[headID] == -1",
+        "informTime.length == n",
+        "0 <= informTime[i] <= 1000",
+        "informTime[i] == 0 if employee i has no subordinates.",
+        "It is guaranteed that all the employees can be informed."
+      ],
+      "description": "A company has n employees with a unique ID for each employee from 0 to n - 1. The head of the company is the one with headID.\nEach employee has one direct manager given in the manager array where manager[i] is the direct manager of the i-th employee, manager[headID] = -1. Also, it is guaranteed that the subordination relationships have a tree structure.\nThe head of the company wants to inform all the company employees of an urgent piece of news. He will inform his direct subordinates, and they will inform their subordinates, and so on until all employees know about the urgent news.\nThe i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e., After informTime[i] minutes, all his direct subordinates can start spreading the news).\nReturn the number of minutes needed to inform all the employees about the urgent news.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "trim-a-binary-search-tree": {
+      "questionId": "669",
+      "title": "Trim a Binary Search Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "0 <= Node.val <= 104",
+        "The value of each node in the tree is unique.",
+        "root is guaranteed to be a valid binary search tree.",
+        "0 <= low <= high <= 104"
+      ],
+      "description": "Given the root of a binary search tree and the lowest and highest boundaries as low and high, trim the tree so that all its elements lies in [low, high]. Trimming the tree should not change the relative structure of the elements that will remain in the tree (i.e., any node's descendant should remain a descendant). It can be proven that there is a unique answer.\nReturn the root of the trimmed binary search tree. Note that the root may change depending on the given bounds.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "univalued-binary-tree": {
+      "questionId": "965",
+      "title": "Univalued Binary Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 100].",
+        "0 <= Node.val < 100"
+      ],
+      "description": "A binary tree is uni-valued if every node in the tree has the same value.\nGiven the root of a binary tree, return true if the given tree is uni-valued, or false otherwise.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "validate-binary-search-tree": {
+      "questionId": "98",
+      "title": "Validate Binary Search Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 104].",
+        "-231 <= Node.val <= 231 - 1"
+      ],
+      "description": "Given the root of a binary tree, determine if it is a valid binary search tree (BST).\nA valid BST is defined as follows:\nExample 1:\nExample 2:\nConstraints:"
+    }
+  }
+}

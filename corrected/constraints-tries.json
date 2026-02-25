@@ -1,0 +1,124 @@
+{
+  "topic": "tries",
+  "problems": {
+    "design-add-and-search-words-data-structure": {
+      "questionId": "211",
+      "title": "Design Add and Search Words Data Structure",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= word.length <= 25",
+        "word in addWord consists of lowercase English letters.",
+        "word in search consist of '.' or lowercase English letters.",
+        "There will be at most 2 dots in word for search queries.",
+        "At most 104 calls will be made to addWord and search."
+      ],
+      "description": "Design a data structure that supports adding new words and finding if a string matches any previously added string.\nImplement the WordDictionary class:\nExample:\nConstraints:"
+    },
+    "implement-trie-prefix-tree": {
+      "questionId": "208",
+      "title": "Implement Trie (Prefix Tree)",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= word.length, prefix.length <= 2000",
+        "word and prefix consist only of lowercase English letters.",
+        "At most 3 * 104 calls in total will be made to insert, search, and startsWith."
+      ],
+      "description": "A trie (pronounced as \"try\") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.\nImplement the Trie class:\nExample 1:\nConstraints:"
+    },
+    "longest-word-in-dictionary": {
+      "questionId": "720",
+      "title": "Longest Word in Dictionary",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= words.length <= 1000",
+        "1 <= words[i].length <= 30",
+        "words[i] consists of lowercase English letters."
+      ],
+      "description": "Given an array of strings words representing an English Dictionary, return the longest word in words that can be built one character at a time by other words in words.\nIf there is more than one possible answer, return the longest word with the smallest lexicographical order. If there is no answer, return the empty string.\nNote that the word should be built from left to right with each additional character being added to the end of a previous word.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "map-sum-pairs": {
+      "questionId": "677",
+      "title": "Map Sum Pairs",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= key.length, prefix.length <= 50",
+        "key and prefix consist of only lowercase English letters.",
+        "1 <= val <= 1000",
+        "At most 50 calls will be made to insert and sum."
+      ],
+      "description": "Design a map that allows you to do the following:\nImplement the MapSum class:\nExample 1:\nConstraints:"
+    },
+    "replace-words": {
+      "questionId": "648",
+      "title": "Replace Words",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= dictionary.length <= 1000",
+        "1 <= dictionary[i].length <= 100",
+        "dictionary[i] consists of only lower-case letters.",
+        "1 <= sentence.length <= 106",
+        "sentence consists of only lower-case letters and spaces.",
+        "The number of words in sentence is in the range [1, 1000]",
+        "The length of each word in sentence is in the range [1, 1000]",
+        "Every two consecutive words in sentence will be separated by exactly one space.",
+        "sentence does not have leading or trailing spaces."
+      ],
+      "description": "In English, we have a concept called root, which can be followed by some other word to form another longer word - let's call this word derivative. For example, when the root \"help\" is followed by the word \"ful\", we can form a derivative \"helpful\".\nGiven a dictionary consisting of many roots and a sentence consisting of words separated by spaces, replace all the derivatives in the sentence with the root forming it. If a derivative can be replaced by more than one root, replace it with the root that has the shortest length.\nReturn the sentence after the replacement.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "short-encoding-of-words": {
+      "questionId": "820",
+      "title": "Short Encoding of Words",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= words.length <= 2000",
+        "1 <= words[i].length <= 7",
+        "words[i] consists of only lowercase letters."
+      ],
+      "description": "A valid encoding of an array of words is any reference string s and array of indices indices such that:\nGiven an array of words, return the length of the shortest reference string s possible of any valid encoding of words.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "top-k-frequent-words": {
+      "questionId": "692",
+      "title": "Top K Frequent Words",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= words.length <= 500",
+        "1 <= words[i].length <= 10",
+        "words[i] consists of lowercase English letters.",
+        "k is in the range [1, The number of unique words[i]]"
+      ],
+      "description": "Given an array of strings words and an integer k, return the k most frequent strings.\nReturn the answer sorted by the frequency from highest to lowest. Sort the words with the same frequency by their lexicographical order.\nExample 1:\nExample 2:\nConstraints:\nFollow-up: Could you solve it in O(n log(k)) time and O(n) extra space?"
+    },
+    "word-search-ii": {
+      "questionId": "212",
+      "title": "Word Search II",
+      "difficulty": "Hard",
+      "constraints": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 <= m, n <= 12",
+        "board[i][j] is a lowercase English letter.",
+        "1 <= words.length <= 3 * 104",
+        "1 <= words[i].length <= 10",
+        "words[i] consists of lowercase English letters.",
+        "All the strings of words are unique."
+      ],
+      "description": "Given an m x n board\u00a0of characters and a list of strings words, return all words on the board.\nEach word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "implement-magic-dictionary": {
+      "questionId": "676",
+      "title": "Implement Magic Dictionary",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <=\u00a0dictionary.length <= 100",
+        "1 <=\u00a0dictionary[i].length <= 100",
+        "dictionary[i] consists of only lower-case English letters.",
+        "All the strings in\u00a0dictionary\u00a0are distinct.",
+        "1 <=\u00a0searchWord.length <= 100",
+        "searchWord\u00a0consists of only lower-case English letters.",
+        "buildDict\u00a0will be called only once before search.",
+        "At most 100 calls will be made to search."
+      ],
+      "description": "Design a data structure that is initialized with a list of different words. Provided a string, you should determine if you can change exactly one character in this string to match any word in the data structure.\nImplement the\u00a0MagicDictionary\u00a0class:\nExample 1:\nConstraints:"
+    }
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "topic": "misc",
+  "problems": {
+    "binary-tree-maximum-path-sum": {
+      "questionId": "124",
+      "title": "Binary Tree Maximum Path Sum",
+      "difficulty": "Hard",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 3 * 104].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.\nThe path sum of a path is the sum of the node's values in the path.\nGiven the root of a binary tree, return the maximum path sum of any non-empty path.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "bus-routes": {
+      "questionId": "815",
+      "title": "Bus Routes",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= routes.length <= 500.",
+        "1 <= routes[i].length <= 105",
+        "All the values of routes[i] are unique.",
+        "sum(routes[i].length) <= 105",
+        "0 <= routes[i][j] < 106",
+        "0 <= source, target < 106"
+      ],
+      "description": "You are given an array routes representing bus routes where routes[i] is a bus route that the ith bus repeats forever.\nYou will start at the bus stop source (You are not on any bus initially), and you want to go to the bus stop target. You can travel between bus stops by buses only.\nReturn the least number of buses you must take to travel from source to target. Return -1 if it is not possible.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "count-and-say": {
+      "questionId": "38",
+      "title": "Count and Say",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 30"
+      ],
+      "description": "The count-and-say sequence is a sequence of digit strings defined by the recursive formula:\nRun-length encoding (RLE) is a string compression method that works by replacing consecutive identical characters (repeated 2 or more times) with the concatenation of the character and the number marking the count of the characters (length of the run). For example, to compress the string \"3322251\" we replace \"33\" with \"23\", replace \"222\" with \"32\", replace \"5\" with \"15\" and replace \"1\" with \"11\". Thus the compressed string becomes \"23321511\".\nGiven a positive integer n, return the nth element of the count-and-say sequence.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "detect-capital": {
+      "questionId": "520",
+      "title": "Detect Capital",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= word.length <= 100",
+        "word consists of lowercase and uppercase English letters."
+      ],
+      "description": "We define the usage of capitals in a word to be right when one of the following cases holds:\nGiven a string word, return true if the usage of capitals in it is right.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "find-minimum-in-rotated-sorted-array-ii": {
+      "questionId": "154",
+      "title": "Find Minimum in Rotated Sorted Array II",
+      "difficulty": "Hard",
+      "constraints": [
+        "n == nums.length",
+        "1 <= n <= 5000",
+        "-5000 <= nums[i] <= 5000",
+        "nums is sorted and rotated between 1 and n times."
+      ],
+      "description": "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,4,4,5,6,7] might become:\nNotice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].\nGiven the sorted rotated array nums that may contain duplicates, return the minimum element of this array.\nYou must decrease the overall operation steps as much as possible.\nExample 1:\nExample 2:\nConstraints:\nFollow up: This problem is similar to\u00a0Find Minimum in Rotated Sorted Array, but\u00a0nums may contain duplicates. Would this affect the runtime complexity? How and why?"
+    },
+    "length-of-last-word": {
+      "questionId": "58",
+      "title": "Length of Last Word",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 104",
+        "s consists of only English letters and spaces ' '.",
+        "There will be at least one word in s."
+      ],
+      "description": "Given a string s consisting of words and spaces, return the length of the last word in the string.\nA word is a maximal substring consisting of non-space characters only.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "license-key-formatting": {
+      "questionId": "482",
+      "title": "License Key Formatting",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 105",
+        "s consists of English letters, digits, and dashes '-'.",
+        "1 <= k <= 104"
+      ],
+      "description": "You are given a license key represented as a string s that consists of only alphanumeric characters and dashes. The string is separated into n + 1 groups by n dashes. You are also given an integer k.\nWe want to reformat the string s such that each group contains exactly k characters, except for the first group, which could be shorter than k but still must contain at least one character. Furthermore, there must be a dash inserted between two groups, and you should convert all lowercase letters to uppercase.\nReturn the reformatted license key.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "longest-uncommon-subsequence-i": {
+      "questionId": "521",
+      "title": "Longest Uncommon Subsequence I",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= a.length, b.length <= 100",
+        "a and b consist of lower-case English letters."
+      ],
+      "description": "Given two strings a and b, return the length of the longest uncommon subsequence between a and b. If no such uncommon subsequence exists, return -1.\nAn uncommon subsequence between two strings is a string that is a subsequence of exactly one of them.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "masking-personal-information": {
+      "questionId": "831",
+      "title": "Masking Personal Information",
+      "difficulty": "Medium",
+      "constraints": [
+        "s is either a valid email or a phone number.",
+        "If s is an email:\n\t\n8 <= s.length <= 40\ns consists of uppercase and lowercase English letters and exactly one '@' symbol and '.' symbol.",
+        "8 <= s.length <= 40",
+        "s consists of uppercase and lowercase English letters and exactly one '@' symbol and '.' symbol.",
+        "If s is a phone number:\n\t\n10 <= s.length <= 20\ns consists of digits, spaces, and the symbols '(', ')', '-', and '+'.",
+        "10 <= s.length <= 20",
+        "s consists of digits, spaces, and the symbols '(', ')', '-', and '+'."
+      ],
+      "description": "You are given a personal information string s, representing either an email address or a phone number. Return the masked personal information using the below rules.\nEmail address:\nAn email address is:\nTo mask an email:\nPhone number:\nA phone number is formatted as follows:\nTo mask a phone number:\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "maximal-rectangle": {
+      "questionId": "85",
+      "title": "Maximal Rectangle",
+      "difficulty": "Hard",
+      "constraints": [
+        "rows == matrix.length",
+        "cols == matrix[i].length",
+        "1 <= row, cols <= 200",
+        "matrix[i][j] is '0' or '1'."
+      ],
+      "description": "Given a rows x cols\u00a0binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "merge-k-sorted-lists": {
+      "questionId": "23",
+      "title": "Merge k Sorted Lists",
+      "difficulty": "Hard",
+      "constraints": [
+        "k == lists.length",
+        "0 <= k <= 104",
+        "0 <= lists[i].length <= 500",
+        "-104 <= lists[i][j] <= 104",
+        "lists[i] is sorted in ascending order.",
+        "The sum of lists[i].length will not exceed 104."
+      ],
+      "description": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.\nMerge all the linked-lists into one sorted linked-list and return it.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "number-of-recent-calls": {
+      "questionId": "933",
+      "title": "Number of Recent Calls",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= t <= 109",
+        "Each test case will call ping with strictly increasing values of t.",
+        "At most 104 calls will be made to ping."
+      ],
+      "description": "You have a RecentCounter class which counts the number of recent requests within a certain time frame.\nImplement the RecentCounter class:\nIt is guaranteed that every call to ping uses a strictly larger value of t than the previous call.\nExample 1:\nConstraints:"
+    },
+    "number-of-segments-in-a-string": {
+      "questionId": "434",
+      "title": "Number of Segments in a String",
+      "difficulty": "Easy",
+      "constraints": [
+        "0 <= s.length <= 300",
+        "s consists of lowercase and uppercase English letters, digits, or one of the following characters \"!@#$%^&*()_+-=',.:\".",
+        "The only space character in s is ' '."
+      ],
+      "description": "Given a string s, return the number of segments in the string.\nA segment is defined to be a contiguous sequence of non-space characters.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "positions-of-large-groups": {
+      "questionId": "830",
+      "title": "Positions of Large Groups",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 1000",
+        "s contains lowercase English letters only."
+      ],
+      "description": "In a string s\u00a0of lowercase letters, these letters form consecutive groups of the same character.\nFor example, a string like s = \"abbxxxxzyy\" has the groups \"a\", \"bb\", \"xxxx\", \"z\", and\u00a0\"yy\".\nA group is identified by an interval\u00a0[start, end], where\u00a0start\u00a0and\u00a0end\u00a0denote the start and end\u00a0indices (inclusive) of the group. In the above example,\u00a0\"xxxx\"\u00a0has the interval\u00a0[3,6].\nA group is considered\u00a0large\u00a0if it has 3 or more characters.\nReturn\u00a0the intervals of every large group sorted in\u00a0increasing order by start index.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "reconstruct-itinerary": {
+      "questionId": "332",
+      "title": "Reconstruct Itinerary",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= tickets.length <= 300",
+        "tickets[i].length == 2",
+        "fromi.length == 3",
+        "toi.length == 3",
+        "fromi and toi consist of uppercase English letters.",
+        "fromi != toi"
+      ],
+      "description": "You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival airports of one flight. Reconstruct the itinerary in order and return it.\nAll of the tickets belong to a man who departs from \"JFK\", thus, the itinerary must begin with \"JFK\". If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string.\nYou may assume all tickets form at least one valid itinerary. You must use all the tickets once and only once.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "repeated-string-match": {
+      "questionId": "686",
+      "title": "Repeated String Match",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= a.length, b.length <= 104",
+        "a and b consist of lowercase English letters."
+      ],
+      "description": "Given two strings a and b, return the minimum number of times you should repeat string a so that string b is a substring of it. If it is impossible for b\u200b\u200b\u200b\u200b\u200b\u200b to be a substring of a after repeating it, return -1.\nNotice: string \"abc\" repeated 0 times is \"\", repeated 1 time is \"abc\" and repeated 2 times is \"abcabc\".\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "repeated-substring-pattern": {
+      "questionId": "459",
+      "title": "Repeated Substring Pattern",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 104",
+        "s consists of lowercase English letters."
+      ],
+      "description": "Given a string s, check if it can be constructed by taking a substring of it and appending multiple copies of the substring together.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "reverse-nodes-in-k-group": {
+      "questionId": "25",
+      "title": "Reverse Nodes in k-Group",
+      "difficulty": "Hard",
+      "constraints": [
+        "The number of nodes in the list is n.",
+        "1 <= k <= n <= 5000",
+        "0 <= Node.val <= 1000"
+      ],
+      "description": "Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.\nk is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.\nYou may not alter the values in the list's nodes, only nodes themselves may be changed.\nExample 1:\nExample 2:\nConstraints:\nFollow-up: Can you solve the problem in O(1) extra memory space?"
+    },
+    "robot-return-to-origin": {
+      "questionId": "657",
+      "title": "Robot Return to Origin",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= moves.length <= 2 * 104",
+        "moves only contains the characters 'U', 'D', 'L' and 'R'."
+      ],
+      "description": "There is a robot starting at the position (0, 0), the origin, on a 2D plane. Given a sequence of its moves, judge if this robot ends up at (0, 0) after it completes its moves.\nYou are given a string moves that represents the move sequence of the robot where moves[i] represents its ith move. Valid moves are 'R' (right), 'L' (left), 'U' (up), and 'D' (down).\nReturn true if the robot returns to the origin after it finishes all of its moves, or false otherwise.\nNote: The way that the robot is \"facing\" is irrelevant. 'R' will always make the robot move to the right once, 'L' will always make it move left, etc. Also, assume that the magnitude of the robot's movement is the same for each move.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "rotate-string": {
+      "questionId": "796",
+      "title": "Rotate String",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length, goal.length <= 100",
+        "s and goal consist of lowercase English letters."
+      ],
+      "description": "Given two strings s and goal, return true if and only if s can become goal after some number of shifts on s.\nA shift on s consists of moving the leftmost character of s to the rightmost position.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "serialize-and-deserialize-binary-tree": {
+      "questionId": "297",
+      "title": "Serialize and Deserialize Binary Tree",
+      "difficulty": "Hard",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "description": "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\nDesign an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.\nClarification: The input/output format is the same as how LeetCode serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "string-to-integer-atoi": {
+      "questionId": "8",
+      "title": "String to Integer (atoi)",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= s.length <= 200",
+        "s consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', and '.'."
+      ],
+      "description": "Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.\nThe algorithm for myAtoi(string s) is as follows:\nReturn the integer as the final result.\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nExample 5:\nConstraints:"
+    },
+    "student-attendance-record-i": {
+      "questionId": "551",
+      "title": "Student Attendance Record I",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 1000",
+        "s[i] is either 'A', 'L', or 'P'."
+      ],
+      "description": "You are given a string s representing an attendance record for a student where each character signifies whether the student was absent, late, or present on that day. The record only contains the following three characters:\nThe student is eligible for an attendance award if they meet both of the following criteria:\nReturn true if the student is eligible for an attendance award, or false otherwise.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "swim-in-rising-water": {
+      "questionId": "778",
+      "title": "Swim in Rising Water",
+      "difficulty": "Hard",
+      "constraints": [
+        "n == grid.length",
+        "n == grid[i].length",
+        "1 <= n <= 50",
+        "0 <= grid[i][j] <\u00a0n2",
+        "Each value grid[i][j] is unique."
+      ],
+      "description": "You are given an n x n integer matrix grid where each value grid[i][j] represents the elevation at that point (i, j).\nIt starts raining, and water gradually rises over time. At time t, the water level is t, meaning any cell with elevation less than equal to t is submerged or reachable.\nYou can swim from a square to another 4-directionally adjacent square if and only if the elevation of both squares individually are at most t. You can swim infinite distances in zero time. Of course, you must stay within the boundaries of the grid during your swim.\nReturn the minimum time until you can reach the bottom right square (n - 1, n - 1) if you start at the top left square (0, 0).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "to-lower-case": {
+      "questionId": "709",
+      "title": "To Lower Case",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 100",
+        "s consists of printable ASCII characters."
+      ],
+      "description": "Given a string s, return the string after replacing every uppercase letter with the same lowercase letter.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "validate-ip-address": {
+      "questionId": "468",
+      "title": "Validate IP Address",
+      "difficulty": "Medium",
+      "constraints": [
+        "queryIP consists only of English letters, digits and the characters '.' and ':'."
+      ],
+      "description": "Given a string queryIP, return \"IPv4\" if IP is a valid IPv4 address, \"IPv6\" if IP is a valid IPv6 address or \"Neither\" if IP is not a correct IP of any type.\nA valid IPv4 address is an IP in the form \"x1.x2.x3.x4\" where 0 <= xi <= 255 and xi cannot contain leading zeros. For example, \"192.168.1.1\" and \"192.168.1.0\" are valid IPv4 addresses while \"192.168.01.1\", \"192.168.1.00\", and \"192.168@1.1\" are invalid IPv4 addresses.\nA valid IPv6 address is an IP in the form \"x1:x2:x3:x4:x5:x6:x7:x8\" where:\nFor example, \"2001:0db8:85a3:0000:0000:8a2e:0370:7334\" and \"2001:db8:85a3:0:0:8A2E:0370:7334\" are valid IPv6 addresses, while \"2001:0db8:85a3::8A2E:037j:7334\" and \"02001:0db8:85a3:0000:0000:8a2e:0370:7334\" are invalid IPv6 addresses.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "word-ladder": {
+      "questionId": "127",
+      "title": "Word Ladder",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= beginWord.length <= 10",
+        "endWord.length == beginWord.length",
+        "1 <= wordList.length <= 5000",
+        "wordList[i].length == beginWord.length",
+        "beginWord, endWord, and wordList[i] consist of lowercase English letters.",
+        "beginWord != endWord",
+        "All the words in wordList are unique."
+      ],
+      "description": "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:\nGiven two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "word-ladder-ii": {
+      "questionId": "126",
+      "title": "Word Ladder II",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= beginWord.length <= 5",
+        "endWord.length == beginWord.length",
+        "1 <= wordList.length <= 500",
+        "wordList[i].length == beginWord.length",
+        "beginWord, endWord, and wordList[i] consist of lowercase English letters.",
+        "beginWord != endWord",
+        "All the words in wordList are unique.",
+        "The sum of all shortest transformation sequences does not exceed 105."
+      ],
+      "description": "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:\nGiven two words, beginWord and endWord, and a dictionary wordList, return all the shortest transformation sequences from beginWord to endWord, or an empty list if no such sequence exists. Each sequence should be returned as a list of the words [beginWord, s1, s2, ..., sk].\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "zigzag-conversion": {
+      "questionId": "6",
+      "title": "Zigzag Conversion",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 1000",
+        "s consists of English letters (lower-case and upper-case), ',' and '.'.",
+        "1 <= numRows <= 1000"
+      ],
+      "description": "The string \"PAYPALISHIRING\" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)\nAnd then read line by line: \"PAHNAPLSIIGYIR\"\nWrite the code that will take a string and make this conversion given a number of rows:\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "goat-latin": {
+      "questionId": "824",
+      "title": "Goat Latin",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= sentence.length <= 150",
+        "sentence consists of English letters and spaces.",
+        "sentence has no leading or trailing spaces.",
+        "All the words in sentence are separated by a single space."
+      ],
+      "description": "You are given a string sentence that consist of words separated by spaces. Each word consists of lowercase and uppercase letters only.\nWe would like to convert the sentence to \"Goat Latin\" (a made-up language similar to Pig Latin.) The rules of Goat Latin are as follows:\nReturn the final sentence representing the conversion from sentence to Goat Latin.\nExample 1:\nExample 2:\nConstraints:"
+    }
+  }
+}

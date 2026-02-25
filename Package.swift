@@ -1,9 +1,29 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.2
 import PackageDescription
+
+let testTargets: [(name: String, path: String)] = [
+    ("ArraysHashingTests", "Tests/ArraysHashingTests"),
+    ("BacktrackingTests", "Tests/BacktrackingTests"),
+    ("BinarySearchTests", "Tests/BinarySearchTests"),
+    ("BitManipulationTests", "Tests/BitManipulationTests"),
+    ("DynamicProgrammingTests", "Tests/DynamicProgrammingTests"),
+    ("GraphsTests", "Tests/GraphsTests"),
+    ("GreedyTests", "Tests/GreedyTests"),
+    ("HeapPriorityQueueTests", "Tests/HeapPriorityQueueTests"),
+    ("IntervalsTests", "Tests/IntervalsTests"),
+    ("LinkedListTests", "Tests/LinkedListTests"),
+    ("MathGeometryTests", "Tests/MathGeometryTests"),
+    ("MiscTests", "Tests/MiscTests"),
+    ("SlidingWindowTests", "Tests/SlidingWindowTests"),
+    ("StackTests", "Tests/StackTests"),
+    ("TreesTests", "Tests/TreesTests"),
+    ("TriesTests", "Tests/TriesTests"),
+    ("TwoPointersTests", "Tests/TwoPointersTests"),
+]
 
 let package = Package(
     name: "TestCaseEvaluator",
-    platforms: [.macOS(.v13)],
+    platforms: [.macOS(.v14), .iOS(.v17)],
     products: [
         .library(name: "LeetCodeHelpers", targets: ["LeetCodeHelpers"]),
     ],
@@ -12,22 +32,11 @@ let package = Package(
             name: "LeetCodeHelpers",
             path: "Sources/LeetCodeHelpers"
         ),
-        .testTarget(name: "ArraysHashingTests", dependencies: ["LeetCodeHelpers"], path: "Tests/ArraysHashingTests"),
-        .testTarget(name: "BacktrackingTests", dependencies: ["LeetCodeHelpers"], path: "Tests/BacktrackingTests"),
-        .testTarget(name: "BinarySearchTests", dependencies: ["LeetCodeHelpers"], path: "Tests/BinarySearchTests"),
-        .testTarget(name: "BitManipulationTests", dependencies: ["LeetCodeHelpers"], path: "Tests/BitManipulationTests"),
-        .testTarget(name: "DynamicProgrammingTests", dependencies: ["LeetCodeHelpers"], path: "Tests/DynamicProgrammingTests"),
-        .testTarget(name: "GraphsTests", dependencies: ["LeetCodeHelpers"], path: "Tests/GraphsTests"),
-        .testTarget(name: "GreedyTests", dependencies: ["LeetCodeHelpers"], path: "Tests/GreedyTests"),
-        .testTarget(name: "HeapPriorityQueueTests", dependencies: ["LeetCodeHelpers"], path: "Tests/HeapPriorityQueueTests"),
-        .testTarget(name: "IntervalsTests", dependencies: ["LeetCodeHelpers"], path: "Tests/IntervalsTests"),
-        .testTarget(name: "LinkedListTests", dependencies: ["LeetCodeHelpers"], path: "Tests/LinkedListTests"),
-        .testTarget(name: "MathGeometryTests", dependencies: ["LeetCodeHelpers"], path: "Tests/MathGeometryTests"),
-        .testTarget(name: "MiscTests", dependencies: ["LeetCodeHelpers"], path: "Tests/MiscTests"),
-        .testTarget(name: "SlidingWindowTests", dependencies: ["LeetCodeHelpers"], path: "Tests/SlidingWindowTests"),
-        .testTarget(name: "StackTests", dependencies: ["LeetCodeHelpers"], path: "Tests/StackTests"),
-        .testTarget(name: "TreesTests", dependencies: ["LeetCodeHelpers"], path: "Tests/TreesTests"),
-        .testTarget(name: "TriesTests", dependencies: ["LeetCodeHelpers"], path: "Tests/TriesTests"),
-        .testTarget(name: "TwoPointersTests", dependencies: ["LeetCodeHelpers"], path: "Tests/TwoPointersTests"),
-    ]
+    ] + testTargets.map { target in
+        .testTarget(
+            name: target.name,
+            dependencies: ["LeetCodeHelpers"],
+            path: target.path
+        )
+    }
 )

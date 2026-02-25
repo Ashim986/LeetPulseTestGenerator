@@ -186,6 +186,75 @@ public enum InputParser {
         }
     }
 
+    // MARK: - Parse raw args list for class design: [[2],[1,1],[3,3]] -> [["2"],["1","1"],["3","3"]]
+    public static func parseRawArgsList(_ s: String) -> [[String]] {
+        let trimmed = s.trimmingCharacters(in: .whitespaces)
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        // Split outer array into inner arrays by bracket matching
+        var depth = 0
+        var current = ""
+        var result: [[String]] = []
+        var inQuote = false
+        var escaped = false
+        let inner = String(trimmed.dropFirst().dropLast())
+
+        for ch in inner {
+            if escaped { current.append(ch); escaped = false; continue }
+            if ch == "\\" && inQuote { escaped = true; current.append(ch); continue }
+            if ch == "\"" { inQuote = !inQuote; current.append(ch); continue }
+            if inQuote { current.append(ch); continue }
+            if ch == "[" {
+                depth += 1
+                if depth > 1 { current.append(ch) }
+            } else if ch == "]" {
+                depth -= 1
+                if depth == 0 {
+                    // Parse inner: split by comma, keeping nested structures intact
+                    let items = splitRawArgs(current)
+                    result.append(items)
+                    current = ""
+                } else {
+                    current.append(ch)
+                }
+            } else if ch == "," && depth == 0 {
+                continue
+            } else {
+                current.append(ch)
+            }
+        }
+        return result
+    }
+
+    /// Split raw args string by top-level commas, preserving nested brackets/quotes
+    private static func splitRawArgs(_ s: String) -> [String] {
+        let trimmed = s.trimmingCharacters(in: .whitespaces)
+        if trimmed.isEmpty { return [] }
+        var result: [String] = []
+        var depth = 0
+        var current = ""
+        var inQuote = false
+        var escaped = false
+
+        for ch in trimmed {
+            if escaped { current.append(ch); escaped = false; continue }
+            if ch == "\\" && inQuote { escaped = true; current.append(ch); continue }
+            if ch == "\"" { inQuote = !inQuote; current.append(ch); continue }
+            if inQuote { current.append(ch); continue }
+            if ch == "[" || ch == "{" { depth += 1; current.append(ch); continue }
+            if ch == "]" || ch == "}" { depth -= 1; current.append(ch); continue }
+            if ch == "," && depth == 0 {
+                result.append(current.trimmingCharacters(in: .whitespaces))
+                current = ""
+                continue
+            }
+            current.append(ch)
+        }
+        if !current.trimmingCharacters(in: .whitespaces).isEmpty {
+            result.append(current.trimmingCharacters(in: .whitespaces))
+        }
+        return result
+    }
+
     // MARK: - Strip parameter names from input string
     /// Converts "nums = [2,7,11,15], target = 9" to ["[2,7,11,15]", "9"]
     public static func stripParamNames(_ input: String) -> [String] {

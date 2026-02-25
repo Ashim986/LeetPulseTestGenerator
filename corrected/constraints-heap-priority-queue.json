@@ -1,0 +1,163 @@
+{
+  "topic": "heap-priority-queue",
+  "problems": {
+    "design-twitter": {
+      "questionId": "355",
+      "title": "Design Twitter",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= userId, followerId, followeeId <= 500",
+        "0 <= tweetId <= 104",
+        "All the tweets have unique IDs.",
+        "At most 3 * 104 calls will be made to postTweet, getNewsFeed, follow, and unfollow.",
+        "A user cannot follow himself."
+      ],
+      "description": "Design a simplified version of Twitter where users can post tweets, follow/unfollow another user, and is able to see the 10 most recent tweets in the user's news feed.\nImplement the Twitter class:\nExample 1:\nConstraints:"
+    },
+    "exam-room": {
+      "questionId": "855",
+      "title": "Exam Room",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 109",
+        "It is guaranteed that there is a student sitting at seat p.",
+        "At most 104 calls will be made to seat and leave."
+      ],
+      "description": "There is an exam room with n seats in a single row labeled from 0 to n - 1.\nWhen a student enters the room, they must sit in the seat that maximizes the distance to the closest person. If there are multiple such seats, they sit in the seat with the lowest number. If no one is in the room, then the student sits at seat number 0.\nDesign a class that simulates the mentioned exam room.\nImplement the ExamRoom class:\nExample 1:\nConstraints:"
+    },
+    "find-k-pairs-with-smallest-sums": {
+      "questionId": "373",
+      "title": "Find K Pairs with Smallest Sums",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums1.length, nums2.length <= 105",
+        "-109 <= nums1[i], nums2[i] <= 109",
+        "nums1 and nums2 both are sorted in non-decreasing order.",
+        "1 <= k <= 104",
+        "k <=\u00a0nums1.length *\u00a0nums2.length"
+      ],
+      "description": "You are given two integer arrays nums1 and nums2 sorted in non-decreasing\u00a0order and an integer k.\nDefine a pair (u, v) which consists of one element from the first array and one element from the second array.\nReturn the k pairs (u1, v1), (u2, v2), ..., (uk, vk) with the smallest sums.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "find-median-from-data-stream": {
+      "questionId": "295",
+      "title": "Find Median from Data Stream",
+      "difficulty": "Hard",
+      "constraints": [
+        "-105 <= num <= 105",
+        "There will be at least one element in the data structure before calling findMedian.",
+        "At most 5 * 104 calls will be made to addNum and findMedian."
+      ],
+      "description": "The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.\nImplement the MedianFinder class:\nExample 1:\nConstraints:\nFollow up:"
+    },
+    "k-closest-points-to-origin": {
+      "questionId": "973",
+      "title": "K Closest Points to Origin",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= k <= points.length <= 104",
+        "-104 <= xi, yi <= 104"
+      ],
+      "description": "Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).\nThe distance between two points on the X-Y plane is the Euclidean distance (i.e., \u221a(x1 - x2)2 + (y1 - y2)2).\nYou may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "kth-largest-element-in-an-array": {
+      "questionId": "215",
+      "title": "Kth Largest Element in an Array",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= k <= nums.length <= 105",
+        "-104 <= nums[i] <= 104"
+      ],
+      "description": "Given an integer array nums and an integer k, return the kth largest element in the array.\nNote that it is the kth largest element in the sorted order, not the kth distinct element.\nCan you solve it without sorting?\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "last-stone-weight": {
+      "questionId": "1046",
+      "title": "Last Stone Weight",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= stones.length <= 30",
+        "1 <= stones[i] <= 1000"
+      ],
+      "description": "You are given an array of integers stones where stones[i] is the weight of the ith stone.\nWe are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights x and y with x <= y. The result of this smash is:\nAt the end of the game, there is at most one stone left.\nReturn the weight of the last remaining stone. If there are no stones left, return 0.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "network-delay-time": {
+      "questionId": "743",
+      "title": "Network Delay Time",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= k <= n <= 100",
+        "1 <= times.length <= 6000",
+        "times[i].length == 3",
+        "1 <= ui, vi <= n",
+        "ui != vi",
+        "0 <= wi <= 100",
+        "All the pairs (ui, vi) are unique. (i.e., no multiple edges.)"
+      ],
+      "description": "You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.\nWe will send a signal from a given node k. Return the minimum time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "relative-ranks": {
+      "questionId": "506",
+      "title": "Relative Ranks",
+      "difficulty": "Easy",
+      "constraints": [
+        "n == score.length",
+        "1 <= n <= 104",
+        "0 <= score[i] <= 106",
+        "All the values in score are unique."
+      ],
+      "description": "You are given an integer array score of size n, where score[i] is the score of the ith athlete in a competition. All the scores are guaranteed to be unique.\nThe athletes are placed based on their scores, where the 1st place athlete has the highest score, the 2nd place athlete has the 2nd highest score, and so on. The placement of each athlete determines their rank:\nReturn an array answer of size n where answer[i] is the rank of the ith athlete.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "reorganize-string": {
+      "questionId": "767",
+      "title": "Reorganize String",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 500",
+        "s consists of lowercase English letters."
+      ],
+      "description": "Given a string s, rearrange the characters of s so that any two adjacent characters are not the same.\nReturn any possible rearrangement of s or return \"\" if not possible.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sort-an-array": {
+      "questionId": "912",
+      "title": "Sort an Array",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 5 * 104",
+        "-5 * 104 <= nums[i] <= 5 * 104"
+      ],
+      "description": "Given an array of integers nums, sort the array in ascending order and return it.\nYou must solve the problem without using any built-in functions in O(nlog(n)) time complexity and with the smallest space complexity possible.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sort-characters-by-frequency": {
+      "questionId": "451",
+      "title": "Sort Characters By Frequency",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 5 * 105",
+        "s consists of uppercase and lowercase English letters and digits."
+      ],
+      "description": "Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.\nReturn the sorted string. If there are multiple answers, return any of them.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "task-scheduler": {
+      "questionId": "621",
+      "title": "Task Scheduler",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= tasks.length <= 104",
+        "tasks[i] is an uppercase English letter.",
+        "0 <= n <= 100"
+      ],
+      "description": "You are given an array of CPU tasks, each labeled with a letter from A to Z, and a number n. Each CPU interval can be idle or allow the completion of one task. Tasks can be completed in any order, but there's a constraint: there has to be a gap of at least n intervals between two tasks with the same label.\nReturn the minimum number of CPU intervals required to complete all tasks.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "top-k-frequent-elements": {
+      "questionId": "347",
+      "title": "Top K Frequent Elements",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "-104 <= nums[i] <= 104",
+        "k is in the range [1, the number of unique elements in the array].",
+        "It is guaranteed that the answer is unique."
+      ],
+      "description": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.\nExample 1:\nExample 2:\nConstraints:\nFollow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size."
+    }
+  }
+}

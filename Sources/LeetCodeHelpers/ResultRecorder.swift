@@ -1,7 +1,8 @@
 import Foundation
 
-/// Thread-safe result recorder using Swift's modern actor concurrency.
-/// Records test results to a JSON file for later processing.
+/// Thread-safe result recorder using Swift's actor concurrency.
+/// The actor provides built-in data isolation and Sendable conformance —
+/// no locks, semaphores, or manual synchronization needed.
 public actor ResultRecorderActor {
     public static let shared = ResultRecorderActor()
 
@@ -56,23 +57,89 @@ public actor ResultRecorderActor {
         problemMeta[slug] = meta
     }
 
-    /// Flush all results to a JSON file.
-    public func flush(to path: String? = nil) {
-        let outputPath = path ?? defaultOutputPath()
+    /// Flush all results to per-topic JSON files + summary.
+    ///
+    /// Output structure:
+    /// ```
+    /// test_results/
+    /// ├── summary.json          # Aggregated stats
+    /// ├── arrays-hashing.json   # Per-topic results
+    /// ├── intervals.json
+    /// └── ...
+    /// ```
+    public func flush(to basePath: String? = nil) {
+        let outputDir = basePath ?? defaultOutputDir()
 
-        let output: [String: Any] = [
-            "problems": Array(problemMeta.values),
-            "test_results": results,
-            "evaluated_at": ISO8601DateFormatter().string(from: Date()),
+        // Create directory
+        let fm = FileManager.default
+        try? fm.createDirectory(atPath: outputDir, withIntermediateDirectories: true)
+
+        let timestamp = ISO8601DateFormatter().string(from: Date())
+
+        // Group results by topic
+        var resultsByTopic: [String: [[String: Any]]] = [:]
+        for r in results {
+            let topic = r["topic"] as? String ?? "unknown"
+            resultsByTopic[topic, default: []].append(r)
+        }
+
+        // Group problem meta by topic
+        var metaByTopic: [String: [[String: Any]]] = [:]
+        for meta in problemMeta.values {
+            let topic = meta["topic"] as? String ?? "unknown"
+            metaByTopic[topic, default: []].append(meta)
+        }
+
+        // Write per-topic files
+        var topicSummaries: [[String: Any]] = []
+        for (topic, topicResults) in resultsByTopic.sorted(by: { $0.key < $1.key }) {
+            let topicMeta = metaByTopic[topic] ?? []
+            let validCount = topicResults.filter { $0["is_valid"] as? Bool == true }.count
+            let matchCount = topicResults.filter { $0["output_matches"] as? Bool == true }.count
+
+            let topicOutput: [String: Any] = [
+                "topic": topic,
+                "evaluated_at": timestamp,
+                "total_results": topicResults.count,
+                "problems": topicMeta,
+                "test_results": topicResults,
+            ]
+
+            let topicPath = outputDir + "/\(topic).json"
+            do {
+                let data = try JSONSerialization.data(withJSONObject: topicOutput, options: [.prettyPrinted, .sortedKeys])
+                try data.write(to: URL(fileURLWithPath: topicPath))
+            } catch {
+                print("[ResultRecorder] ERROR writing \(topicPath): \(error)")
+            }
+
+            topicSummaries.append([
+                "topic": topic,
+                "total": topicResults.count,
+                "valid": validCount,
+                "invalid": topicResults.count - validCount,
+                "matches": matchCount,
+                "match_rate": topicResults.count > 0
+                    ? Double(matchCount) / Double(topicResults.count)
+                    : 0.0,
+            ])
+        }
+
+        // Write summary
+        let summary: [String: Any] = [
+            "evaluated_at": timestamp,
             "total_results": results.count,
+            "topics": topicSummaries,
+            "problems": Array(problemMeta.values),
         ]
 
+        let summaryPath = outputDir + "/summary.json"
         do {
-            let data = try JSONSerialization.data(withJSONObject: output, options: [.prettyPrinted, .sortedKeys])
-            try data.write(to: URL(fileURLWithPath: outputPath))
-            print("[ResultRecorder] Wrote \(results.count) results to \(outputPath)")
+            let data = try JSONSerialization.data(withJSONObject: summary, options: [.prettyPrinted, .sortedKeys])
+            try data.write(to: URL(fileURLWithPath: summaryPath))
+            print("[ResultRecorder] Wrote \(results.count) results to \(outputDir)/ (\(resultsByTopic.count) topics)")
         } catch {
-            print("[ResultRecorder] ERROR writing results: \(error)")
+            print("[ResultRecorder] ERROR writing summary: \(error)")
         }
     }
 
@@ -82,66 +149,39 @@ public actor ResultRecorderActor {
         problemMeta.removeAll()
     }
 
-    private func defaultOutputPath() -> String {
+    private func defaultOutputDir() -> String {
         let env = ProcessInfo.processInfo.environment
         if let dir = env["TEST_RESULTS_DIR"] {
-            return dir + "/test_results.json"
+            return dir
         }
-        return FileManager.default.currentDirectoryPath + "/test_results.json"
+        return FileManager.default.currentDirectoryPath + "/test_results"
+    }
+
+    // MARK: - Synchronous flush (for atexit handler only)
+
+    /// Flush synchronously — bridges async actor to sync context.
+    /// Only used by the atexit handler at process exit.
+    public static func flushSync() {
+        let group = DispatchGroup()
+        group.enter()
+        Task {
+            await shared.flush()
+            group.leave()
+        }
+        group.wait()
     }
 }
 
-/// Synchronous wrapper for use in XCTest methods (which aren't async).
-/// Uses `ResultRecorderActor` under the hood.
-public enum ResultRecorder {
-    public static let shared = ResultRecorderSync()
-}
+// MARK: - Auto-flush registration
 
-public final class ResultRecorderSync: @unchecked Sendable {
-    private let actor = ResultRecorderActor.shared
+nonisolated(unsafe) private var _flushRegistered = false
 
-    public func record(
-        slug: String,
-        topic: String,
-        testId: String,
-        input: String,
-        originalExpected: String,
-        computedOutput: String,
-        isValid: Bool,
-        outputMatches: Bool,
-        orderMatters: Bool,
-        errorMessage: String? = nil
-    ) {
-        // Bridge synchronous XCTest to async actor
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            await actor.record(
-                slug: slug, topic: topic, testId: testId,
-                input: input, originalExpected: originalExpected,
-                computedOutput: computedOutput, isValid: isValid,
-                outputMatches: outputMatches, orderMatters: orderMatters,
-                errorMessage: errorMessage
-            )
-            semaphore.signal()
-        }
-        semaphore.wait()
-    }
-
-    public func flush(to path: String? = nil) {
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            await actor.flush(to: path)
-            semaphore.signal()
-        }
-        semaphore.wait()
-    }
-
-    public func reset() {
-        let semaphore = DispatchSemaphore(value: 0)
-        Task {
-            await actor.reset()
-            semaphore.signal()
-        }
-        semaphore.wait()
+/// Register an atexit handler to flush results when the process exits.
+/// Idempotent — safe to call multiple times (only registers once).
+public func registerResultFlush() {
+    guard !_flushRegistered else { return }
+    _flushRegistered = true
+    atexit {
+        ResultRecorderActor.flushSync()
     }
 }

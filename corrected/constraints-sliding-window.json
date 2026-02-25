@@ -1,0 +1,133 @@
+{
+  "topic": "sliding-window",
+  "problems": {
+    "binary-subarrays-with-sum": {
+      "questionId": "930",
+      "title": "Binary Subarrays With Sum",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 3 * 104",
+        "nums[i] is either 0 or 1.",
+        "0 <= goal <= nums.length"
+      ],
+      "description": "Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.\nA subarray is a contiguous part of the array.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "contains-duplicate-ii": {
+      "questionId": "219",
+      "title": "Contains Duplicate II",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "-109 <= nums[i] <= 109",
+        "0 <= k <= 105"
+      ],
+      "description": "Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "find-all-anagrams-in-a-string": {
+      "questionId": "438",
+      "title": "Find All Anagrams in a String",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length, p.length <= 3 * 104",
+        "s and p consist of lowercase English letters."
+      ],
+      "description": "Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "fruit-into-baskets": {
+      "questionId": "904",
+      "title": "Fruit Into Baskets",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= fruits.length <= 105",
+        "0 <= fruits[i] < fruits.length"
+      ],
+      "description": "You are visiting a farm that has a single row of fruit trees arranged from left to right. The trees are represented by an integer array fruits where fruits[i] is the type of fruit the ith tree produces.\nYou want to collect as much fruit as possible. However, the owner has some strict rules that you must follow:\nGiven the integer array fruits, return the maximum number of fruits you can pick.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "longest-harmonious-subsequence": {
+      "questionId": "594",
+      "title": "Longest Harmonious Subsequence",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= nums.length <= 2 * 104",
+        "-109 <= nums[i] <= 109"
+      ],
+      "description": "We define a harmonious array as an array where the difference between its maximum value and its minimum value is exactly 1.\nGiven an integer array nums, return the length of its longest harmonious subsequence among all its possible subsequences.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "longest-repeating-character-replacement": {
+      "questionId": "424",
+      "title": "Longest Repeating Character Replacement",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 105",
+        "s consists of only uppercase English letters.",
+        "0 <= k <= s.length"
+      ],
+      "description": "You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.\nReturn the length of the longest substring containing the same letter you can get after performing the above operations.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "longest-substring-with-at-least-k-repeating-characters": {
+      "questionId": "395",
+      "title": "Longest Substring with At Least K Repeating Characters",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 104",
+        "s consists of only lowercase English letters.",
+        "1 <= k <= 105"
+      ],
+      "description": "Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.\nif no such substring exists, return 0.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "longest-substring-without-repeating-characters": {
+      "questionId": "3",
+      "title": "Longest Substring Without Repeating Characters",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= s.length <= 5 * 104",
+        "s consists of English letters, digits, symbols and spaces."
+      ],
+      "description": "Given a string s, find the length of the longest substring without duplicate characters.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "maximum-average-subarray-i": {
+      "questionId": "643",
+      "title": "Maximum Average Subarray I",
+      "difficulty": "Easy",
+      "constraints": [
+        "n == nums.length",
+        "1 <= k <= n <= 105",
+        "-104 <= nums[i] <= 104"
+      ],
+      "description": "You are given an integer array nums consisting of n elements, and an integer k.\nFind a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "minimum-window-substring": {
+      "questionId": "76",
+      "title": "Minimum Window Substring",
+      "difficulty": "Hard",
+      "constraints": [
+        "m == s.length",
+        "n == t.length",
+        "1 <= m, n <= 105",
+        "s and t consist of uppercase and lowercase English letters."
+      ],
+      "description": "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string \"\".\nThe testcases will be generated such that the answer is unique.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Could you find an algorithm that runs in O(m + n) time?"
+    },
+    "permutation-in-string": {
+      "questionId": "567",
+      "title": "Permutation in String",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s1.length, s2.length <= 104",
+        "s1 and s2 consist of lowercase English letters."
+      ],
+      "description": "Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.\nIn other words, return true if one of s1's permutations is the substring of s2.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "sliding-window-maximum": {
+      "questionId": "239",
+      "title": "Sliding Window Maximum",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= nums.length <= 105",
+        "-104 <= nums[i] <= 104",
+        "1 <= k <= nums.length"
+      ],
+      "description": "You are given an array of integers\u00a0nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.\nReturn the max sliding window.\nExample 1:\nExample 2:\nConstraints:"
+    }
+  }
+}

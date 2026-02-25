@@ -1,0 +1,279 @@
+{
+  "topic": "backtracking",
+  "problems": {
+    "additive-number": {
+      "questionId": "306",
+      "title": "Additive Number",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= num.length <= 35",
+        "num consists only of digits."
+      ],
+      "description": "An additive number is a string whose digits can form an additive sequence.\nA valid additive sequence should contain at least three numbers. Except for the first two numbers, each subsequent number in the sequence must be the sum of the preceding two.\nGiven a string containing only digits, return true if it is an additive number or false otherwise.\nNote: Numbers in the additive sequence cannot have leading zeros, so sequence 1, 2, 03 or 1, 02, 3 is invalid.\nExample 1:\nExample 2:\nConstraints:\nFollow up: How would you handle overflow for very large input integers?"
+    },
+    "all-paths-from-source-to-target": {
+      "questionId": "797",
+      "title": "All Paths From Source to Target",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == graph.length",
+        "2 <= n <= 15",
+        "0 <= graph[i][j] < n",
+        "graph[i][j] != i (i.e., there will be no self-loops).",
+        "All the elements of graph[i] are unique.",
+        "The input graph is guaranteed to be a DAG."
+      ],
+      "description": "Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1 and return them in any order.\nThe graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "ambiguous-coordinates": {
+      "questionId": "816",
+      "title": "Ambiguous Coordinates",
+      "difficulty": "Medium",
+      "constraints": [
+        "4 <= s.length <= 12",
+        "s[0] == '(' and s[s.length - 1] == ')'.",
+        "The rest of s are digits."
+      ],
+      "description": "We had some 2-dimensional coordinates, like \"(1, 3)\" or \"(2, 0.5)\". Then, we removed all commas, decimal points, and spaces and ended up with the string s.\nReturn a list of strings representing all possibilities for what our original coordinates could have been.\nOur original representation never had extraneous zeroes, so we never started with numbers like \"00\", \"0.0\", \"0.00\", \"1.0\", \"001\", \"00.01\", or any other number that can be represented with fewer digits. Also, a decimal point within a number never occurs without at least one digit occurring before it, so we never started with numbers like \".1\".\nThe final answer list can be returned in any order. All coordinates in the final answer have exactly one space between them (occurring after the comma.)\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-tree-paths": {
+      "questionId": "257",
+      "title": "Binary Tree Paths",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 100].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return all root-to-leaf paths in any order.\nA leaf is a node with no children.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "binary-watch": {
+      "questionId": "401",
+      "title": "Binary Watch",
+      "difficulty": "Easy",
+      "constraints": [
+        "0 <= turnedOn <= 10"
+      ],
+      "description": "A binary watch has 4 LEDs on the top to represent the hours (0-11), and 6 LEDs on the bottom to represent\u00a0the minutes (0-59). Each LED represents a zero or one, with the least significant bit on the right.\nGiven an integer turnedOn which represents the number of LEDs that are currently on (ignoring the PM), return all possible times the watch could represent. You may return the answer in any order.\nThe hour must not contain a leading zero.\nThe minute must\u00a0consist of two digits and may contain a leading zero.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "combination-sum": {
+      "questionId": "39",
+      "title": "Combination Sum",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= candidates.length <= 30",
+        "2 <= candidates[i] <= 40",
+        "All elements of candidates are distinct.",
+        "1 <= target <= 40"
+      ],
+      "description": "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.\nThe same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.\nThe test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "combination-sum-ii": {
+      "questionId": "40",
+      "title": "Combination Sum II",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <=\u00a0candidates.length <= 100",
+        "1 <=\u00a0candidates[i] <= 50",
+        "1 <= target <= 30"
+      ],
+      "description": "Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates\u00a0where the candidate numbers sum to target.\nEach number in candidates\u00a0may only be used once in the combination.\nNote:\u00a0The solution set must not contain duplicate combinations.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "combination-sum-iii": {
+      "questionId": "216",
+      "title": "Combination Sum III",
+      "difficulty": "Medium",
+      "constraints": [
+        "2 <= k <= 9",
+        "1 <= n <= 60"
+      ],
+      "description": "Find all valid combinations of k numbers that sum up to n such that the following conditions are true:\nReturn a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "combinations": {
+      "questionId": "77",
+      "title": "Combinations",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 20",
+        "1 <= k <= n"
+      ],
+      "description": "Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].\nYou may return the answer in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "generate-parentheses": {
+      "questionId": "22",
+      "title": "Generate Parentheses",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 8"
+      ],
+      "description": "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "largest-time-for-given-digits": {
+      "questionId": "949",
+      "title": "Largest Time for Given Digits",
+      "difficulty": "Medium",
+      "constraints": [
+        "arr.length == 4",
+        "0 <= arr[i] <= 9"
+      ],
+      "description": "Given an array arr of 4 digits, find the latest 24-hour time that can be made using each digit exactly once.\n24-hour times are formatted as \"HH:MM\", where HH is between 00 and 23, and MM is between 00 and 59. The earliest 24-hour time is 00:00, and the latest is 23:59.\nReturn the latest 24-hour time in \"HH:MM\" format. If no valid time can be made, return an empty string.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "letter-combinations-of-a-phone-number": {
+      "questionId": "17",
+      "title": "Letter Combinations of a Phone Number",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= digits.length <= 4",
+        "digits[i] is a digit in the range ['2', '9']."
+      ],
+      "description": "Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.\nA mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "n-queens": {
+      "questionId": "51",
+      "title": "N-Queens",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= n <= 9"
+      ],
+      "description": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\nGiven an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.\nEach solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "non-decreasing-subsequences": {
+      "questionId": "491",
+      "title": "Non-decreasing Subsequences",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 15",
+        "-100 <= nums[i] <= 100"
+      ],
+      "description": "Given an integer array nums, return all the different possible non-decreasing subsequences of the given array with at least two elements. You may return the answer in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "numbers-with-same-consecutive-differences": {
+      "questionId": "967",
+      "title": "Numbers With Same Consecutive Differences",
+      "difficulty": "Medium",
+      "constraints": [
+        "2 <= n <= 9",
+        "0 <= k <= 9"
+      ],
+      "description": "Given two integers n and k, return an array of all the integers of length n where the difference between every two consecutive digits is k. You may return the answer in any order.\nNote that the integers should not have leading zeros. Integers as 02 and 043 are not allowed.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "palindrome-partitioning": {
+      "questionId": "131",
+      "title": "Palindrome Partitioning",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 16",
+        "s contains only lowercase English letters."
+      ],
+      "description": "Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "path-sum-ii": {
+      "questionId": "113",
+      "title": "Path Sum II",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 5000].",
+        "-1000 <= Node.val <= 1000",
+        "-1000 <= targetSum <= 1000"
+      ],
+      "description": "Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.\nA root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "permutations": {
+      "questionId": "46",
+      "title": "Permutations",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 6",
+        "-10 <= nums[i] <= 10",
+        "All the integers of nums are unique."
+      ],
+      "description": "Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "pyramid-transition-matrix": {
+      "questionId": "756",
+      "title": "Pyramid Transition Matrix",
+      "difficulty": "Medium",
+      "constraints": [
+        "2 <= bottom.length <= 6",
+        "0 <= allowed.length <= 216",
+        "allowed[i].length == 3",
+        "The letters in all input strings are from the set {'A', 'B', 'C', 'D', 'E', 'F'}.",
+        "All the values of allowed are unique."
+      ],
+      "description": "You are stacking blocks to form a pyramid. Each block has a color, which is represented by a single letter. Each row of blocks contains one less block than the row beneath it and is centered on top.\nTo make the pyramid aesthetically pleasing, there are only specific triangular patterns that are allowed. A triangular pattern consists of a single block stacked on top of two blocks. The patterns are given\u00a0as a list of\u00a0three-letter strings allowed, where the first two characters of a pattern represent the left and right bottom blocks respectively, and the third character is the top block.\nYou start with a bottom row of blocks bottom, given as a single string, that you must use as the base of the pyramid.\nGiven bottom and allowed, return true if you can build the pyramid all the way to the top such that every triangular pattern in the pyramid is in allowed, or false otherwise.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "restore-ip-addresses": {
+      "questionId": "93",
+      "title": "Restore IP Addresses",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 20",
+        "s consists of digits only."
+      ],
+      "description": "A valid IP address consists of exactly four integers separated by single dots. Each integer is between 0 and 255 (inclusive) and cannot have leading zeros.\nGiven a string s containing only digits, return all possible valid IP addresses that can be formed by inserting dots into s. You are not allowed to reorder or remove any digits in s. You may return the valid IP addresses in any order.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "smallest-string-starting-from-leaf": {
+      "questionId": "988",
+      "title": "Smallest String Starting From Leaf",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 8500].",
+        "0 <= Node.val <= 25"
+      ],
+      "description": "You are given the root of a binary tree where each node has a value in the range [0, 25] representing the letters 'a' to 'z'.\nReturn the lexicographically smallest string that starts at a leaf of this tree and ends at the root.\nAs a reminder, any shorter prefix of a string is lexicographically smaller.\nA leaf of a node is a node that has no children.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "split-array-into-fibonacci-sequence": {
+      "questionId": "842",
+      "title": "Split Array into Fibonacci Sequence",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= num.length <= 200",
+        "num contains only digits."
+      ],
+      "description": "You are given a string of digits num, such as \"123456579\". We can split it into a Fibonacci-like sequence [123, 456, 579].\nFormally, a Fibonacci-like sequence is a list f of non-negative integers such that:\nNote that when splitting the string into pieces, each piece must not have extra leading zeroes, except if the piece is the number 0 itself.\nReturn any Fibonacci-like sequence split from num, or return [] if it cannot be done.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "subsets": {
+      "questionId": "78",
+      "title": "Subsets",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 10",
+        "-10 <= nums[i] <= 10",
+        "All the numbers of\u00a0nums are unique."
+      ],
+      "description": "Given an integer array nums of unique elements, return all possible subsets (the power set).\nThe solution set must not contain duplicate subsets. Return the solution in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "subsets-ii": {
+      "questionId": "90",
+      "title": "Subsets II",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 10",
+        "-10 <= nums[i] <= 10"
+      ],
+      "description": "Given an integer array nums that may contain duplicates, return all possible subsets (the power set).\nThe solution set must not contain duplicate subsets. Return the solution in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "word-search": {
+      "questionId": "79",
+      "title": "Word Search",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == board.length",
+        "n = board[i].length",
+        "1 <= m, n <= 6",
+        "1 <= word.length <= 15",
+        "board and word consists of only lowercase and uppercase English letters."
+      ],
+      "description": "Given an m x n grid of characters board and a string word, return true if word exists in the grid.\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.\nExample 1:\nExample 2:\nExample 3:\nConstraints:\nFollow up: Could you use search pruning to make your solution faster with a larger board?"
+    },
+    "letter-case-permutation": {
+      "questionId": "784",
+      "title": "Letter Case Permutation",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 12",
+        "s consists of lowercase English letters, uppercase English letters, and digits."
+      ],
+      "description": "Given a string s, you\u00a0can transform every letter individually to be lowercase or uppercase to create another string.\nReturn a list of all possible strings we could create. Return the output in any order.\nExample 1:\nExample 2:\nConstraints:"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 generate_tests.py — Reads Solutions/*.json and tc-*.json files,
-generates XCTest Swift files that run each solution against its test cases.
+generates Swift Testing files that run each solution against its test cases.
 
 Usage:
     python3 Scripts/generate_tests.py
@@ -17,11 +17,157 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+# ─── Constraint loading ──────────────────────────────────────────────────────
+
+def load_constraints(topic: str) -> Dict[str, List[str]]:
+    """Load constraint text for each problem slug from constraints JSON.
+    Returns {slug: [constraint_strings]}."""
+    constraints_file = Path(__file__).resolve().parent.parent / "corrected" / f"constraints-{topic}.json"
+    if not constraints_file.exists():
+        return {}
+    with open(constraints_file) as f:
+        data = json.load(f)
+    result = {}
+    for slug, info in data.get("problems", {}).items():
+        result[slug] = info.get("constraints", [])
+    return result
+
+
+def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, str, str]]) -> Optional[str]:
+    """Parse a single constraint string into a Swift guard condition.
+    param_vars is [(var_name, swift_type, label)].
+    Returns a Swift boolean expression or None if can't parse."""
+
+    text = constraint_text.strip()
+
+    # Build a lookup: param_name -> (var_name, swift_type)
+    param_map = {}
+    for var_name, swift_type, label in param_vars:
+        # var_name is like "p_nums", label is the original name
+        orig_name = var_name[2:]  # strip "p_"
+        param_map[orig_name] = (var_name, swift_type)
+
+    # Common patterns:
+
+    # "1 <= nums.length <= 10^5" or "1 <= nums.length <= 10^4"
+    m = re.match(r'(\d+)\s*<=\s*(\w+)\.length\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
+    if m:
+        lo = int(m.group(1))
+        name = m.group(2)
+        hi_str = m.group(3)
+        hi = _parse_number(hi_str)
+        if name in param_map:
+            vn, _ = param_map[name]
+            return f"{vn}.count >= {lo} && {vn}.count <= {hi}"
+
+    # "nums.length == 8" or "board.length == 9"
+    m = re.match(r'(\w+)\.length\s*==\s*(\d+)', text)
+    if m:
+        name = m.group(1)
+        val = int(m.group(2))
+        if name in param_map:
+            vn, _ = param_map[name]
+            return f"{vn}.count == {val}"
+
+    # "0 <= nums[i] < nums.length"
+    m = re.match(r'(\d+)\s*<=\s*(\w+)\[i\]\s*<\s*(\w+)\.length', text)
+    if m:
+        lo = int(m.group(1))
+        arr_name = m.group(2)
+        ref_name = m.group(3)
+        if arr_name in param_map:
+            vn, _ = param_map[arr_name]
+            return f"{vn}.allSatisfy {{ $0 >= {lo} && $0 < {vn}.count }}"
+
+    # "0 <= nums[i] <= 10^5" or "-10^4 <= nums[i] <= 10^4"
+    m = re.match(r'(-?\d+(?:\^|\*\*)\d+|-?\d+)\s*<=\s*(\w+)\[i\]\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
+    if m:
+        lo = _parse_number(m.group(1))
+        arr_name = m.group(2)
+        hi = _parse_number(m.group(3))
+        if arr_name in param_map:
+            vn, st = param_map[arr_name]
+            if st in ("[Int]", "inout [Int]"):
+                return f"{vn}.allSatisfy {{ $0 >= {lo} && $0 <= {hi} }}"
+
+    # "1 <= n <= 10^5" (simple integer range)
+    m = re.match(r'(-?\d+(?:\^|\*\*)\d+|-?\d+)\s*<=\s*(\w+)\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
+    if m:
+        lo = _parse_number(m.group(1))
+        name = m.group(2)
+        hi = _parse_number(m.group(3))
+        if name in param_map:
+            vn, st = param_map[name]
+            if st == "Int":
+                return f"{vn} >= {lo} && {vn} <= {hi}"
+
+    # "s.length <= 10^5"
+    m = re.match(r'(\w+)\.length\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
+    if m:
+        name = m.group(1)
+        hi = _parse_number(m.group(2))
+        if name in param_map:
+            vn, _ = param_map[name]
+            return f"{vn}.count <= {hi}"
+
+    # "n >= 1" or "n > 0"
+    m = re.match(r'(\w+)\s*>=\s*(\d+)', text)
+    if m:
+        name = m.group(1)
+        val = int(m.group(2))
+        if name in param_map:
+            vn, st = param_map[name]
+            if st == "Int":
+                return f"{vn} >= {val}"
+
+    return None
+
+
+def _parse_number(s: str) -> int:
+    """Parse '10^5', '10**5', or '105' into an integer."""
+    s = s.strip()
+    if '^' in s:
+        parts = s.split('^')
+        return int(parts[0]) ** int(parts[1])
+    if '**' in s:
+        parts = s.split('**')
+        return int(parts[0]) ** int(parts[1])
+    return int(s)
+
+
+def generate_constraint_guards(
+    slug: str,
+    constraints: List[str],
+    param_vars: List[Tuple[str, str, str]],
+) -> List[str]:
+    """Generate Swift guard lines from constraint text list.
+    Returns lines of Swift code to insert before the solution call."""
+    guards = []
+    for c_text in constraints:
+        condition = parse_constraint_to_guard(c_text, param_vars)
+        if condition:
+            guard = (
+                f'        guard {condition} else {{\n'
+                f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                f'errorMessage: "Constraint violation: {_escape_swift(c_text)}")\n'
+                f'            return\n'
+                f'        }}'
+            )
+            guards.append(guard)
+    return guards
+
+
+def _escape_swift(s: str) -> str:
+    """Escape a string for Swift string literal."""
+    return s.replace("\\", "\\\\").replace('"', '\\"')
+
 # ─── Paths ───────────────────────────────────────────────────────────────────
-BASE_DIR = Path(__file__).resolve().parent.parent.parent  # Focus app test case for solutions/
-SOLUTIONS_DIR = BASE_DIR / "Solutions"
-TC_DIR = BASE_DIR  # tc-*.json files are in the root
-TESTS_DIR = Path(__file__).resolve().parent.parent / "Tests"
+PACKAGE_DIR = Path(__file__).resolve().parent.parent  # TestCaseEvaluator/
+SOLUTIONS_DIR = PACKAGE_DIR.parent / "LeetPulse" / "LeetPulse" / "Resources" / "Solutions"
+TC_DIR = PACKAGE_DIR / "corrected"
+TESTS_DIR = PACKAGE_DIR / "Tests"
 
 # ─── Topic mapping ───────────────────────────────────────────────────────────
 TOPIC_TO_TEST_TARGET = {
@@ -183,27 +329,19 @@ CLASS_DESIGN_SLUGS = {
 }
 
 # ─── Slug → Node type mapping (solutions use "Node" but we have specific types) ─
-# These problems reference "Node" in code but need specific type aliases
 NODE_TYPE_MAP = {
-    # Graph Node (val, neighbors)
     "clone-graph": "GraphNode",
-    # N-ary tree Node (val, children)
     "n-ary-tree-level-order-traversal": "NAryNode",
     "n-ary-tree-preorder-traversal": "NAryNode",
     "n-ary-tree-postorder-traversal": "NAryNode",
     "maximum-depth-of-n-ary-tree": "NAryNode",
     "serialize-and-deserialize-n-ary-tree": "NAryNode",
-    # Random pointer Node (val, next, random)
     "copy-list-with-random-pointer": "RandomNode",
-    # Doubly linked Node (val, prev, next, child)
     "flatten-a-multilevel-doubly-linked-list": "DoublyNode",
-    # Next pointer Node (val, left, right, next)
     "populating-next-right-pointers-in-each-node": "NextNode",
     "populating-next-right-pointers-in-each-node-ii": "NextNode",
-    # Quad tree Node
     "logical-or-of-two-binary-grids-represented-as-quad-trees": "QuadNode",
     "construct-quad-tree": "QuadNode",
-    # Employee
     "employee-importance": "Employee",
 }
 
@@ -256,7 +394,7 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
     if t == "inout [[String]]":
         return f"InputParser.parse2DStringArray({var_name})"
     if t == "Int?":
-        return f"{{ let s = {var_name}.trimmingCharacters(in: .whitespaces); return s == \"null\" ? nil : Int(s) }}()"
+        return f'{{ let s = {var_name}.trimmingCharacters(in: .whitespaces); return s == "null" ? nil : Int(s) }}()'
     # Node variants
     if t == "Node?" or t == "GraphNode?":
         return f"buildGraph(InputParser.parse2DIntArray({var_name}))"
@@ -267,7 +405,6 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
     if t == "RandomNode?":
         return f"buildRandomList(InputParser.parse2DIntArray({var_name}).map {{ $0.map {{ $0 == -1 ? nil : $0 }} as [Int?] }})"
     if t == "DoublyNode?":
-        # Doubly linked list is complex — just parse as int array for now
         return f"{{ (_: String) -> DoublyNode? in nil }}({var_name})"
     if t == "QuadNode?":
         return f"{{ (_: String) -> QuadNode? in nil }}({var_name})"
@@ -336,14 +473,14 @@ def output_serializer(swift_type: str, expr: str) -> str:
 
 def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optional[str]:
     """Return a Swift guard statement to validate common constraints.
-    Returns None if no constraint applies."""
+    Returns None if no constraint applies. Uses async actor recording."""
     t = swift_type.strip()
     # Array types: check not unreasonably large (prevent memory issues)
     if t in ("[Int]", "[String]", "[Double]", "[Bool]", "[Character]",
              "inout [Int]", "inout [String]"):
         return (
             f'        guard {parsed_var}.count <= 100_000 else {{\n'
-            f'            ResultRecorder.shared.record(slug: slug, topic: topic, testId: testId, '
+            f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
             f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
             f'errorMessage: "Constraint violation: {param_name} array too large (\\({parsed_var}.count))")\n'
@@ -354,7 +491,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
              "inout [[Int]]", "inout [[Character]]", "inout [[String]]"):
         return (
             f'        guard {parsed_var}.count <= 1000 else {{\n'
-            f'            ResultRecorder.shared.record(slug: slug, topic: topic, testId: testId, '
+            f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
             f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
             f'errorMessage: "Constraint violation: {param_name} 2D array too large (\\({parsed_var}.count))")\n'
@@ -364,7 +501,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
     if t == "String":
         return (
             f'        guard {parsed_var}.count <= 100_000 else {{\n'
-            f'            ResultRecorder.shared.record(slug: slug, topic: topic, testId: testId, '
+            f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
             f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
             f'errorMessage: "Constraint violation: {param_name} string too long (\\({parsed_var}.count))")\n'
@@ -391,12 +528,10 @@ def parse_func_signature(code: str) -> Optional[dict]:
         closure_pattern = r'let\s+(\w+)\s*=\s*\{\s*\((.*?)\)\s*(?:->\s*(.+?))?\s*in'
         match = re.search(closure_pattern, code, re.DOTALL)
         if match:
-            # For closures, params use "name: Type" format (no labels)
             func_name = match.group(1)
             params_str = match.group(2).strip()
             return_type = match.group(3).strip() if match.group(3) else "Void"
             return_type = return_type.strip().rstrip('{').strip()
-            # Parse closure params — they have no labels, just "name: Type"
             params = []
             has_inout = False
             if params_str:
@@ -425,7 +560,6 @@ def parse_func_signature(code: str) -> Optional[dict]:
                     type_str = parts[1].strip()
                     if "inout" in type_str:
                         has_inout = True
-                    # Closure params always use _ label
                     parsed_params.append(("_", name, type_str))
                 params = parsed_params
 
@@ -471,7 +605,6 @@ def parse_func_signature(code: str) -> Optional[dict]:
             p = p.strip()
             # Remove default value
             if "=" in p:
-                # Find = not inside brackets
                 eq_depth = 0
                 for i, ch in enumerate(p):
                     if ch in "([<":
@@ -541,12 +674,10 @@ def sanitize_solution_code(code: str) -> str:
     # Make class private to avoid conflicts
     if "private class Solution" not in modified:
         modified = modified.replace("class Solution", "private class Solution", 1)
-    # Remove import Foundation (already imported by XCTest)
+    # Remove import Foundation (already imported)
     modified = re.sub(r'import\s+Foundation\s*\n?', '', modified)
 
     # Remove TreeNode/ListNode/Node redefinitions (we provide these from LeetCodeHelpers)
-    # These appear as single-line or multi-line class/struct defs before Solution class
-    # Pattern: (public )?(class|struct) TreeNode { ... }
     types_to_strip = ["TreeNode", "ListNode", "Node"]
     lines = modified.split("\n")
     cleaned = []
@@ -560,7 +691,6 @@ def sanitize_solution_code(code: str) -> str:
         if not skipping_type:
             should_skip = False
             for t in types_to_strip:
-                # Match: (public )?(class|struct) TreeNode (: ...)? {
                 if re.match(rf'(public\s+)?(class|struct)\s+{t}\b', stripped) and "Solution" not in stripped:
                     should_skip = True
                     break
@@ -573,7 +703,6 @@ def sanitize_solution_code(code: str) -> str:
                     elif ch == "}":
                         skip_depth -= 1
                 if skip_depth <= 0 and "{" in stripped:
-                    # Single-line definition, done skipping
                     skipping_type = False
                 continue
 
@@ -627,7 +756,6 @@ def extract_solution_code(code: str) -> str:
 
 def find_solution_func(code: str) -> Optional[str]:
     """Find the main function name in a Solution class (skip helpers)."""
-    # Look for the first func that's directly in the class (not nested)
     lines = code.split("\n")
     brace_depth = 0
     class_depth = None
@@ -648,7 +776,7 @@ def find_solution_func(code: str) -> Optional[str]:
     return None
 
 
-# ─── Test file generation ─────────────────────────────────────────────────────
+# ─── Test file generation (Swift Testing framework) ──────────────────────────
 
 def generate_test_file(
     slug: str,
@@ -656,8 +784,9 @@ def generate_test_file(
     solution_code: str,
     test_cases: List[dict],
     sig: dict,
+    constraints: Optional[List[str]] = None,
 ) -> str:
-    """Generate a complete XCTest Swift file for one problem."""
+    """Generate a Swift Testing file for one problem."""
 
     class_name = slug_to_class_name(slug)
     func_name = sig["name"]
@@ -667,7 +796,8 @@ def generate_test_file(
 
     # Build the file
     lines = []
-    lines.append("import XCTest")
+    lines.append("import Foundation")
+    lines.append("import Testing")
     lines.append("@testable import LeetCodeHelpers")
     lines.append("")
 
@@ -682,15 +812,8 @@ def generate_test_file(
 
     lines.append(modified_code.rstrip())
     lines.append("")
-    lines.append(f"final class {class_name}: XCTestCase {{")
-    lines.append(f"    private let solution = Solution()")
-    lines.append("")
-
-    # Class-level tearDown to flush results
-    lines.append("    override class func tearDown() {")
-    lines.append("        super.tearDown()")
-    lines.append("        ResultRecorder.shared.flush()")
-    lines.append("    }")
+    lines.append(f"@Suite struct {class_name} {{")
+    lines.append(f"    init() {{ registerResultFlush() }}")
     lines.append("")
 
     for i, tc in enumerate(test_cases):
@@ -703,7 +826,7 @@ def generate_test_file(
         escaped_expected = sanitize_swift_string(expected)
         escaped_id = sanitize_swift_string(tc_id)
 
-        lines.append(f"    func test_{i}() {{")
+        lines.append(f"    @Test func test_{i}() async {{")
         lines.append(f'        let slug = "{slug}"')
         lines.append(f'        let topic = "{topic}"')
         lines.append(f'        let testId = "{escaped_id}"')
@@ -718,7 +841,7 @@ def generate_test_file(
 
         # Guard: correct number of params
         lines.append(f"        guard params.count >= {len(params)} else {{")
-        lines.append(f'            ResultRecorder.shared.record(slug: slug, topic: topic, testId: testId, '
+        lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
                       f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
                       f'errorMessage: "Wrong number of params: expected {len(params)}, got \\(params.count)")')
@@ -732,9 +855,8 @@ def generate_test_file(
             var_name = f"p_{name}"
             parser = param_parser(ptype, f"params[{j}]")
             if parser is None:
-                # Unsupported type — skip this problem
                 lines.append(f'        // Unsupported param type: {ptype}')
-                lines.append(f'        ResultRecorder.shared.record(slug: slug, topic: topic, testId: testId, '
+                lines.append(f'        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                               f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
                               f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
                               f'errorMessage: "Unsupported param type: {ptype}")')
@@ -753,8 +875,19 @@ def generate_test_file(
 
             param_vars.append((var_name, ptype, label))
         else:
-            # All params parsed successfully — build the function call
+            # All params parsed successfully — add constraint guards
+            if constraints:
+                constraint_guards = generate_constraint_guards(slug, constraints, param_vars)
+                if constraint_guards:
+                    lines.append(f"")
+                    lines.append(f"        // Constraint precondition checks")
+                    for guard_code in constraint_guards:
+                        lines.append(guard_code)
+
             lines.append(f"")
+
+            # Create solution instance locally (avoids Sendable issues)
+            lines.append(f"        let solution = Solution()")
 
             # Build call arguments
             call_args = []
@@ -768,9 +901,7 @@ def generate_test_file(
             call_str = ", ".join(call_args)
 
             if return_type == "Void":
-                # In-place modification — serialize the modified inout param
                 lines.append(f"        solution.{func_name}({call_str})")
-                # Find the first inout param to serialize
                 inout_var = None
                 inout_type = None
                 for var_name, ptype, label in param_vars:
@@ -790,10 +921,10 @@ def generate_test_file(
 
             lines.append(f"")
             lines.append(f"        let matches = computedOutput == expectedOutput")
-            lines.append(f"        ResultRecorder.shared.record(slug: slug, topic: topic, testId: testId, "
+            lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
                           f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
                           f"isValid: true, outputMatches: matches, orderMatters: orderMatters)")
-            lines.append(f'        XCTAssertEqual(computedOutput, expectedOutput, "Test \\(testId): input=\\(rawInput)")')
+            lines.append(f'        #expect(computedOutput == expectedOutput, "Test \\(testId): input=\\(rawInput)")')
 
         lines.append(f"    }}")
         lines.append(f"")
@@ -801,6 +932,277 @@ def generate_test_file(
     lines.append("}")
     lines.append("")
     return "\n".join(lines)
+
+
+# ─── Class design test generation ─────────────────────────────────────────────
+
+def parse_class_methods(code: str) -> List[dict]:
+    """Parse all methods from a class design solution.
+    Returns [{name, params: [(label, name, type)], return_type}]."""
+    methods = []
+    # Find all func declarations at class level (depth 1 inside the design class)
+    # Skip helper/private nested classes
+    lines = code.split("\n")
+    brace_depth = 0
+    in_design_class = False
+    design_class_depth = None
+
+    for line in lines:
+        stripped = line.strip()
+        # Detect design class (not Solution, not Node)
+        cls_match = re.match(r'class\s+(\w+)', stripped)
+        if cls_match:
+            name = cls_match.group(1)
+            if name not in ("Solution", "Node") and not in_design_class:
+                in_design_class = True
+                design_class_depth = brace_depth
+
+        for ch in stripped:
+            if ch == "{":
+                brace_depth += 1
+            elif ch == "}":
+                brace_depth -= 1
+
+        if in_design_class and design_class_depth is not None and brace_depth <= design_class_depth:
+            in_design_class = False
+            design_class_depth = None
+
+        # Look for func at depth = design_class_depth + 1
+        if in_design_class and design_class_depth is not None:
+            func_match = re.match(r'\s*(?:@\w+\s+)*func\s+(\w+)\s*\((.*?)\)\s*(?:->\s*(.+?))?\s*\{', stripped)
+            if func_match:
+                fname = func_match.group(1)
+                params_str = func_match.group(2).strip()
+                ret = (func_match.group(3) or "Void").strip()
+                params = []
+                if params_str:
+                    for param in params_str.split(","):
+                        param = param.strip()
+                        parts = param.split(":")
+                        if len(parts) == 2:
+                            label_name = parts[0].strip().split()
+                            ptype = parts[1].strip()
+                            if len(label_name) == 2:
+                                params.append((label_name[0], label_name[1], ptype))
+                            else:
+                                params.append((label_name[0], label_name[0], ptype))
+                methods.append({"name": fname, "params": params, "return_type": ret})
+
+    return methods
+
+
+def find_design_class_name(code: str) -> Optional[str]:
+    """Find the design class name from solution code."""
+    inner = re.findall(r'class\s+(\w+)\s*[\{:]', code)
+    for c in inner:
+        if c not in ("Solution", "Node"):
+            return c
+    return None
+
+
+def parse_init_params(code: str, design_class: str) -> List[tuple]:
+    """Parse init parameters for the design class."""
+    pattern = rf'init\s*\((.*?)\)'
+    m = re.search(pattern, code)
+    if not m:
+        return []
+    params_str = m.group(1).strip()
+    if not params_str:
+        return []
+    params = []
+    for param in params_str.split(","):
+        param = param.strip()
+        parts = param.split(":")
+        if len(parts) == 2:
+            label_name = parts[0].strip().split()
+            ptype = parts[1].strip()
+            if len(label_name) == 2:
+                params.append((label_name[0], label_name[1], ptype))
+            else:
+                params.append((label_name[0], label_name[0], ptype))
+    return params
+
+
+def generate_class_design_test_file(
+    slug: str,
+    topic: str,
+    solution_code: str,
+    test_cases: List[dict],
+    constraints: Optional[List[str]] = None,
+) -> str:
+    """Generate a Swift Testing file for a class design problem."""
+    class_name = slug_to_class_name(slug)
+    design_class = find_design_class_name(solution_code) or slug.replace("-", " ").title().replace(" ", "")
+
+    # Parse methods for dispatch
+    methods = parse_class_methods(solution_code)
+    init_params = parse_init_params(solution_code, design_class)
+
+    lines = []
+    lines.append("import Foundation")
+    lines.append("import Testing")
+    lines.append("@testable import LeetCodeHelpers")
+    lines.append("")
+
+    # Embed solution code
+    modified_code = sanitize_solution_code(solution_code)
+    lines.append(modified_code.rstrip())
+    lines.append("")
+    lines.append(f"@Suite struct {class_name} {{")
+    lines.append(f"    init() {{ registerResultFlush() }}")
+    lines.append("")
+
+    for i, tc in enumerate(test_cases):
+        tc_id = tc.get("id", f"tc_{i}")
+        raw_input = tc.get("input", "")
+        expected = tc.get("expectedOutput", "")
+        order_matters = tc.get("orderMatters", True)
+
+        escaped_input = sanitize_swift_string(raw_input)
+        escaped_expected = sanitize_swift_string(expected)
+        escaped_id = sanitize_swift_string(tc_id)
+
+        lines.append(f"    @Test func test_{i}() async {{")
+        lines.append(f'        let slug = "{slug}"')
+        lines.append(f'        let topic = "{topic}"')
+        lines.append(f'        let testId = "{escaped_id}"')
+        lines.append(f'        let rawInput = "{escaped_input}"')
+        lines.append(f'        let expectedOutput = "{escaped_expected}"')
+        lines.append(f"        let orderMatters = {str(order_matters).lower()}")
+        lines.append(f"")
+        lines.append(f"        let inputLines = rawInput.components(separatedBy: \"\\n\")")
+        lines.append(f"        guard inputLines.count >= 2 else {{")
+        lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                      f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                      f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                      f'errorMessage: "Invalid class design input format")')
+        lines.append(f"            return")
+        lines.append(f"        }}")
+        lines.append(f"")
+        lines.append(f"        let methodNames = InputParser.parseStringArray(inputLines[0])")
+        lines.append(f"        let argsList = InputParser.parseRawArgsList(inputLines[1])")
+        lines.append(f"        guard methodNames.count == argsList.count, !methodNames.isEmpty else {{")
+        lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                      f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                      f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                      f'errorMessage: "Methods/args count mismatch")')
+        lines.append(f"            return")
+        lines.append(f"        }}")
+        lines.append(f"")
+
+        # Generate init
+        lines.append(f"        // Init")
+        lines.append(f"        let initArgs = argsList[0]")
+        if init_params:
+            init_parsers = []
+            for j, (label, name, ptype) in enumerate(init_params):
+                p = param_parser(ptype, f"initArgs[{j}]")
+                if p:
+                    init_parsers.append((label, p))
+                else:
+                    init_parsers.append((label, f"initArgs[{j}]"))
+            init_call_parts = []
+            for label, parsed in init_parsers:
+                if label == "_":
+                    init_call_parts.append(parsed)
+                else:
+                    init_call_parts.append(f"{label}: {parsed}")
+            init_call = ", ".join(init_call_parts)
+            lines.append(f"        guard initArgs.count >= {len(init_params)} else {{ return }}")
+            lines.append(f"        let obj = {design_class}({init_call})")
+        else:
+            lines.append(f"        let obj = {design_class}()")
+        lines.append(f"")
+
+        # Generate method dispatch loop
+        lines.append(f"        var results: [String] = []")
+        lines.append(f"        for i in 1..<methodNames.count {{")
+        lines.append(f"            let m = methodNames[i]")
+        lines.append(f"            let a = argsList[i]")
+
+        # Build switch for each method
+        if methods:
+            lines.append(f"            switch m {{")
+            for method in methods:
+                mname = method["name"]
+                mparams = method["params"]
+                mret = method["return_type"]
+
+                lines.append(f'            case "{mname}":')
+                # Parse args for this method
+                call_parts = []
+                for j, (label, name, ptype) in enumerate(mparams):
+                    p = param_parser(ptype, f"a[{j}]")
+                    if not p:
+                        p = f"a[{j}]"
+                    if label == "_":
+                        call_parts.append(p)
+                    else:
+                        call_parts.append(f"{label}: {p}")
+                call = ", ".join(call_parts)
+
+                if mret == "Void":
+                    lines.append(f"                obj.{mname}({call})")
+                    lines.append(f'                results.append("null")')
+                elif mret == "Int":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f'                results.append("\\(r)")')
+                elif mret == "Bool":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f'                results.append(r ? "true" : "false")')
+                elif mret == "Double":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f"                results.append(OutputSerializer.serializeDouble(r))")
+                elif mret == "String":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f'                results.append("\\(r)")')
+                elif mret == "[Int]":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f"                results.append(OutputSerializer.serializeIntArray(r))")
+                elif mret == "[[Int]]":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f"                results.append(OutputSerializer.serialize2DIntArray(r))")
+                elif mret == "Int?":
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f'                results.append(r != nil ? "\\(r!)" : "null")')
+                else:
+                    lines.append(f"                let r = obj.{mname}({call})")
+                    lines.append(f'                results.append("\\(r)")')
+
+            lines.append(f"            default:")
+            lines.append(f'                results.append("null")')
+            lines.append(f"            }}")
+        else:
+            lines.append(f'            results.append("null")')
+
+        lines.append(f"        }}")
+        lines.append(f"")
+        lines.append(f'        let computedOutput = "[" + results.joined(separator: ",") + "]"')
+        lines.append(f"        let matches = computedOutput == expectedOutput")
+        lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                      f"isValid: true, outputMatches: matches, orderMatters: orderMatters)")
+        lines.append(f'        #expect(computedOutput == expectedOutput, "Test \\(testId): input=\\(rawInput)")')
+        lines.append(f"    }}")
+        lines.append(f"")
+
+    lines.append("}")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def is_class_design_problem(slug: str, code: str, test_cases: List[dict]) -> bool:
+    """Detect if a problem is a class design problem by checking test case format."""
+    if slug in CLASS_DESIGN_SLUGS:
+        return True
+    # Check if first test case input starts with ["ClassName",
+    if test_cases:
+        inp = test_cases[0].get("input", "")
+        first_line = inp.split("\n")[0].strip()
+        if first_line.startswith("[\"") and not first_line.startswith("[["):
+            # Looks like ["ClassName", "method1", ...]
+            return True
+    return False
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
@@ -849,7 +1251,7 @@ def main():
     stats = {
         "generated": 0,
         "skipped_sql": 0,
-        "skipped_design": 0,
+        "generated_design": 0,
         "skipped_no_solution": 0,
         "skipped_no_tests": 0,
         "skipped_parse_fail": 0,
@@ -865,6 +1267,7 @@ def main():
 
         solutions = load_solutions(topic)
         test_cases = load_test_cases(topic)
+        topic_constraints = load_constraints(topic)
 
         target_dir = TESTS_DIR / test_target
         target_dir.mkdir(parents=True, exist_ok=True)
@@ -880,9 +1283,6 @@ def main():
         for slug in sorted(all_slugs):
             if slug in SQL_SLUGS:
                 stats["skipped_sql"] += 1
-                continue
-            if slug in CLASS_DESIGN_SLUGS:
-                stats["skipped_design"] += 1
                 continue
             if slug in BROKEN_SOLUTION_SLUGS:
                 stats["skipped_broken"] += 1
@@ -901,6 +1301,22 @@ def main():
                 continue
 
             code = sol["code"]
+
+            # Handle class design problems
+            if is_class_design_problem(slug, code, tcs):
+                slug_constraints = topic_constraints.get(slug, [])
+                swift_code = generate_class_design_test_file(slug, topic, code, tcs, constraints=slug_constraints)
+                file_name = slug_to_class_name(slug)
+                file_path = target_dir / f"{file_name}.swift"
+                with open(file_path, "w") as f:
+                    f.write(swift_code)
+                stats["generated"] += 1
+                stats["total_test_methods"] += len(tcs)
+                topic_generated += 1
+                stats["generated_design"] += 1
+                print(f"  OK {slug}: {len(tcs)} tests (class design) -> {file_path.name}")
+                continue
+
             sig = parse_func_signature(code)
             if not sig:
                 stats["skipped_parse_fail"] += 1
@@ -923,7 +1339,6 @@ def main():
                     else:
                         remapped_params.append((label, name, ptype))
                 sig["params"] = remapped_params
-                # Also remap return type
                 if sig["return_type"] == "Node?":
                     sig["return_type"] = f"{node_type}?"
 
@@ -939,7 +1354,8 @@ def main():
                 continue
 
             # Generate test file
-            swift_code = generate_test_file(slug, topic, code, tcs, sig)
+            slug_constraints = topic_constraints.get(slug, [])
+            swift_code = generate_test_file(slug, topic, code, tcs, sig, constraints=slug_constraints)
             class_name = slug_to_class_name(slug)
             file_path = target_dir / f"{class_name}.swift"
             with open(file_path, "w") as f:
@@ -958,7 +1374,7 @@ def main():
     print(f"  Generated:              {stats['generated']} problems")
     print(f"  Total test methods:     {stats['total_test_methods']}")
     print(f"  Skipped (SQL):          {stats['skipped_sql']}")
-    print(f"  Skipped (class design): {stats['skipped_design']}")
+    print(f"  Generated (class design): {stats['generated_design']}")
     print(f"  Skipped (no solution):  {stats['skipped_no_solution']}")
     print(f"  Skipped (no tests):     {stats['skipped_no_tests']}")
     print(f"  Skipped (parse fail):   {stats['skipped_parse_fail']}")

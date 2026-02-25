@@ -1,0 +1,410 @@
+{
+  "topic": "stack",
+  "problems": {
+    "asteroid-collision": {
+      "questionId": "735",
+      "title": "Asteroid Collision",
+      "difficulty": "Medium",
+      "constraints": [
+        "2 <= asteroids.length <= 104",
+        "-1000 <= asteroids[i] <= 1000",
+        "asteroids[i] != 0"
+      ],
+      "description": "We are given an array asteroids of integers representing asteroids in a row. The indices of the asteriod in the array represent their relative position in space.\nFor each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed.\nFind out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "baseball-game": {
+      "questionId": "682",
+      "title": "Baseball Game",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= operations.length <= 1000",
+        "operations[i] is \"C\", \"D\", \"+\", or a string representing an integer in the range [-3 * 104, 3 * 104].",
+        "For operation \"+\", there will always be at least two previous scores on the record.",
+        "For operations \"C\" and \"D\", there will always be at least one previous score on the record."
+      ],
+      "description": "You are keeping the scores for a baseball game with strange rules. At the beginning of the game, you start with an empty record.\nYou are given a list of strings operations, where operations[i] is the ith operation you must apply to the record and is one of the following:\nReturn the sum of all the scores on the record after applying all the operations.\nThe test cases are generated such that the answer and all intermediate calculations fit in a 32-bit integer and that all operations are valid.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "basic-calculator": {
+      "questionId": "224",
+      "title": "Basic Calculator",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= s.length <= 3 * 105",
+        "s consists of digits, '+', '-', '(', ')', and ' '.",
+        "s represents a valid expression.",
+        "'+' is not used as a unary operation (i.e., \"+1\" and \"+(2 + 3)\" is invalid).",
+        "'-' could be used as a unary operation (i.e., \"-1\" and \"-(2 + 3)\" is valid).",
+        "There will be no two consecutive operators in the input.",
+        "Every number and running calculation will fit in a signed 32-bit integer."
+      ],
+      "description": "Given a string s representing a valid expression, implement a basic calculator to evaluate it, and return the result of the evaluation.\nNote: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "basic-calculator-ii": {
+      "questionId": "227",
+      "title": "Basic Calculator II",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 3 * 105",
+        "s consists of integers and operators ('+', '-', '*', '/') separated by some number of spaces.",
+        "s represents a valid expression.",
+        "All the integers in the expression are non-negative integers in the range [0, 231 - 1].",
+        "The answer is guaranteed to fit in a 32-bit integer."
+      ],
+      "description": "Given a string s which represents an expression, evaluate this expression and return its value.\nThe integer division should truncate toward zero.\nYou may assume that the given expression is always valid. All intermediate results will be in the range of [-231, 231 - 1].\nNote: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "binary-search-tree-iterator": {
+      "questionId": "173",
+      "title": "Binary Search Tree Iterator",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the tree is in the range [1, 105].",
+        "0 <= Node.val <= 106",
+        "At most 105 calls will be made to hasNext, and next."
+      ],
+      "description": "Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):\nNotice that by initializing the pointer to a non-existent smallest number, the first call to next() will return the smallest element in the BST.\nYou may assume that next() calls will always be valid. That is, there will be at least a next number in the in-order traversal when next() is called.\nExample 1:\nConstraints:\nFollow up:"
+    },
+    "binary-tree-inorder-traversal": {
+      "questionId": "94",
+      "title": "Binary Tree Inorder Traversal",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 100].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return the inorder traversal of its nodes' values.\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nConstraints:"
+    },
+    "binary-tree-postorder-traversal": {
+      "questionId": "145",
+      "title": "Binary Tree Postorder Traversal",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of the nodes in the tree is in the range [0, 100].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a\u00a0binary tree, return the postorder traversal of its nodes' values.\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nConstraints:"
+    },
+    "binary-tree-preorder-traversal": {
+      "questionId": "144",
+      "title": "Binary Tree Preorder Traversal",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 100].",
+        "-100 <= Node.val <= 100"
+      ],
+      "description": "Given the root of a binary tree, return the preorder traversal of its nodes' values.\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nConstraints:\nFollow up: Recursive solution is trivial, could you do it iteratively?"
+    },
+    "car-fleet": {
+      "questionId": "853",
+      "title": "Car Fleet",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == position.length == speed.length",
+        "1 <= n <= 105",
+        "0 < target <= 106",
+        "0 <= position[i] < target",
+        "All the values of position are unique.",
+        "0 < speed[i] <= 106"
+      ],
+      "description": "There are n cars at given miles away from the starting mile 0, traveling to reach the mile target.\nYou are given two integer arrays\u00a0position and speed, both of length n, where position[i] is the starting mile of the ith car and speed[i] is the speed of the ith car in miles per hour.\nA car cannot pass another car, but it can catch up and then travel next to it at the speed of the slower car.\nA car fleet is a car or cars driving next to each other. The speed of the car fleet is the minimum speed of any car in the fleet.\nIf a car catches up to a car fleet at the mile target, it will still be considered as part of the car fleet.\nReturn the number of car fleets that will arrive at the destination.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "check-if-word-is-valid-after-substitutions": {
+      "questionId": "1003",
+      "title": "Check If Word Is Valid After Substitutions",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 2 * 104",
+        "s consists of letters 'a', 'b', and 'c'"
+      ],
+      "description": "Given a string s, determine if it is valid.\nA string s is valid if, starting with an empty string t = \"\", you can transform t into s after performing the following operation any number of times:\nReturn true if s is a valid string, otherwise, return false.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "construct-binary-search-tree-from-preorder-traversal": {
+      "questionId": "1008",
+      "title": "Construct Binary Search Tree from Preorder Traversal",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= preorder.length <= 100",
+        "1 <= preorder[i] <= 1000",
+        "All the values of preorder are unique."
+      ],
+      "description": "Given an array of integers preorder, which represents the preorder traversal of a BST (i.e., binary search tree), construct the tree and return its root.\nIt is guaranteed that there is always possible to find a binary search tree with the given requirements for the given test cases.\nA binary search tree is a binary tree where for every node, any descendant of Node.left has a value strictly less than Node.val, and any descendant of Node.right has a value strictly greater than Node.val.\nA preorder traversal of a binary tree displays the value of the node first, then traverses Node.left, then traverses Node.right.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "daily-temperatures": {
+      "questionId": "739",
+      "title": "Daily Temperatures",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <=\u00a0temperatures.length <= 105",
+        "30 <=\u00a0temperatures[i] <= 100"
+      ],
+      "description": "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "decoded-string-at-index": {
+      "questionId": "880",
+      "title": "Decoded String at Index",
+      "difficulty": "Medium",
+      "constraints": [
+        "2 <= s.length <= 100",
+        "s consists of lowercase English letters and digits 2 through 9.",
+        "s starts with a letter.",
+        "1 <= k <= 109",
+        "It is guaranteed that k is less than or equal to the length of the decoded string.",
+        "The decoded string is guaranteed to have less than 263 letters."
+      ],
+      "description": "You are given an encoded string s. To decode the string to a tape, the encoded string is read one character at a time and the following steps are taken:\nGiven an integer k, return the kth letter (1-indexed) in the decoded string.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "evaluate-reverse-polish-notation": {
+      "questionId": "150",
+      "title": "Evaluate Reverse Polish Notation",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= tokens.length <= 104",
+        "tokens[i] is either an operator: \"+\", \"-\", \"*\", or \"/\", or an integer in the range [-200, 200]."
+      ],
+      "description": "You are given an array of strings tokens that represents an arithmetic expression in a Reverse Polish Notation.\nEvaluate the expression. Return an integer that represents the value of the expression.\nNote that:\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "exclusive-time-of-functions": {
+      "questionId": "636",
+      "title": "Exclusive Time of Functions",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 100",
+        "2 <= logs.length <= 500",
+        "0 <= function_id < n",
+        "0 <= timestamp <= 109",
+        "No two start events will happen at the same timestamp.",
+        "No two end events will happen at the same timestamp.",
+        "Each function has an \"end\" log for each \"start\" log."
+      ],
+      "description": "On a single-threaded CPU, we execute a program containing n functions. Each function has a unique ID between 0 and n-1.\nFunction calls are stored in a call stack: when a function call starts, its ID is pushed onto the stack, and when a function call ends, its ID is popped off the stack. The function whose ID is at the top of the stack is the current function being executed. Each time a function starts or ends, we write a log with the ID, whether it started or ended, and the timestamp.\nYou are given a list logs, where logs[i] represents the ith log message formatted as a string \"{function_id}:{\"start\" | \"end\"}:{timestamp}\". For example, \"0:start:3\" means a function call with function ID 0 started at the beginning of timestamp 3, and \"1:end:2\" means a function call with function ID 1 ended at the end of timestamp 2. Note that a function can be called multiple times, possibly recursively.\nA function's exclusive time is the sum of execution times for all function calls in the program. For example, if a function is called twice, one call executing for 2 time units and another call executing for 1 time unit, the exclusive time is 2 + 1 = 3.\nReturn the exclusive time of each function in an array, where the value at the ith index represents the exclusive time for the function with ID i.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "flatten-nested-list-iterator": {
+      "questionId": "341",
+      "title": "Flatten Nested List Iterator",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nestedList.length <= 500",
+        "The values of the integers in the nested list is in the range [-106, 106]."
+      ],
+      "description": "You are given a nested list of integers nestedList. Each element is either an integer or a list whose elements may also be integers or other lists. Implement an iterator to flatten it.\nImplement the NestedIterator class:\nYour code will be tested with the following pseudocode:\nIf res matches the expected flattened list, then your code will be judged as correct.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "implement-stack-using-queues": {
+      "questionId": "225",
+      "title": "Implement Stack using Queues",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= x <= 9",
+        "At most 100 calls will be made to push, pop, top, and empty.",
+        "All the calls to pop and top are valid."
+      ],
+      "description": "Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).\nImplement the MyStack class:\nNotes:\nExample 1:\nConstraints:\nFollow-up: Can you implement the stack using only one queue?"
+    },
+    "increasing-order-search-tree": {
+      "questionId": "897",
+      "title": "Increasing Order Search Tree",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the given tree will be in the range [1, 100].",
+        "0 <= Node.val <= 1000"
+      ],
+      "description": "Given the root of a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "largest-rectangle-in-histogram": {
+      "questionId": "84",
+      "title": "Largest Rectangle in Histogram",
+      "difficulty": "Hard",
+      "constraints": [
+        "1 <= heights.length <= 105",
+        "0 <= heights[i] <= 104"
+      ],
+      "description": "Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "longest-absolute-file-path": {
+      "questionId": "388",
+      "title": "Longest Absolute File Path",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= input.length <= 104",
+        "input may contain lowercase or uppercase English letters, a new line character '\\n', a tab character '\\t', a dot '.', a space ' ', and digits.",
+        "All file and directory names have positive length."
+      ],
+      "description": "Suppose we have a file system that stores both files and directories. An example of one system is represented in the following picture:\nHere, we have dir as the only directory in the root. dir contains two subdirectories, subdir1 and subdir2. subdir1 contains a file file1.ext and subdirectory subsubdir1. subdir2 contains a subdirectory subsubdir2, which contains a file file2.ext.\nIn text form, it looks like this (with \u27f6 representing the tab character):\nIf we were to write this representation in code, it will look like this: \"dir\\n\\tsubdir1\\n\\t\\tfile1.ext\\n\\t\\tsubsubdir1\\n\\tsubdir2\\n\\t\\tsubsubdir2\\n\\t\\t\\tfile2.ext\". Note that the '\\n' and '\\t' are the new-line and tab characters.\nEvery file and directory has a unique absolute path in the file system, which is the order of directories that must be opened to reach the file/directory itself, all concatenated by '/'s. Using the above example, the absolute path to file2.ext is \"dir/subdir2/subsubdir2/file2.ext\". Each directory name consists of letters, digits, and/or spaces. Each file name is of the form name.extension, where name and extension consist of letters, digits, and/or spaces.\nGiven a string input representing the file system in the explained format, return the length of the longest absolute path to a file in the abstracted file system. If there is no file in the system, return 0.\nNote that the testcases are generated such that the file system is valid and no file or directory name has length 0.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "max-chunks-to-make-sorted": {
+      "questionId": "769",
+      "title": "Max Chunks To Make Sorted",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == arr.length",
+        "1 <= n <= 10",
+        "0 <= arr[i] < n",
+        "All the elements of arr are unique."
+      ],
+      "description": "You are given an integer array arr of length n that represents a permutation of the integers in the range [0, n - 1].\nWe split arr into some number of chunks (i.e., partitions), and individually sort each chunk. After concatenating them, the result should equal the sorted array.\nReturn the largest number of chunks we can make to sort the array.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "maximum-binary-tree": {
+      "questionId": "654",
+      "title": "Maximum Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 1000",
+        "0 <= nums[i] <= 1000",
+        "All integers in nums are unique."
+      ],
+      "description": "You are given an integer array nums with no duplicates. A maximum binary tree can be built recursively from nums using the following algorithm:\nReturn the maximum binary tree built from nums.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "min-stack": {
+      "questionId": "155",
+      "title": "Min Stack",
+      "difficulty": "Medium",
+      "constraints": [
+        "-231 <= val <= 231 - 1",
+        "Methods pop, top and getMin operations will always be called on non-empty stacks.",
+        "At most 3 * 104 calls will be made to push, pop, top, and getMin."
+      ],
+      "description": "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.\nImplement the MinStack class:\nYou must implement a solution with O(1) time complexity for each function.\nExample 1:\nConstraints:"
+    },
+    "mini-parser": {
+      "questionId": "385",
+      "title": "Mini Parser",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 5 * 104",
+        "s consists of digits, square brackets \"[]\", negative sign '-', and commas ','.",
+        "s is the serialization of valid NestedInteger.",
+        "All the values in the input are in the range [-106, 106]."
+      ],
+      "description": "Given a string s represents the serialization of a nested list, implement a parser to deserialize it and return the deserialized NestedInteger.\nEach element is either an integer or a list whose elements may also be integers or other lists.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "n-ary-tree-postorder-traversal": {
+      "questionId": "590",
+      "title": "N-ary Tree Postorder Traversal",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "0 <= Node.val <= 104",
+        "The height of the n-ary tree is less than or equal to 1000."
+      ],
+      "description": "Given the root of an n-ary tree, return the postorder traversal of its nodes' values.\nNary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value (See examples)\nExample 1:\nExample 2:\nConstraints:\nFollow up: Recursive solution is trivial, could you do it iteratively?"
+    },
+    "n-ary-tree-preorder-traversal": {
+      "questionId": "589",
+      "title": "N-ary Tree Preorder Traversal",
+      "difficulty": "Easy",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 104].",
+        "0 <= Node.val <= 104",
+        "The height of the n-ary tree is less than or equal to 1000."
+      ],
+      "description": "Given the root of an n-ary tree, return the preorder traversal of its nodes' values.\nNary-Tree input serialization is represented in their level order traversal. Each group of children is separated by the null value (See examples)\nExample 1:\nExample 2:\nConstraints:\nFollow up: Recursive solution is trivial, could you do it iteratively?"
+    },
+    "next-greater-element-i": {
+      "questionId": "496",
+      "title": "Next Greater Element I",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= nums1.length <= nums2.length <= 1000",
+        "0 <= nums1[i], nums2[i] <= 104",
+        "All integers in nums1 and nums2 are unique.",
+        "All the integers of nums1 also appear in nums2."
+      ],
+      "description": "The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.\nYou are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.\nFor each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.\nReturn an array ans of length nums1.length such that ans[i] is the next greater element as described above.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "next-greater-element-ii": {
+      "questionId": "503",
+      "title": "Next Greater Element II",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= nums.length <= 104",
+        "-109 <= nums[i] <= 109"
+      ],
+      "description": "Given a circular integer array nums (i.e., the next element of nums[nums.length - 1] is nums[0]), return the next greater number for every element in nums.\nThe next greater number of a number x is the first greater number to its traversing-order next in the array, which means you could search circularly to find its next greater number. If it doesn't exist, return -1 for this number.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "online-stock-span": {
+      "questionId": "901",
+      "title": "Online Stock Span",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= price <= 105",
+        "At most 104 calls will be made to next."
+      ],
+      "description": "Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.\nThe span of the stock's price in one day is the maximum number of consecutive days (starting from that day and going backward) for which the stock price was less than or equal to the price of that day.\nImplement the StockSpanner class:\nExample 1:\nConstraints:"
+    },
+    "remove-duplicate-letters": {
+      "questionId": "316",
+      "title": "Remove Duplicate Letters",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 104",
+        "s consists of lowercase English letters."
+      ],
+      "description": "Given a string s, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.\nExample 1:\nExample 2:\nConstraints:\nNote: This question is the same as 1081: https://leetcode.com/problems/smallest-subsequence-of-distinct-characters/"
+    },
+    "remove-k-digits": {
+      "questionId": "402",
+      "title": "Remove K Digits",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= k <= num.length <= 105",
+        "num consists of only digits.",
+        "num does not have any leading zeros except for the zero itself."
+      ],
+      "description": "Given string num representing a non-negative integer num, and an integer k, return the smallest possible integer after removing k digits from num.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "simplify-path": {
+      "questionId": "71",
+      "title": "Simplify Path",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= path.length <= 3000",
+        "path consists of English letters, digits, period '.', slash '/' or '_'.",
+        "path is a valid absolute Unix path."
+      ],
+      "description": "You are given an absolute path for a Unix-style file system, which always begins with a slash '/'. Your task is to transform this absolute path into its simplified canonical path.\nThe rules of a Unix-style file system are as follows:\nThe simplified canonical path should follow these rules:\nReturn the simplified canonical path.\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nExample 5:\nConstraints:"
+    },
+    "valid-parentheses": {
+      "questionId": "20",
+      "title": "Valid Parentheses",
+      "difficulty": "Easy",
+      "constraints": [
+        "1 <= s.length <= 104",
+        "s consists of parentheses only '()[]{}'."
+      ],
+      "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\nAn input string is valid if:\nExample 1:\nExample 2:\nExample 3:\nExample 4:\nExample 5:\nConstraints:"
+    },
+    "validate-stack-sequences": {
+      "questionId": "946",
+      "title": "Validate Stack Sequences",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= pushed.length <= 1000",
+        "0 <= pushed[i] <= 1000",
+        "All the elements of pushed are unique.",
+        "popped.length == pushed.length",
+        "popped is a permutation of pushed."
+      ],
+      "description": "Given two integer arrays pushed and popped each with distinct values, return true if this could have been the result of a sequence of push and pop operations on an initially empty stack, or false otherwise.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "verify-preorder-serialization-of-a-binary-tree": {
+      "questionId": "331",
+      "title": "Verify Preorder Serialization of a Binary Tree",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= preorder.length <= 104",
+        "preorder consist of integers in the range [0, 100] and '#' separated by commas ','."
+      ],
+      "description": "One way to serialize a binary tree is to use preorder traversal. When we encounter a non-null node, we record the node's value. If it is a null node, we record using a sentinel value such as '#'.\nFor example, the above binary tree can be serialized to the string \"9,3,4,#,#,1,#,#,2,#,6,#,#\", where '#' represents a null node.\nGiven a string of comma-separated values preorder, return true if it is a correct preorder traversal serialization of a binary tree.\nIt is guaranteed that each comma-separated value in the string must be either an integer or a character '#' representing null pointer.\nYou may assume that the input format is always valid.\nNote:\u00a0You are not allowed to reconstruct the tree.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "decode-string": {
+      "questionId": "394",
+      "title": "Decode String",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= s.length <= 30",
+        "s consists of lowercase English letters, digits, and square brackets '[]'.",
+        "s is guaranteed to be a valid input.",
+        "All the integers in s are in the range [1, 300]."
+      ],
+      "description": "Given an encoded string, return its decoded string.\nThe encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.\nYou may assume that the input string is always valid; there are no extra white spaces, square brackets are well-formed, etc. Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there will not be input like 3a or 2[4].\nThe test cases are generated so that the length of the output will never exceed 105.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    }
+  }
+}

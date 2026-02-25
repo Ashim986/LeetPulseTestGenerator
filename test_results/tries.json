@@ -1,0 +1,291 @@
+{
+  "evaluated_at" : "2026-02-25T21:09:59Z",
+  "problems" : [
+    {
+      "invalid_tests" : 0,
+      "slug" : "top-k-frequent-words",
+      "topic" : "tries",
+      "total_tests" : 25,
+      "valid_tests" : 25
+    }
+  ],
+  "test_results" : [
+    {
+      "computed_output" : "[]",
+      "input" : "words = [\"a\",\"b\",\"c\"], k = 0",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[]",
+      "output_matches" : true,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "bf735007-eba2-40b7-88af-c100e73f20ce",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"hello\", \"world\"]",
+      "input" : "words = [\"hello\",\"world\",\"hello\",\"world\"], k = 2",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"hello\",\"world\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "306ed016-7f45-44bb-8b94-617da86bd771",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"x\", \"y\", \"z\"]",
+      "input" : "words = [\"z\",\"y\",\"x\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"z\",\"y\",\"x\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "46a1c7e5-863c-4b5b-8e46-e7bdce9a48a7",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"abc\", \"def\", \"ghi\"]",
+      "input" : "words = [\"abc\",\"def\",\"ghi\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"abc\",\"def\",\"ghi\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "bf8ad6dc-beea-4fa3-b92d-f773a1750cc0",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\"]",
+      "input" : "words = [\"a\",\"a\",\"b\",\"b\",\"c\"], k = 2",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "b1344f17-24d5-4667-916a-add44a9314de",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\", \"d\"]",
+      "input" : "words = [\"a\",\"b\",\"c\",\"d\",\"e\",\"f\"], k = 4",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\",\"d\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "1a355dc3-bba6-4ed0-b4a0-56d241372418",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\"]",
+      "input" : "words = [\"a\",\"a\",\"b\",\"b\",\"c\",\"c\"], k = 2",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "88fbe2cc-3b15-4dcd-be02-252707bd1d66",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\", \"i\"]",
+      "input" : "words = [\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\",\"h\",\"i\"], k = 9",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\",\"h\",\"i\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "95d3c0a0-051d-403c-aee4-eeeb255a7b11",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\", \"d\", \"e\"]",
+      "input" : "words = [\"a\",\"b\",\"c\",\"d\",\"e\"], k = 5",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\",\"d\",\"e\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "b1c143c9-e2b4-45fa-8347-203c92a2f1aa",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"abc\", \"def\", \"hello\", \"world\"]",
+      "input" : "words = [\"hello\",\"world\",\"abc\",\"def\"], k = 4",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"hello\",\"world\",\"abc\",\"def\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "a5a072f1-f138-4cee-9d9f-1241728a9abf",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"apple\", \"banana\", \"orange\"]",
+      "input" : "words = [\"apple\",\"banana\",\"orange\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"apple\",\"banana\",\"orange\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "d25da584-0f9a-481a-a7bc-24fa904c913e",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"hello\"]",
+      "input" : "words = [\"hello\",\"hello\",\"hello\"], k = 1",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"hello\"]",
+      "output_matches" : true,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "71016601-0f4b-40ae-9d5f-d830dc69054c",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\"]",
+      "input" : "words = [\"a\",\"b\",\"c\"], k = 1",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\"]",
+      "output_matches" : true,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "714e5f67-8b4f-49ed-879e-06095937f97d",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\"]",
+      "input" : "words = [\"a\",\"a\",\"a\",\"b\",\"b\",\"c\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "c6f7963d-532c-43ec-b584-06a903c12aef",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\"]",
+      "input" : "words = [\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\",\"h\"], k = 8",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\",\"h\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "99ff9693-00ae-4e82-8395-e8f00e7312c0",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\"]",
+      "input" : "words = [\"a\",\"a\",\"b\",\"b\",\"c\",\"c\",\"d\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "ab9c25f4-316d-4f8b-af22-7429a40969c1",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\"]",
+      "input" : "words = [\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\"], k = 7",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "7810391f-4da1-47a8-8b21-645de27f2acf",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\"]",
+      "input" : "words = [\"a\",\"a\",\"a\"], k = 1",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\"]",
+      "output_matches" : true,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "db47dce3-f4e1-459f-b2d6-064f9e5994b8",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\"]",
+      "input" : "words = [\"a\"], k = 1",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\"]",
+      "output_matches" : true,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "cb6035f0-ec8b-470d-8897-d53045a8438a",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"x\", \"y\"]",
+      "input" : "words = [\"x\",\"x\",\"x\",\"y\",\"y\",\"y\"], k = 2",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"x\",\"y\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "75ec1639-153b-4d7d-8368-5729eb8190ec",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[]",
+      "input" : "words = [], k = 2",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[]",
+      "output_matches" : true,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "19e440e8-3ec6-4c6c-9c83-642766c9e3c8",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"apple\", \"banana\", \"cherry\", \"date\"]",
+      "input" : "words = [\"apple\",\"banana\",\"cherry\",\"date\"], k = 4",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"apple\",\"banana\",\"cherry\",\"date\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "aa4d355b-5544-4ae3-b16b-d517b9e2ae5d",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"x\", \"y\", \"z\"]",
+      "input" : "words = [\"x\",\"y\",\"z\",\"x\",\"y\",\"z\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"x\",\"y\",\"z\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "6f693636-eb6b-4be5-a34a-934791f841af",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"apple\", \"banana\", \"cherry\"]",
+      "input" : "words = [\"apple\",\"banana\",\"cherry\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"apple\",\"banana\",\"cherry\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "e01441a9-d4bf-4719-8c99-15ffef367a31",
+      "topic" : "tries"
+    },
+    {
+      "computed_output" : "[\"a\", \"b\", \"c\"]",
+      "input" : "words = [\"a\",\"b\",\"c\"], k = 3",
+      "is_valid" : true,
+      "order_matters" : true,
+      "original_expected" : "[\"a\",\"b\",\"c\"]",
+      "output_matches" : false,
+      "slug" : "top-k-frequent-words",
+      "test_id" : "c807e573-3eab-4aa1-b8d8-dc7197c9bd3b",
+      "topic" : "tries"
+    }
+  ],
+  "topic" : "tries",
+  "total_results" : 25
+}

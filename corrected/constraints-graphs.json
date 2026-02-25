@@ -1,0 +1,305 @@
+{
+  "topic": "graphs",
+  "problems": {
+    "accounts-merge": {
+      "questionId": "721",
+      "title": "Accounts Merge",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= accounts.length <= 1000",
+        "2 <= accounts[i].length <= 10",
+        "1 <= accounts[i][j].length <= 30",
+        "accounts[i][0] consists of English letters.",
+        "accounts[i][j] (for j > 0) is a valid email."
+      ],
+      "description": "Given a list of accounts where each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name, and the rest of the elements are emails representing emails of the account.\nNow, we would like to merge these accounts. Two accounts definitely belong to the same person if there is some common email to both accounts. Note that even if two accounts have the same name, they may belong to different people as people could have the same name. A person can have any number of accounts initially, but all of their accounts definitely have the same name.\nAfter merging the accounts, return the accounts in the following format: the first element of each account is the name, and the rest of the elements are emails in sorted order. The accounts themselves can be returned in any order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "clone-graph": {
+      "questionId": "133",
+      "title": "Clone Graph",
+      "difficulty": "Medium",
+      "constraints": [
+        "The number of nodes in the graph is in the range [0, 100].",
+        "1 <= Node.val <= 100",
+        "Node.val is unique for each node.",
+        "There are no repeated edges and no self-loops in the graph.",
+        "The Graph is connected and all nodes can be visited starting from the given node."
+      ],
+      "description": "Given a reference of a node in a connected undirected graph.\nReturn a deep copy (clone) of the graph.\nEach node in the graph contains a value (int) and a list (List[Node]) of its neighbors.\nTest case format:\nFor simplicity, each node's value is the same as the node's index (1-indexed). For example, the first node with val == 1, the second node with val == 2, and so on. The graph is represented in the test case using an adjacency list.\nAn adjacency list is a collection of unordered lists used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.\nThe given node will always be the first node with val = 1. You must return the copy of the given node as a reference to the cloned graph.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "course-schedule": {
+      "questionId": "207",
+      "title": "Course Schedule",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= numCourses <= 2000",
+        "0 <= prerequisites.length <= 5000",
+        "prerequisites[i].length == 2",
+        "0 <= ai, bi < numCourses",
+        "All the pairs prerequisites[i] are unique."
+      ],
+      "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\nReturn true if you can finish all courses. Otherwise, return false.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "course-schedule-ii": {
+      "questionId": "210",
+      "title": "Course Schedule II",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= numCourses <= 2000",
+        "0 <= prerequisites.length <= numCourses * (numCourses - 1)",
+        "prerequisites[i].length == 2",
+        "0 <= ai, bi < numCourses",
+        "ai != bi",
+        "All the pairs [ai, bi] are distinct."
+      ],
+      "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\nReturn the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "evaluate-division": {
+      "questionId": "399",
+      "title": "Evaluate Division",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= equations.length <= 20",
+        "equations[i].length == 2",
+        "1 <= Ai.length, Bi.length <= 5",
+        "values.length == equations.length",
+        "0.0 < values[i] <= 20.0",
+        "1 <= queries.length <= 20",
+        "queries[i].length == 2",
+        "1 <= Cj.length, Dj.length <= 5",
+        "Ai, Bi, Cj, Dj consist of lower case English letters and digits."
+      ],
+      "description": "You are given an array of variable pairs equations and an array of real numbers values, where equations[i] = [Ai, Bi] and values[i] represent the equation Ai / Bi = values[i]. Each Ai or Bi is a string that represents a single variable.\nYou are also given some queries, where queries[j] = [Cj, Dj] represents the jth query where you must find the answer for Cj / Dj = ?.\nReturn the answers to all queries. If a single answer cannot be determined, return -1.0.\nNote: The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.\nNote:\u00a0The variables that do not occur in the list of equations are undefined, so the answer cannot be determined for them.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "find-eventual-safe-states": {
+      "questionId": "802",
+      "title": "Find Eventual Safe States",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == graph.length",
+        "1 <= n <= 104",
+        "0 <= graph[i].length <= n",
+        "0 <= graph[i][j] <= n - 1",
+        "graph[i] is sorted in a strictly increasing order.",
+        "The graph may contain self-loops.",
+        "The number of edges in the graph will be in the range [1, 4 * 104]."
+      ],
+      "description": "There is a directed graph of n nodes with each node labeled from 0 to n - 1. The graph is represented by a 0-indexed 2D integer array graph where graph[i] is an integer array of nodes adjacent to node i, meaning there is an edge from node i to each node in graph[i].\nA node is a terminal node if there are no outgoing edges. A node is a safe node if every possible path starting from that node leads to a terminal node (or another safe node).\nReturn an array containing all the safe nodes of the graph. The answer should be sorted in ascending order.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "flood-fill": {
+      "questionId": "733",
+      "title": "Flood Fill",
+      "difficulty": "Easy",
+      "constraints": [
+        "m == image.length",
+        "n == image[i].length",
+        "1 <= m, n <= 50",
+        "0 <= image[i][j], color < 216",
+        "0 <= sr < m",
+        "0 <= sc < n"
+      ],
+      "description": "You are given an image represented by an m x n grid of integers image, where image[i][j] represents the pixel value of the image. You are also given three integers sr, sc, and color. Your task is to perform a flood fill on the image starting from the pixel image[sr][sc].\nTo perform a flood fill:\nReturn the modified image after performing the flood fill.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "is-graph-bipartite": {
+      "questionId": "785",
+      "title": "Is Graph Bipartite?",
+      "difficulty": "Medium",
+      "constraints": [
+        "graph.length == n",
+        "1 <= n <= 100",
+        "0 <= graph[u].length < n",
+        "0 <= graph[u][i] <= n - 1",
+        "graph[u]\u00a0does not contain\u00a0u.",
+        "All the values of graph[u] are unique.",
+        "If graph[u] contains v, then graph[v] contains u."
+      ],
+      "description": "There is an undirected graph with n nodes, where each node is numbered between 0 and n - 1. You are given a 2D array graph, where graph[u] is an array of nodes that node u is adjacent to. More formally, for each v in graph[u], there is an undirected edge between node u and node v. The graph has the following properties:\nA graph is bipartite if the nodes can be partitioned into two independent sets A and B such that every edge in the graph connects a node in set A and a node in set B.\nReturn true if and only if it is bipartite.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "keys-and-rooms": {
+      "questionId": "841",
+      "title": "Keys and Rooms",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == rooms.length",
+        "2 <= n <= 1000",
+        "0 <= rooms[i].length <= 1000",
+        "1 <= sum(rooms[i].length) <= 3000",
+        "0 <= rooms[i][j] < n",
+        "All the values of rooms[i] are unique."
+      ],
+      "description": "There are n rooms labeled from 0 to n - 1\u00a0and all the rooms are locked except for room 0. Your goal is to visit all the rooms. However, you cannot enter a locked room without having its key.\nWhen you visit a room, you may find a set of distinct keys in it. Each key has a number on it, denoting which room it unlocks, and you can take all of them with you to unlock the other rooms.\nGiven an array rooms where rooms[i] is the set of keys that you can obtain if you visited room i, return true if you can visit all the rooms, or false otherwise.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "loud-and-rich": {
+      "questionId": "851",
+      "title": "Loud and Rich",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == quiet.length",
+        "1 <= n <= 500",
+        "0 <= quiet[i] < n",
+        "All the values of quiet are unique.",
+        "0 <= richer.length <= n * (n - 1) / 2",
+        "0 <= ai, bi < n",
+        "ai != bi",
+        "All the pairs of richer are unique.",
+        "The observations in richer are all logically consistent."
+      ],
+      "description": "There is a group of n people labeled from 0 to n - 1 where each person has a different amount of money and a different level of quietness.\nYou are given an array richer where richer[i] = [ai, bi] indicates that ai has more money than bi and an integer array quiet where quiet[i] is the quietness of the ith person. All the given data in richer are logically correct (i.e., the data will not lead you to a situation where x is richer than y and y is richer than x at the same time).\nReturn an integer array answer where answer[x] = y if y is the least quiet person (that is, the person y with the smallest value of quiet[y]) among all people who definitely have equal to or more money than the person x.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "max-area-of-island": {
+      "questionId": "695",
+      "title": "Max Area of Island",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 <= m, n <= 50",
+        "grid[i][j] is either 0 or 1."
+      ],
+      "description": "You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.\nThe area of an island is the number of cells with a value 1 in the island.\nReturn the maximum area of an island in grid. If there is no island, return 0.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "minimum-genetic-mutation": {
+      "questionId": "433",
+      "title": "Minimum Genetic Mutation",
+      "difficulty": "Medium",
+      "constraints": [
+        "0 <= bank.length <= 10",
+        "startGene.length == endGene.length == bank[i].length == 8",
+        "startGene, endGene, and bank[i] consist of only the characters ['A', 'C', 'G', 'T']."
+      ],
+      "description": "A gene string can be represented by an 8-character long string, with choices from 'A', 'C', 'G', and 'T'.\nSuppose we need to investigate a mutation from a gene string startGene to a gene string endGene where one mutation is defined as one single character changed in the gene string.\nThere is also a gene bank bank that records all the valid gene mutations. A gene must be in bank to make it a valid gene string.\nGiven the two gene strings startGene and endGene and the gene bank bank, return the minimum number of mutations needed to mutate from startGene to endGene. If there is no such a mutation, return -1.\nNote that the starting point is assumed to be valid, so it might not be included in the bank.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "minimum-height-trees": {
+      "questionId": "310",
+      "title": "Minimum Height Trees",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 2 * 104",
+        "edges.length == n - 1",
+        "0 <= ai, bi < n",
+        "ai != bi",
+        "All the pairs (ai, bi) are distinct.",
+        "The given input is guaranteed to be a tree and there will be no repeated edges."
+      ],
+      "description": "A tree is an undirected graph in which any two vertices are connected by\u00a0exactly\u00a0one path. In other words, any connected graph without simple cycles is a tree.\nGiven a tree of n nodes\u00a0labelled from 0 to n - 1, and an array of\u00a0n - 1\u00a0edges where edges[i] = [ai, bi] indicates that there is an undirected edge between the two nodes\u00a0ai and\u00a0bi in the tree,\u00a0you can choose any node of the tree as the root. When you select a node x as the root, the result tree has height h. Among all possible rooted trees, those with minimum height (i.e. min(h))\u00a0 are called minimum height trees (MHTs).\nReturn a list of all MHTs' root labels.\u00a0You can return the answer in any order.\nThe height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "number-of-islands": {
+      "questionId": "200",
+      "title": "Number of Islands",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 <= m, n <= 300",
+        "grid[i][j] is '0' or '1'."
+      ],
+      "description": "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "number-of-provinces": {
+      "questionId": "547",
+      "title": "Number of Provinces",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 200",
+        "n == isConnected.length",
+        "n == isConnected[i].length",
+        "isConnected[i][j] is 1 or 0.",
+        "isConnected[i][i] == 1",
+        "isConnected[i][j] == isConnected[j][i]"
+      ],
+      "description": "There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.\nA province is a group of directly or indirectly connected cities and no other cities outside of the group.\nYou are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.\nReturn the total number of provinces.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "pacific-atlantic-water-flow": {
+      "questionId": "417",
+      "title": "Pacific Atlantic Water Flow",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == heights.length",
+        "n == heights[r].length",
+        "1 <= m, n <= 200",
+        "0 <= heights[r][c] <= 105"
+      ],
+      "description": "There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.\nThe island is partitioned into a grid of square cells. You are given an m x n integer matrix heights where heights[r][c] represents the height above sea level of the cell at coordinate (r, c).\nThe island receives a lot of rain, and the rain water can flow to neighboring cells directly north, south, east, and west if the neighboring cell's height is less than or equal to the current cell's height. Water can flow from any cell adjacent to an ocean into the ocean.\nReturn a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "path-with-maximum-probability": {
+      "questionId": "1514",
+      "title": "Path with Maximum Probability",
+      "difficulty": "Medium",
+      "constraints": [
+        "2 <= n <= 10^4",
+        "0 <= start, end < n",
+        "start != end",
+        "0 <= a, b < n",
+        "a != b",
+        "0 <= succProb.length == edges.length <= 2*10^4",
+        "0 <= succProb[i] <= 1",
+        "There is at most one edge between every two nodes."
+      ],
+      "description": "You are given an undirected weighted graph of\u00a0n\u00a0nodes (0-indexed), represented by an edge list where\u00a0edges[i] = [a, b]\u00a0is an undirected edge connecting the nodes\u00a0a\u00a0and\u00a0b\u00a0with a probability of success of traversing that edge\u00a0succProb[i].\nGiven two nodes\u00a0start\u00a0and\u00a0end, find the path with the maximum probability of success to go from\u00a0start\u00a0to\u00a0end\u00a0and return its success probability.\nIf there is no path from\u00a0start\u00a0to\u00a0end, return\u00a00. Your answer will be accepted if it differs from the correct answer by at most 1e-5.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "possible-bipartition": {
+      "questionId": "886",
+      "title": "Possible Bipartition",
+      "difficulty": "Medium",
+      "constraints": [
+        "1 <= n <= 2000",
+        "0 <= dislikes.length <= 104",
+        "dislikes[i].length == 2",
+        "1 <= ai < bi <= n",
+        "All the pairs of dislikes are unique."
+      ],
+      "description": "We want to split a group of n people (labeled from 1 to n) into two groups of any size. Each person may dislike some other people, and they should not go into the same group.\nGiven the integer n and the array dislikes where dislikes[i] = [ai, bi] indicates that the person labeled ai does not like the person labeled bi, return true if it is possible to split everyone into two groups in this way.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "redundant-connection": {
+      "questionId": "684",
+      "title": "Redundant Connection",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == edges.length",
+        "3 <= n <= 1000",
+        "edges[i].length == 2",
+        "1 <= ai < bi <= edges.length",
+        "ai != bi",
+        "There are no repeated edges.",
+        "The given graph is connected."
+      ],
+      "description": "In this problem, a tree is an undirected graph that is connected and has no cycles.\nYou are given a graph that started as a tree with n nodes labeled from 1 to n, with one additional edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed. The graph is represented as an array edges of length n where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the graph.\nReturn an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers, return the answer that occurs last in the input.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "rotting-oranges": {
+      "questionId": "994",
+      "title": "Rotting Oranges",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 <= m, n <= 10",
+        "grid[i][j] is 0, 1, or 2."
+      ],
+      "description": "You are given an m x n grid where each cell can have one of three values:\nEvery minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.\nReturn the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.\nExample 1:\nExample 2:\nExample 3:\nConstraints:"
+    },
+    "snakes-and-ladders": {
+      "questionId": "909",
+      "title": "Snakes and Ladders",
+      "difficulty": "Medium",
+      "constraints": [
+        "n == board.length == board[i].length",
+        "2 <= n <= 20",
+        "board[i][j] is either -1 or in the range [1, n2].",
+        "The squares labeled 1 and n2 are not the starting points of any snake or ladder."
+      ],
+      "description": "You are given an n x n integer matrix board where the cells are labeled from 1 to n2 in a Boustrophedon style starting from the bottom left of the board (i.e. board[n - 1][0]) and alternating direction each row.\nYou start on square 1 of the board. In each move, starting from square curr, do the following:\nA board square on row r and column c has a snake or ladder if board[r][c] != -1. The destination of that snake or ladder is board[r][c]. Squares 1 and n2 are not the starting points of any snake or ladder.\nNote that you only take a snake or ladder at most once per dice roll. If the destination to a snake or ladder is the start of another snake or ladder, you do not follow the subsequent\u00a0snake or ladder.\nReturn the least number of dice rolls required to reach the square n2. If it is not possible to reach the square, return -1.\nExample 1:\nExample 2:\nConstraints:"
+    },
+    "surrounded-regions": {
+      "questionId": "130",
+      "title": "Surrounded Regions",
+      "difficulty": "Medium",
+      "constraints": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 <= m, n <= 200",
+        "board[i][j] is 'X' or 'O'."
+      ],
+      "description": "You are given an m x n matrix board containing letters 'X' and 'O', capture regions that are surrounded:\nTo capture a surrounded region, replace all 'O's with 'X's in-place within the original board. You do not need to return anything.\nExample 1:\nExample 2:\nConstraints:"
+    }
+  }
+}
