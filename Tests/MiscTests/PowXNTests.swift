@@ -24,21 +24,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -51,21 +66,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_2() async {
@@ -78,21 +108,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_3() async {
@@ -105,21 +150,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_4() async {
@@ -132,21 +192,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_5() async {
@@ -159,21 +234,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_6() async {
@@ -186,21 +276,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_7() async {
@@ -213,21 +318,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_8() async {
@@ -240,21 +360,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_9() async {
@@ -267,21 +402,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_10() async {
@@ -294,21 +444,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_11() async {
@@ -321,21 +486,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_12() async {
@@ -348,21 +528,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_13() async {
@@ -375,21 +570,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_14() async {
@@ -402,21 +612,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_15() async {
@@ -429,21 +654,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_16() async {
@@ -456,21 +696,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_17() async {
@@ -483,21 +738,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_18() async {
@@ -510,21 +780,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_19() async {
@@ -537,21 +822,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_20() async {
@@ -564,21 +864,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_21() async {
@@ -591,21 +906,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_22() async {
@@ -618,21 +948,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_23() async {
@@ -645,21 +990,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_24() async {
@@ -672,21 +1032,36 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+        guard params.count == 2 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
             return
         }
 
-        let p_x = InputParser.parseDouble(params[0])
-        let p_n = InputParser.parseInt(params[1])
+        guard let p_x = InputParser.parseDouble(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Double: '\(params[0])'")
+            return
+        }
+        guard let p_n = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.myPow(p_x, p_n)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.myPow(p_x, p_n)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
+            // Treats -0 and 0 as equal; handles trailing zero normalization
+            let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan
+            let matches = abs(result - expectedVal) < 1e-5
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

@@ -42,20 +42,29 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+        guard params.count == 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let p_node = buildGraph(InputParser.parse2DIntArray(params[0]))
+        guard let p_node = InputParser.parse2DIntArray(params[0]).map { buildGraph($0) } else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as GraphNode?: '\(params[0])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.cloneGraph(p_node)
-        let computedOutput = serializeGraph(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.cloneGraph(p_node)
+            let computedOutput = serializeGraph(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -68,20 +77,29 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+        guard params.count == 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let p_node = buildGraph(InputParser.parse2DIntArray(params[0]))
+        guard let p_node = InputParser.parse2DIntArray(params[0]).map { buildGraph($0) } else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as GraphNode?: '\(params[0])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.cloneGraph(p_node)
-        let computedOutput = serializeGraph(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.cloneGraph(p_node)
+            let computedOutput = serializeGraph(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_2() async {
@@ -94,20 +112,29 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+        guard params.count == 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let p_node = buildGraph(InputParser.parse2DIntArray(params[0]))
+        guard let p_node = InputParser.parse2DIntArray(params[0]).map { buildGraph($0) } else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as GraphNode?: '\(params[0])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.cloneGraph(p_node)
-        let computedOutput = serializeGraph(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.cloneGraph(p_node)
+            let computedOutput = serializeGraph(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

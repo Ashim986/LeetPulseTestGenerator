@@ -41,23 +41,58 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 4 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 4, got \(params.count)")
+        guard params.count == 4 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 4, got \(params.count)")
             return
         }
 
-        let p_R = InputParser.parseInt(params[0])
-        let p_C = InputParser.parseInt(params[1])
-        let p_r0 = InputParser.parseInt(params[2])
-        let p_c0 = InputParser.parseInt(params[3])
+        guard let p_R = InputParser.parseInt(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
+            return
+        }
+        guard let p_C = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
+        guard let p_r0 = InputParser.parseInt(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as Int: '\(params[2])'")
+            return
+        }
+        guard let p_c0 = InputParser.parseInt(params[3]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 3 as Int: '\(params[3])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Nested order-independent comparison (QUAL-01)
+            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArrays
+            } else {
+                // Sort outer array by content for stable comparison (inner order preserved)
+                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                    return a.count < b.count
+                } }
+                matches = sortOuter(result) == sortOuter(expectedArrays)
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -70,23 +105,58 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 4 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 4, got \(params.count)")
+        guard params.count == 4 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 4, got \(params.count)")
             return
         }
 
-        let p_R = InputParser.parseInt(params[0])
-        let p_C = InputParser.parseInt(params[1])
-        let p_r0 = InputParser.parseInt(params[2])
-        let p_c0 = InputParser.parseInt(params[3])
+        guard let p_R = InputParser.parseInt(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
+            return
+        }
+        guard let p_C = InputParser.parseInt(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+            return
+        }
+        guard let p_r0 = InputParser.parseInt(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as Int: '\(params[2])'")
+            return
+        }
+        guard let p_c0 = InputParser.parseInt(params[3]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 3 as Int: '\(params[3])'")
+            return
+        }
 
-        let solution = Solution()
-        let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Nested order-independent comparison (QUAL-01)
+            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArrays
+            } else {
+                // Sort outer array by content for stable comparison (inner order preserved)
+                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                    return a.count < b.count
+                } }
+                matches = sortOuter(result) == sortOuter(expectedArrays)
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

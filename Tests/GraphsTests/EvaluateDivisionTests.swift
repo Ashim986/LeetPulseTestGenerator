@@ -44,44 +44,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -94,44 +120,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_2() async {
@@ -144,44 +196,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_3() async {
@@ -194,44 +272,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_4() async {
@@ -244,44 +348,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_5() async {
@@ -294,44 +424,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_6() async {
@@ -344,44 +500,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_7() async {
@@ -394,44 +576,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_8() async {
@@ -444,44 +652,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_9() async {
@@ -494,44 +728,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_10() async {
@@ -544,44 +804,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_11() async {
@@ -594,44 +880,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_12() async {
@@ -644,44 +956,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_13() async {
@@ -694,44 +1032,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_14() async {
@@ -744,44 +1108,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_15() async {
@@ -794,44 +1184,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_16() async {
@@ -844,44 +1260,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_17() async {
@@ -894,44 +1336,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_18() async {
@@ -944,44 +1412,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_19() async {
@@ -994,44 +1488,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_20() async {
@@ -1044,44 +1564,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_21() async {
@@ -1094,44 +1640,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_22() async {
@@ -1144,44 +1716,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_23() async {
@@ -1194,44 +1792,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_24() async {
@@ -1244,44 +1868,70 @@ private class Solution {
 
         let params = InputParser.stripParamNames(rawInput)
 
-        guard params.count >= 3 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
+        guard params.count == 3 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 3, got \(params.count)")
             return
         }
 
-        let p_equations = InputParser.parse2DStringArray(params[0])
+        guard let p_equations = InputParser.parse2DStringArray(params[0]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[String]]: '\(params[0])'")
+            return
+        }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
-        let p_values = InputParser.parseDoubleArray(params[1])
+        guard let p_values = InputParser.parseDoubleArray(params[1]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [Double]: '\(params[1])'")
+            return
+        }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
-        let p_queries = InputParser.parse2DStringArray(params[2])
+        guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as [[String]]: '\(params[2])'")
+            return
+        }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
         // Constraint precondition checks
         guard p_equations.count >= 1 && p_equations.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= equations.length <= 20")
             return
         }
         guard p_queries.count >= 1 && p_queries.count <= 20 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= queries.length <= 20")
             return
         }
 
-        let solution = Solution()
-        let result = solution.calcEquation(p_equations, p_values, p_queries)
-        let computedOutput = OutputSerializer.serialize(result)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.calcEquation(p_equations, p_values, p_queries)
+            let computedOutput = OutputSerializer.serialize(result)
 
-        let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
-        #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
+            // Element-wise epsilon comparison for [Double] (QUAL-02)
+            guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Double]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if result.count != expectedArray.count {
+                matches = false
+            } else {
+                matches = zip(result, expectedArray).allSatisfy { abs($0 - $1) < 1e-5 }
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

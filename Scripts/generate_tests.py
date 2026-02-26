@@ -10,6 +10,7 @@ Generates:
     Tests/<TopicTests>/<ProblemSlugTests>.swift   (one per problem)
 """
 
+import argparse
 import json
 import os
 import re
@@ -364,6 +365,27 @@ NODE_TYPE_MAP = {
 
 # ─── Swift type → parser/serializer mappings ─────────────────────────────────
 
+def parser_returns_optional(swift_type: str) -> bool:
+    """Return True if the parser for this type returns an Optional (needs guard-let).
+
+    Non-optional parsers: Bool (always true/false), String (always succeeds).
+    Optional parsers: Int?, Double?, Character?, all array types, compound types
+    that wrap an Optional-returning InputParser call.
+    """
+    t = swift_type.strip()
+    # These parsers always succeed (non-optional return)
+    if t in ("Bool", "String"):
+        return False
+    # Int? type uses a closure that always returns a value (nil or Int)
+    if t == "Int?":
+        return False
+    # DoublyNode? and QuadNode? use closures that always return nil
+    if t in ("DoublyNode?", "QuadNode?"):
+        return False
+    # Everything else returns Optional from InputParser or wraps an Optional call
+    return True
+
+
 def param_parser(swift_type: str, var_name: str) -> Optional[str]:
     """Return Swift code to parse a parameter from a string value."""
     t = swift_type.strip()
@@ -384,7 +406,7 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
     if t == "[String]":
         return f"InputParser.parseStringArray({var_name})"
     if t == "[Bool]":
-        return f"InputParser.parseStringArray({var_name}).map {{ $0 == \"true\" }}"
+        return f"InputParser.parseStringArray({var_name})?.map {{ $0 == \"true\" }}"
     if t == "[Character]":
         return f"InputParser.parseCharacterArray({var_name})"
     if t == "[[Int]]":
@@ -396,10 +418,12 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
     if t == "[Int?]":
         return f"InputParser.parseNullableIntArray({var_name})"
     if t == "TreeNode?":
-        return f"buildTree(InputParser.parseNullableIntArray({var_name}))"
+        # parseNullableIntArray returns [Int?]? -- unwrap before buildTree
+        return f"InputParser.parseNullableIntArray({var_name}).map {{ buildTree($0) }}"
     if t == "ListNode?":
-        return f"buildList(InputParser.parseIntArray({var_name}))"
-    # inout variants — parse the same, just pass differently
+        # parseIntArray returns [Int]? -- unwrap before buildList
+        return f"InputParser.parseIntArray({var_name}).map {{ buildList($0) }}"
+    # inout variants — parse the same, just pass differently (all return Optionals)
     if t == "inout [Int]":
         return f"InputParser.parseIntArray({var_name})"
     if t == "inout [[Int]]":
@@ -412,28 +436,28 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
         return f"InputParser.parse2DStringArray({var_name})"
     if t == "Int?":
         return f'{{ let s = {var_name}.trimmingCharacters(in: .whitespaces); return s == "null" ? nil : Int(s) }}()'
-    # Node variants
+    # Node variants -- unwrap Optional InputParser returns before passing to build functions
     if t == "Node?" or t == "GraphNode?":
-        return f"buildGraph(InputParser.parse2DIntArray({var_name}))"
+        return f"InputParser.parse2DIntArray({var_name}).map {{ buildGraph($0) }}"
     if t == "NAryNode?":
-        return f"buildNAryTree(InputParser.parseNullableIntArray({var_name}))"
+        return f"InputParser.parseNullableIntArray({var_name}).map {{ buildNAryTree($0) }}"
     if t == "NextNode?":
-        return f"buildNextTree(InputParser.parseNullableIntArray({var_name}))"
+        return f"InputParser.parseNullableIntArray({var_name}).map {{ buildNextTree($0) }}"
     if t == "RandomNode?":
-        return f"buildRandomList(InputParser.parse2DIntArray({var_name}).map {{ $0.map {{ $0 == -1 ? nil : $0 }} as [Int?] }})"
+        return f"InputParser.parse2DIntArray({var_name}).map {{ buildRandomList($0.map {{ $0.map {{ $0 == -1 ? nil : $0 }} as [Int?] }}) }}"
     if t == "DoublyNode?":
         return f"{{ (_: String) -> DoublyNode? in nil }}({var_name})"
     if t == "QuadNode?":
         return f"{{ (_: String) -> QuadNode? in nil }}({var_name})"
     # Array of node pointers
     if t == "[ListNode?]":
-        return f"InputParser.parse2DIntArray({var_name}).map {{ buildList($0) }}"
+        return f"InputParser.parse2DIntArray({var_name}).map {{ $0.map {{ buildList($0) }} }}"
     # inout [Character]
     if t == "inout [Character]":
         return f"InputParser.parseCharacterArray({var_name})"
     # Employee array
     if t == "[Employee]":
-        return f"InputParser.parse2DIntArray({var_name}).map {{ Employee($0[0], $0[1], Array($0.dropFirst(2))) }}"
+        return f"InputParser.parse2DIntArray({var_name}).map {{ $0.map {{ Employee($0[0], $0[1], Array($0.dropFirst(2))) }} }}"
     return None
 
 def output_serializer(swift_type: str, expr: str) -> str:
@@ -1024,8 +1048,14 @@ def generate_test_file(
     test_cases: List[dict],
     sig: dict,
     constraints: Optional[List[str]] = None,
+    dry_run: bool = False,
 ) -> str:
-    """Generate a Swift Testing file for one problem."""
+    """Generate a Swift Testing file for one problem.
+
+    When dry_run=True, generated tests parse all inputs but skip solution execution.
+    Records status='matched' with computedOutput='DRY_RUN' for successful parses.
+    Surfaces all parse failures quickly without waiting for solution execution.
+    """
 
     class_name = slug_to_class_name(slug)
     func_name = sig["name"]
@@ -1078,18 +1108,19 @@ def generate_test_file(
         lines.append(f"        let params = InputParser.stripParamNames(rawInput)")
         lines.append(f"")
 
-        # Guard: correct number of params
-        lines.append(f"        guard params.count >= {len(params)} else {{")
+        # Strict parameter count validation (QUAL-04): wrong count = parse_error
+        lines.append(f"        guard params.count == {len(params)} else {{")
         lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                      f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
                       f'errorMessage: "Wrong number of params: expected {len(params)}, got \\(params.count)")')
         lines.append(f"            return")
         lines.append(f"        }}")
         lines.append(f"")
 
-        # Parse each parameter
+        # Parse each parameter with guard-let for Optional-returning parsers (QUAL-04)
         param_vars = []
+        parse_failed = False
         for j, (label, name, ptype) in enumerate(params):
             var_name = f"p_{name}"
             parser = param_parser(ptype, f"params[{j}]")
@@ -1097,15 +1128,29 @@ def generate_test_file(
                 lines.append(f'        // Unsupported param type: {ptype}')
                 lines.append(f'        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                               f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                              f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+                              f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
                               f'errorMessage: "Unsupported param type: {ptype}")')
                 lines.append(f"        return")
                 param_vars.append((var_name, ptype, label))
+                parse_failed = True
                 break
 
             is_inout = ptype.startswith("inout")
             let_or_var = "var" if is_inout else "let"
-            lines.append(f"        {let_or_var} {var_name} = {parser}")
+            needs_guard = parser_returns_optional(ptype)
+
+            if needs_guard:
+                # Emit guard-let pattern for Optional-returning InputParser calls
+                lines.append(f"        guard {let_or_var} {var_name} = {parser} else {{")
+                lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                              f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                              f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                              f'errorMessage: "Failed to parse param {j} as {_escape_swift(ptype)}: \'\\(params[{j}])\'")')
+                lines.append(f"            return")
+                lines.append(f"        }}")
+            else:
+                # Non-optional parser (Bool, String) -- direct assignment
+                lines.append(f"        {let_or_var} {var_name} = {parser}")
 
             # Constraint check
             check = constraint_check(ptype, var_name, name)
@@ -1113,8 +1158,9 @@ def generate_test_file(
                 lines.append(check)
 
             param_vars.append((var_name, ptype, label))
-        else:
-            # All params parsed successfully — add constraint guards
+
+        if not parse_failed:
+            # All params parsed successfully -- add constraint guards
             if constraints:
                 constraint_guards = generate_constraint_guards(slug, constraints, param_vars)
                 if constraint_guards:
@@ -1125,46 +1171,67 @@ def generate_test_file(
 
             lines.append(f"")
 
-            # Create solution instance locally (avoids Sendable issues)
-            lines.append(f"        let solution = Solution()")
-
-            # Build call arguments
-            call_args = []
-            for var_name, ptype, label in param_vars:
-                is_inout = ptype.startswith("inout")
-                prefix = "&" if is_inout else ""
-                if label == "_":
-                    call_args.append(f"{prefix}{var_name}")
-                else:
-                    call_args.append(f"{label}: {prefix}{var_name}")
-            call_str = ", ".join(call_args)
-
-            if return_type == "Void":
-                lines.append(f"        solution.{func_name}({call_str})")
-                inout_var = None
-                inout_type = None
-                for var_name, ptype, label in param_vars:
-                    if ptype.startswith("inout"):
-                        inout_var = var_name
-                        inout_type = ptype.replace("inout ", "")
-                        break
-                if inout_var and inout_type:
-                    ser = output_serializer(inout_type, inout_var)
-                    lines.append(f"        let computedOutput = {ser}")
-                else:
-                    lines.append(f'        let computedOutput = OutputSerializer.serializeVoid()')
+            if dry_run:
+                # Dry-run mode: skip solution execution, record DRY_RUN marker
+                lines.append(f"        // DRY-RUN: input parsing succeeded, skipping solution execution")
+                lines.append(f'        let computedOutput = "DRY_RUN"')
+                lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                              f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                              f'isValid: true, status: "matched", orderMatters: orderMatters)')
             else:
-                lines.append(f"        let result = solution.{func_name}({call_str})")
-                ser = output_serializer(return_type, "result")
-                lines.append(f"        let computedOutput = {ser}")
+                # Wrap solution execution in do/catch for runtime_error handling
+                lines.append(f"        // Solution execution with runtime error handling")
+                lines.append(f"        do {{")
 
-            lines.append(f"")
-            # Emit type-aware comparison (replaces naive string equality)
-            emit_comparison(lines, return_type)
-            lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
-                          f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
-                          f'isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)')
-            lines.append(f'        #expect(matches, "Test \\(testId): expected=\\(expectedOutput) computed=\\(computedOutput)")')
+                # Create solution instance locally (avoids Sendable issues)
+                lines.append(f"            let solution = Solution()")
+
+                # Build call arguments
+                call_args = []
+                for var_name, ptype, label in param_vars:
+                    is_inout = ptype.startswith("inout")
+                    prefix = "&" if is_inout else ""
+                    if label == "_":
+                        call_args.append(f"{prefix}{var_name}")
+                    else:
+                        call_args.append(f"{label}: {prefix}{var_name}")
+                call_str = ", ".join(call_args)
+
+                if return_type == "Void":
+                    lines.append(f"            solution.{func_name}({call_str})")
+                    inout_var = None
+                    inout_type = None
+                    for var_name, ptype, label in param_vars:
+                        if ptype.startswith("inout"):
+                            inout_var = var_name
+                            inout_type = ptype.replace("inout ", "")
+                            break
+                    if inout_var and inout_type:
+                        ser = output_serializer(inout_type, inout_var)
+                        lines.append(f"            let computedOutput = {ser}")
+                    else:
+                        lines.append(f'            let computedOutput = OutputSerializer.serializeVoid()')
+                else:
+                    lines.append(f"            let result = solution.{func_name}({call_str})")
+                    ser = output_serializer(return_type, "result")
+                    lines.append(f"            let computedOutput = {ser}")
+
+                lines.append(f"")
+                # Emit type-aware comparison (replaces naive string equality)
+                emit_comparison(lines, return_type, indent="            ")
+                lines.append(f"            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                              f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                              f'isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)')
+                lines.append(f'            #expect(matches, "Test \\(testId): expected=\\(expectedOutput) computed=\\(computedOutput)")')
+
+                # Catch block for runtime errors
+                lines.append(f"        }} catch {{")
+                lines.append(f"            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                              f"input: rawInput, originalExpected: expectedOutput, computedOutput: \"\", "
+                              f'isValid: true, status: "runtime_error", orderMatters: orderMatters, '
+                              f'errorMessage: "Runtime error: \\(error)")')
+                lines.append(f'            #expect(Bool(false), "Test \\(testId): runtime error: \\(error)")')
+                lines.append(f"        }}")
 
         lines.append(f"    }}")
         lines.append(f"")
@@ -1269,8 +1336,12 @@ def generate_class_design_test_file(
     solution_code: str,
     test_cases: List[dict],
     constraints: Optional[List[str]] = None,
+    dry_run: bool = False,
 ) -> str:
-    """Generate a Swift Testing file for a class design problem."""
+    """Generate a Swift Testing file for a class design problem.
+
+    When dry_run=True, generated tests parse all inputs but skip method dispatch.
+    """
     class_name = slug_to_class_name(slug)
     _found_nested = find_design_class_name(solution_code)
     design_class = _found_nested if _found_nested else "Solution"
@@ -1321,122 +1392,143 @@ def generate_class_design_test_file(
         lines.append(f"            return")
         lines.append(f"        }}")
         lines.append(f"")
-        lines.append(f"        let methodNames = InputParser.parseStringArray(inputLines[0])")
-        lines.append(f"        let argsList = InputParser.parseRawArgsList(inputLines[1])")
+        # Guard-let for Optional-returning parseStringArray and parseRawArgsList
+        lines.append(f"        guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {{")
+        lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                      f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse method names from class design input")')
+        lines.append(f"            return")
+        lines.append(f"        }}")
+        lines.append(f"        guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {{")
+        lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                      f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse args list from class design input")')
+        lines.append(f"            return")
+        lines.append(f"        }}")
         lines.append(f"        guard methodNames.count == argsList.count, !methodNames.isEmpty else {{")
         lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                      f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
                       f'errorMessage: "Methods/args count mismatch")')
         lines.append(f"            return")
         lines.append(f"        }}")
         lines.append(f"")
 
-        # Generate init
-        lines.append(f"        // Init")
-        lines.append(f"        let initArgs = argsList[0]")
-        if init_params:
-            init_parsers = []
-            for j, (label, name, ptype) in enumerate(init_params):
-                p = param_parser(ptype, f"initArgs[{j}]")
-                if p:
-                    init_parsers.append((label, p))
-                else:
-                    init_parsers.append((label, f"initArgs[{j}]"))
-            init_call_parts = []
-            for label, parsed in init_parsers:
-                if label == "_":
-                    init_call_parts.append(parsed)
-                else:
-                    init_call_parts.append(f"{label}: {parsed}")
-            init_call = ", ".join(init_call_parts)
-            lines.append(f"        guard initArgs.count >= {len(init_params)} else {{ return }}")
-            qual = design_class if solution_is_design_class else f"Solution.{design_class}"
-            lines.append(f"        var obj = {qual}({init_call})")
+        if dry_run:
+            # Dry-run mode: parsing succeeded, skip execution
+            lines.append(f"        // DRY-RUN: input parsing succeeded, skipping class design execution")
+            lines.append(f'        let computedOutput = "DRY_RUN"')
+            lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                          f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                          f'isValid: true, status: "matched", orderMatters: orderMatters)')
         else:
-            qual = design_class if solution_is_design_class else f"Solution.{design_class}"
-            lines.append(f"        var obj = {qual}()")
-        lines.append(f"")
-
-        # Generate method dispatch loop
-        lines.append(f"        var results: [String] = []")
-        lines.append(f"        for i in 1..<methodNames.count {{")
-        lines.append(f"            let m = methodNames[i]")
-        lines.append(f"            let a = argsList[i]")
-
-        # Build switch for each method
-        if methods:
-            lines.append(f"            switch m {{")
-            for method in methods:
-                mname = method["name"]
-                mparams = method["params"]
-                mret = method["return_type"]
-
-                lines.append(f'            case "{mname}":')
-                # Parse args for this method
-                call_parts = []
-                for j, (label, name, ptype) in enumerate(mparams):
-                    p = param_parser(ptype, f"a[{j}]")
-                    if not p:
-                        p = f"a[{j}]"
-                    if label == "_":
-                        call_parts.append(p)
+            # Generate init
+            lines.append(f"        // Init")
+            lines.append(f"        let initArgs = argsList[0]")
+            if init_params:
+                init_parsers = []
+                for j, (label, name, ptype) in enumerate(init_params):
+                    p = param_parser(ptype, f"initArgs[{j}]")
+                    if p:
+                        init_parsers.append((label, p))
                     else:
-                        call_parts.append(f"{label}: {p}")
-                call = ", ".join(call_parts)
+                        init_parsers.append((label, f"initArgs[{j}]"))
+                init_call_parts = []
+                for label, parsed in init_parsers:
+                    if label == "_":
+                        init_call_parts.append(parsed)
+                    else:
+                        init_call_parts.append(f"{label}: {parsed}")
+                init_call = ", ".join(init_call_parts)
+                lines.append(f"            guard initArgs.count >= {len(init_params)} else {{ return }}")
+                qual = design_class if solution_is_design_class else f"Solution.{design_class}"
+                lines.append(f"            var obj = {qual}({init_call})")
+            else:
+                qual = design_class if solution_is_design_class else f"Solution.{design_class}"
+                lines.append(f"            var obj = {qual}()")
+            lines.append(f"")
 
-                if mret == "Void":
-                    lines.append(f"                obj.{mname}({call})")
-                    lines.append(f'                results.append("null")')
-                elif mret == "Int":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f'                results.append("\\(r)")')
-                elif mret == "Bool":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f'                results.append(r ? "true" : "false")')
-                elif mret == "Double":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f"                results.append(OutputSerializer.serializeDouble(r))")
-                elif mret == "String":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f'                results.append("\\(r)")')
-                elif mret == "[Int]":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f"                results.append(OutputSerializer.serializeIntArray(r))")
-                elif mret == "[[Int]]":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f"                results.append(OutputSerializer.serialize2DIntArray(r))")
-                elif mret == "Int?":
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f'                results.append(r != nil ? "\\(r!)" : "null")')
-                else:
-                    lines.append(f"                let r = obj.{mname}({call})")
-                    lines.append(f'                results.append("\\(r)")')
+            # Generate method dispatch loop
+            lines.append(f"        var results: [String] = []")
+            lines.append(f"        for i in 1..<methodNames.count {{")
+            lines.append(f"            let m = methodNames[i]")
+            lines.append(f"            let a = argsList[i]")
 
-            lines.append(f"            default:")
-            lines.append(f'                results.append("null")')
-            lines.append(f"            }}")
-        else:
-            lines.append(f'            results.append("null")')
+            # Build switch for each method
+            if methods:
+                lines.append(f"            switch m {{")
+                for method in methods:
+                    mname = method["name"]
+                    mparams = method["params"]
+                    mret = method["return_type"]
 
-        lines.append(f"        }}")
-        lines.append(f"")
-        lines.append(f'        let computedOutput = "[" + results.joined(separator: ",") + "]"')
-        # Class-design outputs: always orderMatters=true (method call order matters)
-        # Normalize null representations (nil/None/NULL -> null) and whitespace
-        lines.append(f"        // Class-design comparison: normalize null representations and whitespace")
-        lines.append(f"        func normalizeClassOutput(_ s: String) -> String {{")
-        lines.append(f"            var result = s.replacingOccurrences(of: \" \", with: \"\")")
-        lines.append(f'            result = result.replacingOccurrences(of: "nil", with: "null")')
-        lines.append(f'            result = result.replacingOccurrences(of: "None", with: "null")')
-        lines.append(f'            result = result.replacingOccurrences(of: "NULL", with: "null")')
-        lines.append(f"            return result")
-        lines.append(f"        }}")
-        lines.append(f"        let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)")
-        lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
-                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
-                      f'isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)')
-        lines.append(f'        #expect(matches, "Test \\(testId): expected=\\(expectedOutput) computed=\\(computedOutput)")')
+                    lines.append(f'            case "{mname}":')
+                    # Parse args for this method
+                    call_parts = []
+                    for j, (label, name, ptype) in enumerate(mparams):
+                        p = param_parser(ptype, f"a[{j}]")
+                        if not p:
+                            p = f"a[{j}]"
+                        if label == "_":
+                            call_parts.append(p)
+                        else:
+                            call_parts.append(f"{label}: {p}")
+                    call = ", ".join(call_parts)
+
+                    if mret == "Void":
+                        lines.append(f"                obj.{mname}({call})")
+                        lines.append(f'                results.append("null")')
+                    elif mret == "Int":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f'                results.append("\\(r)")')
+                    elif mret == "Bool":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f'                results.append(r ? "true" : "false")')
+                    elif mret == "Double":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f"                results.append(OutputSerializer.serializeDouble(r))")
+                    elif mret == "String":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f'                results.append("\\(r)")')
+                    elif mret == "[Int]":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f"                results.append(OutputSerializer.serializeIntArray(r))")
+                    elif mret == "[[Int]]":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f"                results.append(OutputSerializer.serialize2DIntArray(r))")
+                    elif mret == "Int?":
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f'                results.append(r != nil ? "\\(r!)" : "null")')
+                    else:
+                        lines.append(f"                let r = obj.{mname}({call})")
+                        lines.append(f'                results.append("\\(r)")')
+
+                lines.append(f"            default:")
+                lines.append(f'                results.append("null")')
+                lines.append(f"            }}")
+            else:
+                lines.append(f'            results.append("null")')
+
+            lines.append(f"        }}")
+            lines.append(f"")
+            lines.append(f'        let computedOutput = "[" + results.joined(separator: ",") + "]"')
+            # Class-design outputs: always orderMatters=true (method call order matters)
+            # Normalize null representations (nil/None/NULL -> null) and whitespace
+            lines.append(f"        // Class-design comparison: normalize null representations and whitespace")
+            lines.append(f"        func normalizeClassOutput(_ s: String) -> String {{")
+            lines.append(f"            var result = s.replacingOccurrences(of: \" \", with: \"\")")
+            lines.append(f'            result = result.replacingOccurrences(of: "nil", with: "null")')
+            lines.append(f'            result = result.replacingOccurrences(of: "None", with: "null")')
+            lines.append(f'            result = result.replacingOccurrences(of: "NULL", with: "null")')
+            lines.append(f"            return result")
+            lines.append(f"        }}")
+            lines.append(f"        let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)")
+            lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                          f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                          f'isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)')
+            lines.append(f'        #expect(matches, "Test \\(testId): expected=\\(expectedOutput) computed=\\(computedOutput)")')
         lines.append(f"    }}")
         lines.append(f"")
 
@@ -1513,6 +1605,22 @@ def load_test_cases(topic: str) -> Dict[str, List[dict]]:
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Generate Swift Testing files for LeetCode problems"
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=False,
+        help="Generate parse-only test files that skip solution execution. "
+             "Surfaces all parse failures quickly without waiting for solution runs."
+    )
+    args = parser.parse_args()
+    dry_run = args.dry_run
+
+    if dry_run:
+        print("DRY-RUN MODE: Generated tests will parse inputs but skip solution execution")
+
     stats = {
         "generated": 0,
         "skipped_sql": 0,
@@ -1570,7 +1678,7 @@ def main():
             # Handle class design problems
             if is_class_design_problem(slug, code, tcs):
                 slug_constraints = topic_constraints.get(slug, [])
-                swift_code = generate_class_design_test_file(slug, topic, code, tcs, constraints=slug_constraints)
+                swift_code = generate_class_design_test_file(slug, topic, code, tcs, constraints=slug_constraints, dry_run=dry_run)
                 file_name = slug_to_class_name(slug)
                 file_path = target_dir / f"{file_name}.swift"
                 with open(file_path, "w") as f:
@@ -1620,7 +1728,7 @@ def main():
 
             # Generate test file
             slug_constraints = topic_constraints.get(slug, [])
-            swift_code = generate_test_file(slug, topic, code, tcs, sig, constraints=slug_constraints)
+            swift_code = generate_test_file(slug, topic, code, tcs, sig, constraints=slug_constraints, dry_run=dry_run)
             class_name = slug_to_class_name(slug)
             file_path = target_dir / f"{class_name}.swift"
             with open(file_path, "w") as f:

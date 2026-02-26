@@ -1,230 +1,25 @@
 {
-  "evaluated_at": "2026-02-26T03:20:49Z",
-  "total_results": 637,
-  "topics": [
+  "evaluated_at" : "2026-02-26T06:01:31Z",
+  "problems" : [
     {
-      "topic": "arrays-hashing",
-      "total": 25,
-      "valid": 25,
-      "invalid": 0,
-      "matches": 0,
-      "match_rate": 0.0
-    },
-    {
-      "topic": "heap-priority-queue",
-      "total": 217,
-      "valid": 217,
-      "invalid": 0,
-      "matches": 169,
-      "match_rate": 0.7788
-    },
-    {
-      "topic": "intervals",
-      "total": 120,
-      "valid": 120,
-      "invalid": 0,
-      "matches": 120,
-      "match_rate": 1.0
-    },
-    {
-      "topic": "sliding-window",
-      "total": 250,
-      "valid": 244,
-      "invalid": 6,
-      "matches": 200,
-      "match_rate": 0.8
-    },
-    {
-      "topic": "tries",
-      "total": 25,
-      "valid": 25,
-      "invalid": 0,
-      "matches": 6,
-      "match_rate": 0.24
+      "invalid_tests" : 0,
+      "slug" : "distribute-candies",
+      "topic" : "arrays-hashing",
+      "total_tests" : 25,
+      "valid_tests" : 25
     }
   ],
-  "problems": [
+  "topics" : [
     {
-      "invalid_tests": 0,
-      "slug": "custom-sort-string",
-      "topic": "arrays-hashing",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "k-closest-points-to-origin",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "last-stone-weight",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "network-delay-time",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "top-k-frequent-elements",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "task-scheduler",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "sort-an-array",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "kth-largest-element-in-an-array",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "sort-characters-by-frequency",
-      "topic": "heap-priority-queue",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "reorganize-string",
-      "topic": "heap-priority-queue",
-      "total_tests": 17,
-      "valid_tests": 17
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "meeting-rooms",
-      "topic": "intervals",
-      "total_tests": 23,
-      "valid_tests": 23
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "meeting-rooms-ii",
-      "topic": "intervals",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "merge-intervals",
-      "topic": "intervals",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "insert-interval",
-      "topic": "intervals",
-      "total_tests": 22,
-      "valid_tests": 22
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "non-overlapping-intervals",
-      "topic": "intervals",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "longest-substring-without-repeating-characters",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 2,
-      "slug": "longest-repeating-character-replacement",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 23
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "maximum-average-subarray-i",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "contains-duplicate-ii",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 3,
-      "slug": "find-all-anagrams-in-a-string",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 22
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "fruit-into-baskets",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "binary-subarrays-with-sum",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "minimum-window-substring",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "sliding-window-maximum",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 25
-    },
-    {
-      "invalid_tests": 1,
-      "slug": "permutation-in-string",
-      "topic": "sliding-window",
-      "total_tests": 25,
-      "valid_tests": 24
-    },
-    {
-      "invalid_tests": 0,
-      "slug": "top-k-frequent-words",
-      "topic": "tries",
-      "total_tests": 25,
-      "valid_tests": 25
+      "invalid" : 0,
+      "match_rate" : 1,
+      "matched" : 25,
+      "mismatched" : 0,
+      "runtime_error" : 0,
+      "topic" : "arrays-hashing",
+      "total" : 25,
+      "valid" : 25
     }
-  ]
+  ],
+  "total_results" : 25
 }
