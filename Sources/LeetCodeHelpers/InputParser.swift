@@ -7,25 +7,46 @@ import Foundation
 ///   3. JSON objects: {"nums": [2, 7, 11, 15], "target": 9}
 ///   4. Multi-line bare values: "100\n4\n200\n1\n3\n2"
 ///   5. Raw strings: "leetcode"
+///
+/// Normalization rules (QUAL-04):
+/// - All parse methods return Optional types to surface errors explicitly.
+///   Previously, methods silently returned 0/0.0/[] on parse failure.
+/// - Callers (generated code) use guard-let to detect nil and record parse_error status.
+/// - Array parse methods return nil if input is not bracket-delimited or if any
+///   element within the array fails to parse.
+/// - splitParams validates expected parameter count and returns nil on mismatch.
+/// - String/Character parsing is lenient (always succeeds) since any input is a valid string.
 public enum InputParser {
 
     // MARK: - Parse integer from string
-    public static func parseInt(_ s: String) -> Int {
-        Int(s.trimmingCharacters(in: .whitespaces)) ?? 0
+
+    /// Returns nil if the string cannot be parsed as an integer.
+    /// Previously returned 0 on failure, hiding parse errors.
+    public static func parseInt(_ s: String) -> Int? {
+        Int(s.trimmingCharacters(in: .whitespaces))
     }
 
     // MARK: - Parse double from string
-    public static func parseDouble(_ s: String) -> Double {
-        Double(s.trimmingCharacters(in: .whitespaces)) ?? 0.0
+
+    /// Returns nil if the string cannot be parsed as a Double.
+    /// Previously returned 0.0 on failure, hiding parse errors.
+    public static func parseDouble(_ s: String) -> Double? {
+        Double(s.trimmingCharacters(in: .whitespaces))
     }
 
     // MARK: - Parse boolean from string
+
+    /// Parses boolean from string. Accepts "true"/"1" as true, everything else as false.
+    /// Normalization: case-insensitive, handles "true"/"True"/"TRUE"/"1" variants.
     public static func parseBool(_ s: String) -> Bool {
         let trimmed = s.trimmingCharacters(in: .whitespaces).lowercased()
         return trimmed == "true" || trimmed == "1"
     }
 
     // MARK: - Parse a string value (may be quoted or unquoted)
+
+    /// Strips outer quotes if present. Always succeeds (any input is a valid string).
+    /// Normalization: trims whitespace, strips matching double-quotes from both ends.
     public static func parseString(_ s: String) -> String {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
         if trimmed.hasPrefix("\"") && trimmed.hasSuffix("\"") && trimmed.count >= 2 {
@@ -35,33 +56,55 @@ public enum InputParser {
     }
 
     // MARK: - Parse character
-    public static func parseCharacter(_ s: String) -> Character {
+
+    /// Returns nil if the parsed string is empty (no character available).
+    /// Previously returned a space character on failure, hiding parse errors.
+    public static func parseCharacter(_ s: String) -> Character? {
         let str = parseString(s)
-        return str.first ?? Character(" ")
+        return str.first
     }
 
     // MARK: - Parse 1D int array: "[1, 2, 3]" -> [Int]
-    public static func parseIntArray(_ s: String) -> [Int] {
+
+    /// Returns nil if input is not bracket-delimited or if any element fails to parse as Int.
+    /// Previously returned [] on bad input and silently replaced unparseable elements with 0.
+    public static func parseIntArray(_ s: String) -> [Int]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
         let inner = String(trimmed.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
         if inner.isEmpty { return [] }
-        return inner.split(separator: ",").map { Int($0.trimmingCharacters(in: .whitespaces)) ?? 0 }
+        var result: [Int] = []
+        for part in inner.split(separator: ",") {
+            guard let val = Int(part.trimmingCharacters(in: .whitespaces)) else { return nil }
+            result.append(val)
+        }
+        return result
     }
 
     // MARK: - Parse 1D double array
-    public static func parseDoubleArray(_ s: String) -> [Double] {
+
+    /// Returns nil if input is not bracket-delimited or if any element fails to parse as Double.
+    /// Previously returned [] on bad input and silently replaced unparseable elements with 0.0.
+    public static func parseDoubleArray(_ s: String) -> [Double]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
         let inner = String(trimmed.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
         if inner.isEmpty { return [] }
-        return inner.split(separator: ",").map { Double($0.trimmingCharacters(in: .whitespaces)) ?? 0.0 }
+        var result: [Double] = []
+        for part in inner.split(separator: ",") {
+            guard let val = Double(part.trimmingCharacters(in: .whitespaces)) else { return nil }
+            result.append(val)
+        }
+        return result
     }
 
     // MARK: - Parse 1D string array: ["a", "b", "c"] -> [String]
-    public static func parseStringArray(_ s: String) -> [String] {
+
+    /// Returns nil if input is not bracket-delimited.
+    /// String elements always parse successfully since any text is a valid string.
+    public static func parseStringArray(_ s: String) -> [String]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
         let inner = String(trimmed.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
         if inner.isEmpty { return [] }
         // Split respecting quoted strings
@@ -99,19 +142,31 @@ public enum InputParser {
     }
 
     // MARK: - Parse 1D character array: ["a", "b"] -> [Character]
-    public static func parseCharacterArray(_ s: String) -> [Character] {
-        parseStringArray(s).map { $0.first ?? Character(" ") }
+
+    /// Returns nil if input is not bracket-delimited or if any element is empty.
+    public static func parseCharacterArray(_ s: String) -> [Character]? {
+        guard let strings = parseStringArray(s) else { return nil }
+        var result: [Character] = []
+        for str in strings {
+            guard let ch = str.first else { return nil }
+            result.append(ch)
+        }
+        return result
     }
 
     // MARK: - Parse 2D int array: "[[1,2],[3,4]]" -> [[Int]]
-    public static func parse2DIntArray(_ s: String) -> [[Int]] {
+
+    /// Returns nil if input is not bracket-delimited or if any inner array fails to parse.
+    public static func parse2DIntArray(_ s: String) -> [[Int]]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
+        let inner = String(trimmed.dropFirst().dropLast())
+        // Empty outer array
+        if inner.trimmingCharacters(in: .whitespaces).isEmpty { return [] }
         // Find inner arrays by bracket matching
         var depth = 0
         var current = ""
         var result: [[Int]] = []
-        let inner = String(trimmed.dropFirst().dropLast())
 
         for ch in inner {
             if ch == "[" {
@@ -121,7 +176,8 @@ public enum InputParser {
                 depth -= 1
                 current.append(ch)
                 if depth == 0 {
-                    result.append(parseIntArray(current))
+                    guard let innerArray = parseIntArray(current) else { return nil }
+                    result.append(innerArray)
                     current = ""
                 }
             } else if ch == "," && depth == 0 {
@@ -134,15 +190,18 @@ public enum InputParser {
     }
 
     // MARK: - Parse 2D string array: [["a","b"],["c","d"]] -> [[String]]
-    public static func parse2DStringArray(_ s: String) -> [[String]] {
+
+    /// Returns nil if input is not bracket-delimited or if any inner array fails to parse.
+    public static func parse2DStringArray(_ s: String) -> [[String]]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
+        let inner = String(trimmed.dropFirst().dropLast())
+        if inner.trimmingCharacters(in: .whitespaces).isEmpty { return [] }
         var depth = 0
         var current = ""
         var result: [[String]] = []
         var inQuote = false
         var escaped = false
-        let inner = String(trimmed.dropFirst().dropLast())
 
         for ch in inner {
             if escaped { current.append(ch); escaped = false; continue }
@@ -156,7 +215,8 @@ public enum InputParser {
                 depth -= 1
                 current.append(ch)
                 if depth == 0 {
-                    result.append(parseStringArray(current))
+                    guard let innerArray = parseStringArray(current) else { return nil }
+                    result.append(innerArray)
                     current = ""
                 }
             } else if ch == "," && depth == 0 {
@@ -169,27 +229,53 @@ public enum InputParser {
     }
 
     // MARK: - Parse 2D character array (boards)
-    public static func parse2DCharacterArray(_ s: String) -> [[Character]] {
-        parse2DStringArray(s).map { $0.map { $0.first ?? Character(" ") } }
+
+    /// Returns nil if input is not bracket-delimited or if any inner element is empty.
+    public static func parse2DCharacterArray(_ s: String) -> [[Character]]? {
+        guard let strings = parse2DStringArray(s) else { return nil }
+        var result: [[Character]] = []
+        for row in strings {
+            var charRow: [Character] = []
+            for str in row {
+                guard let ch = str.first else { return nil }
+                charRow.append(ch)
+            }
+            result.append(charRow)
+        }
+        return result
     }
 
     // MARK: - Parse nullable int array for trees: "[1,2,null,3]" -> [Int?]
-    public static func parseNullableIntArray(_ s: String) -> [Int?] {
+
+    /// Returns nil if input is not bracket-delimited.
+    /// Elements that are "null"/"nil"/"None" become nil; non-null elements that
+    /// fail Int parsing also cause the whole array to return nil.
+    public static func parseNullableIntArray(_ s: String) -> [Int?]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
         let inner = String(trimmed.dropFirst().dropLast()).trimmingCharacters(in: .whitespaces)
         if inner.isEmpty { return [] }
-        return inner.split(separator: ",", omittingEmptySubsequences: false).map { element in
+        var result: [Int?] = []
+        for element in inner.split(separator: ",", omittingEmptySubsequences: false) {
             let e = element.trimmingCharacters(in: .whitespaces)
-            if e == "null" || e == "nil" || e == "None" { return nil }
-            return Int(e)
+            if e == "null" || e == "nil" || e == "None" {
+                result.append(nil)
+            } else if let val = Int(e) {
+                result.append(val)
+            } else {
+                // Non-null element that is not a valid integer
+                return nil
+            }
         }
+        return result
     }
 
     // MARK: - Parse raw args list for class design: [[2],[1,1],[3,3]] -> [["2"],["1","1"],["3","3"]]
-    public static func parseRawArgsList(_ s: String) -> [[String]] {
+
+    /// Returns nil if input is not bracket-delimited.
+    public static func parseRawArgsList(_ s: String) -> [[String]]? {
         let trimmed = s.trimmingCharacters(in: .whitespaces)
-        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return [] }
+        guard trimmed.hasPrefix("[") && trimmed.hasSuffix("]") else { return nil }
         // Split outer array into inner arrays by bracket matching
         var depth = 0
         var current = ""
@@ -223,6 +309,17 @@ public enum InputParser {
             }
         }
         return result
+    }
+
+    // MARK: - Strict parameter count validation
+
+    /// Splits input into parameters and validates the count matches expectations.
+    /// Returns nil if the input doesn't have exactly the expected number of parameters.
+    /// This supports the strict parameter count validation policy: wrong param count = parse_error.
+    public static func splitParams(_ input: String, expectedCount: Int) -> [String]? {
+        let params = stripParamNames(input)
+        guard params.count == expectedCount else { return nil }
+        return params
     }
 
     /// Split raw args string by top-level commas, preserving nested brackets/quotes
