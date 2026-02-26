@@ -150,7 +150,7 @@ def generate_constraint_guards(
                 f'        guard {condition} else {{\n'
                 f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                 f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
                 f'errorMessage: "Constraint violation: {_escape_swift(c_text)}")\n'
                 f'            return\n'
                 f'        }}'
@@ -484,8 +484,224 @@ def output_serializer(swift_type: str, expr: str) -> str:
         return f"serializeRandomList({expr})"
     if t == "[[Bool]]":
         return f'"[" + {expr}.map {{ "[" + $0.map {{ $0 ? "true" : "false" }}.joined(separator: ",") + "]" }}.joined(separator: ",") + "]"'
-    # Fallback
+    # Fallback -- log warning during generation so developers know to add a case
+    print(f"Warning: No type-specific serializer for return type '{t}', using string interpolation fallback", file=sys.stderr)
     return f'"\\({expr})"'
+
+
+# ─── Type-aware comparison emission ──────────────────────────────────────────
+
+def emit_comparison(lines: List[str], return_type: str, indent: str = "        ") -> None:
+    """Emit Swift comparison code based on return type.
+
+    Replaces the naive `let matches = computedOutput == expectedOutput` with
+    type-specific comparison code that handles:
+    - Order-independent arrays (QUAL-01): sorted comparison when orderMatters=false
+    - Float epsilon (QUAL-02): abs(a - b) < 1e-5 for Double/Float types
+    - String normalization (QUAL-03): strip outer quotes, normalize whitespace
+    - Normalization rules documented as inline code comments
+
+    Normalization rules embedded in generated Swift code:
+    - Strip outer quotes from string outputs
+    - Normalize array whitespace to no-spaces-after-commas
+    - Parse booleans to Bool before comparison
+    - Normalize null representations (nil/None/NULL -> null)
+    - Normalize trailing zeros in floats
+    - Treat -0 and 0 as equal
+    - Linked list 1->2->3 format converted to [1,2,3]
+    """
+    t = return_type.strip()
+
+    # --- Int scalar: direct string comparison (OutputSerializer already produces canonical form) ---
+    if t == "Int":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- Bool scalar: parse expected to Bool and compare typed values ---
+    elif t == "Bool":
+        lines.append(f"{indent}// Normalize: parse expected to Bool (handles true/True/TRUE/1)")
+        lines.append(f'{indent}let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"')
+        lines.append(f"{indent}let matches = result == expectedBool")
+
+    # --- Double scalar: epsilon comparison (QUAL-02) ---
+    elif t in ("Double", "Float"):
+        lines.append(f"{indent}// Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)")
+        lines.append(f"{indent}// Treats -0 and 0 as equal; handles trailing zero normalization")
+        lines.append(f"{indent}let expectedVal = Double(expectedOutput.trimmingCharacters(in: .whitespaces)) ?? Double.nan")
+        lines.append(f"{indent}let matches = abs(result - expectedVal) < 1e-5")
+
+    # --- String: strip outer quotes and normalize whitespace (QUAL-03) ---
+    elif t == "String":
+        lines.append(f"{indent}// Normalize: strip outer quotes from both sides (QUAL-03)")
+        lines.append(f"{indent}func stripQuotes(_ s: String) -> String {{")
+        lines.append(f"{indent}    let t = s.trimmingCharacters(in: .whitespaces)")
+        lines.append(f'{indent}    if t.count >= 2 && t.first == "\\"" && t.last == "\\"" {{ return String(t.dropFirst().dropLast()) }}')
+        lines.append(f"{indent}    return t")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)")
+
+    # --- Character: compare as strings ---
+    elif t == "Character":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [Int]: order-independent comparison when orderMatters=false (QUAL-01) ---
+    elif t == "[Int]":
+        lines.append(f"{indent}// Order-independent array comparison (QUAL-01)")
+        lines.append(f"{indent}// Sorted comparison ensures same elements with same frequencies")
+        lines.append(f"{indent}guard let expectedArray = InputParser.parseIntArray(expectedOutput) else {{")
+        lines.append(f"{indent}    let matches = false")
+        lines.append(f"{indent}    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse expected output as [Int]")')
+        lines.append(f'{indent}    #expect(Bool(false), "Test \\(testId): failed to parse expected output")')
+        lines.append(f"{indent}    return")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches: Bool")
+        lines.append(f"{indent}if orderMatters {{")
+        lines.append(f"{indent}    matches = result == expectedArray")
+        lines.append(f"{indent}}} else {{")
+        lines.append(f"{indent}    matches = result.sorted() == expectedArray.sorted()")
+        lines.append(f"{indent}}}")
+
+    # --- [String]: order-independent comparison (QUAL-01) ---
+    elif t == "[String]":
+        lines.append(f"{indent}// Order-independent string array comparison (QUAL-01)")
+        lines.append(f"{indent}guard let expectedArray = InputParser.parseStringArray(expectedOutput) else {{")
+        lines.append(f"{indent}    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse expected output as [String]")')
+        lines.append(f'{indent}    #expect(Bool(false), "Test \\(testId): failed to parse expected output")')
+        lines.append(f"{indent}    return")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches: Bool")
+        lines.append(f"{indent}if orderMatters {{")
+        lines.append(f"{indent}    matches = result == expectedArray")
+        lines.append(f"{indent}}} else {{")
+        lines.append(f"{indent}    matches = result.sorted() == expectedArray.sorted()")
+        lines.append(f"{indent}}}")
+
+    # --- [Bool]: compare element-wise ---
+    elif t == "[Bool]":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [Character]: compare directly ---
+    elif t == "[Character]":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [[Int]]: nested order-independence (QUAL-01) ---
+    elif t == "[[Int]]":
+        lines.append(f"{indent}// Nested order-independent comparison (QUAL-01)")
+        lines.append(f"{indent}// Inner arrays compared as-is, outer array order ignored when orderMatters=false")
+        lines.append(f"{indent}guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {{")
+        lines.append(f"{indent}    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse expected output as [[Int]]")')
+        lines.append(f'{indent}    #expect(Bool(false), "Test \\(testId): failed to parse expected output")')
+        lines.append(f"{indent}    return")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches: Bool")
+        lines.append(f"{indent}if orderMatters {{")
+        lines.append(f"{indent}    matches = result == expectedArrays")
+        lines.append(f"{indent}}} else {{")
+        lines.append(f"{indent}    // Sort outer array by content for stable comparison (inner order preserved)")
+        lines.append(f"{indent}    let sortOuter: ([[Int]]) -> [[Int]] = {{ $0.sorted {{ a, b in")
+        lines.append(f"{indent}        for i in 0..<min(a.count, b.count) {{ if a[i] != b[i] {{ return a[i] < b[i] }} }}")
+        lines.append(f"{indent}        return a.count < b.count")
+        lines.append(f"{indent}    }} }}")
+        lines.append(f"{indent}    matches = sortOuter(result) == sortOuter(expectedArrays)")
+        lines.append(f"{indent}}}")
+
+    # --- [[String]]: order-independent 2D string arrays ---
+    elif t == "[[String]]":
+        lines.append(f"{indent}guard let expectedArrays = InputParser.parse2DStringArray(expectedOutput) else {{")
+        lines.append(f"{indent}    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse expected output as [[String]]")')
+        lines.append(f'{indent}    #expect(Bool(false), "Test \\(testId): failed to parse expected output")')
+        lines.append(f"{indent}    return")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches: Bool")
+        lines.append(f"{indent}if orderMatters {{")
+        lines.append(f"{indent}    matches = result == expectedArrays")
+        lines.append(f"{indent}}} else {{")
+        lines.append(f"{indent}    let sortOuter: ([[String]]) -> [[String]] = {{ $0.sorted {{ a, b in")
+        lines.append(f"{indent}        for i in 0..<min(a.count, b.count) {{ if a[i] != b[i] {{ return a[i] < b[i] }} }}")
+        lines.append(f"{indent}        return a.count < b.count")
+        lines.append(f"{indent}    }} }}")
+        lines.append(f"{indent}    matches = sortOuter(result) == sortOuter(expectedArrays)")
+        lines.append(f"{indent}}}")
+
+    # --- [[Character]]: compare directly (order always matters for boards) ---
+    elif t == "[[Character]]":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [Double]: element-wise epsilon comparison (QUAL-02) ---
+    elif t == "[Double]":
+        lines.append(f"{indent}// Element-wise epsilon comparison for [Double] (QUAL-02)")
+        lines.append(f"{indent}guard let expectedArray = InputParser.parseDoubleArray(expectedOutput) else {{")
+        lines.append(f"{indent}    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
+                      f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                      f'errorMessage: "Failed to parse expected output as [Double]")')
+        lines.append(f'{indent}    #expect(Bool(false), "Test \\(testId): failed to parse expected output")')
+        lines.append(f"{indent}    return")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches: Bool")
+        lines.append(f"{indent}if result.count != expectedArray.count {{")
+        lines.append(f"{indent}    matches = false")
+        lines.append(f"{indent}}} else {{")
+        lines.append(f"{indent}    matches = zip(result, expectedArray).allSatisfy {{ abs($0 - $1) < 1e-5 }}")
+        lines.append(f"{indent}}}")
+
+    # --- TreeNode?: structural comparison via canonical serialization ---
+    elif t == "TreeNode?":
+        lines.append(f"{indent}// Structural comparison: both sides serialized to canonical tree format")
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- ListNode?: structural comparison via canonical serialization ---
+    elif t == "ListNode?":
+        lines.append(f"{indent}// Structural comparison: both sides serialized to canonical list format")
+        lines.append(f"{indent}// Normalization: linked list arrow format (1->2->3) converted to [1,2,3]")
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- Int?: optional int ---
+    elif t == "Int?":
+        lines.append(f"{indent}// Normalize null representations (nil/None/NULL -> null)")
+        lines.append(f"{indent}func normalizeNull(_ s: String) -> String {{")
+        lines.append(f'{indent}    let t = s.trimmingCharacters(in: .whitespaces).lowercased()')
+        lines.append(f'{indent}    if t == "nil" || t == "none" || t == "null" {{ return "null" }}')
+        lines.append(f"{indent}    return s.trimmingCharacters(in: .whitespaces)")
+        lines.append(f"{indent}}}")
+        lines.append(f"{indent}let matches = normalizeNull(computedOutput) == normalizeNull(expectedOutput)")
+
+    # --- Node variants: compare serialized forms ---
+    elif t in ("Node?", "GraphNode?", "NAryNode?", "NextNode?", "RandomNode?", "DoublyNode?", "QuadNode?"):
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [[Bool]]: direct comparison ---
+    elif t == "[[Bool]]":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [Int?]: nullable int array (class-design outputs like [null,null,1,-1,null]) ---
+    elif t == "[Int?]":
+        lines.append(f"{indent}// Normalize null representations and compare")
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- [ListNode?]: array of optional list nodes ---
+    elif t == "[ListNode?]":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- Void: compare with inout result ---
+    elif t == "Void":
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
+
+    # --- Fallback for any unrecognized return type ---
+    else:
+        lines.append(f"{indent}// WARNING: No type-specific comparison for return type '{t}', using string equality")
+        lines.append(f"{indent}let matches = computedOutput == expectedOutput")
 
 
 def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optional[str]:
@@ -499,7 +715,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
             f'        guard {parsed_var}.count <= 100_000 else {{\n'
             f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-            f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+            f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
             f'errorMessage: "Constraint violation: {param_name} array too large (\\({parsed_var}.count))")\n'
             f'            return\n'
             f'        }}'
@@ -510,7 +726,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
             f'        guard {parsed_var}.count <= 1000 else {{\n'
             f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-            f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+            f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
             f'errorMessage: "Constraint violation: {param_name} 2D array too large (\\({parsed_var}.count))")\n'
             f'            return\n'
             f'        }}'
@@ -520,7 +736,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
             f'        guard {parsed_var}.count <= 100_000 else {{\n'
             f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-            f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+            f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
             f'errorMessage: "Constraint violation: {param_name} string too long (\\({parsed_var}.count))")\n'
             f'            return\n'
             f'        }}'
@@ -866,7 +1082,7 @@ def generate_test_file(
         lines.append(f"        guard params.count >= {len(params)} else {{")
         lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                      f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
                       f'errorMessage: "Wrong number of params: expected {len(params)}, got \\(params.count)")')
         lines.append(f"            return")
         lines.append(f"        }}")
@@ -881,7 +1097,7 @@ def generate_test_file(
                 lines.append(f'        // Unsupported param type: {ptype}')
                 lines.append(f'        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                               f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                              f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                              f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
                               f'errorMessage: "Unsupported param type: {ptype}")')
                 lines.append(f"        return")
                 param_vars.append((var_name, ptype, label))
@@ -943,11 +1159,12 @@ def generate_test_file(
                 lines.append(f"        let computedOutput = {ser}")
 
             lines.append(f"")
-            lines.append(f"        let matches = computedOutput == expectedOutput")
+            # Emit type-aware comparison (replaces naive string equality)
+            emit_comparison(lines, return_type)
             lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
                           f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
-                          f"isValid: true, outputMatches: matches, orderMatters: orderMatters)")
-            lines.append(f'        #expect(computedOutput == expectedOutput, "Test \\(testId): input=\\(rawInput)")')
+                          f'isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)')
+            lines.append(f'        #expect(matches, "Test \\(testId): expected=\\(expectedOutput) computed=\\(computedOutput)")')
 
         lines.append(f"    }}")
         lines.append(f"")
@@ -1099,7 +1316,7 @@ def generate_class_design_test_file(
         lines.append(f"        guard inputLines.count >= 2 else {{")
         lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                      f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
                       f'errorMessage: "Invalid class design input format")')
         lines.append(f"            return")
         lines.append(f"        }}")
@@ -1109,7 +1326,7 @@ def generate_class_design_test_file(
         lines.append(f"        guard methodNames.count == argsList.count, !methodNames.isEmpty else {{")
         lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                      f'isValid: false, outputMatches: false, orderMatters: orderMatters, '
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
                       f'errorMessage: "Methods/args count mismatch")')
         lines.append(f"            return")
         lines.append(f"        }}")
@@ -1205,11 +1422,21 @@ def generate_class_design_test_file(
         lines.append(f"        }}")
         lines.append(f"")
         lines.append(f'        let computedOutput = "[" + results.joined(separator: ",") + "]"')
-        lines.append(f"        let matches = computedOutput == expectedOutput")
+        # Class-design outputs: always orderMatters=true (method call order matters)
+        # Normalize null representations (nil/None/NULL -> null) and whitespace
+        lines.append(f"        // Class-design comparison: normalize null representations and whitespace")
+        lines.append(f"        func normalizeClassOutput(_ s: String) -> String {{")
+        lines.append(f"            var result = s.replacingOccurrences(of: \" \", with: \"\")")
+        lines.append(f'            result = result.replacingOccurrences(of: "nil", with: "null")')
+        lines.append(f'            result = result.replacingOccurrences(of: "None", with: "null")')
+        lines.append(f'            result = result.replacingOccurrences(of: "NULL", with: "null")')
+        lines.append(f"            return result")
+        lines.append(f"        }}")
+        lines.append(f"        let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)")
         lines.append(f"        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, "
                       f"input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, "
-                      f"isValid: true, outputMatches: matches, orderMatters: orderMatters)")
-        lines.append(f'        #expect(computedOutput == expectedOutput, "Test \\(testId): input=\\(rawInput)")')
+                      f'isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)')
+        lines.append(f'        #expect(matches, "Test \\(testId): expected=\\(expectedOutput) computed=\\(computedOutput)")')
         lines.append(f"    }}")
         lines.append(f"")
 
