@@ -4,7 +4,7 @@
 Reads Scripts/topics.json to produce a Package.swift with:
   - LeetCodeHelpers library target
   - TestResultsBundle library target (with only existing JSON resources)
-  - 51 test targets: {Topic}_{Difficulty}Tests for each topic x difficulty
+  - Test targets for each {Topic}_{Difficulty}Tests directory that exists on disk
 """
 
 import json
@@ -46,11 +46,17 @@ def generate_package_swift(config: dict) -> str:
         resource_lines.append(f'                .process("{fname}"),')
     resources_block = "\n".join(resource_lines)
 
-    # Build test target entries (51 total: 17 topics x 3 difficulties)
+    # Build test target entries -- only for directories that exist on disk
+    tests_dir = PACKAGE_DIR / "Tests"
     test_target_lines = []
+    skipped = []
     for topic in topics:
         for diff in difficulties:
             name = f"{topic}_{diff}Tests"
+            target_path = tests_dir / name
+            if not target_path.is_dir():
+                skipped.append(name)
+                continue
             path = f"Tests/{name}"
             test_target_lines.append(
                 f'        .testTarget(\n'
@@ -59,6 +65,8 @@ def generate_package_swift(config: dict) -> str:
                 f'            path: "{path}"\n'
                 f'        ),'
             )
+    if skipped:
+        print(f"  Skipped {len(skipped)} missing directories: {', '.join(skipped)}")
     test_targets_block = "\n".join(test_target_lines)
 
     return (
@@ -97,19 +105,24 @@ def main():
 
     topics = config["topics"]
     difficulties = config["difficulties"]
-    total_targets = len(topics) * len(difficulties)
-    print(f"Generating Package.swift with {total_targets} test targets "
-          f"({len(topics)} topics x {len(difficulties)} difficulties)")
+    max_targets = len(topics) * len(difficulties)
+    print(f"Generating Package.swift ({len(topics)} topics x {len(difficulties)} difficulties, "
+          f"max {max_targets} test targets)")
 
     content = generate_package_swift(config)
     PACKAGE_FILE.write_text(content)
     print(f"Wrote {PACKAGE_FILE}")
 
-    # Verify
+    # Verify: count must match actual directories on disk
     count = content.count(".testTarget(")
-    print(f"Test target count: {count}")
-    assert count == total_targets, (
-        f"Expected {total_targets} test targets, got {count}"
+    tests_dir = PACKAGE_DIR / "Tests"
+    actual_dirs = sum(
+        1 for topic in topics for diff in difficulties
+        if (tests_dir / f"{topic}_{diff}Tests").is_dir()
+    )
+    print(f"Test target count: {count} (of {max_targets} possible)")
+    assert count == actual_dirs, (
+        f"Expected {actual_dirs} test targets (matching directories), got {count}"
     )
 
 

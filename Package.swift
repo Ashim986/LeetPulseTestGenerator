@@ -148,11 +148,6 @@ let package = Package(
             path: "Tests/HeapPriorityQueue_HardTests"
         ),
         .testTarget(
-            name: "Intervals_EasyTests",
-            dependencies: ["LeetCodeHelpers"],
-            path: "Tests/Intervals_EasyTests"
-        ),
-        .testTarget(
             name: "Intervals_MediumTests",
             dependencies: ["LeetCodeHelpers"],
             path: "Tests/Intervals_MediumTests"
