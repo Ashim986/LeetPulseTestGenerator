@@ -1,0 +1,41 @@
+{
+  "topics": [
+    "ArraysHashing",
+    "Backtracking",
+    "BinarySearch",
+    "BitManipulation",
+    "DynamicProgramming",
+    "Graphs",
+    "Greedy",
+    "HeapPriorityQueue",
+    "Intervals",
+    "LinkedList",
+    "MathGeometry",
+    "Misc",
+    "SlidingWindow",
+    "Stack",
+    "Trees",
+    "Tries",
+    "TwoPointers"
+  ],
+  "difficulties": ["Easy", "Medium", "Hard"],
+  "topicSlugMap": {
+    "ArraysHashing": "arrays-hashing",
+    "Backtracking": "backtracking",
+    "BinarySearch": "binary-search",
+    "BitManipulation": "bit-manipulation",
+    "DynamicProgramming": "dynamic-programming",
+    "Graphs": "graphs",
+    "Greedy": "greedy",
+    "HeapPriorityQueue": "heap-priority-queue",
+    "Intervals": "intervals",
+    "LinkedList": "linked-list",
+    "MathGeometry": "math-geometry",
+    "Misc": "misc",
+    "SlidingWindow": "sliding-window",
+    "Stack": "stack",
+    "Trees": "trees",
+    "Tries": "tries",
+    "TwoPointers": "two-pointers"
+  }
+}
