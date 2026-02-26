@@ -1217,14 +1217,22 @@ def sanitize_solution_code(code: str, slug: str = "", is_class_design: bool = Fa
     # Remove import Foundation (already imported)
     modified = re.sub(r'import\s+Foundation\s*\n?', '', modified)
 
-    # Rename TrieNode to a unique name per slug to avoid collisions across test files
+    # Handle TrieNode based on problem type:
+    # - Non-class-design: strip TrieNode class definition (uses shared LeetCodeHelpers type)
+    # - Class-design: keep TrieNode since it may be the core of the solution, but rename to avoid conflicts
     if "TrieNode" in modified and slug:
-        unique_name = slug_to_class_name(slug).replace("Tests", "") + "TrieNode"
-        modified = modified.replace("TrieNode", unique_name)
+        if is_class_design:
+            # Class-design: rename TrieNode to unique name (keeps definition, avoids collisions)
+            unique_name = slug_to_class_name(slug).replace("Tests", "") + "TrieNode"
+            modified = modified.replace("TrieNode", unique_name)
+        # Non-class-design: TrieNode will be stripped below (added to types_to_strip)
 
-    # Remove TreeNode/ListNode/Node redefinitions (we provide these from LeetCodeHelpers)
-    # For class design problems, keep Node since it may be an internal helper (e.g., doubly linked list node)
-    types_to_strip = ["TreeNode", "ListNode"] if is_class_design else ["TreeNode", "ListNode", "Node"]
+    # Remove TreeNode/ListNode/Node/TrieNode redefinitions (we provide these from LeetCodeHelpers)
+    # For class design problems, keep Node and TrieNode since they may be internal helpers
+    if is_class_design:
+        types_to_strip = ["TreeNode", "ListNode"]
+    else:
+        types_to_strip = ["TreeNode", "ListNode", "Node", "TrieNode"]
     lines = modified.split("\n")
     cleaned = []
     skip_depth = 0
@@ -1536,10 +1544,15 @@ def generate_test_file(
 
 def parse_class_methods(code: str) -> List[dict]:
     """Parse all methods from a class design solution.
-    Returns [{name, params: [(label, name, type)], return_type}]."""
+    Returns [{name, params: [(label, name, type)], return_type}].
+
+    Only extracts methods at depth = design_class_depth + 1 (direct methods
+    of the design class). Nested helper functions (e.g., dfs inside search)
+    at deeper depths are ignored.
+    """
     methods = []
     # Find all func declarations at class level (depth 1 inside the design class)
-    # Skip helper/private nested classes
+    # Skip helper/private nested classes and nested helper functions
     lines = code.split("\n")
     brace_depth = 0
     in_design_class = False
@@ -1547,6 +1560,9 @@ def parse_class_methods(code: str) -> List[dict]:
 
     for line in lines:
         stripped = line.strip()
+        # Record depth BEFORE processing braces on this line
+        depth_before = brace_depth
+
         # Detect design class (not Solution, not Node)
         cls_match = re.match(r'class\s+(\w+)', stripped)
         if cls_match:
@@ -1565,8 +1581,9 @@ def parse_class_methods(code: str) -> List[dict]:
             in_design_class = False
             design_class_depth = None
 
-        # Look for func at depth = design_class_depth + 1
-        if in_design_class and design_class_depth is not None:
+        # Look for func ONLY at depth = design_class_depth + 1 (direct class methods)
+        # depth_before tells us the depth at the start of this line, before any braces on it
+        if in_design_class and design_class_depth is not None and depth_before == design_class_depth + 1:
             func_match = re.match(r'\s*(?:@\w+\s+)*func\s+(\w+)\s*\((.*?)\)\s*(?:->\s*(.+?))?\s*\{', stripped)
             if func_match:
                 fname = func_match.group(1)
