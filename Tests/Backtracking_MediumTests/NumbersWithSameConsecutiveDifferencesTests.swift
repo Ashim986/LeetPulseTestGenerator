@@ -80,9 +80,32 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.numsSameConsecDiff(p_n, p_k)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Order-independent array comparison (QUAL-01)
+            // Sorted comparison ensures same elements with same frequencies
+            guard let expectedArray = InputParser.parseIntArray(expectedOutput) else {
+                let matches = false
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Int]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArray
+            } else {
+                matches = result.sorted() == expectedArray.sorted()
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -119,9 +142,32 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.numsSameConsecDiff(p_n, p_k)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Order-independent array comparison (QUAL-01)
+            // Sorted comparison ensures same elements with same frequencies
+            guard let expectedArray = InputParser.parseIntArray(expectedOutput) else {
+                let matches = false
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [Int]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArray
+            } else {
+                matches = result.sorted() == expectedArray.sorted()
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

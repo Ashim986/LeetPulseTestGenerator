@@ -83,9 +83,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -112,9 +122,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_2() async {
@@ -141,9 +161,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_3() async {
@@ -170,9 +200,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_4() async {
@@ -199,9 +239,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_5() async {
@@ -228,9 +278,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_6() async {
@@ -257,9 +317,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_7() async {
@@ -286,9 +356,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_8() async {
@@ -315,9 +395,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_9() async {
@@ -344,9 +434,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_10() async {
@@ -373,9 +473,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_11() async {
@@ -402,9 +512,19 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            solution.gameOfLife(&p_board)
+            let computedOutput = OutputSerializer.serialize(p_board)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

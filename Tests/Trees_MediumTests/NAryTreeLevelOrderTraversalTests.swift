@@ -46,9 +46,36 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.levelOrder(p_root)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Nested order-independent comparison (QUAL-01)
+            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArrays
+            } else {
+                // Sort outer array by content for stable comparison (inner order preserved)
+                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                    return a.count < b.count
+                } }
+                matches = sortOuter(result) == sortOuter(expectedArrays)
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -71,9 +98,36 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.levelOrder(p_root)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Nested order-independent comparison (QUAL-01)
+            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArrays
+            } else {
+                // Sort outer array by content for stable comparison (inner order preserved)
+                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                    return a.count < b.count
+                } }
+                matches = sortOuter(result) == sortOuter(expectedArrays)
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_2() async {
@@ -96,9 +150,36 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.levelOrder(p_root)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Nested order-independent comparison (QUAL-01)
+            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                return
+            }
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArrays
+            } else {
+                // Sort outer array by content for stable comparison (inner order preserved)
+                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                    return a.count < b.count
+                } }
+                matches = sortOuter(result) == sortOuter(expectedArrays)
+            }
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }

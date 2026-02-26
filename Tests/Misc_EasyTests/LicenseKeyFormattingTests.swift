@@ -44,9 +44,25 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.licenseKeyFormatting(p_S, p_K)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Normalize: strip outer quotes from both sides (QUAL-03)
+            func stripQuotes(_ s: String) -> String {
+                let t = s.trimmingCharacters(in: .whitespaces)
+                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                return t
+            }
+            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
     @Test func test_1() async {
@@ -84,9 +100,25 @@ private class Solution {
             return
         }
 
-        // DRY-RUN: input parsing succeeded, skipping solution execution
-        let computedOutput = "DRY_RUN"
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: "matched", orderMatters: orderMatters)
+        // Solution execution with runtime error handling
+        do {
+            let solution = Solution()
+            let result = solution.licenseKeyFormatting(p_S, p_K)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Normalize: strip outer quotes from both sides (QUAL-03)
+            func stripQuotes(_ s: String) -> String {
+                let t = s.trimmingCharacters(in: .whitespaces)
+                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                return t
+            }
+            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+        } catch {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+        }
     }
 
 }
