@@ -400,31 +400,79 @@ def _escape_swift(s: str) -> str:
     return s.replace("\\", "\\\\").replace('"', '\\"')
 
 # ─── Paths ───────────────────────────────────────────────────────────────────
-PACKAGE_DIR = Path(__file__).resolve().parent.parent  # TestCaseEvaluator/
+SCRIPT_DIR = Path(__file__).resolve().parent        # Scripts/
+PACKAGE_DIR = SCRIPT_DIR.parent                     # TestCaseEvaluator/
 SOLUTIONS_DIR = PACKAGE_DIR.parent / "LeetPulse" / "LeetPulse" / "Resources" / "Solutions"
 TC_DIR = PACKAGE_DIR / "corrected"
 TESTS_DIR = PACKAGE_DIR / "Tests"
 
-# ─── Topic mapping ───────────────────────────────────────────────────────────
-TOPIC_TO_TEST_TARGET = {
-    "arrays-hashing": "ArraysHashingTests",
-    "backtracking": "BacktrackingTests",
-    "binary-search": "BinarySearchTests",
-    "bit-manipulation": "BitManipulationTests",
-    "dynamic-programming": "DynamicProgrammingTests",
-    "graphs": "GraphsTests",
-    "greedy": "GreedyTests",
-    "heap-priority-queue": "HeapPriorityQueueTests",
-    "intervals": "IntervalsTests",
-    "linked-list": "LinkedListTests",
-    "math-geometry": "MathGeometryTests",
-    "misc": "MiscTests",
-    "sliding-window": "SlidingWindowTests",
-    "stack": "StackTests",
-    "trees": "TreesTests",
-    "tries": "TriesTests",
-    "two-pointers": "TwoPointersTests",
-}
+
+# ─── Topics config and difficulty-based routing ──────────────────────────────
+
+def load_topics_config() -> dict:
+    """Load topics.json configuration (single source of truth for topic names/slugs)."""
+    config_path = SCRIPT_DIR / "topics.json"
+    with open(config_path) as f:
+        return json.load(f)
+
+
+def get_target_name(topic_slug: str, difficulty: str, config: dict) -> str:
+    """Map topic slug + difficulty to test target directory name.
+
+    Examples:
+        get_target_name("arrays-hashing", "easy", config)   -> "ArraysHashing_EasyTests"
+        get_target_name("arrays-hashing", "medium", config)  -> "ArraysHashing_MediumTests"
+        get_target_name("trees", "hard", config)              -> "Trees_HardTests"
+    """
+    slug_to_pascal = {v: k for k, v in config["topicSlugMap"].items()}
+    pascal_topic = slug_to_pascal.get(topic_slug, topic_slug)
+    diff_cap = difficulty.capitalize() if difficulty.lower() in ("easy", "medium", "hard") else "Medium"
+    return f"{pascal_topic}_{diff_cap}Tests"
+
+
+def build_difficulty_map(corrected_dir: Path) -> dict:
+    """Build {(topic_slug, problem_slug): difficulty} from tc-*.json files.
+
+    Reads every tc-*.json (except tc-index.json) and extracts the difficulty
+    field for each problem. Used to route generated test files to the correct
+    {Topic}_{Difficulty}Tests directory.
+    """
+    mapping = {}
+    for tc_file in corrected_dir.glob("tc-*.json"):
+        if tc_file.name == "tc-index.json":
+            continue
+        topic_slug = tc_file.stem.replace("tc-", "")
+        with open(tc_file) as f:
+            data = json.load(f)
+        for prob in data.get("problems", []):
+            slug = prob.get("problemSlug", "")
+            diff = prob.get("difficulty", "medium").lower()
+            if slug:
+                mapping[(topic_slug, slug)] = diff
+    return mapping
+
+
+# ─── Legacy topic mapping (replaced by topics.json + difficulty routing) ─────
+# Kept as reference; active code uses load_topics_config() + get_target_name().
+# TOPIC_TO_TEST_TARGET = {
+#     "arrays-hashing": "ArraysHashingTests",
+#     "backtracking": "BacktrackingTests",
+#     "binary-search": "BinarySearchTests",
+#     "bit-manipulation": "BitManipulationTests",
+#     "dynamic-programming": "DynamicProgrammingTests",
+#     "graphs": "GraphsTests",
+#     "greedy": "GreedyTests",
+#     "heap-priority-queue": "HeapPriorityQueueTests",
+#     "intervals": "IntervalsTests",
+#     "linked-list": "LinkedListTests",
+#     "math-geometry": "MathGeometryTests",
+#     "misc": "MiscTests",
+#     "sliding-window": "SlidingWindowTests",
+#     "stack": "StackTests",
+#     "trees": "TreesTests",
+#     "tries": "TriesTests",
+#     "two-pointers": "TwoPointersTests",
+# }
 
 # ─── SQL/Non-Swift problems to skip entirely ─────────────────────────────────
 SQL_SLUGS = {
@@ -1894,9 +1942,21 @@ def main():
         "used_raw_constraints": 0,
     }
 
-    for topic, test_target in sorted(TOPIC_TO_TEST_TARGET.items()):
+    # Load topics.json as single source of truth for topic configuration
+    config = load_topics_config()
+    topic_slugs = sorted(config["topicSlugMap"].values())
+    print(f"Loaded topics.json: {len(topic_slugs)} topics")
+
+    # Build difficulty map from all tc-*.json files
+    difficulty_map = build_difficulty_map(TC_DIR)
+    print(f"Built difficulty map: {len(difficulty_map)} problem entries")
+
+    # Track which target directories have been cleaned this run
+    cleaned_dirs = set()
+
+    for topic in topic_slugs:
         print(f"\n{'='*60}")
-        print(f"Processing topic: {topic} -> {test_target}")
+        print(f"Processing topic: {topic}")
         print(f"{'='*60}")
 
         solutions = load_solutions(topic)
@@ -1911,13 +1971,6 @@ def main():
 
         # Also load raw constraints as fallback
         raw_topic_constraints = load_constraints(topic)
-
-        target_dir = TESTS_DIR / test_target
-        target_dir.mkdir(parents=True, exist_ok=True)
-
-        # Clean existing generated files
-        for f in target_dir.glob("*.swift"):
-            f.unlink()
 
         topic_generated = 0
 
@@ -1959,6 +2012,21 @@ def main():
 
             code = sol["code"]
 
+            # Determine difficulty and target directory for this problem
+            difficulty = difficulty_map.get((topic, slug), "medium")
+            test_target = get_target_name(topic, difficulty, config)
+            target_dir = TESTS_DIR / test_target
+            target_dir.mkdir(parents=True, exist_ok=True)
+
+            # Clean existing generated files from target dir (only first time encountered)
+            if test_target not in cleaned_dirs:
+                for f in target_dir.glob("*.swift"):
+                    # Do NOT clean PlaceholderTests.swift files
+                    if f.name == "PlaceholderTests.swift":
+                        continue
+                    f.unlink()
+                cleaned_dirs.add(test_target)
+
             # Handle class design problems
             if is_class_design_problem(slug, code, tcs):
                 slug_constraints = raw_topic_constraints.get(slug, [])
@@ -1971,7 +2039,7 @@ def main():
                 stats["total_test_methods"] += len(tcs)
                 topic_generated += 1
                 stats["generated_design"] += 1
-                print(f"  OK {slug}: {len(tcs)} tests (class design) -> {file_path.name}")
+                print(f"  OK {slug}: {len(tcs)} tests (class design) -> {test_target}/{file_path.name}")
                 continue
 
             sig = parse_func_signature(code)
@@ -2025,7 +2093,7 @@ def main():
                 if slug_constraints:
                     stats["used_raw_constraints"] += 1
 
-            # Generate test file
+            # Generate test file -- topic slug stays as original (e.g., "arrays-hashing")
             swift_code = generate_test_file(
                 slug, topic, code, tcs, sig,
                 constraints=slug_constraints,
@@ -2040,7 +2108,7 @@ def main():
             stats["generated"] += 1
             stats["total_test_methods"] += len(tcs)
             topic_generated += 1
-            print(f"  OK {slug}: {len(tcs)} tests -> {file_path.name}")
+            print(f"  OK {slug}: {len(tcs)} tests -> {test_target}/{file_path.name}")
 
         print(f"  Topic total: {topic_generated} problems generated")
 
