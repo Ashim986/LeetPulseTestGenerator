@@ -607,8 +607,7 @@ CLASS_DESIGN_SLUGS = {
     "design-hashset", "design-linked-list", "linked-list-random-node",
     "lru-cache", "design-add-and-search-words-data-structure",
     "implement-magic-dictionary", "implement-trie-prefix-tree",
-    "longest-word-in-dictionary", "map-sum-pairs", "replace-words",
-    "short-encoding-of-words", "word-search-ii",
+    "map-sum-pairs",
     "binary-search-tree-iterator", "flatten-nested-list-iterator",
     "implement-queue-using-stacks", "implement-stack-using-queues",
     "min-stack", "mini-parser", "online-stock-span",
@@ -644,6 +643,13 @@ NODE_TYPE_MAP = {
     "logical-or-of-two-binary-grids-represented-as-quad-trees": "QuadNode",
     "construct-quad-tree": "QuadNode",
     "employee-importance": "Employee",
+}
+
+# ─── Slugs where bare "Node" in solution code means TrieNode (from LeetCodeHelpers) ─
+# These solutions reference Node() with children[26]/isEnd but don't define it
+TRIE_NODE_ALIAS_SLUGS = {
+    "implement-trie-prefix-tree",
+    "design-add-and-search-words-data-structure",
 }
 
 # ─── Swift type → parser/serializer mappings ─────────────────────────────────
@@ -1055,13 +1061,61 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
 
 def parse_func_signature(code: str) -> Optional[dict]:
     """
-    Parse the first public/internal func in a Solution class.
+    Parse the first public/internal func that is a direct method of Solution class.
+    Uses depth-aware scanning to skip functions inside nested classes (e.g. Trie.insert).
     Also handles closure syntax: let funcName = { (params) -> ReturnType in
     Returns {name, params: [(label, name, type)], return_type, has_inout}
     """
-    # Try standard func syntax first
-    pattern = r'func\s+(\w+)\s*\((.*?)\)\s*(?:->\s*(.+?))?\s*\{'
-    match = re.search(pattern, code, re.DOTALL)
+    # Depth-aware search: find first func at Solution's direct depth
+    # Solution class starts at depth 0, its body is depth 1.
+    # Inner classes (Trie, etc.) increase depth further.
+    # We want func at depth == solution_depth + 1
+    solution_depth = None
+    brace_depth = 0
+    func_line_start = None
+
+    for line in code.split("\n"):
+        stripped = line.strip()
+        # Detect Solution class
+        if solution_depth is None and re.match(r'(private\s+)?class\s+Solution\b', stripped):
+            solution_depth = brace_depth
+
+        # Track depth BEFORE processing
+        depth_before = brace_depth
+        for ch in stripped:
+            if ch == "{":
+                brace_depth += 1
+            elif ch == "}":
+                brace_depth -= 1
+
+        # If we're at Solution's direct depth, check for func
+        if solution_depth is not None and depth_before == solution_depth + 1:
+            func_match = re.match(r'(?:@\w+\s+)?func\s+(\w+)\s*\(', stripped)
+            if func_match:
+                # Found a direct Solution method -- use regex on full code from this point
+                func_line_start = stripped
+                break
+
+    # If depth-aware scan found a function, extract it with full regex
+    # Use the function name to target the correct one
+    if func_line_start:
+        func_name_match = re.match(r'(?:@\w+\s+)?func\s+(\w+)', func_line_start)
+        if func_name_match:
+            target_name = func_name_match.group(1)
+            pattern = rf'func\s+{re.escape(target_name)}\s*\((.*?)\)\s*(?:->\s*(.+?))?\s*\{{'
+            match = re.search(pattern, code, re.DOTALL)
+            if match:
+                # Reconstruct match groups to be compatible with original code
+                class _MatchProxy:
+                    def __init__(self, name, params, ret):
+                        self._groups = (name, params, ret)
+                    def group(self, n):
+                        return self._groups[n - 1]
+                match = _MatchProxy(target_name, match.group(1), match.group(2))
+    else:
+        # Fallback: try standard func syntax (for simple cases)
+        pattern = r'func\s+(\w+)\s*\((.*?)\)\s*(?:->\s*(.+?))?\s*\{'
+        match = re.search(pattern, code, re.DOTALL)
 
     # If no match, try closure syntax: let funcName = { (params) -> ReturnType in
     if not match:
@@ -1282,10 +1336,19 @@ def sanitize_solution_code(code: str, slug: str = "", is_class_design: bool = Fa
     # Remove import Foundation (already imported)
     modified = re.sub(r'import\s+Foundation\s*\n?', '', modified)
 
+    # For solutions that use bare "Node" to mean TrieNode (e.g. implement-trie-prefix-tree),
+    # replace Node with TrieNode so it picks up the shared LeetCodeHelpers type.
+    # Must happen BEFORE TrieNode rename/strip logic below.
+    if slug in TRIE_NODE_ALIAS_SLUGS and "Node" in modified:
+        # Replace bare "Node" (not part of TreeNode, ListNode, etc.) with TrieNode
+        # Use negative lookbehind/lookahead to avoid replacing compound names
+        modified = re.sub(r'(?<![A-Za-z])Node(?![A-Za-z])', 'TrieNode', modified)
+
     # Handle TrieNode based on problem type:
     # - Non-class-design: strip TrieNode class definition (uses shared LeetCodeHelpers type)
     # - Class-design: keep TrieNode since it may be the core of the solution, but rename to avoid conflicts
-    if "TrieNode" in modified and slug:
+    # - TRIE_NODE_ALIAS_SLUGS: skip rename -- these use shared TrieNode (Node was aliased above)
+    if "TrieNode" in modified and slug and slug not in TRIE_NODE_ALIAS_SLUGS:
         if is_class_design:
             # Class-design: rename TrieNode to unique name (keeps definition, avoids collisions)
             unique_name = slug_to_class_name(slug).replace("Tests", "") + "TrieNode"
@@ -1294,10 +1357,13 @@ def sanitize_solution_code(code: str, slug: str = "", is_class_design: bool = Fa
 
     # Remove TreeNode/ListNode/Node/TrieNode redefinitions (we provide these from LeetCodeHelpers)
     # For class design problems, keep Node and TrieNode since they may be internal helpers
+    # With namespace isolation (enum LC_{slug}), TrieNode definitions are scoped per file
+    # and don't collide. Only strip TreeNode/ListNode/Node (provided by LeetCodeHelpers).
+    # TrieNode is NOT stripped: solutions use incompatible TrieNode variants (array vs dictionary).
     if is_class_design:
         types_to_strip = ["TreeNode", "ListNode"]
     else:
-        types_to_strip = ["TreeNode", "ListNode", "Node", "TrieNode"]
+        types_to_strip = ["TreeNode", "ListNode", "Node"]
     lines = modified.split("\n")
     cleaned = []
     skip_depth = 0
@@ -1674,10 +1740,14 @@ def parse_class_methods(code: str) -> List[dict]:
 
 
 def find_design_class_name(code: str) -> Optional[str]:
-    """Find the design class name from solution code."""
+    """Find the design class name from solution code.
+
+    Skips Solution, Node, and any renamed TrieNode classes (e.g. MapSumPairsTrieNode)
+    since those are helper types, not the actual design class.
+    """
     inner = re.findall(r'class\s+(\w+)\s*[\{:]', code)
     for c in inner:
-        if c not in ("Solution", "Node"):
+        if c not in ("Solution", "Node") and not c.endswith("TrieNode"):
             return c
     return None
 
@@ -1838,10 +1908,20 @@ def generate_class_design_test_file(
             lines.append(f"            let m = methodNames[i]")
             lines.append(f"            let a = argsList[i]")
 
-            # Build switch for each method
-            if methods:
+            # Build switch for each method (skip internal helpers with non-parseable params)
+            dispatchable_methods = []
+            for method in methods:
+                all_parseable = True
+                for _, _, ptype in method["params"]:
+                    if param_parser(ptype, "dummy") is None:
+                        all_parseable = False
+                        break
+                if all_parseable:
+                    dispatchable_methods.append(method)
+
+            if dispatchable_methods:
                 lines.append(f"            switch m {{")
-                for method in methods:
+                for method in dispatchable_methods:
                     mname = method["name"]
                     mparams = method["params"]
                     mret = method["return_type"]

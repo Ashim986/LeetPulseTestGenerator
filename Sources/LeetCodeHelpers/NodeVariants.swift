@@ -1,5 +1,26 @@
 import Foundation
 
+// MARK: - Generic Doubly-Linked Node (design-circular-deque, etc.)
+// Used by solutions that reference bare `Node` with val/next/prev
+
+public class Node {
+    public var val: Int
+    public var next: Node?
+    public var prev: Node?
+
+    public init(_ val: Int) {
+        self.val = val
+        self.next = nil
+        self.prev = nil
+    }
+
+    public init() {
+        self.val = 0
+        self.next = nil
+        self.prev = nil
+    }
+}
+
 // MARK: - Graph Node (clone-graph, etc.)
 // Uses `neighbors` property
 

@@ -2,1229 +2,1232 @@ import Foundation
 import Testing
 @testable import LeetCodeHelpers
 
-private class Solution {
-    func simplifyPath(path: String) -> String {
-        let components = path.components(separatedBy: "/")
-        var stack: [String] = []
-        for component in components {
-            switch component {
-            case "":
-                continue
-            case ".":
-                continue
-            case "..":
-                if !stack.isEmpty {
-                    stack.removeLast()
+enum LC_simplify_path {
+    private class Solution {
+        func simplifyPath(path: String) -> String {
+            let components = path.components(separatedBy: "/")
+            var stack: [String] = []
+            for component in components {
+                switch component {
+                case "":
+                    continue
+                case ".":
+                    continue
+                case "..":
+                    if !stack.isEmpty {
+                        stack.removeLast()
+                    }
+                default:
+                    stack.append(component)
                 }
-            default:
-                stack.append(component)
             }
-        }
-        return "/" + stack.joined(separator: "/")
-    }
-}
-
-@Suite struct SimplifyPathTests {
-    init() { registerResultFlush() }
-
-    @Test func test_0() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "8072400F-AE58-4F2D-B5A5-3EF8F33873B1"
-        let rawInput = "/home/"
-        let expectedOutput = "/home"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
-            }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            return "/" + stack.joined(separator: "/")
         }
     }
 
-    @Test func test_1() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "BD85A053-C4AF-46DF-9B2F-A7139BEE2B00"
-        let rawInput = "/home//foo/"
-        let expectedOutput = "/home/foo"
-        let orderMatters = true
+    @Suite struct SimplifyPathTests {
+        init() { registerResultFlush() }
 
-        let params = InputParser.stripParamNames(rawInput)
+        @Test static func test_0() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "8072400F-AE58-4F2D-B5A5-3EF8F33873B1"
+            let rawInput = "/home/"
+            let expectedOutput = "/home"
+            let orderMatters = true
 
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_2() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "3F9E89C2-75D2-4B97-B6C2-3C5BDAAA0851"
-        let rawInput = "/a/./b/../../c/"
-        let expectedOutput = "/c"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_3() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "5F2F9A4C-1127-4701-B043-14D88A1F6719"
-        let rawInput = "/../"
-        let expectedOutput = "/"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_4() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "92BD0B26-B2D0-47CA-AB77-83B182E1C3C0"
-        let rawInput = "/home//foo//"
-        let expectedOutput = "/home/foo"
-        let orderMatters = true
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
 
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
-
-    @Test func test_5() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "A3EFFB6B-9671-4E5B-8533-59F33D1FDCCC"
-        let rawInput = "/a/../../b/../c//.//"
-        let expectedOutput = "/c"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
         }
 
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
+        @Test static func test_1() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "BD85A053-C4AF-46DF-9B2F-A7139BEE2B00"
+            let rawInput = "/home//foo/"
+            let expectedOutput = "/home/foo"
+            let orderMatters = true
 
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_6() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "656BAF67-8750-40E4-854A-CD8C05C57F3F"
-        let rawInput = "/"
-        let expectedOutput = "/"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_7() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "70D282C3-5FAC-46E9-8FCC-440CABE6D2FF"
-        let rawInput = "/home"
-        let expectedOutput = "/home"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_8() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "17432C88-5932-476F-9BB9-64615976FB30"
-        let rawInput = "/.."
-        let expectedOutput = "/"
-        let orderMatters = true
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
 
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
-
-    @Test func test_9() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "361B7A4C-650E-47C8-BAE0-26309A7B74A7"
-        let rawInput = "/././././"
-        let expectedOutput = "/"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
         }
 
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
+        @Test static func test_2() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "3F9E89C2-75D2-4B97-B6C2-3C5BDAAA0851"
+            let rawInput = "/a/./b/../../c/"
+            let expectedOutput = "/c"
+            let orderMatters = true
 
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_10() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "86C45B17-98DD-4525-976A-D743D8D23DF9"
-        let rawInput = "/a/b/c/../.."
-        let expectedOutput = "/a"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_11() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "0E81373E-3342-473C-AEC9-F74A8BEC244F"
-        let rawInput = "/a//b////c/d//././/.."
-        let expectedOutput = "/a/b/c"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_12() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "EE3EA0A9-E374-4E88-804A-DE1568E5E829"
-        let rawInput = "/..."
-        let expectedOutput = "/..."
-        let orderMatters = true
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
 
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
-
-    @Test func test_13() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "F98E42A9-88CE-4045-932E-ADA8845C623C"
-        let rawInput = "//"
-        let expectedOutput = "/"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
         }
 
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
+        @Test static func test_3() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "5F2F9A4C-1127-4701-B043-14D88A1F6719"
+            let rawInput = "/../"
+            let expectedOutput = "/"
+            let orderMatters = true
 
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_14() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "B3BD4D7C-52FE-4FFB-BEEC-1EE352118E43"
-        let rawInput = "/."
-        let expectedOutput = "/"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_15() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "74D2DC73-B06B-43BE-9EC0-D824824CF2A7"
-        let rawInput = "/a/./b/"
-        let expectedOutput = "/a/b"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_16() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "2156D913-ED40-416F-94E3-5D3E6E2326AA"
-        let rawInput = "/home//foo//./bar/"
-        let expectedOutput = "/home/foo/bar"
-        let orderMatters = true
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
 
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
-
-    @Test func test_17() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "610343BA-F0E0-4D63-91B8-BDA2EDF698E6"
-        let rawInput = "/a/./b/../../c//.//"
-        let expectedOutput = "/c"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
         }
 
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
+        @Test static func test_4() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "92BD0B26-B2D0-47CA-AB77-83B182E1C3C0"
+            let rawInput = "/home//foo//"
+            let expectedOutput = "/home/foo"
+            let orderMatters = true
 
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_18() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "13f3e0b0-5498-4df3-8632-8ef1f59a978e"
-        let rawInput = "path = \"/a/./b/../../c/\""
-        let expectedOutput = "/c"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_19() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "af586cfa-f03b-422c-97e7-76afda4bb054"
-        let rawInput = "path = \"/home//foo/./bar/\""
-        let expectedOutput = "/home/foo/bar"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_20() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "7a46884b-9f56-4ae0-b561-26bde8d650ab"
-        let rawInput = "path = \"/../\""
-        let expectedOutput = "/"
-        let orderMatters = true
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
 
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
-
-    @Test func test_21() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "ac4d3ee1-335c-411b-8b18-28cc340347a4"
-        let rawInput = "path = \"/home//foo/../bar/\""
-        let expectedOutput = "/home/bar"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
         }
 
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
+        @Test static func test_5() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "A3EFFB6B-9671-4E5B-8533-59F33D1FDCCC"
+            let rawInput = "/a/../../b/../c//.//"
+            let expectedOutput = "/c"
+            let orderMatters = true
 
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_22() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "0dd16985-24bd-45c2-9a0c-5e1bbc8f3aca"
-        let rawInput = "path = \"/a/../../b/../c//.//\""
-        let expectedOutput = "/c"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_23() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "cf6e68bb-ac71-4fab-a19d-85d648a90eef"
-        let rawInput = "path = \"/\""
-        let expectedOutput = "/"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_24() async {
-        let slug = "simplify-path"
-        let topic = "stack"
-        let testId = "638c1ee8-a36a-4cf3-87fd-e3d9a4f21dba"
-        let rawInput = "path = \"/home\""
-        let expectedOutput = "/home"
-        let orderMatters = true
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
 
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        let p_path = InputParser.parseString(params[0])
-        guard p_path.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
-            return
-        }
-
-        // Constraint precondition checks
-        guard p_path.count >= 1 && p_path.count <= 3000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.simplifyPath(path: p_path)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Normalize: strip outer quotes from both sides (QUAL-03)
-            func stripQuotes(_ s: String) -> String {
-                let t = s.trimmingCharacters(in: .whitespaces)
-                if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
-                return t
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
         }
+
+        @Test static func test_6() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "656BAF67-8750-40E4-854A-CD8C05C57F3F"
+            let rawInput = "/"
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_7() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "70D282C3-5FAC-46E9-8FCC-440CABE6D2FF"
+            let rawInput = "/home"
+            let expectedOutput = "/home"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_8() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "17432C88-5932-476F-9BB9-64615976FB30"
+            let rawInput = "/.."
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_9() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "361B7A4C-650E-47C8-BAE0-26309A7B74A7"
+            let rawInput = "/././././"
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_10() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "86C45B17-98DD-4525-976A-D743D8D23DF9"
+            let rawInput = "/a/b/c/../.."
+            let expectedOutput = "/a"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_11() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "0E81373E-3342-473C-AEC9-F74A8BEC244F"
+            let rawInput = "/a//b////c/d//././/.."
+            let expectedOutput = "/a/b/c"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_12() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "EE3EA0A9-E374-4E88-804A-DE1568E5E829"
+            let rawInput = "/..."
+            let expectedOutput = "/..."
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_13() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "F98E42A9-88CE-4045-932E-ADA8845C623C"
+            let rawInput = "//"
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_14() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "B3BD4D7C-52FE-4FFB-BEEC-1EE352118E43"
+            let rawInput = "/."
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_15() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "74D2DC73-B06B-43BE-9EC0-D824824CF2A7"
+            let rawInput = "/a/./b/"
+            let expectedOutput = "/a/b"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_16() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "2156D913-ED40-416F-94E3-5D3E6E2326AA"
+            let rawInput = "/home//foo//./bar/"
+            let expectedOutput = "/home/foo/bar"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_17() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "610343BA-F0E0-4D63-91B8-BDA2EDF698E6"
+            let rawInput = "/a/./b/../../c//.//"
+            let expectedOutput = "/c"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_18() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "13f3e0b0-5498-4df3-8632-8ef1f59a978e"
+            let rawInput = "path = \"/a/./b/../../c/\""
+            let expectedOutput = "/c"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_19() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "af586cfa-f03b-422c-97e7-76afda4bb054"
+            let rawInput = "path = \"/home//foo/./bar/\""
+            let expectedOutput = "/home/foo/bar"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_20() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "7a46884b-9f56-4ae0-b561-26bde8d650ab"
+            let rawInput = "path = \"/../\""
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_21() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "ac4d3ee1-335c-411b-8b18-28cc340347a4"
+            let rawInput = "path = \"/home//foo/../bar/\""
+            let expectedOutput = "/home/bar"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_22() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "0dd16985-24bd-45c2-9a0c-5e1bbc8f3aca"
+            let rawInput = "path = \"/a/../../b/../c//.//\""
+            let expectedOutput = "/c"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_23() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "cf6e68bb-ac71-4fab-a19d-85d648a90eef"
+            let rawInput = "path = \"/\""
+            let expectedOutput = "/"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_24() async {
+            let slug = "simplify-path"
+            let topic = "stack"
+            let testId = "638c1ee8-a36a-4cf3-87fd-e3d9a4f21dba"
+            let rawInput = "path = \"/home\""
+            let expectedOutput = "/home"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            let p_path = InputParser.parseString(params[0])
+            guard p_path.count <= 100_000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: path string too long (\(p_path.count))")
+                return
+            }
+
+            // Constraint precondition checks
+            guard p_path.count >= 1 && p_path.count <= 3000 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= path.length <= 3000")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.simplifyPath(path: p_path)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Normalize: strip outer quotes from both sides (QUAL-03)
+                func stripQuotes(_ s: String) -> String {
+                    let t = s.trimmingCharacters(in: .whitespaces)
+                    if t.count >= 2 && t.first == "\"" && t.last == "\"" { return String(t.dropFirst().dropLast()) }
+                    return t
+                }
+                let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
     }
 
 }

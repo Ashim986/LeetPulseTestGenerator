@@ -2,184 +2,187 @@ import Foundation
 import Testing
 @testable import LeetCodeHelpers
 
-private typealias Node = NAryNode
+enum LC_n_ary_tree_level_order_traversal {
+    private typealias Node = NAryNode
 
-private class Solution {
-    func levelOrder(_ root: Node?) -> [[Int]] {
-        guard let root = root else { return [] }
-        var result: [[Int]] = []
-        var queue: [Node] = [root]
-        while !queue.isEmpty {
-            var level: [Int] = []
-            let levelSize = queue.count
-            for _ in 0..<levelSize {
-                let node = queue.removeFirst()
-                level.append(node.val)
-                queue.append(contentsOf: node.children)
+    private class Solution {
+        func levelOrder(_ root: Node?) -> [[Int]] {
+            guard let root = root else { return [] }
+            var result: [[Int]] = []
+            var queue: [Node] = [root]
+            while !queue.isEmpty {
+                var level: [Int] = []
+                let levelSize = queue.count
+                for _ in 0..<levelSize {
+                    let node = queue.removeFirst()
+                    level.append(node.val)
+                    queue.append(contentsOf: node.children)
+                }
+                result.append(level)
             }
-            result.append(level)
-        }
-        return result
-    }
-}
-
-@Suite struct NAryTreeLevelOrderTraversalTests {
-    init() { registerResultFlush() }
-
-    @Test func test_0() async {
-        let slug = "n-ary-tree-level-order-traversal"
-        let topic = "trees"
-        let testId = "ddf6836b-9ca3-47c6-8a7a-2d661b3c5eb1"
-        let rawInput = "root = [1,1,1,1,1,1,1,1,1,1]"
-        let expectedOutput = "[[1],[1,1,1,1,1,1,1,1,1]]"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        guard let p_root = InputParser.parseNullableIntArray(params[0]).map { buildNAryTree($0) } else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as NAryNode?: '\(params[0])'")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.levelOrder(p_root)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Nested order-independent comparison (QUAL-01)
-            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
-            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
-                #expect(Bool(false), "Test \(testId): failed to parse expected output")
-                return
-            }
-            let matches: Bool
-            if orderMatters {
-                matches = result == expectedArrays
-            } else {
-                // Sort outer array by content for stable comparison (inner order preserved)
-                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
-                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
-                    return a.count < b.count
-                } }
-                matches = sortOuter(result) == sortOuter(expectedArrays)
-            }
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            return result
         }
     }
 
-    @Test func test_1() async {
-        let slug = "n-ary-tree-level-order-traversal"
-        let topic = "trees"
-        let testId = "6d7fa355-6416-411e-8645-5a7a14da3b47"
-        let rawInput = "root = [1,null,3,2,4,null,5,6]"
-        let expectedOutput = "[[1],[3,2,4],[5,6]]"
-        let orderMatters = true
+    @Suite struct NAryTreeLevelOrderTraversalTests {
+        init() { registerResultFlush() }
 
-        let params = InputParser.stripParamNames(rawInput)
+        @Test static func test_0() async {
+            let slug = "n-ary-tree-level-order-traversal"
+            let topic = "trees"
+            let testId = "ddf6836b-9ca3-47c6-8a7a-2d661b3c5eb1"
+            let rawInput = "root = [1,1,1,1,1,1,1,1,1,1]"
+            let expectedOutput = "[[1],[1,1,1,1,1,1,1,1,1]]"
+            let orderMatters = true
 
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
+            let params = InputParser.stripParamNames(rawInput)
 
-        guard let p_root = InputParser.parseNullableIntArray(params[0]).map { buildNAryTree($0) } else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as NAryNode?: '\(params[0])'")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.levelOrder(p_root)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Nested order-independent comparison (QUAL-01)
-            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
-            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
-                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
                 return
             }
-            let matches: Bool
-            if orderMatters {
-                matches = result == expectedArrays
-            } else {
-                // Sort outer array by content for stable comparison (inner order preserved)
-                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
-                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
-                    return a.count < b.count
-                } }
-                matches = sortOuter(result) == sortOuter(expectedArrays)
-            }
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-        }
-    }
 
-    @Test func test_2() async {
-        let slug = "n-ary-tree-level-order-traversal"
-        let topic = "trees"
-        let testId = "d3487218-b6f3-4d6c-b89f-5cf41aa58616"
-        let rawInput = "root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]"
-        let expectedOutput = "[[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]"
-        let orderMatters = true
-
-        let params = InputParser.stripParamNames(rawInput)
-
-        guard params.count == 1 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-            return
-        }
-
-        guard let p_root = InputParser.parseNullableIntArray(params[0]).map { buildNAryTree($0) } else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as NAryNode?: '\(params[0])'")
-            return
-        }
-
-        // Solution execution with runtime error handling
-        do {
-            let solution = Solution()
-            let result = solution.levelOrder(p_root)
-            let computedOutput = OutputSerializer.serialize(result)
-
-            // Nested order-independent comparison (QUAL-01)
-            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
-            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
-                #expect(Bool(false), "Test \(testId): failed to parse expected output")
+            guard let p_root = InputParser.parseNullableIntArray(params[0]).map({ buildNAryTree($0) }) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as NAryNode?: '\(params[0])'")
                 return
             }
-            let matches: Bool
-            if orderMatters {
-                matches = result == expectedArrays
-            } else {
-                // Sort outer array by content for stable comparison (inner order preserved)
-                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
-                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
-                    return a.count < b.count
-                } }
-                matches = sortOuter(result) == sortOuter(expectedArrays)
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.levelOrder(p_root)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Nested order-independent comparison (QUAL-01)
+                // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+                guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                    #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                    return
+                }
+                let matches: Bool
+                if orderMatters {
+                    matches = result == expectedArrays
+                } else {
+                    // Sort outer array by content for stable comparison (inner order preserved)
+                    let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                        for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                        return a.count < b.count
+                    } }
+                    matches = sortOuter(result) == sortOuter(expectedArrays)
+                }
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
             }
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        } catch {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-            #expect(Bool(false), "Test \(testId): runtime error: \(error)")
         }
+
+        @Test static func test_1() async {
+            let slug = "n-ary-tree-level-order-traversal"
+            let topic = "trees"
+            let testId = "6d7fa355-6416-411e-8645-5a7a14da3b47"
+            let rawInput = "root = [1,null,3,2,4,null,5,6]"
+            let expectedOutput = "[[1],[3,2,4],[5,6]]"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            guard let p_root = InputParser.parseNullableIntArray(params[0]).map({ buildNAryTree($0) }) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as NAryNode?: '\(params[0])'")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.levelOrder(p_root)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Nested order-independent comparison (QUAL-01)
+                // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+                guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                    #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                    return
+                }
+                let matches: Bool
+                if orderMatters {
+                    matches = result == expectedArrays
+                } else {
+                    // Sort outer array by content for stable comparison (inner order preserved)
+                    let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                        for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                        return a.count < b.count
+                    } }
+                    matches = sortOuter(result) == sortOuter(expectedArrays)
+                }
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
+        @Test static func test_2() async {
+            let slug = "n-ary-tree-level-order-traversal"
+            let topic = "trees"
+            let testId = "d3487218-b6f3-4d6c-b89f-5cf41aa58616"
+            let rawInput = "root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]"
+            let expectedOutput = "[[1],[2,3,4,5],[6,7,8,9,10],[11,12,13],[14]]"
+            let orderMatters = true
+
+            let params = InputParser.stripParamNames(rawInput)
+
+            guard params.count == 1 else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                return
+            }
+
+            guard let p_root = InputParser.parseNullableIntArray(params[0]).map({ buildNAryTree($0) }) else {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as NAryNode?: '\(params[0])'")
+                return
+            }
+
+            // Solution execution with runtime error handling
+            do {
+                let solution = Solution()
+                let result = solution.levelOrder(p_root)
+                let computedOutput = OutputSerializer.serialize(result)
+
+                // Nested order-independent comparison (QUAL-01)
+                // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+                guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
+                    #expect(Bool(false), "Test \(testId): failed to parse expected output")
+                    return
+                }
+                let matches: Bool
+                if orderMatters {
+                    matches = result == expectedArrays
+                } else {
+                    // Sort outer array by content for stable comparison (inner order preserved)
+                    let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                        for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                        return a.count < b.count
+                    } }
+                    matches = sortOuter(result) == sortOuter(expectedArrays)
+                }
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
+                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            } catch {
+                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
+                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
+            }
+        }
+
     }
 
 }

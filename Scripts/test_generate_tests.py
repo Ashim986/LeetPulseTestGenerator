@@ -409,7 +409,7 @@ class Node {
         assert "class Node" not in sanitized, "Node class should be stripped for non-class-design"
 
     def test_class_design_trie_with_node_helper(self):
-        """Trie solution with internal Node class: Node preserved, Trie is design class."""
+        """Trie solution with internal Node class: Node replaced with TrieNode for TRIE_NODE_ALIAS_SLUGS, Trie is design class."""
         code = """class Solution {
     class Trie {
         private let root = Node()
@@ -425,7 +425,9 @@ class Node {
         sanitized = sanitize_solution_code(code, slug="implement-trie-prefix-tree", is_class_design=True)
         design_class = find_design_class_name(sanitized)
         assert design_class == "Trie", f"Design class should be Trie, got {design_class}"
-        assert "class Node" in sanitized, "Node helper should be preserved"
+        # Node is replaced with TrieNode for TRIE_NODE_ALIAS_SLUGS (uses shared LeetCodeHelpers type)
+        assert "class TrieNode" in sanitized, "Node should be replaced with TrieNode for trie alias slugs"
+        assert "class Node" not in sanitized, "Bare Node should not remain for trie alias slugs"
 
     def test_class_design_init_unwraps_optional_params(self):
         """Class-design init with Int param must force-unwrap the parser result."""
