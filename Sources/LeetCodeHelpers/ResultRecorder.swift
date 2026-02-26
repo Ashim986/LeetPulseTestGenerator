@@ -1,8 +1,14 @@
 import Foundation
 
 /// Thread-safe result recorder using Swift's actor concurrency.
-/// The actor provides built-in data isolation and Sendable conformance —
+/// The actor provides built-in data isolation and Sendable conformance --
 /// no locks, semaphores, or manual synchronization needed.
+///
+/// Status field values (replaces old output_matches boolean):
+/// - "matched": computed output matches expected output
+/// - "mismatched": computed output differs from expected output
+/// - "parse_error": input parsing failed (bad format, wrong param count, type mismatch)
+/// - "runtime_error": solution execution failed (crash, exception, timeout)
 public actor ResultRecorderActor {
     public static let shared = ResultRecorderActor()
 
@@ -12,6 +18,22 @@ public actor ResultRecorderActor {
     private init() {}
 
     /// Record a single test case result.
+    ///
+    /// - Parameters:
+    ///   - slug: Problem slug (e.g., "two-sum")
+    ///   - topic: Topic category (e.g., "arrays-hashing")
+    ///   - testId: Test case identifier
+    ///   - input: Raw input string
+    ///   - originalExpected: Expected output from test data
+    ///   - computedOutput: Actual computed output from solution
+    ///   - isValid: Whether the test case itself is valid
+    ///   - status: One of "matched", "mismatched", "parse_error", "runtime_error"
+    ///   - orderMatters: Whether array element order matters for comparison
+    ///   - errorMessage: Structured error context for parse_error/runtime_error.
+    ///     For parse_error: contains error type, raw input that failed, expected type, parameter index.
+    ///     For runtime_error: contains the error/crash description.
+    ///     For matched/mismatched: nil.
+    ///   - traceSteps: Optional trace steps for debugging
     public func record(
         slug: String,
         topic: String,
@@ -20,7 +42,7 @@ public actor ResultRecorderActor {
         originalExpected: String,
         computedOutput: String,
         isValid: Bool,
-        outputMatches: Bool,
+        status: String,
         orderMatters: Bool,
         errorMessage: String? = nil,
         traceSteps: [[String: Any]]? = nil
@@ -33,7 +55,7 @@ public actor ResultRecorderActor {
             "original_expected": originalExpected,
             "computed_output": computedOutput,
             "is_valid": isValid,
-            "output_matches": outputMatches,
+            "status": status,
             "order_matters": orderMatters,
         ]
         if let err = errorMessage {
@@ -43,6 +65,13 @@ public actor ResultRecorderActor {
             entry["trace_steps"] = steps
         }
         results.append(entry)
+
+        // Console output on mismatch: show expected vs computed, truncated for readability
+        if status == "mismatched" {
+            let truncatedExpected = truncateForDisplay(originalExpected)
+            let truncatedComputed = truncateForDisplay(computedOutput)
+            print("[MISMATCH] \(slug) test \(testId): expected=\(truncatedExpected) computed=\(truncatedComputed)")
+        }
 
         // Update problem meta
         var meta = problemMeta[slug] ?? [
@@ -61,16 +90,28 @@ public actor ResultRecorderActor {
         problemMeta[slug] = meta
     }
 
+    /// Truncate a string to ~200 chars for console display.
+    /// Shows first 50 and last 50 chars with "..." in the middle for long outputs.
+    private func truncateForDisplay(_ s: String) -> String {
+        guard s.count > 200 else { return s }
+        let prefix = s.prefix(50)
+        let suffix = s.suffix(50)
+        return "\(prefix)...\(suffix)"
+    }
+
     /// Flush all results to per-topic JSON files + summary.
     ///
     /// Output structure:
     /// ```
     /// test_results/
-    /// ├── summary.json          # Aggregated stats
-    /// ├── arrays-hashing.json   # Per-topic results
-    /// ├── intervals.json
-    /// └── ...
+    /// +-- summary.json          # Aggregated stats (no parse_error counts per user decision)
+    /// +-- arrays-hashing.json   # Per-topic results with stats header
+    /// +-- intervals.json
+    /// +-- ...
     /// ```
+    ///
+    /// Per-topic JSON includes a stats header with counts for each status category.
+    /// Summary.json does NOT include parse_error stats (per user decision).
     public func flush(to basePath: String? = nil) {
         let outputDir = basePath ?? defaultOutputDir()
 
@@ -98,13 +139,26 @@ public actor ResultRecorderActor {
         var topicSummaries: [[String: Any]] = []
         for (topic, topicResults) in resultsByTopic.sorted(by: { $0.key < $1.key }) {
             let topicMeta = metaByTopic[topic] ?? []
-            let validCount = topicResults.filter { $0["is_valid"] as? Bool == true }.count
-            let matchCount = topicResults.filter { $0["output_matches"] as? Bool == true }.count
+
+            // Compute per-topic stats header with counts for each status category
+            let matchedCount = topicResults.filter { ($0["status"] as? String) == "matched" }.count
+            let mismatchedCount = topicResults.filter { ($0["status"] as? String) == "mismatched" }.count
+            let parseErrorCount = topicResults.filter { ($0["status"] as? String) == "parse_error" }.count
+            let runtimeErrorCount = topicResults.filter { ($0["status"] as? String) == "runtime_error" }.count
+
+            let stats: [String: Any] = [
+                "total": topicResults.count,
+                "matched": matchedCount,
+                "mismatched": mismatchedCount,
+                "parse_error": parseErrorCount,
+                "runtime_error": runtimeErrorCount,
+            ]
 
             let topicOutput: [String: Any] = [
                 "topic": topic,
                 "evaluated_at": timestamp,
                 "total_results": topicResults.count,
+                "stats": stats,
                 "problems": topicMeta,
                 "test_results": topicResults,
             ]
@@ -117,19 +171,23 @@ public actor ResultRecorderActor {
                 print("[ResultRecorder] ERROR writing \(topicPath): \(error)")
             }
 
+            // Summary uses matched count (parse_error stats stay OUT of summary per user decision)
+            let validCount = topicResults.filter { $0["is_valid"] as? Bool == true }.count
             topicSummaries.append([
                 "topic": topic,
                 "total": topicResults.count,
                 "valid": validCount,
                 "invalid": topicResults.count - validCount,
-                "matches": matchCount,
+                "matched": matchedCount,
+                "mismatched": mismatchedCount,
+                "runtime_error": runtimeErrorCount,
                 "match_rate": topicResults.count > 0
-                    ? Double(matchCount) / Double(topicResults.count)
+                    ? Double(matchedCount) / Double(topicResults.count)
                     : 0.0,
             ])
         }
 
-        // Write summary
+        // Write summary (no parse_error stats per user decision)
         let summary: [String: Any] = [
             "evaluated_at": timestamp,
             "total_results": results.count,
@@ -163,7 +221,7 @@ public actor ResultRecorderActor {
 
     // MARK: - Synchronous flush (for atexit handler only)
 
-    /// Flush synchronously — bridges async actor to sync context.
+    /// Flush synchronously -- bridges async actor to sync context.
     /// Only used by the atexit handler at process exit.
     public static func flushSync() {
         let group = DispatchGroup()
@@ -181,7 +239,7 @@ public actor ResultRecorderActor {
 nonisolated(unsafe) private var _flushRegistered = false
 
 /// Register an atexit handler to flush results when the process exits.
-/// Idempotent — safe to call multiple times (only registers once).
+/// Idempotent -- safe to call multiple times (only registers once).
 public func registerResultFlush() {
     guard !_flushRegistered else { return }
     _flushRegistered = true
