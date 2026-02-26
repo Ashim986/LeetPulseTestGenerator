@@ -689,7 +689,7 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
     if t == "[String]":
         return f"InputParser.parseStringArray({var_name})"
     if t == "[Bool]":
-        return f"InputParser.parseStringArray({var_name})?.map {{ $0 == \"true\" }}"
+        return f"InputParser.parseStringArray({var_name})?.map({{ $0 == \"true\" }})"
     if t == "[Character]":
         return f"InputParser.parseCharacterArray({var_name})"
     if t == "[[Int]]":
@@ -702,10 +702,10 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
         return f"InputParser.parseNullableIntArray({var_name})"
     if t == "TreeNode?":
         # parseNullableIntArray returns [Int?]? -- unwrap before buildTree
-        return f"InputParser.parseNullableIntArray({var_name}).map {{ buildTree($0) }}"
+        return f"InputParser.parseNullableIntArray({var_name}).map({{ buildTree($0) }})"
     if t == "ListNode?":
         # parseIntArray returns [Int]? -- unwrap before buildList
-        return f"InputParser.parseIntArray({var_name}).map {{ buildList($0) }}"
+        return f"InputParser.parseIntArray({var_name}).map({{ buildList($0) }})"
     # inout variants — parse the same, just pass differently (all return Optionals)
     if t == "inout [Int]":
         return f"InputParser.parseIntArray({var_name})"
@@ -721,26 +721,26 @@ def param_parser(swift_type: str, var_name: str) -> Optional[str]:
         return f'{{ let s = {var_name}.trimmingCharacters(in: .whitespaces); return s == "null" ? nil : Int(s) }}()'
     # Node variants -- unwrap Optional InputParser returns before passing to build functions
     if t == "Node?" or t == "GraphNode?":
-        return f"InputParser.parse2DIntArray({var_name}).map {{ buildGraph($0) }}"
+        return f"InputParser.parse2DIntArray({var_name}).map({{ buildGraph($0) }})"
     if t == "NAryNode?":
-        return f"InputParser.parseNullableIntArray({var_name}).map {{ buildNAryTree($0) }}"
+        return f"InputParser.parseNullableIntArray({var_name}).map({{ buildNAryTree($0) }})"
     if t == "NextNode?":
-        return f"InputParser.parseNullableIntArray({var_name}).map {{ buildNextTree($0) }}"
+        return f"InputParser.parseNullableIntArray({var_name}).map({{ buildNextTree($0) }})"
     if t == "RandomNode?":
-        return f"InputParser.parse2DIntArray({var_name}).map {{ buildRandomList($0.map {{ $0.map {{ $0 == -1 ? nil : $0 }} as [Int?] }}) }}"
+        return f"InputParser.parse2DIntArray({var_name}).map({{ buildRandomList($0.map({{ $0.map({{ $0 == -1 ? nil : $0 }}) as [Int?] }})) }})"
     if t == "DoublyNode?":
         return f"{{ (_: String) -> DoublyNode? in nil }}({var_name})"
     if t == "QuadNode?":
         return f"{{ (_: String) -> QuadNode? in nil }}({var_name})"
     # Array of node pointers
     if t == "[ListNode?]":
-        return f"InputParser.parse2DIntArray({var_name}).map {{ $0.map {{ buildList($0) }} }}"
+        return f"InputParser.parse2DIntArray({var_name}).map({{ $0.map({{ buildList($0) }}) }})"
     # inout [Character]
     if t == "inout [Character]":
         return f"InputParser.parseCharacterArray({var_name})"
     # Employee array
     if t == "[Employee]":
-        return f"InputParser.parse2DIntArray({var_name}).map {{ $0.map {{ Employee($0[0], $0[1], Array($0.dropFirst(2))) }} }}"
+        return f"InputParser.parse2DIntArray({var_name}).map({{ $0.map({{ Employee($0[0], $0[1], Array($0.dropFirst(2))) }}) }})"
     return None
 
 def output_serializer(swift_type: str, expr: str) -> str:
@@ -1634,13 +1634,18 @@ def generate_class_design_test_file(
     When dry_run=True, generated tests parse all inputs but skip method dispatch.
     """
     class_name = slug_to_class_name(slug)
-    _found_nested = find_design_class_name(solution_code)
+
+    # Sanitize FIRST so TrieNode rename is applied before class/method detection
+    modified_code = sanitize_solution_code(solution_code, slug=slug, is_class_design=True)
+
+    # Detect design class and parse methods from SANITIZED code
+    _found_nested = find_design_class_name(modified_code)
     design_class = _found_nested if _found_nested else "Solution"
     solution_is_design_class = (_found_nested is None)  # Solution itself IS the design class
 
-    # Parse methods for dispatch
-    methods = parse_class_methods(solution_code)
-    init_params = parse_init_params(solution_code, design_class)
+    # Parse methods for dispatch from sanitized code
+    methods = parse_class_methods(modified_code)
+    init_params = parse_init_params(modified_code, design_class)
 
     lines = []
     lines.append("import Foundation")
@@ -1648,8 +1653,7 @@ def generate_class_design_test_file(
     lines.append("@testable import LeetCodeHelpers")
     lines.append("")
 
-    # Embed solution code (keep Node for class design problems)
-    modified_code = sanitize_solution_code(solution_code, slug=slug, is_class_design=True)
+    # Embed sanitized solution code (Node kept for class design problems)
     lines.append(modified_code.rstrip())
     lines.append("")
     lines.append(f"@Suite struct {class_name} {{")
@@ -1723,6 +1727,9 @@ def generate_class_design_test_file(
                 for j, (label, name, ptype) in enumerate(init_params):
                     p = param_parser(ptype, f"initArgs[{j}]")
                     if p:
+                        # Force unwrap Optional parser results for init args
+                        if parser_returns_optional(ptype):
+                            p = f"({p})!"
                         init_parsers.append((label, p))
                     else:
                         init_parsers.append((label, f"initArgs[{j}]"))
@@ -1762,6 +1769,10 @@ def generate_class_design_test_file(
                         p = param_parser(ptype, f"a[{j}]")
                         if not p:
                             p = f"a[{j}]"
+                        elif parser_returns_optional(ptype):
+                            # Force unwrap Optional parser results for class-design method calls
+                            # (input validity is already guarded by parseStringArray/parseRawArgsList above)
+                            p = f"({p})!"
                         if label == "_":
                             call_parts.append(p)
                         else:
