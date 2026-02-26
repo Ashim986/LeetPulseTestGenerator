@@ -4,6 +4,8 @@ test_generate_tests.py -- pytest test suite for generate_tests.py
 Covers:
 - Formatting regression tests (missing-space bug prevention)
 - Edge case tests for parsing, naming, and utility functions
+- Guard-let closure parenthesization tests (Bug 1 prevention)
+- Class-design generation correctness tests (Bug 2-4 prevention)
 """
 
 import os
@@ -14,10 +16,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from generate_tests import (
     constraint_check,
+    find_design_class_name,
     generate_class_design_test_file,
     generate_test_file,
+    param_parser,
     parse_func_signature,
     parser_returns_optional,
+    sanitize_solution_code,
     sanitize_swift_string,
     slug_to_class_name,
     _parse_number,
@@ -220,4 +225,230 @@ class Solution {
         assert slug_to_class_name("two-sum") == "TwoSumTests"
         assert slug_to_class_name("longest-substring-without-repeating-characters") == (
             "LongestSubstringWithoutRepeatingCharactersTests"
+        )
+
+
+# ─── Guard-Let Closure Parenthesization Tests ──────────────────────────────
+
+
+class TestGuardLetClosures:
+    """Tests that all .map closures in param_parser use parenthesized form.
+
+    Bug 1: Swift disallows trailing closures inside guard-let statements.
+    All `.map { ... }` must be `.map({ ... })` to compile in guard-let context.
+    """
+
+    def test_param_parser_tree_node_parenthesized(self):
+        """TreeNode? parser must use .map({ ... }) not .map { ... }."""
+        result = param_parser("TreeNode?", "x")
+        assert result is not None
+        assert ".map({" in result, f"Expected .map({{ in: {result}"
+        assert ".map {" not in result.replace(".map({", "")
+
+    def test_param_parser_list_node_parenthesized(self):
+        """ListNode? parser must use .map({ ... }) not .map { ... }."""
+        result = param_parser("ListNode?", "x")
+        assert result is not None
+        assert ".map({" in result, f"Expected .map({{ in: {result}"
+        assert ".map {" not in result.replace(".map({", "")
+
+    def test_param_parser_graph_node_parenthesized(self):
+        """Node?/GraphNode? parser must use .map({ ... }) not .map { ... }."""
+        for t in ("Node?", "GraphNode?"):
+            result = param_parser(t, "x")
+            assert result is not None
+            assert ".map({" in result, f"Expected .map({{ for {t} in: {result}"
+
+    def test_param_parser_nary_node_parenthesized(self):
+        """NAryNode? parser must use .map({ ... }) not .map { ... }."""
+        result = param_parser("NAryNode?", "x")
+        assert result is not None
+        assert ".map({" in result, f"Expected .map({{ in: {result}"
+
+    def test_param_parser_bool_array_parenthesized(self):
+        """[Bool] parser must use ?.map({ ... }) not ?.map { ... }."""
+        result = param_parser("[Bool]", "x")
+        assert result is not None
+        assert ".map({" in result, f"Expected .map({{ in: {result}"
+
+    def test_param_parser_list_node_array_parenthesized(self):
+        """[ListNode?] parser must use .map({ ... }) for both outer and inner .map."""
+        result = param_parser("[ListNode?]", "x")
+        assert result is not None
+        # Should have two .map({ occurrences (outer and inner)
+        assert result.count(".map(") >= 2, f"Expected 2+ .map( in: {result}"
+        assert ".map {" not in result
+
+    def test_all_map_calls_parenthesized(self):
+        """All types that use .map in param_parser must use parenthesized form."""
+        types_with_map = [
+            "TreeNode?", "ListNode?", "Node?", "GraphNode?",
+            "NAryNode?", "NextNode?", "RandomNode?",
+            "[Bool]", "[ListNode?]", "[Employee]",
+        ]
+        for t in types_with_map:
+            result = param_parser(t, "x")
+            assert result is not None, f"param_parser returned None for {t}"
+            # Check that no .map is followed by space+brace (trailing closure)
+            import re
+            trailing = re.findall(r'\.map\s*\{', result)
+            assert not trailing, (
+                f"Type {t} has trailing closure in: {result}"
+            )
+
+
+# ─── Class Design Fix Tests ────────────────────────────────────────────────
+
+
+class TestClassDesignFixes:
+    """Tests for class-design generation correctness after bug fixes.
+
+    Bug 2: TrieNode rename must be consistent between sanitized code and design class.
+    Bug 3: Optional-returning parsers must be unwrapped in method dispatch.
+    Bug 4: Node class definitions must be preserved for class-design problems.
+    """
+
+    def test_class_design_trie_node_rename_consistent(self):
+        """Class-design init must use post-sanitization class name for Trie problems."""
+        code = """class Solution {
+    class MagicDictionary {
+        var root = TrieNode()
+        func buildDictionary(_ dictionary: [String]) {}
+        func search(_ searchWord: String) -> Bool { return false }
+    }
+    class TrieNode {
+        var children: [TrieNode?] = Array(repeating: nil, count: 26)
+        var isEnd: Bool = false
+    }
+}"""
+        test_cases = [{
+            "id": "tc_0",
+            "input": '["MagicDictionary","buildDictionary","search"]\n[[],[["hello"]],["hello"]]',
+            "expectedOutput": "[null,null,false]",
+            "orderMatters": True,
+        }]
+
+        output = generate_class_design_test_file(
+            slug="implement-magic-dictionary",
+            topic="tries",
+            solution_code=code,
+            test_cases=test_cases,
+        )
+
+        # The TrieNode should be renamed in the embedded code
+        assert "ImplementMagicDictionaryTrieNode" in output
+        # Original TrieNode should NOT appear in class definitions
+        assert "class TrieNode" not in output
+        # The init should use MagicDictionary (the real design class), not the renamed TrieNode
+        assert "Solution.MagicDictionary(" in output or "MagicDictionary(" in output
+
+    def test_class_design_int_optional_unwrap(self):
+        """Class-design method dispatch must force-unwrap Optional parser results."""
+        code = """class Solution {
+    class RecentCounter {
+        var queue: [Int] = []
+        init() {}
+        func ping(_ t: Int) -> Int {
+            queue.append(t)
+            while queue.first! < t - 3000 { queue.removeFirst() }
+            return queue.count
+        }
+    }
+}"""
+        test_cases = [{
+            "id": "tc_0",
+            "input": '["RecentCounter","ping","ping"]\n[[],[1],[100]]',
+            "expectedOutput": "[null,1,2]",
+            "orderMatters": True,
+        }]
+
+        output = generate_class_design_test_file(
+            slug="number-of-recent-calls",
+            topic="stack",
+            solution_code=code,
+            test_cases=test_cases,
+        )
+
+        # parseInt returns Optional -- must be force-unwrapped for ping(_ t: Int)
+        assert "(InputParser.parseInt(a[0]))!" in output, (
+            "Expected force-unwrap of parseInt in method dispatch"
+        )
+
+    def test_class_design_node_preserved(self):
+        """sanitize_solution_code with is_class_design=True must keep Node class."""
+        code = """class Solution {
+    class MyCircularDeque {
+        class Node {
+            var val: Int
+            var prev: Node?
+            var next: Node?
+            init(_ val: Int) { self.val = val }
+        }
+        var head: Node?
+        var capacity: Int
+        init(_ k: Int) { capacity = k }
+    }
+}"""
+        sanitized = sanitize_solution_code(code, slug="design-circular-deque", is_class_design=True)
+        assert "class Node" in sanitized, "Node class should be preserved for class-design"
+        assert "class MyCircularDeque" in sanitized
+
+    def test_class_design_node_stripped_non_class_design(self):
+        """sanitize_solution_code with is_class_design=False must strip Node class."""
+        code = """class Solution {
+    func cloneGraph(_ node: Node?) -> Node? { return nil }
+}
+class Node {
+    var val: Int
+    var neighbors: [Node?]
+    init(_ val: Int) { self.val = val; self.neighbors = [] }
+}"""
+        sanitized = sanitize_solution_code(code, slug="clone-graph", is_class_design=False)
+        assert "class Node" not in sanitized, "Node class should be stripped for non-class-design"
+
+    def test_class_design_trie_with_node_helper(self):
+        """Trie solution with internal Node class: Node preserved, Trie is design class."""
+        code = """class Solution {
+    class Trie {
+        private let root = Node()
+        func insert(_ word: String) {}
+        func search(_ word: String) -> Bool { return false }
+        func startsWith(_ prefix: String) -> Bool { return false }
+    }
+    class Node {
+        var children: [Node?] = Array(repeating: nil, count: 26)
+        var isEnd: Bool = false
+    }
+}"""
+        sanitized = sanitize_solution_code(code, slug="implement-trie-prefix-tree", is_class_design=True)
+        design_class = find_design_class_name(sanitized)
+        assert design_class == "Trie", f"Design class should be Trie, got {design_class}"
+        assert "class Node" in sanitized, "Node helper should be preserved"
+
+    def test_class_design_init_unwraps_optional_params(self):
+        """Class-design init with Int param must force-unwrap the parser result."""
+        code = """class Solution {
+    class MyCircularDeque {
+        var capacity: Int
+        init(_ k: Int) { capacity = k }
+        func insertFront(_ value: Int) -> Bool { return false }
+    }
+}"""
+        test_cases = [{
+            "id": "tc_0",
+            "input": '["MyCircularDeque","insertFront"]\n[[3],[1]]',
+            "expectedOutput": "[null,true]",
+            "orderMatters": True,
+        }]
+
+        output = generate_class_design_test_file(
+            slug="design-circular-deque",
+            topic="design",
+            solution_code=code,
+            test_cases=test_cases,
+        )
+
+        # Init param k: Int should have force-unwrapped parseInt
+        assert "(InputParser.parseInt(initArgs[0]))!" in output, (
+            "Expected force-unwrap of parseInt in init args"
         )
