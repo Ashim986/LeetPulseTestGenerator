@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_unique_binary_search_trees {
+enum LCUniqueBinarySearchTrees {
     private class Solution {
         func numTrees(_ n: Int) -> Int {
             let n = n
@@ -23,1029 +23,146 @@ enum LC_unique_binary_search_trees {
     @Suite struct UniqueBinarySearchTreesTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "c2507947-4393-49d0-b9dc-100bf521403c",
+             input: "n = 0",
+             expected: "1", orderMatters: true),
+            TestCaseData(id: "7c4c87a1-ae09-408b-8c80-022b0139b075",
+             input: "n = 2",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "c8b09e34-cac0-4f46-ae6e-c9a475897ad4",
+             input: "n = 5",
+             expected: "42", orderMatters: true),
+            TestCaseData(id: "14785e92-5d87-4469-9a27-137aca120b65",
+             input: "n = 6",
+             expected: "132", orderMatters: true),
+            TestCaseData(id: "9e1f0c8c-0362-4169-9761-1a5c3cd33e54",
+             input: "n = 7",
+             expected: "429", orderMatters: true),
+            TestCaseData(id: "030ae1bb-428b-423f-8b73-0eabf0130010",
+             input: "n = 8",
+             expected: "1430", orderMatters: true),
+            TestCaseData(id: "27d21cce-58ee-4fdb-b386-04f20bf89c9d",
+             input: "n = 9",
+             expected: "4862", orderMatters: true),
+            TestCaseData(id: "029a6299-a2e6-465c-a6f1-06a12a943a95",
+             input: "n = 10",
+             expected: "16796", orderMatters: true),
+            TestCaseData(id: "44154865-dd12-4452-ac3b-88efe4676d2d",
+             input: "n = 11",
+             expected: "58786", orderMatters: true),
+            TestCaseData(id: "e8d63c09-aca1-4f9e-b1a6-fd7db5433a3e",
+             input: "n = 12",
+             expected: "208012", orderMatters: true),
+            TestCaseData(id: "cf86a71b-26a9-4faf-b3b2-ae5bc8f7e7b6",
+             input: "n = 13",
+             expected: "742900", orderMatters: true),
+            TestCaseData(id: "54bf312c-c7fc-4489-91a3-3ce16659daf0",
+             input: "n = 14",
+             expected: "2674440", orderMatters: true),
+            TestCaseData(id: "3204fc81-de5d-47c6-b8b5-255484968466",
+             input: "n = 15",
+             expected: "9694845", orderMatters: true),
+            TestCaseData(id: "36eb2e14-eb58-45b0-a513-87431aeab0bb",
+             input: "n = 16",
+             expected: "35357670", orderMatters: true),
+            TestCaseData(id: "487d6bfe-9ab3-4681-ab7b-40c5d60342c7",
+             input: "n = 17",
+             expected: "129644790", orderMatters: true),
+            TestCaseData(id: "ef4a9e51-7942-4e63-91d7-b608c90b60a4",
+             input: "n = 18",
+             expected: "477638700", orderMatters: true),
+            TestCaseData(id: "76407ddc-1f1f-46b9-9954-8af211bf0a2e",
+             input: "n = 19",
+             expected: "1767263190", orderMatters: true),
+            TestCaseData(id: "60e4bc42-2512-469b-b03c-1323858a9520",
+             input: "n = 20",
+             expected: "6564120420", orderMatters: true),
+            TestCaseData(id: "0113e8a0-b879-4e16-be94-024bfc1ebcae",
+             input: "n = -1",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "c1cf92ad-9dce-464b-9602-c1f6958f670f",
+             input: "n = -2",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "0b6081fb-edc6-45a8-8593-93d82a82ed29",
+             input: "n = -3",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "d3e36714-0501-4a80-ad13-37266dce42ee",
+             input: "n = -4",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "3dcdd9f6-a2ed-424d-8436-92284287b5d8",
+             input: "n = -5",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "e81553a9-652b-4753-867d-69e3666ab070",
+             input: "n = 3",
+             expected: "5", orderMatters: true),
+            TestCaseData(id: "a0bc6c90-ce65-4f54-a273-880a80284767",
+             input: "n = 1",
+             expected: "1", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "unique-binary-search-trees"
             let topic = "math-geometry"
-            let testId = "c2507947-4393-49d0-b9dc-100bf521403c"
-            let rawInput = "n = 0"
-            let expectedOutput = "1"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let params = InputParser.stripParamNames(rawInput)
 
             guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Wrong param count: expected 1, got \(params.count)"
+                )
                 return
             }
 
             guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 0 as Int"
+                )
                 return
             }
 
             // Constraint precondition checks
             guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_1() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "7c4c87a1-ae09-408b-8c80-022b0139b075"
-            let rawInput = "n = 2"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_2() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "c8b09e34-cac0-4f46-ae6e-c9a475897ad4"
-            let rawInput = "n = 5"
-            let expectedOutput = "42"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_3() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "14785e92-5d87-4469-9a27-137aca120b65"
-            let rawInput = "n = 6"
-            let expectedOutput = "132"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_4() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "9e1f0c8c-0362-4169-9761-1a5c3cd33e54"
-            let rawInput = "n = 7"
-            let expectedOutput = "429"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_5() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "030ae1bb-428b-423f-8b73-0eabf0130010"
-            let rawInput = "n = 8"
-            let expectedOutput = "1430"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_6() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "27d21cce-58ee-4fdb-b386-04f20bf89c9d"
-            let rawInput = "n = 9"
-            let expectedOutput = "4862"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_7() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "029a6299-a2e6-465c-a6f1-06a12a943a95"
-            let rawInput = "n = 10"
-            let expectedOutput = "16796"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_8() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "44154865-dd12-4452-ac3b-88efe4676d2d"
-            let rawInput = "n = 11"
-            let expectedOutput = "58786"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_9() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "e8d63c09-aca1-4f9e-b1a6-fd7db5433a3e"
-            let rawInput = "n = 12"
-            let expectedOutput = "208012"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_10() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "cf86a71b-26a9-4faf-b3b2-ae5bc8f7e7b6"
-            let rawInput = "n = 13"
-            let expectedOutput = "742900"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_11() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "54bf312c-c7fc-4489-91a3-3ce16659daf0"
-            let rawInput = "n = 14"
-            let expectedOutput = "2674440"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_12() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "3204fc81-de5d-47c6-b8b5-255484968466"
-            let rawInput = "n = 15"
-            let expectedOutput = "9694845"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_13() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "36eb2e14-eb58-45b0-a513-87431aeab0bb"
-            let rawInput = "n = 16"
-            let expectedOutput = "35357670"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_14() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "487d6bfe-9ab3-4681-ab7b-40c5d60342c7"
-            let rawInput = "n = 17"
-            let expectedOutput = "129644790"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_15() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "ef4a9e51-7942-4e63-91d7-b608c90b60a4"
-            let rawInput = "n = 18"
-            let expectedOutput = "477638700"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_16() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "76407ddc-1f1f-46b9-9954-8af211bf0a2e"
-            let rawInput = "n = 19"
-            let expectedOutput = "1767263190"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_17() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "60e4bc42-2512-469b-b03c-1323858a9520"
-            let rawInput = "n = 20"
-            let expectedOutput = "6564120420"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_18() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "0113e8a0-b879-4e16-be94-024bfc1ebcae"
-            let rawInput = "n = -1"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_19() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "c1cf92ad-9dce-464b-9602-c1f6958f670f"
-            let rawInput = "n = -2"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_20() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "0b6081fb-edc6-45a8-8593-93d82a82ed29"
-            let rawInput = "n = -3"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_21() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "d3e36714-0501-4a80-ad13-37266dce42ee"
-            let rawInput = "n = -4"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_22() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "3dcdd9f6-a2ed-424d-8436-92284287b5d8"
-            let rawInput = "n = -5"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_23() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "e81553a9-652b-4753-867d-69e3666ab070"
-            let rawInput = "n = 3"
-            let expectedOutput = "5"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_24() async {
-            let slug = "unique-binary-search-trees"
-            let topic = "math-geometry"
-            let testId = "a0bc6c90-ce65-4f54-a273-880a80284767"
-            let rawInput = "n = 1"
-            let expectedOutput = "1"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 19 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 19")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.numTrees(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 1 <= n <= 19"
+                )
+                return
+            }
+
+            let solution = Solution()
+            let result = solution.numTrees(p_n)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

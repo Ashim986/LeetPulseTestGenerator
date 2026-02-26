@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_count_numbers_with_unique_digits {
+enum LCCountNumbersWithUniqueDigits {
     private class Solution {
         func countNumbersWithUniqueDigits(_ n: Int) -> Int {
             let length = String(n).count
@@ -27,1029 +27,146 @@ enum LC_count_numbers_with_unique_digits {
     @Suite struct CountNumbersWithUniqueDigitsTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "806fa4b9-497e-4ca7-8b54-ae61a2adbbda",
+             input: "n = 0",
+             expected: "1", orderMatters: true),
+            TestCaseData(id: "3b02d277-785e-48f3-bbaa-655db7487dea",
+             input: "n = 1",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "2b1ce177-1223-4eda-ae48-4710c967b97c",
+             input: "n = 4",
+             expected: "5", orderMatters: true),
+            TestCaseData(id: "1b493159-d2a4-4f30-b21e-246d7c478009",
+             input: "n = 5",
+             expected: "6", orderMatters: true),
+            TestCaseData(id: "8b907f6b-ccee-41af-9d03-5aaaccb63fd9",
+             input: "n = 6",
+             expected: "7", orderMatters: true),
+            TestCaseData(id: "1d47a363-5c89-420d-85af-04d3057a877b",
+             input: "n = 7",
+             expected: "8", orderMatters: true),
+            TestCaseData(id: "a265cb84-2409-4c64-96cd-fe8c7cffde35",
+             input: "n = 8",
+             expected: "9", orderMatters: true),
+            TestCaseData(id: "064cec22-32f9-4e89-af15-ba809639570e",
+             input: "n = 9",
+             expected: "10", orderMatters: true),
+            TestCaseData(id: "9ed8fded-2810-4d94-8476-2a201d514f19",
+             input: "n = 10",
+             expected: "11", orderMatters: true),
+            TestCaseData(id: "056c317f-5895-4461-96cc-a10340f5ca7b",
+             input: "n = -1",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "a8c630c5-3037-4da3-9c05-32a0ac43c8d9",
+             input: "n = -2",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "32efe79f-4119-4805-bfa3-128a3b6be510",
+             input: "n = -10",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "79ba348a-88f0-4eaf-a536-36ac0f0ae9c7",
+             input: "n = 100",
+             expected: "91", orderMatters: true),
+            TestCaseData(id: "5167a670-1a06-4171-8f0a-5eddf8dab7af",
+             input: "n = 1000",
+             expected: "739", orderMatters: true),
+            TestCaseData(id: "f101544b-a9e2-4fc5-b044-f45c2e64d994",
+             input: "n = 10000",
+             expected: "5275", orderMatters: true),
+            TestCaseData(id: "95b44750-642f-441a-8efa-866f4568c2e2",
+             input: "n = 100000",
+             expected: "32491", orderMatters: true),
+            TestCaseData(id: "8ddcc104-f632-43ae-8764-be313916cba8",
+             input: "n = 1000000",
+             expected: "168571", orderMatters: true),
+            TestCaseData(id: "89bac8b9-600a-48e4-aab2-6201e1aec941",
+             input: "n = 10000000",
+             expected: "712891", orderMatters: true),
+            TestCaseData(id: "ae04cfc5-b53e-440d-b93b-bbd1c4b4e6ad",
+             input: "n = 100000000",
+             expected: "2345851", orderMatters: true),
+            TestCaseData(id: "102eb27a-0510-421b-82f7-bb3ffc1c6c3f",
+             input: "n = 1000000000",
+             expected: "5611771", orderMatters: true),
+            TestCaseData(id: "3793ad73-1dfe-4a94-94cf-041ae1ba95d2",
+             input: "n = -100",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "e378422c-1f60-460b-84a4-f234cd2f17f6",
+             input: "n = -1000",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "77816186-8d60-413d-adc0-721c5b3c3536",
+             input: "n = -10000",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "8f20f49a-2de2-4b2a-9181-f6bf5ec5129c",
+             input: "n = -100000",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "19badff5-aee4-4198-9a3c-bc133456d53f",
+             input: "n = -1000000",
+             expected: "0", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "count-numbers-with-unique-digits"
             let topic = "math-geometry"
-            let testId = "806fa4b9-497e-4ca7-8b54-ae61a2adbbda"
-            let rawInput = "n = 0"
-            let expectedOutput = "1"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let params = InputParser.stripParamNames(rawInput)
 
             guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Wrong param count: expected 1, got \(params.count)"
+                )
                 return
             }
 
             guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 0 as Int"
+                )
                 return
             }
 
             // Constraint precondition checks
             guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_1() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "3b02d277-785e-48f3-bbaa-655db7487dea"
-            let rawInput = "n = 1"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_2() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "2b1ce177-1223-4eda-ae48-4710c967b97c"
-            let rawInput = "n = 4"
-            let expectedOutput = "5"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_3() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "1b493159-d2a4-4f30-b21e-246d7c478009"
-            let rawInput = "n = 5"
-            let expectedOutput = "6"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_4() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "8b907f6b-ccee-41af-9d03-5aaaccb63fd9"
-            let rawInput = "n = 6"
-            let expectedOutput = "7"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_5() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "1d47a363-5c89-420d-85af-04d3057a877b"
-            let rawInput = "n = 7"
-            let expectedOutput = "8"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_6() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "a265cb84-2409-4c64-96cd-fe8c7cffde35"
-            let rawInput = "n = 8"
-            let expectedOutput = "9"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_7() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "064cec22-32f9-4e89-af15-ba809639570e"
-            let rawInput = "n = 9"
-            let expectedOutput = "10"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_8() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "9ed8fded-2810-4d94-8476-2a201d514f19"
-            let rawInput = "n = 10"
-            let expectedOutput = "11"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_9() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "056c317f-5895-4461-96cc-a10340f5ca7b"
-            let rawInput = "n = -1"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_10() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "a8c630c5-3037-4da3-9c05-32a0ac43c8d9"
-            let rawInput = "n = -2"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_11() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "32efe79f-4119-4805-bfa3-128a3b6be510"
-            let rawInput = "n = -10"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_12() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "79ba348a-88f0-4eaf-a536-36ac0f0ae9c7"
-            let rawInput = "n = 100"
-            let expectedOutput = "91"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_13() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "5167a670-1a06-4171-8f0a-5eddf8dab7af"
-            let rawInput = "n = 1000"
-            let expectedOutput = "739"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_14() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "f101544b-a9e2-4fc5-b044-f45c2e64d994"
-            let rawInput = "n = 10000"
-            let expectedOutput = "5275"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_15() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "95b44750-642f-441a-8efa-866f4568c2e2"
-            let rawInput = "n = 100000"
-            let expectedOutput = "32491"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_16() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "8ddcc104-f632-43ae-8764-be313916cba8"
-            let rawInput = "n = 1000000"
-            let expectedOutput = "168571"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_17() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "89bac8b9-600a-48e4-aab2-6201e1aec941"
-            let rawInput = "n = 10000000"
-            let expectedOutput = "712891"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_18() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "ae04cfc5-b53e-440d-b93b-bbd1c4b4e6ad"
-            let rawInput = "n = 100000000"
-            let expectedOutput = "2345851"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_19() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "102eb27a-0510-421b-82f7-bb3ffc1c6c3f"
-            let rawInput = "n = 1000000000"
-            let expectedOutput = "5611771"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_20() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "3793ad73-1dfe-4a94-94cf-041ae1ba95d2"
-            let rawInput = "n = -100"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_21() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "e378422c-1f60-460b-84a4-f234cd2f17f6"
-            let rawInput = "n = -1000"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_22() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "77816186-8d60-413d-adc0-721c5b3c3536"
-            let rawInput = "n = -10000"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_23() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "8f20f49a-2de2-4b2a-9181-f6bf5ec5129c"
-            let rawInput = "n = -100000"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_24() async {
-            let slug = "count-numbers-with-unique-digits"
-            let topic = "math-geometry"
-            let testId = "19badff5-aee4-4198-9a3c-bc133456d53f"
-            let rawInput = "n = -1000000"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 0 && p_n <= 8 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= n <= 8")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.countNumbersWithUniqueDigits(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 0 <= n <= 8"
+                )
+                return
+            }
+
+            let solution = Solution()
+            let result = solution.countNumbersWithUniqueDigits(p_n)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

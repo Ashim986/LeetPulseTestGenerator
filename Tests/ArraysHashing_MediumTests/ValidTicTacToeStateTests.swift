@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_valid_tic_tac_toe_state {
+enum LCValidTicTacToeState {
     private class Solution {
         func validTicTacToe(_ board: [String]) -> Bool {
             let rows = board.map { Array($0) }
@@ -40,1279 +40,171 @@ enum LC_valid_tic_tac_toe_state {
     @Suite struct ValidTicTacToeStateTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "1d3b3a57-de3f-484f-9428-c898fb7079ee",
+             input: "board = [\"   \", \"   \", \"   \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "fc1feaff-d614-45bd-8b60-9fe4b945f304",
+             input: "board = [\"XXX\", \"XXX\", \"XXX\"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "e51590fe-b2bc-4075-bf8a-3ca525e3bac7",
+             input: "board = [\"OOO\", \"OOO\", \"OOO\"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "0dee4de8-a6eb-40cd-bab7-aeeab167d7c6",
+             input: "board = [\"XO \", \"XO \", \"XO \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "ed0984df-83a1-4b3a-a9cc-0856dfb1c423",
+             input: "board = [\"X  \", \"X  \", \"X  \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "64f85bcf-75b9-447f-a69a-508286558b51",
+             input: "board = [\"O  \", \"O  \", \"O  \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "34c6ed24-1366-498f-adc4-4e1ac97ae837",
+             input: "board = [\"XXX\", \"OOO\", \"   \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "245fc216-59dd-49dd-85f5-ccd8ee826846",
+             input: "board = [\"OOO\", \"XXX\", \"   \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "3b0d9726-21b9-4b61-9652-4f9eaa3ed1d3",
+             input: "board = [\"XO \", \"OXO\", \"XOX\"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "7428e7df-06ef-4593-bdf9-65b92dc2c0e1",
+             input: "board = [\"X  \", \"O  \", \"X  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "72467bb3-637c-47a7-8342-eb4f93ce5f17",
+             input: "board = [\"X  \", \"X  \", \"O  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "91d43164-8ee7-44b5-9b59-da31b92fbc4f",
+             input: "board = [\"X  \", \"O  \", \"XO \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "3ed34235-b9a0-40cf-8152-952ff966e3ef",
+             input: "board = [\"O  \", \"X  \", \"OX \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "12636ea9-0537-4820-be7b-f5aecbc4f09c",
+             input: "board = [\"OX \", \"OX \", \"OX \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "99e0a639-3442-4beb-8edc-cc6b77fb6a46",
+             input: "board = [\"X  \", \"O  \", \"   \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "2478c7c2-4060-46af-b05e-b31f0cf4e6c8",
+             input: "board = [\"O  \", \"X  \", \"   \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "8fc57c5b-218b-4114-a44c-6d1c8e8666a0",
+             input: "board = [\"   \", \"X  \", \"O  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "6f80495e-ebaf-4908-92c8-8ea50d85a58b",
+             input: "board = [\"   \", \"O  \", \"X  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "a00ad68d-220c-4646-b038-164ebce90d1c",
+             input: "board = [\"X  \", \"   \", \"O  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "573f4ed0-f6d8-4e5f-9989-8769f23ec603",
+             input: "board = [\"O  \", \"   \", \"X  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "ba32ffd7-4f41-417a-9873-031faeb829d2",
+             input: "board = [\"X  \", \"   \", \"   \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "edfcd782-7598-4384-b2c7-2c276b0bd225",
+             input: "board = [\"   \", \"X  \", \"   \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "c36d2e9f-4938-48f0-893f-dd18dff3c2da",
+             input: "board = [\"   \", \"   \", \"X  \"]",
+             expected: "true", orderMatters: true),
+            TestCaseData(id: "351e3484-0a00-4a13-a072-3712b7e0a6a1",
+             input: "board = [\"XXX\", \"   \", \"   \"]",
+             expected: "false", orderMatters: true),
+            TestCaseData(id: "4e78f862-b244-40cd-9e44-8686da231a9b",
+             input: "board = [\"OOO\", \"   \", \"   \"]",
+             expected: "false", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "valid-tic-tac-toe-state"
             let topic = "arrays-hashing"
-            let testId = "1d3b3a57-de3f-484f-9428-c898fb7079ee"
-            let rawInput = "board = [\"   \", \"   \", \"   \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let params = InputParser.stripParamNames(rawInput)
 
             guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Wrong param count: expected 1, got \(params.count)"
+                )
                 return
             }
 
             guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 0 as [String]"
+                )
                 return
             }
             guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: board array too large (\(p_board.count))"
+                )
                 return
             }
 
             // Constraint precondition checks
             guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: board.length == 3"
+                )
                 return
             }
             guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_1() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "fc1feaff-d614-45bd-8b60-9fe4b945f304"
-            let rawInput = "board = [\"XXX\", \"XXX\", \"XXX\"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_2() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "e51590fe-b2bc-4075-bf8a-3ca525e3bac7"
-            let rawInput = "board = [\"OOO\", \"OOO\", \"OOO\"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_3() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "0dee4de8-a6eb-40cd-bab7-aeeab167d7c6"
-            let rawInput = "board = [\"XO \", \"XO \", \"XO \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_4() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "ed0984df-83a1-4b3a-a9cc-0856dfb1c423"
-            let rawInput = "board = [\"X  \", \"X  \", \"X  \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_5() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "64f85bcf-75b9-447f-a69a-508286558b51"
-            let rawInput = "board = [\"O  \", \"O  \", \"O  \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_6() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "34c6ed24-1366-498f-adc4-4e1ac97ae837"
-            let rawInput = "board = [\"XXX\", \"OOO\", \"   \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_7() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "245fc216-59dd-49dd-85f5-ccd8ee826846"
-            let rawInput = "board = [\"OOO\", \"XXX\", \"   \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_8() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "3b0d9726-21b9-4b61-9652-4f9eaa3ed1d3"
-            let rawInput = "board = [\"XO \", \"OXO\", \"XOX\"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_9() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "7428e7df-06ef-4593-bdf9-65b92dc2c0e1"
-            let rawInput = "board = [\"X  \", \"O  \", \"X  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_10() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "72467bb3-637c-47a7-8342-eb4f93ce5f17"
-            let rawInput = "board = [\"X  \", \"X  \", \"O  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_11() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "91d43164-8ee7-44b5-9b59-da31b92fbc4f"
-            let rawInput = "board = [\"X  \", \"O  \", \"XO \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_12() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "3ed34235-b9a0-40cf-8152-952ff966e3ef"
-            let rawInput = "board = [\"O  \", \"X  \", \"OX \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_13() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "12636ea9-0537-4820-be7b-f5aecbc4f09c"
-            let rawInput = "board = [\"OX \", \"OX \", \"OX \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_14() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "99e0a639-3442-4beb-8edc-cc6b77fb6a46"
-            let rawInput = "board = [\"X  \", \"O  \", \"   \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_15() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "2478c7c2-4060-46af-b05e-b31f0cf4e6c8"
-            let rawInput = "board = [\"O  \", \"X  \", \"   \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_16() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "8fc57c5b-218b-4114-a44c-6d1c8e8666a0"
-            let rawInput = "board = [\"   \", \"X  \", \"O  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_17() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "6f80495e-ebaf-4908-92c8-8ea50d85a58b"
-            let rawInput = "board = [\"   \", \"O  \", \"X  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_18() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "a00ad68d-220c-4646-b038-164ebce90d1c"
-            let rawInput = "board = [\"X  \", \"   \", \"O  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_19() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "573f4ed0-f6d8-4e5f-9989-8769f23ec603"
-            let rawInput = "board = [\"O  \", \"   \", \"X  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_20() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "ba32ffd7-4f41-417a-9873-031faeb829d2"
-            let rawInput = "board = [\"X  \", \"   \", \"   \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_21() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "edfcd782-7598-4384-b2c7-2c276b0bd225"
-            let rawInput = "board = [\"   \", \"X  \", \"   \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_22() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "c36d2e9f-4938-48f0-893f-dd18dff3c2da"
-            let rawInput = "board = [\"   \", \"   \", \"X  \"]"
-            let expectedOutput = "true"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_23() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "351e3484-0a00-4a13-a072-3712b7e0a6a1"
-            let rawInput = "board = [\"XXX\", \"   \", \"   \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_24() async {
-            let slug = "valid-tic-tac-toe-state"
-            let topic = "arrays-hashing"
-            let testId = "4e78f862-b244-40cd-9e44-8686da231a9b"
-            let rawInput = "board = [\"OOO\", \"   \", \"   \"]"
-            let expectedOutput = "false"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_board = InputParser.parseStringArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [String]: '\(params[0])'")
-                return
-            }
-            guard p_board.count <= 100_000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board array too large (\(p_board.count))")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board.length == 3")
-                return
-            }
-            guard p_board.count == 3 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: board[i].length == 3")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.validTicTacToe(p_board)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Normalize: parse expected to Bool (handles true/True/TRUE/1)
-                let expectedBool = expectedOutput.trimmingCharacters(in: .whitespaces).lowercased() == "true" || expectedOutput.trimmingCharacters(in: .whitespaces) == "1"
-                let matches = result == expectedBool
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: board[i].length == 3"
+                )
+                return
+            }
+
+            let solution = Solution()
+            let result = solution.validTicTacToe(p_board)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            // Normalize: parse expected to Bool (handles true/True/TRUE/1)
+            let trimmedExpected = expectedOutput.trimmingCharacters(in: .whitespaces)
+            let expectedBool = trimmedExpected.lowercased() == "true" || trimmedExpected == "1"
+            let matches = result == expectedBool
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

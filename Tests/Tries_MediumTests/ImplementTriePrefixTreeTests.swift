@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_implement_trie_prefix_tree {
+enum LCImplementTriePrefixTree {
     private class Solution {
         class Trie {
 
@@ -12,11 +12,11 @@ enum LC_implement_trie_prefix_tree {
             func insert(_ word: String) {
                 var node = root
                 for char in word {
-                    let index = Int(char.asciiValue! - Character("a").asciiValue!)
+                    let index = Int(char.asciiValue.unsafelyUnwrapped - Character("a").asciiValue.unsafelyUnwrapped)
                     if node.children[index] == nil {
                         node.children[index] = TrieNode()
                     }
-                    node = node.children[index]!
+                    node = node.children[index].unsafelyUnwrapped
                 }
                 node.isEnd = true
             }
@@ -33,7 +33,7 @@ enum LC_implement_trie_prefix_tree {
             private func walk(_ word: String) -> TrieNode? {
                 var node: TrieNode? = root
                 for char in word {
-                    let index = Int(char.asciiValue! - Character("a").asciiValue!)
+                    let index = Int(char.asciiValue.unsafelyUnwrapped - Character("a").asciiValue.unsafelyUnwrapped)
                     node = node?.children[index]
                     if node == nil { return nil }
                 }
@@ -45,51 +45,162 @@ enum LC_implement_trie_prefix_tree {
     @Suite struct ImplementTriePrefixTreeTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "9ec92828-370a-411a-b1b3-b338fcf6cf85",
+             input: "['Trie', 'insert', 'insert', 'search', 'search', 'startsWith', 'startsWith']",
+             expected: "[null,null,null,true,true,true,true]", orderMatters: true),
+            TestCaseData(id: "8b87af70-b4fc-4efa-8ec4-a8af166ba7ec",
+             input: "['Trie', 'insert', 'search', 'startsWith']",
+             expected: "[null,null,false,true]", orderMatters: true),
+            TestCaseData(id: "4ebd7284-3eb7-4c72-b5f0-2689835d81bd",
+             input: "['Trie', 'insert', 'insert', 'insert', 'search', 'search', 'search']",
+             expected: "[null,null,null,null,true,false,true]", orderMatters: true),
+            TestCaseData(id: "ac48e20e-378b-4f7a-ba69-e3a2dfef7875",
+             input: "['Trie', 'insert', 'insert', 'startsWith', 'startsWith', 'search']",
+             expected: "[null,null,null,true,true,false]", orderMatters: true),
+            TestCaseData(id: "9637b330-5001-42e6-b60f-57e0813798c2",
+             input: "['Trie', 'search', 'search', 'insert', 'insert', 'search']",
+             expected: "[null,false,false,null,null,true]", orderMatters: true),
+            TestCaseData(id: "d1c2e05e-a9fd-4fb7-81d9-81b3761e6b00",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'search', 'search', 'search', 'search']",
+             expected: "[null,null,null,null,null,null,true,true,true,false]", orderMatters: true),
+            TestCaseData(id: "140c906e-9f01-4b9c-b02c-a0e177f3f38c",
+             input: "['Trie', 'insert', 'insert', 'insert', 'startsWith', 'startsWith', 'startsWith']",
+             expected: "[null,null,null,null,true,true,true]", orderMatters: true),
+            TestCaseData(id: "87f92699-84e9-44cb-95f2-17823227ed09",
+             input: "['Trie', 'search', 'startsWith', 'insert', 'insert', 'search', 'search']",
+             expected: "[null,false,false,null,null,true,true]", orderMatters: true),
+            TestCaseData(id: "e7f6b516-33da-44fb-b2b1-3ff23ef253fd",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search', 'search', 'search']",
+             expected: "[null,null,null,null,null,null,null,true,true,false]", orderMatters: true),
+            TestCaseData(id: "ae8fc466-d1f0-4c8e-a4db-f0b22ed16cd8",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith', 'startsWith', 'startsWith']",
+             expected: "[null,null,null,null,null,null,true,true,true]", orderMatters: true),
+            TestCaseData(id: "c359fad4-ed41-402e-af4b-c1520818f75b",
+             input: "['Trie', 'search', 'search', 'search', 'insert', 'insert', 'insert']",
+             expected: "[null,false,false,false,null,null,null]", orderMatters: true),
+            TestCaseData(id: "bcbcc728-238e-4f68-be24-b9dc850b20a6",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']",
+             expected: "[null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "e6e43335-c137-4df0-8501-0066de324557",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']",
+             expected: "[null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "4ff2c72a-0dea-4323-baee-626266f3c62c",
+             input: "['Trie', 'search', 'search', 'search', 'search', 'insert', 'insert']",
+             expected: "[null,false,false,false,false,null,null]", orderMatters: true),
+            TestCaseData(id: "774ed163-d4c8-4941-ab93-d9f65d87e251",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']",
+             expected: "[null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "d8d22b3d-2b90-44be-8796-376793636f32",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']",
+             expected: "[null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "e8de91fa-c081-428e-ae0c-2bd97672c8bb",
+             input: "['Trie', 'search', 'search', 'search', 'search', 'search', 'insert']",
+             expected: "[null,false,false,false,false,false,null]", orderMatters: true),
+            TestCaseData(id: "d7207f78-6117-4a01-b6fa-c6c2e568059c",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']",
+             expected: "[null,null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "e32bac3f-2db9-47fb-a830-c93488dbdd06",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']",
+             expected: "[null,null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "225db699-a812-4a55-9ece-60c46d0efca1",
+             input: "['Trie', 'search', 'search', 'search', 'search', 'search', 'search', 'insert']",
+             expected: "[null,false,false,false,false,false,false,null]", orderMatters: true),
+            TestCaseData(id: "fab0e668-369c-4924-9289-7f5fd05879c0",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']",
+             expected: "[null,null,null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "278bdc9e-159c-4ab4-ab57-596b14fc656f",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']",
+             expected: "[null,null,null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "4bd93ecf-5e87-465d-92a4-14cbb1ad0be4",
+             input: "['Trie', 'search', 'search', 'search', 'search', 'search', 'search', 'search', 'insert']",
+             expected: "[null,false,false,false,false,false,false,false,null]", orderMatters: true),
+            TestCaseData(id: "72eaa292-3add-4edb-9f27-8025c0a0cb9c",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']",
+             expected: "[null,null,null,null,null,null,null,null,null,null,null,null,false]", orderMatters: true),
+            TestCaseData(id: "0c7c5889-9e33-4d2c-970c-9a14decf7e08",
+             input: "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']",
+             expected: "[null,null,null,null,null,null,null,null,null,null,null,null,false]", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "implement-trie-prefix-tree"
             let topic = "tries"
-            let testId = "9ec92828-370a-411a-b1b3-b338fcf6cf85"
-            let rawInput = "['Trie', 'insert', 'insert', 'search', 'search', 'startsWith', 'startsWith']"
-            let expectedOutput = "[null,null,null,true,true,true,true]"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let inputLines = rawInput.components(separatedBy: "\n")
             guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Invalid class design input format"
+                )
                 return
             }
 
             guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse method names"
+                )
                 return
             }
             guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse args list"
+                )
                 return
             }
             guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Methods/args count mismatch"
+                )
                 return
             }
 
             // Init
             let initArgs = argsList[0]
-                var obj = Solution.Trie()
+            var obj = Solution.Trie()
 
             var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
+            for idx in 1..<methodNames.count {
+                let methodName = methodNames[idx]
+                let args = argsList[idx]
+                switch methodName {
                 case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
+                    let mArg_0 = InputParser.parseString(args[0])
+                    obj.insert(mArg_0)
                     results.append("null")
                 case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
+                    let mArg_0 = InputParser.parseString(args[0])
+                    let rv = obj.search(mArg_0)
+                    results.append(rv ? "true" : "false")
                 case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
+                    let mArg_0 = InputParser.parseString(args[0])
+                    let rv = obj.startsWith(mArg_0)
+                    results.append(rv ? "true" : "false")
                 default:
                     results.append("null")
                 }
@@ -105,1544 +216,14 @@ enum LC_implement_trie_prefix_tree {
                 return result
             }
             let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_1() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "8b87af70-b4fc-4efa-8ec4-a8af166ba7ec"
-            let rawInput = "['Trie', 'insert', 'search', 'startsWith']"
-            let expectedOutput = "[null,null,false,true]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_2() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "4ebd7284-3eb7-4c72-b5f0-2689835d81bd"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'search', 'search', 'search']"
-            let expectedOutput = "[null,null,null,null,true,false,true]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_3() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "ac48e20e-378b-4f7a-ba69-e3a2dfef7875"
-            let rawInput = "['Trie', 'insert', 'insert', 'startsWith', 'startsWith', 'search']"
-            let expectedOutput = "[null,null,null,true,true,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_4() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "9637b330-5001-42e6-b60f-57e0813798c2"
-            let rawInput = "['Trie', 'search', 'search', 'insert', 'insert', 'search']"
-            let expectedOutput = "[null,false,false,null,null,true]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_5() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "d1c2e05e-a9fd-4fb7-81d9-81b3761e6b00"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'search', 'search', 'search', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,true,true,true,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_6() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "140c906e-9f01-4b9c-b02c-a0e177f3f38c"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'startsWith', 'startsWith', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,true,true,true]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_7() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "87f92699-84e9-44cb-95f2-17823227ed09"
-            let rawInput = "['Trie', 'search', 'startsWith', 'insert', 'insert', 'search', 'search']"
-            let expectedOutput = "[null,false,false,null,null,true,true]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_8() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "e7f6b516-33da-44fb-b2b1-3ff23ef253fd"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search', 'search', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,null,true,true,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_9() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "ae8fc466-d1f0-4c8e-a4db-f0b22ed16cd8"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith', 'startsWith', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,null,null,true,true,true]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_10() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "c359fad4-ed41-402e-af4b-c1520818f75b"
-            let rawInput = "['Trie', 'search', 'search', 'search', 'insert', 'insert', 'insert']"
-            let expectedOutput = "[null,false,false,false,null,null,null]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_11() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "bcbcc728-238e-4f68-be24-b9dc850b20a6"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_12() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "e6e43335-c137-4df0-8501-0066de324557"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_13() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "4ff2c72a-0dea-4323-baee-626266f3c62c"
-            let rawInput = "['Trie', 'search', 'search', 'search', 'search', 'insert', 'insert']"
-            let expectedOutput = "[null,false,false,false,false,null,null]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_14() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "774ed163-d4c8-4941-ab93-d9f65d87e251"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_15() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "d8d22b3d-2b90-44be-8796-376793636f32"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_16() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "e8de91fa-c081-428e-ae0c-2bd97672c8bb"
-            let rawInput = "['Trie', 'search', 'search', 'search', 'search', 'search', 'insert']"
-            let expectedOutput = "[null,false,false,false,false,false,null]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_17() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "d7207f78-6117-4a01-b6fa-c6c2e568059c"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_18() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "e32bac3f-2db9-47fb-a830-c93488dbdd06"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_19() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "225db699-a812-4a55-9ece-60c46d0efca1"
-            let rawInput = "['Trie', 'search', 'search', 'search', 'search', 'search', 'search', 'insert']"
-            let expectedOutput = "[null,false,false,false,false,false,false,null]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_20() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "fab0e668-369c-4924-9289-7f5fd05879c0"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_21() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "278bdc9e-159c-4ab4-ab57-596b14fc656f"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_22() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "4bd93ecf-5e87-465d-92a4-14cbb1ad0be4"
-            let rawInput = "['Trie', 'search', 'search', 'search', 'search', 'search', 'search', 'search', 'insert']"
-            let expectedOutput = "[null,false,false,false,false,false,false,false,null]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_23() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "72eaa292-3add-4edb-9f27-8025c0a0cb9c"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'search']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_24() async {
-            let slug = "implement-trie-prefix-tree"
-            let topic = "tries"
-            let testId = "0c7c5889-9e33-4d2c-970c-9a14decf7e08"
-            let rawInput = "['Trie', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'insert', 'startsWith']"
-            let expectedOutput = "[null,null,null,null,null,null,null,null,null,null,null,null,false]"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.Trie()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "insert":
-                    obj.insert(InputParser.parseString(a[0]))
-                    results.append("null")
-                case "search":
-                    let r = obj.search(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                case "startsWith":
-                    let r = obj.startsWith(InputParser.parseString(a[0]))
-                    results.append(r ? "true" : "false")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

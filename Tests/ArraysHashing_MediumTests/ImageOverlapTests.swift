@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_image_overlap {
+enum LCImageOverlap {
     private class Solution {
         func largestOverlap(img1: [[Int]], img2: [[Int]]) -> Int {
             let m = img1.count
@@ -40,1179 +40,169 @@ enum LC_image_overlap {
     @Suite struct ImageOverlapTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "913679a1-29f2-49fc-9924-ffddc2548440",
+             input: "img1 = [[1,0,0],[0,1,0],[0,0,1]], img2 = [[1,0,0],[0,1,0],[0,0,1]]",
+             expected: "3", orderMatters: true),
+            TestCaseData(id: "366fda89-e083-487b-8f79-021569c4da77",
+             input: "img1 = [[0,0,0],[0,0,0],[0,0,0]], img2 = [[0,0,0],[0,0,0],[0,0,0]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "a5f412c6-9055-4724-8a1e-e36eceedb505",
+             input: "img1 = [[1,1,1],[1,1,1],[1,1,1]], img2 = [[1,1,1],[1,1,1],[1,1,1]]",
+             expected: "9", orderMatters: true),
+            TestCaseData(id: "41e4ddcc-fec4-42e4-8ce2-8bd22405db43",
+             input: "img1 = [[1,0],[0,1]], img2 = [[1,0],[0,1]]",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "d01b8698-16ab-444c-94b8-10f14c176dbe",
+             input: "img1 = [[1,1],[1,1]], img2 = [[0,0],[0,0]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "7607efe1-3ced-4a87-9924-67279e198685",
+             input: "img1 = [[0,0],[0,0]], img2 = [[1,1],[1,1]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "abd7bf26-67e4-4073-bd97-0aafae4e0cc4",
+             input: "img1 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]], img2 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]",
+             expected: "16", orderMatters: true),
+            TestCaseData(id: "c978eaca-2e16-43d8-87c6-d14288b18864",
+             input: "img1 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]], img2 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "960c0938-e760-4bf0-a578-e903f38f6e9d",
+             input: "img1 = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]], img2 = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]",
+             expected: "4", orderMatters: true),
+            TestCaseData(id: "e05b3278-cc30-4b4d-811a-35a7624654d7",
+             input: "img1 = [[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0]], img2 = [[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0]]",
+             expected: "4", orderMatters: true),
+            TestCaseData(id: "b921a98b-08f5-4e8e-9dfb-61c46c45b20b",
+             input: "img1 = [[1,1,0,0],[0,0,1,1],[0,0,0,0],[0,0,0,0]], img2 = [[1,1,0,0],[0,0,1,1],[0,0,0,0],[0,0,0,0]]",
+             expected: "4", orderMatters: true),
+            TestCaseData(id: "d7d2c03b-c926-4ac8-873f-8964d4d5522d",
+             input: "img1 = [[0,0,0,0],[1,1,0,0],[0,0,1,1],[0,0,0,0]], img2 = [[0,0,0,0],[1,1,0,0],[0,0,1,1],[0,0,0,0]]",
+             expected: "4", orderMatters: true),
+            TestCaseData(id: "3119947b-339d-4f3f-a223-efc91cd0be03",
+             input: "img1 = [[1,0,1,0],[0,1,0,1],[1,0,1,0],[0,1,0,1]], img2 = [[1,0,1,0],[0,1,0,1],[1,0,1,0],[0,1,0,1]]",
+             expected: "8", orderMatters: true),
+            TestCaseData(id: "4fdfd280-b17b-4bbb-a424-4bb6aa185308",
+             input: "img1 = [[0,1,0,1],[1,0,1,0],[0,1,0,1],[1,0,1,0]], img2 = [[0,1,0,1],[1,0,1,0],[0,1,0,1],[1,0,1,0]]",
+             expected: "8", orderMatters: true),
+            TestCaseData(id: "25295c87-099d-4c2d-b417-de8f3b4fddc8",
+             input: "img1 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]], img2 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "3351d973-4f3b-4edc-b891-62f4a2683625",
+             input: "img1 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]], img2 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "33bd6059-716a-4908-9f38-a2dfad083cd0",
+             input: "img1 = [[1,1],[0,0]], img2 = [[1,1],[0,0]]",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "12b99c1a-1784-4034-b8d8-d3ec975e5d32",
+             input: "img1 = [[0,0],[1,1]], img2 = [[0,0],[1,1]]",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "8cf0a53f-83c0-4ffe-83c0-881cb4339c37",
+             input: "img1 = [[0,0,0],[0,1,0],[0,0,0]], img2 = [[0,0,0],[0,1,0],[0,0,0]]",
+             expected: "1", orderMatters: true),
+            TestCaseData(id: "f583250d-e370-4fc7-83f3-e5ea707c02eb",
+             input: "img1 = [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]], img2 = [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]]",
+             expected: "5", orderMatters: true),
+            TestCaseData(id: "3bf48e70-3ca3-47a1-b5f1-c87078461e9d",
+             input: "img1 = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]], img2 = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]]",
+             expected: "25", orderMatters: true),
+            TestCaseData(id: "526f6591-f41b-4444-84b8-c1d4f52d46f3",
+             input: "img1 = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]], img2 = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]",
+             expected: "0", orderMatters: true),
+            TestCaseData(id: "9e90a456-e0a8-4fe8-af48-12bfb220e9fd",
+             input: "img1 = [[1,0,0,0,0,0],[0,1,0,0,0,0],[0,0,1,0,0,0],[0,0,0,1,0,0],[0,0,0,0,1,0],[0,0,0,0,0,1]], img2 = [[1,0,0,0,0,0],[0,1,0,0,0,0],[0,0,1"
+                + ",0,0,0],[0,0,0,1,0,0],[0,0,0,0,1,0],[0,0,0,0,0,1]]",
+             expected: "6", orderMatters: true),
+            TestCaseData(id: "a29715fd-134b-4401-84cb-b3d5022ffc2c",
+             input: "img1 = [[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1]], img2 = [[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1"
+                + ",1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1]]",
+             expected: "36", orderMatters: true),
+            TestCaseData(id: "9b93408f-7378-4831-a9fe-330d17074cf1",
+             input: "img1 = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]], img2 = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0"
+                + ",0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]",
+             expected: "0", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "image-overlap"
             let topic = "arrays-hashing"
-            let testId = "913679a1-29f2-49fc-9924-ffddc2548440"
-            let rawInput = "img1 = [[1,0,0],[0,1,0],[0,0,1]], img2 = [[1,0,0],[0,1,0],[0,0,1]]"
-            let expectedOutput = "3"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let params = InputParser.stripParamNames(rawInput)
 
             guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Wrong param count: expected 2, got \(params.count)"
+                )
                 return
             }
 
             guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 0 as [[Int]]"
+                )
                 return
             }
             guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))"
+                )
                 return
             }
             guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 1 as [[Int]]"
+                )
                 return
             }
             guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_1() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "366fda89-e083-487b-8f79-021569c4da77"
-            let rawInput = "img1 = [[0,0,0],[0,0,0],[0,0,0]], img2 = [[0,0,0],[0,0,0],[0,0,0]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_2() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "a5f412c6-9055-4724-8a1e-e36eceedb505"
-            let rawInput = "img1 = [[1,1,1],[1,1,1],[1,1,1]], img2 = [[1,1,1],[1,1,1],[1,1,1]]"
-            let expectedOutput = "9"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_3() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "41e4ddcc-fec4-42e4-8ce2-8bd22405db43"
-            let rawInput = "img1 = [[1,0],[0,1]], img2 = [[1,0],[0,1]]"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_4() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "d01b8698-16ab-444c-94b8-10f14c176dbe"
-            let rawInput = "img1 = [[1,1],[1,1]], img2 = [[0,0],[0,0]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_5() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "7607efe1-3ced-4a87-9924-67279e198685"
-            let rawInput = "img1 = [[0,0],[0,0]], img2 = [[1,1],[1,1]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_6() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "abd7bf26-67e4-4073-bd97-0aafae4e0cc4"
-            let rawInput = "img1 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]], img2 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]"
-            let expectedOutput = "16"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_7() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "c978eaca-2e16-43d8-87c6-d14288b18864"
-            let rawInput = "img1 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]], img2 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_8() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "960c0938-e760-4bf0-a578-e903f38f6e9d"
-            let rawInput = "img1 = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]], img2 = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]"
-            let expectedOutput = "4"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_9() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "e05b3278-cc30-4b4d-811a-35a7624654d7"
-            let rawInput = "img1 = [[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0]], img2 = [[0,1,0,0],[0,0,1,0],[0,0,0,1],[1,0,0,0]]"
-            let expectedOutput = "4"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_10() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "b921a98b-08f5-4e8e-9dfb-61c46c45b20b"
-            let rawInput = "img1 = [[1,1,0,0],[0,0,1,1],[0,0,0,0],[0,0,0,0]], img2 = [[1,1,0,0],[0,0,1,1],[0,0,0,0],[0,0,0,0]]"
-            let expectedOutput = "4"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_11() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "d7d2c03b-c926-4ac8-873f-8964d4d5522d"
-            let rawInput = "img1 = [[0,0,0,0],[1,1,0,0],[0,0,1,1],[0,0,0,0]], img2 = [[0,0,0,0],[1,1,0,0],[0,0,1,1],[0,0,0,0]]"
-            let expectedOutput = "4"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_12() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "3119947b-339d-4f3f-a223-efc91cd0be03"
-            let rawInput = "img1 = [[1,0,1,0],[0,1,0,1],[1,0,1,0],[0,1,0,1]], img2 = [[1,0,1,0],[0,1,0,1],[1,0,1,0],[0,1,0,1]]"
-            let expectedOutput = "8"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_13() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "4fdfd280-b17b-4bbb-a424-4bb6aa185308"
-            let rawInput = "img1 = [[0,1,0,1],[1,0,1,0],[0,1,0,1],[1,0,1,0]], img2 = [[0,1,0,1],[1,0,1,0],[0,1,0,1],[1,0,1,0]]"
-            let expectedOutput = "8"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_14() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "25295c87-099d-4c2d-b417-de8f3b4fddc8"
-            let rawInput = "img1 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]], img2 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_15() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "3351d973-4f3b-4edc-b891-62f4a2683625"
-            let rawInput = "img1 = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]], img2 = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_16() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "33bd6059-716a-4908-9f38-a2dfad083cd0"
-            let rawInput = "img1 = [[1,1],[0,0]], img2 = [[1,1],[0,0]]"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_17() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "12b99c1a-1784-4034-b8d8-d3ec975e5d32"
-            let rawInput = "img1 = [[0,0],[1,1]], img2 = [[0,0],[1,1]]"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_18() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "8cf0a53f-83c0-4ffe-83c0-881cb4339c37"
-            let rawInput = "img1 = [[0,0,0],[0,1,0],[0,0,0]], img2 = [[0,0,0],[0,1,0],[0,0,0]]"
-            let expectedOutput = "1"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_19() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "f583250d-e370-4fc7-83f3-e5ea707c02eb"
-            let rawInput = "img1 = [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]], img2 = [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]]"
-            let expectedOutput = "5"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_20() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "3bf48e70-3ca3-47a1-b5f1-c87078461e9d"
-            let rawInput = "img1 = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]], img2 = [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]]"
-            let expectedOutput = "25"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_21() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "526f6591-f41b-4444-84b8-c1d4f52d46f3"
-            let rawInput = "img1 = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]], img2 = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_22() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "9e90a456-e0a8-4fe8-af48-12bfb220e9fd"
-            let rawInput = "img1 = [[1,0,0,0,0,0],[0,1,0,0,0,0],[0,0,1,0,0,0],[0,0,0,1,0,0],[0,0,0,0,1,0],[0,0,0,0,0,1]], img2 = [[1,0,0,0,0,0],[0,1,0,0,0,0],[0,0,1,0,0,0],[0,0,0,1,0,0],[0,0,0,0,1,0],[0,0,0,0,0,1]]"
-            let expectedOutput = "6"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_23() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "a29715fd-134b-4401-84cb-b3d5022ffc2c"
-            let rawInput = "img1 = [[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1]], img2 = [[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1]]"
-            let expectedOutput = "36"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_24() async {
-            let slug = "image-overlap"
-            let topic = "arrays-hashing"
-            let testId = "9b93408f-7378-4831-a9fe-330d17074cf1"
-            let rawInput = "img1 = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]], img2 = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]"
-            let expectedOutput = "0"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 2, got \(params.count)")
-                return
-            }
-
-            guard let p_img1 = InputParser.parse2DIntArray(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as [[Int]]: '\(params[0])'")
-                return
-            }
-            guard p_img1.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
-                return
-            }
-            guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as [[Int]]: '\(params[1])'")
-                return
-            }
-            guard p_img2.count <= 1000 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))"
+                )
+                return
+            }
+
+            let solution = Solution()
+            let result = solution.largestOverlap(img1: p_img1, img2: p_img2)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

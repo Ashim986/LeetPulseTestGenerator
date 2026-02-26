@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_design_linked_list {
+enum LCDesignLinkedList {
     private class Solution {
         class MyLinkedList {
             var head: ListNode?
@@ -99,56 +99,183 @@ enum LC_design_linked_list {
     @Suite struct DesignLinkedListTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "59846031-07f6-4ed9-a120-475c55f4d598",
+             input: "head = [1,2,3], addAtHead(4), addAtTail(5), get(0)",
+             expected: "4", orderMatters: true),
+            TestCaseData(id: "f6762a80-b94c-44b2-a177-ca100aff9151",
+             input: "head = [], addAtHead(1), addAtHead(2), get(0)",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "925d1db0-7b5c-42ce-b66c-5e2a30396bda",
+             input: "head = [1], addAtHead(2), addAtHead(3), get(0)",
+             expected: "3", orderMatters: true),
+            TestCaseData(id: "d02ede97-53d5-47f6-879c-96d56d8e523f",
+             input: "head = [1,2,3,4,5], addAtHead(6), addAtHead(7), get(0)",
+             expected: "7", orderMatters: true),
+            TestCaseData(id: "519bd78c-3cb5-474f-97fc-a4c570c0c68e",
+             input: "head = [1,2,3], addAtHead(-1), addAtHead(-2), get(0)",
+             expected: "-2", orderMatters: true),
+            TestCaseData(id: "4c1febfe-a3b4-46d9-aac2-44a5b8009790",
+             input: "head = [1,1,1], addAtHead(1), addAtHead(1), get(0)",
+             expected: "1", orderMatters: true),
+            TestCaseData(id: "636315ac-27f8-467d-9671-57d8a5359d20",
+             input: "head = [1,2,3,4,5,6,7,8,9,10], addAtHead(11), get(0)",
+             expected: "11", orderMatters: true),
+            TestCaseData(id: "98e48b14-85c1-484c-be5a-fc069c41f56d",
+             input: "head = [1], addAtHead(1), addAtHead(1), get(0)",
+             expected: "1", orderMatters: true),
+            TestCaseData(id: "860511fa-e29c-4383-89e9-9bdc58a83558",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), get(0)",
+             expected: "6", orderMatters: true),
+            TestCaseData(id: "fb7272d9-63cc-4dfa-b656-34b625e21d1e",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), get(0)",
+             expected: "7", orderMatters: true),
+            TestCaseData(id: "e8cd655f-4645-494a-a8e1-2b66cd64ac15",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), get(0)",
+             expected: "8", orderMatters: true),
+            TestCaseData(id: "29f22e56-a480-4ab9-bf25-56bf3a74b084",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), get(0)",
+             expected: "9", orderMatters: true),
+            TestCaseData(id: "82704e99-fead-433c-a060-1bed00ce5127",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), get(0)",
+             expected: "10", orderMatters: true),
+            TestCaseData(id: "420d516a-a12a-45a9-a74e-8fa9dc387080",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), get(0)",
+             expected: "11", orderMatters: true),
+            TestCaseData(id: "524cbacc-75fa-431b-9a0a-51a6726ae53f",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), get(0)",
+             expected: "12", orderMatters: true),
+            TestCaseData(id: "c236e89b-3e7c-4b41-937f-e4c3e291cc2b",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), get(0)",
+             expected: "13", orderMatters: true),
+            TestCaseData(id: "d40e3d58-0bcb-4d0a-a47d-c472cee438f2",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), get(0)",
+             expected: "14", orderMatters: true),
+            TestCaseData(id: "aaa6d5a6-4deb-4e4a-b3d4-7b0aa3a7587c",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), get(0)",
+             expected: "15", orderMatters: true),
+            TestCaseData(id: "2eed0f85-7883-4849-9071-28fa0437e1cf",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), get(0)",
+             expected: "16", orderMatters: true),
+            TestCaseData(id: "53d032fe-b006-47ad-a50d-d1095a0586d8",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), get(0)",
+             expected: "17", orderMatters: true),
+            TestCaseData(id: "46c10b3f-b21b-4d10-9c67-a0560b728754",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), get(0)",
+             expected: "18", orderMatters: true),
+            TestCaseData(id: "2b821d10-2cbf-4cc1-9a94-11a1c15dc68b",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), get(0)",
+             expected: "19", orderMatters: true),
+            TestCaseData(id: "438121b1-bdc7-44fc-bb30-530b314ef70b",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), addAtHead(20), get(0)",
+             expected: "20", orderMatters: true),
+            TestCaseData(id: "b0db6cf8-df49-4b4f-9650-4367de3b0656",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), addAtHead(20), addAtHe"
+                + "ad(21), get(0)",
+             expected: "21", orderMatters: true),
+            TestCaseData(id: "3a8ee394-35fb-47c2-861f-a5bdd5a54591",
+             input: "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtH"
+                + "ead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), addAtHead(20), addAtHe"
+                + "ad(21), addAtHead(22), get(0)",
+             expected: "22", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "design-linked-list"
             let topic = "linked-list"
-            let testId = "59846031-07f6-4ed9-a120-475c55f4d598"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtTail(5), get(0)"
-            let expectedOutput = "4"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let inputLines = rawInput.components(separatedBy: "\n")
             guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Invalid class design input format"
+                )
                 return
             }
 
             guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse method names"
+                )
                 return
             }
             guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse args list"
+                )
                 return
             }
             guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Methods/args count mismatch"
+                )
                 return
             }
 
             // Init
             let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
+            var obj = Solution.MyLinkedList()
 
             var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
+            for idx in 1..<methodNames.count {
+                let methodName = methodNames[idx]
+                let args = argsList[idx]
+                switch methodName {
                 case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
+                    guard let mArg_0 = InputParser.parseInt(args[0]) else { results.append("null"); continue }
+                    obj.addAtHead(mArg_0)
                     results.append("null")
                 case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
+                    guard let mArg_0 = InputParser.parseInt(args[0]) else { results.append("null"); continue }
+                    obj.addAtTail(mArg_0)
                     results.append("null")
                 case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
+                    guard let mArg_0 = InputParser.parseInt(args[0]) else { results.append("null"); continue }
+                    guard let mArg_1 = InputParser.parseInt(args[1]) else { results.append("null"); continue }
+                    obj.addAtIndex(mArg_0, mArg_1)
                     results.append("null")
                 case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
+                    guard let mArg_0 = InputParser.parseInt(args[0]) else { results.append("null"); continue }
+                    let rv = obj.get(mArg_0)
+                    results.append("\(rv)")
                 case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
+                    guard let mArg_0 = InputParser.parseInt(args[0]) else { results.append("null"); continue }
+                    obj.deleteAtIndex(mArg_0)
                     results.append("null")
                 default:
                     results.append("null")
@@ -165,1688 +292,14 @@ enum LC_design_linked_list {
                 return result
             }
             let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_1() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "f6762a80-b94c-44b2-a177-ca100aff9151"
-            let rawInput = "head = [], addAtHead(1), addAtHead(2), get(0)"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_2() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "925d1db0-7b5c-42ce-b66c-5e2a30396bda"
-            let rawInput = "head = [1], addAtHead(2), addAtHead(3), get(0)"
-            let expectedOutput = "3"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_3() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "d02ede97-53d5-47f6-879c-96d56d8e523f"
-            let rawInput = "head = [1,2,3,4,5], addAtHead(6), addAtHead(7), get(0)"
-            let expectedOutput = "7"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_4() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "519bd78c-3cb5-474f-97fc-a4c570c0c68e"
-            let rawInput = "head = [1,2,3], addAtHead(-1), addAtHead(-2), get(0)"
-            let expectedOutput = "-2"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_5() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "4c1febfe-a3b4-46d9-aac2-44a5b8009790"
-            let rawInput = "head = [1,1,1], addAtHead(1), addAtHead(1), get(0)"
-            let expectedOutput = "1"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_6() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "636315ac-27f8-467d-9671-57d8a5359d20"
-            let rawInput = "head = [1,2,3,4,5,6,7,8,9,10], addAtHead(11), get(0)"
-            let expectedOutput = "11"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_7() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "98e48b14-85c1-484c-be5a-fc069c41f56d"
-            let rawInput = "head = [1], addAtHead(1), addAtHead(1), get(0)"
-            let expectedOutput = "1"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_8() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "860511fa-e29c-4383-89e9-9bdc58a83558"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), get(0)"
-            let expectedOutput = "6"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_9() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "fb7272d9-63cc-4dfa-b656-34b625e21d1e"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), get(0)"
-            let expectedOutput = "7"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_10() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "e8cd655f-4645-494a-a8e1-2b66cd64ac15"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), get(0)"
-            let expectedOutput = "8"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_11() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "29f22e56-a480-4ab9-bf25-56bf3a74b084"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), get(0)"
-            let expectedOutput = "9"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_12() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "82704e99-fead-433c-a060-1bed00ce5127"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), get(0)"
-            let expectedOutput = "10"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_13() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "420d516a-a12a-45a9-a74e-8fa9dc387080"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), get(0)"
-            let expectedOutput = "11"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_14() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "524cbacc-75fa-431b-9a0a-51a6726ae53f"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), get(0)"
-            let expectedOutput = "12"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_15() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "c236e89b-3e7c-4b41-937f-e4c3e291cc2b"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), get(0)"
-            let expectedOutput = "13"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_16() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "d40e3d58-0bcb-4d0a-a47d-c472cee438f2"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), get(0)"
-            let expectedOutput = "14"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_17() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "aaa6d5a6-4deb-4e4a-b3d4-7b0aa3a7587c"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), get(0)"
-            let expectedOutput = "15"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_18() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "2eed0f85-7883-4849-9071-28fa0437e1cf"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), get(0)"
-            let expectedOutput = "16"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_19() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "53d032fe-b006-47ad-a50d-d1095a0586d8"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), get(0)"
-            let expectedOutput = "17"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_20() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "46c10b3f-b21b-4d10-9c67-a0560b728754"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), get(0)"
-            let expectedOutput = "18"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_21() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "2b821d10-2cbf-4cc1-9a94-11a1c15dc68b"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), get(0)"
-            let expectedOutput = "19"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_22() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "438121b1-bdc7-44fc-bb30-530b314ef70b"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), addAtHead(20), get(0)"
-            let expectedOutput = "20"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_23() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "b0db6cf8-df49-4b4f-9650-4367de3b0656"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), addAtHead(20), addAtHead(21), get(0)"
-            let expectedOutput = "21"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-        }
-
-        @Test static func test_24() async {
-            let slug = "design-linked-list"
-            let topic = "linked-list"
-            let testId = "3a8ee394-35fb-47c2-861f-a5bdd5a54591"
-            let rawInput = "head = [1,2,3], addAtHead(4), addAtHead(5), addAtHead(6), addAtHead(7), addAtHead(8), addAtHead(9), addAtHead(10), addAtHead(11), addAtHead(12), addAtHead(13), addAtHead(14), addAtHead(15), addAtHead(16), addAtHead(17), addAtHead(18), addAtHead(19), addAtHead(20), addAtHead(21), addAtHead(22), get(0)"
-            let expectedOutput = "22"
-            let orderMatters = true
-
-            let inputLines = rawInput.components(separatedBy: "\n")
-            guard inputLines.count >= 2 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Invalid class design input format")
-                return
-            }
-
-            guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse method names from class design input")
-                return
-            }
-            guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse args list from class design input")
-                return
-            }
-            guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
-                return
-            }
-
-            // Init
-            let initArgs = argsList[0]
-                var obj = Solution.MyLinkedList()
-
-            var results: [String] = []
-            for i in 1..<methodNames.count {
-                let m = methodNames[i]
-                let a = argsList[i]
-                switch m {
-                case "addAtHead":
-                    obj.addAtHead((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtTail":
-                    obj.addAtTail((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                case "addAtIndex":
-                    obj.addAtIndex((InputParser.parseInt(a[0]))!, (InputParser.parseInt(a[1]))!)
-                    results.append("null")
-                case "get":
-                    let r = obj.get((InputParser.parseInt(a[0]))!)
-                    results.append("\(r)")
-                case "deleteAtIndex":
-                    obj.deleteAtIndex((InputParser.parseInt(a[0]))!)
-                    results.append("null")
-                default:
-                    results.append("null")
-                }
-            }
-
-            let computedOutput = "[" + results.joined(separator: ",") + "]"
-            // Class-design comparison: normalize null representations and whitespace
-            func normalizeClassOutput(_ s: String) -> String {
-                var result = s.replacingOccurrences(of: " ", with: "")
-                result = result.replacingOccurrences(of: "nil", with: "null")
-                result = result.replacingOccurrences(of: "None", with: "null")
-                result = result.replacingOccurrences(of: "NULL", with: "null")
-                return result
-            }
-            let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-            #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

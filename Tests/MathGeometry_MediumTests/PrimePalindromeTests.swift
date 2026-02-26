@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_prime_palindrome {
+enum LCPrimePalindrome {
     private class Solution {
         func primePalindrome(_ n: Int) -> Int {
             func isPrime(_ num: Int) -> Bool {
@@ -49,1029 +49,146 @@ enum LC_prime_palindrome {
     @Suite struct PrimePalindromeTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "4416bcc7-32b4-4354-aad9-1c9cec5c51c3",
+             input: "n = 0",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "1cc3d605-17f3-48d4-a2ff-3a82f4fade27",
+             input: "n = 1",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "e8a067de-971e-44f5-9981-03d2b81aa45f",
+             input: "n = 7",
+             expected: "11", orderMatters: true),
+            TestCaseData(id: "793d978f-2854-407f-a371-f91dcfb8202b",
+             input: "n = 9",
+             expected: "11", orderMatters: true),
+            TestCaseData(id: "b218da82-56a9-4c0e-9484-559960829938",
+             input: "n = 12",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "98a174b4-4215-403e-a0f9-bb0283184943",
+             input: "n = 13",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "c2efd367-4b42-4e18-8349-2c0d99fbf165",
+             input: "n = 14",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "65abff1a-2a9b-4757-a6ed-a3ee5026faa6",
+             input: "n = 15",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "25ff9d20-f6c7-4667-a730-315c59928f4d",
+             input: "n = 16",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "edbed631-a1bd-4ab0-9f0f-fb07fc983db0",
+             input: "n = 17",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "d734e180-7660-4359-8fb4-e3e67712f037",
+             input: "n = 18",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "3becf0e4-cb3a-403b-b09c-88dd71a522e1",
+             input: "n = 19",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "17216824-6af2-43aa-854d-42e2272a8e77",
+             input: "n = 20",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "bd4ca92a-d69e-48cc-a310-91de3139c29d",
+             input: "n = 21",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "b286593a-2ef2-4027-9095-2b33b73c16e9",
+             input: "n = 22",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "e3d52cb7-9504-4f3f-9cc5-c7ba0d6bd00b",
+             input: "n = 23",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "1f2055a6-1144-4e13-b2e0-7c4ddb0b014e",
+             input: "n = 24",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "e56948ae-0ad0-46fe-abc1-1e012b2331ed",
+             input: "n = 25",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "04716ef9-239e-4148-987b-329c9f1c67bc",
+             input: "n = 26",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "6db857ac-dcea-4b61-96c3-e133069e5a0b",
+             input: "n = 27",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "92b90b5b-9fd0-45d2-9457-6f8866ee54bb",
+             input: "n = 28",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "2bd81fae-92bf-4b90-b73e-977e42ed8d81",
+             input: "n = 29",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "15cf626f-5c44-442c-99f5-2efcc553b07a",
+             input: "n = 30",
+             expected: "101", orderMatters: true),
+            TestCaseData(id: "b4286f3c-b650-4aec-accf-554e13a26b53",
+             input: "n = -1",
+             expected: "2", orderMatters: true),
+            TestCaseData(id: "c1d0600f-7a4d-40ed-9e16-6880d66c2229",
+             input: "n = 2",
+             expected: "3", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "prime-palindrome"
             let topic = "math-geometry"
-            let testId = "4416bcc7-32b4-4354-aad9-1c9cec5c51c3"
-            let rawInput = "n = 0"
-            let expectedOutput = "2"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let params = InputParser.stripParamNames(rawInput)
 
             guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Wrong param count: expected 1, got \(params.count)"
+                )
                 return
             }
 
             guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 0 as Int"
+                )
                 return
             }
 
             // Constraint precondition checks
             guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_1() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "1cc3d605-17f3-48d4-a2ff-3a82f4fade27"
-            let rawInput = "n = 1"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_2() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "e8a067de-971e-44f5-9981-03d2b81aa45f"
-            let rawInput = "n = 7"
-            let expectedOutput = "11"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_3() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "793d978f-2854-407f-a371-f91dcfb8202b"
-            let rawInput = "n = 9"
-            let expectedOutput = "11"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_4() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "b218da82-56a9-4c0e-9484-559960829938"
-            let rawInput = "n = 12"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_5() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "98a174b4-4215-403e-a0f9-bb0283184943"
-            let rawInput = "n = 13"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_6() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "c2efd367-4b42-4e18-8349-2c0d99fbf165"
-            let rawInput = "n = 14"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_7() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "65abff1a-2a9b-4757-a6ed-a3ee5026faa6"
-            let rawInput = "n = 15"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_8() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "25ff9d20-f6c7-4667-a730-315c59928f4d"
-            let rawInput = "n = 16"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_9() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "edbed631-a1bd-4ab0-9f0f-fb07fc983db0"
-            let rawInput = "n = 17"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_10() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "d734e180-7660-4359-8fb4-e3e67712f037"
-            let rawInput = "n = 18"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_11() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "3becf0e4-cb3a-403b-b09c-88dd71a522e1"
-            let rawInput = "n = 19"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_12() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "17216824-6af2-43aa-854d-42e2272a8e77"
-            let rawInput = "n = 20"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_13() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "bd4ca92a-d69e-48cc-a310-91de3139c29d"
-            let rawInput = "n = 21"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_14() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "b286593a-2ef2-4027-9095-2b33b73c16e9"
-            let rawInput = "n = 22"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_15() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "e3d52cb7-9504-4f3f-9cc5-c7ba0d6bd00b"
-            let rawInput = "n = 23"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_16() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "1f2055a6-1144-4e13-b2e0-7c4ddb0b014e"
-            let rawInput = "n = 24"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_17() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "e56948ae-0ad0-46fe-abc1-1e012b2331ed"
-            let rawInput = "n = 25"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_18() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "04716ef9-239e-4148-987b-329c9f1c67bc"
-            let rawInput = "n = 26"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_19() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "6db857ac-dcea-4b61-96c3-e133069e5a0b"
-            let rawInput = "n = 27"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_20() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "92b90b5b-9fd0-45d2-9457-6f8866ee54bb"
-            let rawInput = "n = 28"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_21() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "2bd81fae-92bf-4b90-b73e-977e42ed8d81"
-            let rawInput = "n = 29"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_22() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "15cf626f-5c44-442c-99f5-2efcc553b07a"
-            let rawInput = "n = 30"
-            let expectedOutput = "101"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_23() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "b4286f3c-b650-4aec-accf-554e13a26b53"
-            let rawInput = "n = -1"
-            let expectedOutput = "2"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_24() async {
-            let slug = "prime-palindrome"
-            let topic = "math-geometry"
-            let testId = "c1d0600f-7a4d-40ed-9e16-6880d66c2229"
-            let rawInput = "n = 2"
-            let expectedOutput = "3"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 1 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
-                return
-            }
-
-            guard let p_n = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_n >= 1 && p_n <= 108 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= n <= 108")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.primePalindrome(p_n)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                let matches = computedOutput == expectedOutput
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 1 <= n <= 108"
+                )
+                return
+            }
+
+            let solution = Solution()
+            let result = solution.primePalindrome(p_n)
+            let computedOutput = OutputSerializer.serialize(result)
+
+            let matches = computedOutput == expectedOutput
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }

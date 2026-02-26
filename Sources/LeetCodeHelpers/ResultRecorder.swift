@@ -56,7 +56,7 @@ public actor ResultRecorderActor {
             "computed_output": computedOutput,
             "is_valid": isValid,
             "status": status,
-            "order_matters": orderMatters,
+            "order_matters": orderMatters
         ]
         if let err = errorMessage {
             entry["error_message"] = err
@@ -79,7 +79,7 @@ public actor ResultRecorderActor {
             "topic": topic,
             "total_tests": 0,
             "valid_tests": 0,
-            "invalid_tests": 0,
+            "invalid_tests": 0
         ]
         meta["total_tests"] = (meta["total_tests"] as? Int ?? 0) + 1
         if isValid {
@@ -151,7 +151,7 @@ public actor ResultRecorderActor {
                 "matched": matchedCount,
                 "mismatched": mismatchedCount,
                 "parse_error": parseErrorCount,
-                "runtime_error": runtimeErrorCount,
+                "runtime_error": runtimeErrorCount
             ]
 
             let topicOutput: [String: Any] = [
@@ -160,7 +160,7 @@ public actor ResultRecorderActor {
                 "total_results": topicResults.count,
                 "stats": stats,
                 "problems": topicMeta,
-                "test_results": topicResults,
+                "test_results": topicResults
             ]
 
             let topicPath = outputDir + "/\(topic).json"
@@ -183,7 +183,7 @@ public actor ResultRecorderActor {
                 "runtime_error": runtimeErrorCount,
                 "match_rate": topicResults.count > 0
                     ? Double(matchedCount) / Double(topicResults.count)
-                    : 0.0,
+                    : 0.0
             ])
         }
 
@@ -192,7 +192,7 @@ public actor ResultRecorderActor {
             "evaluated_at": timestamp,
             "total_results": results.count,
             "topics": topicSummaries,
-            "problems": Array(problemMeta.values),
+            "problems": Array(problemMeta.values)
         ]
 
         let summaryPath = outputDir + "/summary.json"

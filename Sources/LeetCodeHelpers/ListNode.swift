@@ -22,8 +22,9 @@ public func buildList(_ values: [Int]) -> ListNode? {
     let dummy = ListNode(0)
     var tail = dummy
     for val in values {
-        tail.next = ListNode(val)
-        tail = tail.next!
+        let node = ListNode(val)
+        tail.next = node
+        tail = node
     }
     return dummy.next
 }

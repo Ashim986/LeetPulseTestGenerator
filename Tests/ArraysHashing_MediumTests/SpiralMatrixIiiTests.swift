@@ -1,8 +1,8 @@
 import Foundation
-import Testing
 @testable import LeetCodeHelpers
+import Testing
 
-enum LC_spiral_matrix_iii {
+enum LCSpiralMatrixIii {
     private class Solution {
         func spiralMatrixIII(_ R: Int, _ C: Int, _ r0: Int, _ c0: Int) -> [[Int]] {
             let directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
@@ -32,168 +32,168 @@ enum LC_spiral_matrix_iii {
     @Suite struct SpiralMatrixIiiTests {
         init() { registerResultFlush() }
 
-        @Test static func test_0() async {
+        static let testCases: [TestCaseData] = [
+            TestCaseData(id: "3bb4ccba-0cb7-493a-ae0c-d13d551cfb73",
+             input: "rows = 1, cols = 4, rStart = 0, cStart = 0",
+             expected: "[[0,0],[0,1],[0,2],[0,3]]", orderMatters: true),
+            TestCaseData(id: "1ce87104-9fca-4f35-b204-ab5f8caaa3d5",
+             input: "rows = 5, cols = 6, rStart = 1, cStart = 4",
+             expected: "[[1,4],[1,5],[2,5],[2,4],[2,3],[1,3],[0,3],[0,4],[0,5],[3,5],[3,4],[3,3],[3,2],[2,2],[1,2],[0,2],[4,5],[4,4],[4,3],[4,2],[4,1],[3,1],[2,"
+                + "1],[1,1],[0,1],[4,0],[3,0],[2,0],[1,0],[0,0]]", orderMatters: true)
+        ]
+
+        @Test(arguments: 0..<testCases.count)
+        static func run(index: Int) async {
+            let tc = Self.testCases[index]
             let slug = "spiral-matrix-iii"
             let topic = "arrays-hashing"
-            let testId = "3bb4ccba-0cb7-493a-ae0c-d13d551cfb73"
-            let rawInput = "rows = 1, cols = 4, rStart = 0, cStart = 0"
-            let expectedOutput = "[[0,0],[0,1],[0,2],[0,3]]"
-            let orderMatters = true
+            let testId = tc.id
+            let rawInput = tc.input
+            let expectedOutput = tc.expected
+            let orderMatters = tc.orderMatters
 
             let params = InputParser.stripParamNames(rawInput)
 
             guard params.count == 4 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 4, got \(params.count)")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Wrong param count: expected 4, got \(params.count)"
+                )
                 return
             }
 
             guard let p_R = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 0 as Int"
+                )
                 return
             }
             guard let p_C = InputParser.parseInt(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 1 as Int"
+                )
                 return
             }
             guard let p_r0 = InputParser.parseInt(params[2]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as Int: '\(params[2])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 2 as Int"
+                )
                 return
             }
             guard let p_c0 = InputParser.parseInt(params[3]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 3 as Int: '\(params[3])'")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse param 3 as Int"
+                )
                 return
             }
 
             // Constraint precondition checks
             guard p_R >= 1 && p_R <= 100 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= rows, cols <= 100")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 1 <= rows, cols <= 100"
+                )
                 return
             }
             guard p_C >= 1 && p_C <= 100 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= rows, cols <= 100")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 1 <= rows, cols <= 100"
+                )
                 return
             }
             guard p_r0 >= 0 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= rStart < rows")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 0 <= rStart < rows"
+                )
                 return
             }
             guard p_c0 >= 0 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= cStart < cols")
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: "",
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Constraint violation: 0 <= cStart < cols"
+                )
                 return
             }
 
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
-                let computedOutput = OutputSerializer.serialize(result)
+            let solution = Solution()
+            let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
+            let computedOutput = OutputSerializer.serialize(result)
 
-                // Nested order-independent comparison (QUAL-01)
-                // Inner arrays compared as-is, outer array order ignored when orderMatters=false
-                guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
-                    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
-                    #expect(Bool(false), "Test \(testId): failed to parse expected output")
-                    return
-                }
-                let matches: Bool
-                if orderMatters {
-                    matches = result == expectedArrays
-                } else {
-                    // Sort outer array by content for stable comparison (inner order preserved)
-                    let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
-                        for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
-                        return a.count < b.count
-                    } }
-                    matches = sortOuter(result) == sortOuter(expectedArrays)
-                }
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
-        }
-
-        @Test static func test_1() async {
-            let slug = "spiral-matrix-iii"
-            let topic = "arrays-hashing"
-            let testId = "1ce87104-9fca-4f35-b204-ab5f8caaa3d5"
-            let rawInput = "rows = 5, cols = 6, rStart = 1, cStart = 4"
-            let expectedOutput = "[[1,4],[1,5],[2,5],[2,4],[2,3],[1,3],[0,3],[0,4],[0,5],[3,5],[3,4],[3,3],[3,2],[2,2],[1,2],[0,2],[4,5],[4,4],[4,3],[4,2],[4,1],[3,1],[2,1],[1,1],[0,1],[4,0],[3,0],[2,0],[1,0],[0,0]]"
-            let orderMatters = true
-
-            let params = InputParser.stripParamNames(rawInput)
-
-            guard params.count == 4 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 4, got \(params.count)")
+            // Nested order-independent comparison (QUAL-01)
+            // Inner arrays compared as-is, outer array order ignored when orderMatters=false
+            guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput,
+                    computedOutput: computedOutput,
+                    isValid: false,
+                    status: "parse_error", orderMatters: orderMatters,
+                    errorMessage: "Failed to parse expected output as [[Int]]"
+                )
+                #expect(Bool(false), "Test \(testId): failed to parse expected")
                 return
             }
-
-            guard let p_R = InputParser.parseInt(params[0]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 0 as Int: '\(params[0])'")
-                return
+            let matches: Bool
+            if orderMatters {
+                matches = result == expectedArrays
+            } else {
+                // Sort outer array by content for stable comparison (inner order preserved)
+                let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
+                    for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
+                    return a.count < b.count
+                } }
+                matches = sortOuter(result) == sortOuter(expectedArrays)
             }
-            guard let p_C = InputParser.parseInt(params[1]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 1 as Int: '\(params[1])'")
-                return
-            }
-            guard let p_r0 = InputParser.parseInt(params[2]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 2 as Int: '\(params[2])'")
-                return
-            }
-            guard let p_c0 = InputParser.parseInt(params[3]) else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse param 3 as Int: '\(params[3])'")
-                return
-            }
-
-            // Constraint precondition checks
-            guard p_R >= 1 && p_R <= 100 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= rows, cols <= 100")
-                return
-            }
-            guard p_C >= 1 && p_C <= 100 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= rows, cols <= 100")
-                return
-            }
-            guard p_r0 >= 0 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= rStart < rows")
-                return
-            }
-            guard p_c0 >= 0 else {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= cStart < cols")
-                return
-            }
-
-            // Solution execution with runtime error handling
-            do {
-                let solution = Solution()
-                let result = solution.spiralMatrixIII(p_R, p_C, p_r0, p_c0)
-                let computedOutput = OutputSerializer.serialize(result)
-
-                // Nested order-independent comparison (QUAL-01)
-                // Inner arrays compared as-is, outer array order ignored when orderMatters=false
-                guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
-                    await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Failed to parse expected output as [[Int]]")
-                    #expect(Bool(false), "Test \(testId): failed to parse expected output")
-                    return
-                }
-                let matches: Bool
-                if orderMatters {
-                    matches = result == expectedArrays
-                } else {
-                    // Sort outer array by content for stable comparison (inner order preserved)
-                    let sortOuter: ([[Int]]) -> [[Int]] = { $0.sorted { a, b in
-                        for i in 0..<min(a.count, b.count) { if a[i] != b[i] { return a[i] < b[i] } }
-                        return a.count < b.count
-                    } }
-                    matches = sortOuter(result) == sortOuter(expectedArrays)
-                }
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters)
-                #expect(matches, "Test \(testId): expected=\(expectedOutput) computed=\(computedOutput)")
-            } catch {
-                await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: true, status: "runtime_error", orderMatters: orderMatters, errorMessage: "Runtime error: \(error)")
-                #expect(Bool(false), "Test \(testId): runtime error: \(error)")
-            }
+            await ResultRecorderActor.shared.record(
+                slug: slug, topic: topic, testId: testId,
+                input: rawInput, originalExpected: expectedOutput,
+                computedOutput: computedOutput,
+                isValid: true,
+                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+            )
+            #expect(matches, "Test \(testId): \(computedOutput)")
         }
 
     }
