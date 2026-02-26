@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "totalProblems": 691,
+  "swiftEligible": 691,
+  "parsed": 676,
+  "quarantined": 5,
+  "coveragePercent": 97.8,
+  "constraintCoveragePercent": 93.6,
+  "quarantinedProblems": [
+    {
+      "slug": "beautiful-arrangement-ii",
+      "topic": "math-geometry",
+      "reason": "no_numeric_constraints",
+      "unresolvedConstraints": [
+        "1 <= k < n <= 104"
+      ],
+      "faangFrequency": null,
+      "action": "skip"
+    },
+    {
+      "slug": "complex-number-multiplication",
+      "topic": "math-geometry",
+      "reason": "no_numeric_constraints",
+      "unresolvedConstraints": [
+        "num1 and num2 are valid complex numbers."
+      ],
+      "faangFrequency": null,
+      "action": "skip"
+    },
+    {
+      "slug": "validate-ip-address",
+      "topic": "misc",
+      "reason": "no_numeric_constraints",
+      "unresolvedConstraints": [
+        "queryIP consists only of English letters, digits and the characters '.' and ':'."
+      ],
+      "faangFrequency": null,
+      "action": "skip"
+    },
+    {
+      "slug": "construct-quad-tree",
+      "topic": "trees",
+      "reason": "no_numeric_constraints",
+      "unresolvedConstraints": [
+        "n == grid.length == grid[i].length",
+        "n == 2x where 0 <= x <= 6"
+      ],
+      "faangFrequency": null,
+      "action": "skip"
+    },
+    {
+      "slug": "logical-or-of-two-binary-grids-represented-as-quad-trees",
+      "topic": "trees",
+      "reason": "no_numeric_constraints",
+      "unresolvedConstraints": [
+        "quadTree1 and quadTree2 are both valid Quad-Trees each representing a n * n grid.",
+        "n == 2x where 0 <= x <= 9."
+      ],
+      "faangFrequency": null,
+      "action": "skip"
+    }
+  ]
+}

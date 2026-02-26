@@ -1,0 +1,542 @@
+{
+  "topic": "sliding-window",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "binary-subarrays-with-sum": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 3 * 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "charset",
+          "raw": "nums[i] is either 0 or 1.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "charset": "either_0 or 1"
+        }
+      ],
+      "unresolved": [
+        "0 <= goal <= nums.length"
+      ],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "contains-duplicate-ii": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "element_range",
+          "raw": "-109 <= nums[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= 105",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "find-all-anagrams-in-a-string": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length, p.length <= 3 * 104",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length, p.length <= 3 * 104",
+          "confidence": "high",
+          "variables": [
+            "p"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "s and p consist of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s",
+            "p"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "p": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "fruit-into-baskets": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= fruits.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "fruits"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= fruits[i] < fruits.length",
+          "confidence": "high",
+          "variables": [
+            "fruits"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "fruits.length"
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "fruits": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "longest-harmonious-subsequence": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 2 * 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "element_range",
+          "raw": "-109 <= nums[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -109,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "longest-repeating-character-replacement": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of only uppercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "uppercase_english"
+        }
+      ],
+      "unresolved": [
+        "0 <= k <= s.length"
+      ],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "longest-substring-with-at-least-k-repeating-characters": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 105",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of only lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "longest-substring-without-repeating-characters": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "0 <= s.length <= 5 * 104",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 0
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of English letters, digits, symbols and spaces.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "english_letters"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "maximum-average-subarray-i": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "-104 <= nums[i] <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "nums": {
+          "type": "[Int]",
+          "index": 2,
+          "role": "array"
+        }
+      }
+    },
+    "minimum-window-substring": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 105",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == s.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "s.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == t.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "t.length"
+        },
+        {
+          "kind": "charset",
+          "raw": "s and t consist of uppercase and lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s",
+            "t"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "s": {
+          "type": "String",
+          "index": 2,
+          "role": "string"
+        },
+        "t": {
+          "type": "String",
+          "index": 3,
+          "role": "string"
+        }
+      }
+    },
+    "permutation-in-string": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s1.length, s2.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "s1"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= s1.length, s2.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "s2"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "s1 and s2 consist of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s1",
+            "s2"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s1": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "s2": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "sliding-window-maximum": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "element_range",
+          "raw": "-104 <= nums[i] <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -104,
+          "max": 104
+        }
+      ],
+      "unresolved": [
+        "1 <= k <= nums.length"
+      ],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    }
+  }
+}

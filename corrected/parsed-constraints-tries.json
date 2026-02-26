@@ -1,0 +1,629 @@
+{
+  "topic": "tries",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "design-add-and-search-words-data-structure": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= word.length <= 25",
+          "confidence": "high",
+          "variables": [
+            "word"
+          ],
+          "min": 1,
+          "max": 25
+        },
+        {
+          "kind": "charset",
+          "raw": "word in addWord consists of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "word"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "charset",
+          "raw": "word in search consist of '.' or lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "word"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to addWord and search.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [
+        "There will be at most 2 dots in word for search queries."
+      ],
+      "parameterMapping": {
+        "word": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "implement-trie-prefix-tree": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= word.length, prefix.length <= 2000",
+          "confidence": "high",
+          "variables": [
+            "word"
+          ],
+          "min": 1,
+          "max": 2000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= word.length, prefix.length <= 2000",
+          "confidence": "high",
+          "variables": [
+            "prefix"
+          ],
+          "min": 1,
+          "max": 2000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "word and prefix consist only of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "word",
+            "prefix"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [
+        "At most 3 * 104 calls in total will be made to insert, search, and startsWith."
+      ],
+      "parameterMapping": {
+        "word": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "prefix": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "longest-word-in-dictionary": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= words.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "nested_length",
+          "raw": "1 <= words[i].length <= 30",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 30
+        },
+        {
+          "kind": "charset",
+          "raw": "words[i] consists of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "words[i]"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "words": {
+          "type": "[String]",
+          "index": 0,
+          "role": "string_array"
+        },
+        "words[i]": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "map-sum-pairs": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= key.length, prefix.length <= 50",
+          "confidence": "high",
+          "variables": [
+            "key"
+          ],
+          "min": 1,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= key.length, prefix.length <= 50",
+          "confidence": "high",
+          "variables": [
+            "prefix"
+          ],
+          "min": 1,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "charset",
+          "raw": "key and prefix consist of only lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "key",
+            "prefix"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 50 calls will be made to insert and sum.",
+          "confidence": "high",
+          "max": 50
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "key": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "prefix": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "val": {
+          "type": "Int",
+          "index": 2,
+          "role": "value"
+        }
+      }
+    },
+    "replace-words": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= dictionary.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "dictionary"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "nested_length",
+          "raw": "1 <= dictionary[i].length <= 100",
+          "confidence": "high",
+          "variables": [
+            "dictionary"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= sentence.length <= 106",
+          "confidence": "high",
+          "variables": [
+            "sentence"
+          ],
+          "min": 1,
+          "max": 106
+        },
+        {
+          "kind": "integer_range",
+          "raw": "The number of words in sentence is in the range [1, 1000]",
+          "confidence": "medium",
+          "variables": [
+            "sentence"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "merged_from": [
+              "The number of words in sentence is in the range [1, 1000]",
+              "The length of each word in sentence is in the range [1, 1000]"
+            ]
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "dictionary[i] consists of only lower-case letters.",
+          "confidence": "medium",
+          "variables": [
+            "dictionary[i]"
+          ],
+          "charset": "lower-case letters"
+        },
+        {
+          "kind": "charset",
+          "raw": "sentence consists of only lower-case letters and spaces.",
+          "confidence": "medium",
+          "variables": [
+            "sentence"
+          ],
+          "charset": "lower-case letters and spaces"
+        },
+        {
+          "kind": "prose",
+          "raw": "Every two consecutive words in sentence will be separated by exactly one space.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "prose",
+          "raw": "sentence does not have leading or trailing spaces.",
+          "confidence": "medium",
+          "variables": [
+            "sentence"
+          ],
+          "property": "exclusion"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "dictionary": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "sentence": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "dictionary[i]": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "short-encoding-of-words": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= words.length <= 2000",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 2000
+        },
+        {
+          "kind": "nested_length",
+          "raw": "1 <= words[i].length <= 7",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 7
+        },
+        {
+          "kind": "charset",
+          "raw": "words[i] consists of only lowercase letters.",
+          "confidence": "medium",
+          "variables": [
+            "words[i]"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "words": {
+          "type": "[String]",
+          "index": 0,
+          "role": "string_array"
+        },
+        "words[i]": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "top-k-frequent-words": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= words.length <= 500",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "nested_length",
+          "raw": "1 <= words[i].length <= 10",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 10
+        },
+        {
+          "kind": "charset",
+          "raw": "words[i] consists of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "words[i]"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "charset",
+          "raw": "k is in the range [1, The number of unique words[i]]",
+          "confidence": "medium",
+          "variables": [
+            "k"
+          ],
+          "charset": "in the range [1, The number of unique words[i]]"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "words": {
+          "type": "[String]",
+          "index": 0,
+          "role": "string_array"
+        },
+        "words[i]": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "k": {
+          "type": "Int",
+          "index": 2,
+          "role": "integer"
+        }
+      }
+    },
+    "word-search-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 12",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 12,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 12",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 12,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= words.length <= 3 * 104",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "nested_length",
+          "raw": "1 <= words[i].length <= 10",
+          "confidence": "high",
+          "variables": [
+            "words"
+          ],
+          "min": 1,
+          "max": 10
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == board.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "board.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == board[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "board[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "board[i][j] is a lowercase English letter.",
+          "confidence": "medium",
+          "variables": [
+            "board"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "charset",
+          "raw": "words[i] consists of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "words[i]"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the strings of words are unique.",
+          "confidence": "medium",
+          "variables": [
+            "words"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "words": {
+          "type": "[String]",
+          "index": 2,
+          "role": "string_array"
+        },
+        "board": {
+          "type": "[[Character]]",
+          "index": 3,
+          "role": "grid"
+        },
+        "words[i]": {
+          "type": "Unknown",
+          "index": 4
+        }
+      }
+    },
+    "implement-magic-dictionary": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <=\u00a0dictionary.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "dictionary"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "nested_length",
+          "raw": "1 <=\u00a0dictionary[i].length <= 100",
+          "confidence": "high",
+          "variables": [
+            "dictionary"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <=\u00a0searchWord.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "searchWord"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "charset",
+          "raw": "dictionary[i] consists of only lower-case English letters.",
+          "confidence": "medium",
+          "variables": [
+            "dictionary[i]"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "prose",
+          "raw": "All the strings in\u00a0dictionary\u00a0are distinct.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "charset",
+          "raw": "searchWord\u00a0consists of only lower-case English letters.",
+          "confidence": "medium",
+          "variables": [
+            "searchWord"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 100 calls will be made to search.",
+          "confidence": "high",
+          "max": 100
+        }
+      ],
+      "unresolved": [
+        "buildDict\u00a0will be called only once before search."
+      ],
+      "parameterMapping": {
+        "dictionary": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "searchWord": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "dictionary[i]": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    }
+  }
+}

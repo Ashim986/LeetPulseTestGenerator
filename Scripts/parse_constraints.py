@@ -1353,6 +1353,351 @@ def parse_equality_length_chain(text: str) -> Optional[ParsedConstraint]:
     return None
 
 
+def parse_dotted_var_range(text: str) -> Optional[ParsedConstraint]:
+    """Parse '-100 <= Node.val <= 100' or '0 <= Node.val <= 9' pattern (dotted var names)."""
+    m = re.match(
+        rf"{NUM}\s*<=\s*([\w]+\.[\w]+)\s*<=\s*{NUM}\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        var_name = m.group(2)
+        max_v = _safe_parse(m.group(3))
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.HIGH,
+            variables=[var_name],
+            min_value=min_v,
+            max_value=max_v,
+        )
+    return None
+
+
+def parse_dotted_var_upper(text: str) -> Optional[ParsedConstraint]:
+    """Parse 'Node.val <= 10^5' or '0 < Node.val <= 100' patterns."""
+    # Upper bound only: X.y <= N
+    m = re.match(
+        rf"([\w]+\.[\w]+)\s*<=\s*{NUM}\s*$",
+        text,
+    )
+    if m:
+        max_v = _safe_parse(m.group(2))
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.HIGH,
+            variables=[m.group(1)],
+            max_value=max_v,
+        )
+    return None
+
+
+def parse_dotted_var_charset(text: str) -> Optional[ParsedConstraint]:
+    """Parse 'Node.val is either 0 or 1.' or 'Node.val is 0 or 1.' patterns."""
+    m = re.match(
+        r"([\w]+\.[\w]+)\s+is\s+(?:either\s+)?(.+)",
+        text,
+    )
+    if m:
+        desc = m.group(2).strip().rstrip(".")
+        if any(word in desc.lower() for word in ["or", "either", "digit", "'"]):
+            return ParsedConstraint(
+                kind=ConstraintKind.CHARSET,
+                raw_text=text,
+                confidence=Confidence.MEDIUM,
+                variables=[m.group(1)],
+                charset=desc,
+            )
+    return None
+
+
+def parse_strict_lt_lower_bound(text: str) -> Optional[ParsedConstraint]:
+    """Parse '0 < target <= 10^6' or '0 < speed[i] <= 10^6' (strict < on left)."""
+    m = re.match(
+        rf"{NUM}\s*<\s*([\w]+(?:\[[\w]+\])?(?:\.[\w]+)?)\s*<=\s*{NUM}\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        var_expr = m.group(2)
+        max_v = _safe_parse(m.group(3))
+        var_name = var_expr.split("[")[0].split(".")[0]
+        if "[" in var_expr:
+            kind = ConstraintKind.ELEMENT_RANGE
+        elif ".length" in var_expr:
+            kind = ConstraintKind.ARRAY_LENGTH
+        else:
+            kind = ConstraintKind.INTEGER_RANGE
+        return ParsedConstraint(
+            kind=kind,
+            raw_text=text,
+            confidence=Confidence.HIGH,
+            variables=[var_name],
+            min_value=min_v,
+            max_value=max_v,
+            metadata={"lower_exclusive": True},
+        )
+    return None
+
+
+def parse_chained_length_inequality(text: str) -> Optional[List[ParsedConstraint]]:
+    """Parse '1 <= nums1.length <= nums2.length <= 1000' or
+    '1 <= k <= nums.length <= 10^4' type chained length/var inequalities."""
+    # Match: N <= A <= B ... <= M where M is a number
+    m = re.match(
+        rf"{NUM}\s*<=\s*([\w]+(?:\.length)?)\s*<=\s*([\w]+(?:\.length)?)\s*<=\s*{NUM}\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        var_a = m.group(2)
+        var_b = m.group(3)
+        max_v = _safe_parse(m.group(4))
+        results = []
+        for var_expr in [var_a, var_b]:
+            if ".length" in var_expr:
+                kind = ConstraintKind.ARRAY_LENGTH
+                var_name = var_expr.replace(".length", "")
+            else:
+                kind = ConstraintKind.INTEGER_RANGE
+                var_name = var_expr
+            results.append(ParsedConstraint(
+                kind=kind,
+                raw_text=text,
+                confidence=Confidence.HIGH,
+                variables=[var_name],
+                min_value=min_v,
+                max_value=max_v,
+                metadata={"chained_inequality": True},
+            ))
+        return results
+    return None
+
+
+def parse_node_count_range_prose(text: str) -> Optional[ParsedConstraint]:
+    """Parse 'The number of nodes in X is in the range [A, B]' prose patterns.
+
+    Also handles variants:
+    - 'The number of nodes in each linked list is in the range [1, 100].'
+    - 'The number of nodes in the tree is in the range [1, 10^4].'
+    - 'The number of Nodes will not exceed 1000.'
+    """
+    # "The number of X in Y is in the range [A, B]"
+    m = re.search(
+        rf"[Tt]he number of (?:the )?(?:nodes|Nodes|elements|vertices)\s+(?:in\s+)?(?:the\s+)?(?:each\s+)?(?:binary\s+)?(?:\w+\s+)?(?:is\s+)?in\s+the\s+range\s+\[{NUM}\s*,\s*{NUM}\]",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        max_v = _safe_parse(m.group(2))
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.MEDIUM,
+            variables=["nodeCount"],
+            min_value=min_v,
+            max_value=max_v,
+            metadata={"node_count": True},
+        )
+    # "The number of nodes will not exceed N"
+    m = re.search(
+        rf"[Tt]he (?:total )?number of (?:nodes|Nodes|elements|vertices)\s+(?:will\s+)?(?:not\s+)?exceed\s+{NUM}",
+        text,
+    )
+    if m:
+        max_v = _safe_parse(m.group(1))
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.MEDIUM,
+            variables=["nodeCount"],
+            max_value=max_v,
+            metadata={"node_count": True},
+        )
+    # "The total number of nodes is between [0, 10^4]"
+    m = re.search(
+        rf"[Tt]he (?:total )?number of (?:nodes|Nodes|elements)\s+is\s+between\s+\[?{NUM}\s*,\s*{NUM}\]?",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        max_v = _safe_parse(m.group(2))
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.MEDIUM,
+            variables=["nodeCount"],
+            min_value=min_v,
+            max_value=max_v,
+            metadata={"node_count": True},
+        )
+    return None
+
+
+def parse_height_depth_prose(text: str) -> Optional[ParsedConstraint]:
+    """Parse 'The height/depth of the X tree is less than or equal to N' patterns."""
+    m = re.search(
+        rf"[Tt]he (?:height|depth) of the (?:binary |n-ary |)tree is (?:less than or equal to|at most)\s+{NUM}",
+        text,
+    )
+    if m:
+        max_v = _safe_parse(m.group(1))
+        return ParsedConstraint(
+            kind=ConstraintKind.TREE_PROPERTY,
+            raw_text=text,
+            confidence=Confidence.MEDIUM,
+            property_name="max_depth",
+            max_value=max_v,
+        )
+    return None
+
+
+def parse_comma_var_strict_lt(text: str) -> Optional[List[ParsedConstraint]]:
+    """Parse '-10^4 < nums[i], target < 10^4' (strict < on both sides, comma vars)."""
+    m = re.match(
+        rf"{NUM}\s*<\s*([\w]+(?:\[[\w]+\])?(?:\s*,\s*[\w]+(?:\[[\w]+\])?)*)\s*<\s*{NUM}\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        vars_str = m.group(2)
+        max_v = _safe_parse(m.group(3))
+        var_parts = [v.strip() for v in vars_str.split(",")]
+        results = []
+        for part in var_parts:
+            var_name = part.split("[")[0].strip()
+            kind = ConstraintKind.ELEMENT_RANGE if "[" in part else ConstraintKind.INTEGER_RANGE
+            results.append(ParsedConstraint(
+                kind=kind,
+                raw_text=text,
+                confidence=Confidence.HIGH,
+                variables=[var_name],
+                min_value=min_v,
+                max_value=max_v,
+                metadata={"both_exclusive": True, "expanded_from_multi_var": True},
+            ))
+        return results
+    return None
+
+
+def parse_chained_var_range(text: str) -> Optional[ParsedConstraint]:
+    """Parse '1 <= depth <= the depth of tree + 1' or '1 <= k <= n' type expressions."""
+    # Simple A <= B <= C where C is a variable
+    m = re.match(
+        rf"{NUM}\s*<=\s*([\w]+)\s*<=\s*([\w]+(?:\s*[\+\-]\s*\d+)?)\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        var_name = m.group(2)
+        upper = m.group(3).strip()
+        # Only match if upper is a variable (not a number)
+        if _safe_parse(upper) is None:
+            return ParsedConstraint(
+                kind=ConstraintKind.INTEGER_RANGE,
+                raw_text=text,
+                confidence=Confidence.HIGH,
+                variables=[var_name],
+                min_value=min_v,
+                metadata={"upper_ref": upper},
+            )
+    return None
+
+
+def parse_x_where_clause(text: str) -> Optional[ParsedConstraint]:
+    """Parse 'n == 2^x where 0 <= x <= 6' type patterns."""
+    m = re.match(
+        rf"([\w]+)\s*==\s*(\d+)\^?([\w]+)\s+where\s+{NUM}\s*<=\s*([\w]+)\s*<=\s*{NUM}",
+        text,
+    )
+    if m:
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.MEDIUM,
+            variables=[m.group(1)],
+            metadata={"where_clause": True},
+        )
+    # Simpler: "n == 2x where 0 <= x <= 6" (neenza corrupted exponent)
+    m = re.match(
+        r"([\w]+)\s*==\s*(\d+)([\w]+)\s+where\s+",
+        text,
+    )
+    if m:
+        return ParsedConstraint(
+            kind=ConstraintKind.PROSE,
+            raw_text=text,
+            confidence=Confidence.LOW,
+            variables=[m.group(1)],
+            property_name="power_of",
+        )
+    return None
+
+
+def parse_dotted_multi_var_range(text: str) -> Optional[List[ParsedConstraint]]:
+    """Parse '1 <= Node.val, voyage[i] <= n' pattern (dotted vars in multi-var)."""
+    m = re.match(
+        rf"{NUM}\s*<=\s*([\w]+(?:\.[\w]+)?(?:\[[\w]+\])?(?:\s*,\s*[\w]+(?:\.[\w]+)?(?:\[[\w]+\])?)+)\s*<=\s*{NUM}\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        vars_str = m.group(2)
+        max_v = _safe_parse(m.group(3))
+        var_parts = [v.strip() for v in vars_str.split(",")]
+        results = []
+        for part in var_parts:
+            var_name = part.split("[")[0].split(".")[0].strip()
+            if "[" in part:
+                kind = ConstraintKind.ELEMENT_RANGE
+            elif ".length" in part:
+                kind = ConstraintKind.ARRAY_LENGTH
+            else:
+                kind = ConstraintKind.INTEGER_RANGE
+            results.append(ParsedConstraint(
+                kind=kind,
+                raw_text=text,
+                confidence=Confidence.HIGH,
+                variables=[var_name],
+                min_value=min_v,
+                max_value=max_v,
+                metadata={"expanded_from_multi_var": True},
+            ))
+        return results
+    # Also try with variable upper bound
+    m = re.match(
+        rf"{NUM}\s*<=\s*([\w]+(?:\.[\w]+)?(?:\[[\w]+\])?(?:\s*,\s*[\w]+(?:\.[\w]+)?(?:\[[\w]+\])?)+)\s*<=\s*([\w]+)\s*$",
+        text,
+    )
+    if m:
+        min_v = _safe_parse(m.group(1))
+        vars_str = m.group(2)
+        upper_var = m.group(3)
+        max_v = _safe_parse(upper_var)
+        var_parts = [v.strip() for v in vars_str.split(",")]
+        results = []
+        for part in var_parts:
+            var_name = part.split("[")[0].split(".")[0].strip()
+            if "[" in part:
+                kind = ConstraintKind.ELEMENT_RANGE
+            elif ".length" in part:
+                kind = ConstraintKind.ARRAY_LENGTH
+            else:
+                kind = ConstraintKind.INTEGER_RANGE
+            results.append(ParsedConstraint(
+                kind=kind,
+                raw_text=text,
+                confidence=Confidence.HIGH,
+                variables=[var_name],
+                min_value=min_v,
+                max_value=max_v,
+                metadata={"expanded_from_multi_var": True, **({"upper_ref": upper_var} if max_v is None else {})},
+            ))
+        return results
+    return None
+
+
 def parse_domain_specific_prose(text: str) -> Optional[ParsedConstraint]:
     """Last-resort pattern: catch remaining domain-specific prose constraints."""
     lower = text.lower()
@@ -1380,6 +1725,50 @@ def parse_domain_specific_prose(text: str) -> Optional[ParsedConstraint]:
             confidence=Confidence.LOW,
             property_name="format",
         )
+    # "X is a permutation of Y"
+    if re.search(r"is a permutation of", lower):
+        return ParsedConstraint(
+            kind=ConstraintKind.PROSE,
+            raw_text=text,
+            confidence=Confidence.LOW,
+            property_name="permutation",
+        )
+    # "X is a valid Y" / "X is valid"
+    if re.search(r"is (?:a )?valid\b", lower):
+        return ParsedConstraint(
+            kind=ConstraintKind.GUARANTEE,
+            raw_text=text,
+            confidence=Confidence.LOW,
+            property_name="valid",
+        )
+    # "X won't exceed / will not exceed"
+    m = re.search(rf"(?:won't|will not|shall not|does not) exceed\s+{NUM}", text, re.IGNORECASE)
+    if m:
+        max_v = _safe_parse(m.group(1))
+        return ParsedConstraint(
+            kind=ConstraintKind.INTEGER_RANGE,
+            raw_text=text,
+            confidence=Confidence.MEDIUM,
+            max_value=max_v,
+        )
+    # "Both X and Y" type joint constraint (treat as prose)
+    if re.match(r"[Bb]oth\s+", text):
+        return ParsedConstraint(
+            kind=ConstraintKind.PROSE,
+            raw_text=text,
+            confidence=Confidence.LOW,
+            property_name="joint_constraint",
+        )
+    # "X and Y will only consist of" or "X and Y will consist of"
+    if re.search(r"will (?:only )?consist", lower):
+        charset = _classify_charset(text)
+        if charset != text:
+            return ParsedConstraint(
+                kind=ConstraintKind.CHARSET,
+                raw_text=text,
+                confidence=Confidence.MEDIUM,
+                charset=charset,
+            )
     return None
 
 
@@ -1394,6 +1783,9 @@ MULTI_PATTERNS = [
     parse_multi_var_length,
     parse_multi_var_range,
     parse_multi_var_comma_simple,
+    parse_chained_length_inequality,
+    parse_comma_var_strict_lt,
+    parse_dotted_multi_var_range,
 ]
 
 # Functions that return a single ParsedConstraint or None
@@ -1409,15 +1801,21 @@ SINGLE_PATTERNS = [
     parse_element_range_to_var,
     parse_triple_inequality,
     parse_element_range_strict_lt,
+    parse_dotted_var_range,
+    parse_strict_lt_lower_bound,
     parse_sum_expression,
     parse_multiplication,
     parse_integer_range,
     parse_upper_bound_only,
     parse_lower_bound_only,
+    parse_dotted_var_upper,
     parse_method_calls,
+    parse_node_count_range_prose,
+    parse_height_depth_prose,
     parse_charset_consists,
     parse_charset_is_either,
     parse_charset_multi_var,
+    parse_dotted_var_charset,
     parse_uniqueness,
     parse_sorted,
     parse_guarantee,
@@ -1426,6 +1824,8 @@ SINGLE_PATTERNS = [
     parse_between_prose,
     parse_range_bracket_prose,
     parse_inequality,
+    parse_x_where_clause,
+    parse_chained_var_range,
     parse_charset_broad,
     parse_prose_property,
     parse_domain_specific_prose,
@@ -1669,13 +2069,120 @@ def load_problem_metadata() -> Dict[str, dict]:
 
 
 # ---------------------------------------------------------------------------
+# NeetCode 150 loading
+# ---------------------------------------------------------------------------
+
+def load_neetcode150() -> set:
+    """Load the NeetCode 150 problem slug set for FAANG frequency classification."""
+    neetcode_path = TC_DIR / "neetcode150.json"
+    if neetcode_path.exists():
+        try:
+            with open(neetcode_path) as f:
+                data = json.load(f)
+            return set(data.get("slugs", []))
+        except (json.JSONDecodeError, KeyError):
+            pass
+    # Fallback: embedded minimal set of well-known NeetCode 150 slugs
+    return set()
+
+
+# ---------------------------------------------------------------------------
+# Quarantine logic
+# ---------------------------------------------------------------------------
+
+def should_quarantine(
+    slug: str,
+    parsed_constraints: List[ParsedConstraint],
+    raw_constraints: List[str],
+    has_signature: bool,
+) -> Optional[dict]:
+    """Determine if a problem should be quarantined.
+
+    Quarantine triggers:
+    1. Zero numeric constraints parsed (no bounds extractable at all)
+    2. Constraint parsing detects contradictions (min_value > max_value)
+    3. No function signature available from dataset
+
+    Returns quarantine info dict or None if problem passes.
+    """
+    # Check for contradictions
+    for c in parsed_constraints:
+        if c.metadata.get("contradiction"):
+            return {
+                "reason": "contradiction",
+                "unresolvedConstraints": [c.raw_text for c in parsed_constraints if c.metadata.get("contradiction")],
+            }
+
+    # Check for zero numeric constraints
+    numeric_kinds = {
+        ConstraintKind.ARRAY_LENGTH,
+        ConstraintKind.ELEMENT_RANGE,
+        ConstraintKind.INTEGER_RANGE,
+        ConstraintKind.STRING_LENGTH,
+        ConstraintKind.EXACT_LENGTH,
+        ConstraintKind.NESTED_LENGTH,
+        ConstraintKind.MULTIPLICATION,
+        ConstraintKind.METHOD_CALLS,
+    }
+    has_numeric = any(
+        c.kind in numeric_kinds and (c.min_value is not None or c.max_value is not None)
+        for c in parsed_constraints
+    )
+    if not has_numeric and raw_constraints:
+        return {
+            "reason": "no_numeric_constraints",
+            "unresolvedConstraints": raw_constraints,
+        }
+
+    # Check for missing signature (only if we have metadata to check)
+    if not has_signature and raw_constraints:
+        return {
+            "reason": "no_signature",
+            "unresolvedConstraints": raw_constraints,
+        }
+
+    return None
+
+
+def load_signatures_from_solutions() -> set:
+    """Load slugs that have parseable function signatures from solution files.
+
+    Used as a proxy for 'has_signature' -- if we can parse a solution's func
+    signature, the problem has a usable signature.
+    """
+    solutions_dir = BASE_DIR.parent / "LeetPulse" / "LeetPulse" / "Resources" / "Solutions"
+    slugs_with_sigs = set()
+
+    if not solutions_dir.exists():
+        return slugs_with_sigs
+
+    for sol_file in sorted(solutions_dir.glob("*.json")):
+        try:
+            with open(sol_file) as f:
+                data = json.load(f)
+            for sol in data.get("solutions", []):
+                slug = sol.get("problemSlug", "")
+                approaches = sol.get("approaches", [])
+                if approaches:
+                    code = approaches[-1].get("code", "")
+                    if code and ("func " in code or "let " in code):
+                        slugs_with_sigs.add(slug)
+        except (json.JSONDecodeError, KeyError):
+            continue
+
+    return slugs_with_sigs
+
+
+# ---------------------------------------------------------------------------
 # Main pipeline
 # ---------------------------------------------------------------------------
 
 def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True):
-    """Main entry point: filter non-Swift, parse constraints, write output."""
+    """Main entry point: filter non-Swift, parse constraints, quarantine, write output."""
     overrides = load_overrides()
     metadata = load_problem_metadata()
+    neetcode150 = load_neetcode150()
+    slugs_with_sigs = load_signatures_from_solutions()
 
     all_topics: Dict[str, List[str]] = {}
     for f in sorted(glob.glob(str(TC_DIR / "tc-*.json"))):
@@ -1701,11 +2208,23 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
     global_parsed = 0
     global_unresolved = 0
     global_skipped_non_swift = 0
+    global_problems_processed = 0
+    global_problems_with_numeric = 0
 
-    print(f"Constraint Parser Pipeline")
+    # Track quarantined problems across all topics
+    quarantined_problems: List[dict] = []
+
+    # Track per-topic stats for coverage audit
+    topic_stats: Dict[str, dict] = {}
+
+    # Track all unresolved constraints for debugging
+    all_unresolved_debug: List[dict] = []
+
+    print(f"Constraint Parser Pipeline (with quarantine)")
     print(f"{'=' * 60}")
     print(f"Topics: {len(all_topics)}")
     print(f"API cache: {'enabled' if use_api_cache else 'disabled (using neenza)'}")
+    print(f"NeetCode 150 loaded: {len(neetcode150)} slugs")
     print()
 
     for topic, slugs in sorted(all_topics.items()):
@@ -1720,6 +2239,8 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
         topic_parsed = 0
         topic_unresolved = 0
         topic_skipped = 0
+        topic_problems = 0
+        topic_problems_with_numeric = 0
 
         for slug in slugs:
             if slug in overrides.get("force_exclude", []):
@@ -1733,6 +2254,8 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
                     global_skipped_non_swift += 1
                     continue
 
+            topic_problems += 1
+
             raw_constraints = constraint_texts.get(slug, [])
             if not raw_constraints:
                 problems_output[slug] = {
@@ -1740,6 +2263,19 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
                     "unresolved": [],
                     "parameterMapping": {},
                 }
+                # Check quarantine for empty constraints
+                has_sig = slug in slugs_with_sigs
+                q_info = should_quarantine(slug, [], raw_constraints, has_sig)
+                if q_info:
+                    is_neetcode = slug in neetcode150
+                    quarantined_problems.append({
+                        "slug": slug,
+                        "topic": topic,
+                        "reason": q_info["reason"],
+                        "unresolvedConstraints": q_info["unresolvedConstraints"],
+                        "faangFrequency": "neetcode150" if is_neetcode else None,
+                        "action": "ai_generate" if is_neetcode else "skip",
+                    })
                 continue
 
             all_parsed: List[ParsedConstraint] = []
@@ -1767,6 +2303,26 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
                 "parameterMapping": param_mapping,
             }
 
+            # Check quarantine
+            has_sig = slug in slugs_with_sigs
+            q_info = should_quarantine(slug, all_parsed, raw_constraints, has_sig)
+            if q_info:
+                is_neetcode = slug in neetcode150
+                quarantined_problems.append({
+                    "slug": slug,
+                    "topic": topic,
+                    "reason": q_info["reason"],
+                    "unresolvedConstraints": q_info["unresolvedConstraints"],
+                    "faangFrequency": "neetcode150" if is_neetcode else None,
+                    "action": "ai_generate" if is_neetcode else "skip",
+                })
+            else:
+                topic_problems_with_numeric += 1
+
+            # Track unresolved for debugging
+            for ut in unresolved_texts:
+                all_unresolved_debug.append({"slug": slug, "topic": topic, "text": ut})
+
         output_file = TC_DIR / f"parsed-constraints-{topic}.json"
         output_data = {
             "topic": topic,
@@ -1778,13 +2334,29 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
 
         total_constraints = topic_parsed + topic_unresolved
         pct = (topic_parsed / total_constraints * 100) if total_constraints > 0 else 0
+
+        # Store per-topic stats
+        topic_stats[topic] = {
+            "problems": topic_problems,
+            "problems_with_numeric": topic_problems_with_numeric,
+            "parsed": topic_parsed,
+            "total": total_constraints,
+            "unresolved": topic_unresolved,
+            "pct": pct,
+            "skipped_non_swift": topic_skipped,
+        }
+
         print(f"  Parsed: {topic_parsed}/{total_constraints} ({pct:.1f}%)")
         if topic_skipped:
             print(f"  Skipped (non-Swift): {topic_skipped}")
+        topic_quarantined = [q for q in quarantined_problems if q["topic"] == topic]
+        if topic_quarantined:
+            print(f"  Quarantined: {len(topic_quarantined)} problems")
         if topic_unresolved > 0:
-            for ut in unresolved_texts[:5]:
-                print(f"    UNRESOLVED: {ut}")
-            remaining = topic_unresolved - min(5, len(unresolved_texts))
+            topic_unresolved_texts = [u for u in all_unresolved_debug if u["topic"] == topic]
+            for ut in topic_unresolved_texts[:5]:
+                print(f"    UNRESOLVED: [{ut['slug']}] {ut['text']}")
+            remaining = len(topic_unresolved_texts) - 5
             if remaining > 0:
                 print(f"    ... and {remaining} more unresolved")
         print(f"  -> {output_file.name}")
@@ -1793,20 +2365,69 @@ def run_pipeline(topics: Optional[List[str]] = None, use_api_cache: bool = True)
         global_total += total_constraints
         global_parsed += topic_parsed
         global_unresolved += topic_unresolved
+        global_problems_processed += topic_problems
+        global_problems_with_numeric += topic_problems_with_numeric
 
-    print(f"{'=' * 60}")
-    print(f"OVERALL COVERAGE")
-    print(f"{'=' * 60}")
+    # -----------------------------------------------------------------------
+    # Write quarantine.json
+    # -----------------------------------------------------------------------
+    quarantine_skip = sum(1 for q in quarantined_problems if q["action"] == "skip")
+    quarantine_ai = sum(1 for q in quarantined_problems if q["action"] == "ai_generate")
     overall_pct = (global_parsed / global_total * 100) if global_total > 0 else 0
-    print(f"Parsed: {global_parsed}/{global_total} ({overall_pct:.1f}%)")
-    print(f"Unresolved: {global_unresolved}")
-    if global_skipped_non_swift:
-        print(f"Non-Swift skipped: {global_skipped_non_swift}")
+    problem_coverage_pct = (global_problems_with_numeric / global_problems_processed * 100) if global_problems_processed > 0 else 0
+
+    quarantine_data = {
+        "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "totalProblems": global_problems_processed,
+        "swiftEligible": global_problems_processed,
+        "parsed": global_problems_with_numeric,
+        "quarantined": len(quarantined_problems),
+        "coveragePercent": round(problem_coverage_pct, 1),
+        "constraintCoveragePercent": round(overall_pct, 1),
+        "quarantinedProblems": quarantined_problems,
+    }
+
+    quarantine_file = TC_DIR / "quarantine.json"
+    with open(quarantine_file, "w") as f:
+        json.dump(quarantine_data, f, indent=2)
+
+    # -----------------------------------------------------------------------
+    # Coverage audit report
+    # -----------------------------------------------------------------------
+    print(f"\n{'=' * 60}")
+    print(f"=== Constraint Coverage Audit ===")
+    print(f"{'=' * 60}")
+    print(f"Total problems processed: {global_problems_processed}")
+    print(f"Non-Swift excluded: {global_skipped_non_swift}")
+    print(f"Swift-eligible: {global_problems_processed}")
+    print()
+    print(f"Per-topic breakdown:")
+    for topic_name in sorted(topic_stats.keys()):
+        ts = topic_stats[topic_name]
+        topic_prob_pct = (ts["problems_with_numeric"] / ts["problems"] * 100) if ts["problems"] > 0 else 0
+        quarantined_in_topic = sum(1 for q in quarantined_problems if q["topic"] == topic_name)
+        print(f"    {topic_name}: {ts['problems_with_numeric']}/{ts['problems']} ({topic_prob_pct:.1f}%) - {quarantined_in_topic} quarantined [constraints: {ts['parsed']}/{ts['total']} ({ts['pct']:.1f}%)]")
+    print()
+    print(f"Overall constraint parse rate: {global_parsed}/{global_total} ({overall_pct:.1f}%)")
+    print(f"Overall problem coverage: {global_problems_with_numeric}/{global_problems_processed} ({problem_coverage_pct:.1f}%)")
+    print(f"Quarantined: {len(quarantined_problems)} problems ({quarantine_skip} skip, {quarantine_ai} ai_generate)")
+    print()
 
     if overall_pct < 90:
-        print(f"WARNING: Coverage below 90% target ({overall_pct:.1f}%)")
+        print(f"WARNING: Constraint coverage below 90% target ({overall_pct:.1f}%)")
 
-    print(f"\nDone!")
+    print(f"Quarantine file: {quarantine_file.name}")
+    print(f"NeetCode 150 in quarantine: {quarantine_ai}")
+    print()
+
+    # List all unresolved constraints for debugging
+    if all_unresolved_debug:
+        print(f"--- Unresolved Constraints ({len(all_unresolved_debug)} total) ---")
+        for entry in all_unresolved_debug:
+            print(f"  [{entry['topic']}/{entry['slug']}] {entry['text']}")
+        print()
+
+    print(f"Done!")
 
 
 # ---------------------------------------------------------------------------

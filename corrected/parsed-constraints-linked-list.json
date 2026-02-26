@@ -1,0 +1,1691 @@
+{
+  "topic": "linked-list",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "add-two-numbers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 9",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 9
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in each linked list is in the range [1, 100].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "It is guaranteed that the list represents a number that does not have leading zeros.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "add-two-numbers-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 9",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 9
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in each linked list is in the range [1, 100].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "It is guaranteed that the list represents a number that does not have leading zeros.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "convert-sorted-list-to-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in head is in the range [0, 2 * 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "copy-list-with-random-pointer": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "charset",
+          "raw": "Node.random is null or is pointing to some node in the linked list.",
+          "confidence": "medium",
+          "variables": [
+            "Node.random"
+          ],
+          "charset": "null or is pointing to some node in the linked list"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "Node.random": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "delete-node-in-a-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of the nodes in the given list is in the range [2, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "list"
+          ],
+          "min": 2,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [
+        "The value of each node in the list is unique.",
+        "The node to be deleted is in the list and is not a tail node."
+      ],
+      "parameterMapping": {
+        "list": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "design-circular-deque": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 1000",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= value <= 1000",
+          "confidence": "high",
+          "variables": [
+            "value"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 2000 calls will be made to insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, isFull.",
+          "confidence": "high",
+          "max": 2000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "value": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "design-hashmap": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= key, value <= 106",
+          "confidence": "high",
+          "variables": [
+            "key"
+          ],
+          "min": 0,
+          "max": 106,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= key, value <= 106",
+          "confidence": "high",
+          "variables": [
+            "value"
+          ],
+          "min": 0,
+          "max": 106,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to put, get, and remove.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "key": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "value": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "design-hashset": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= key <= 106",
+          "confidence": "high",
+          "variables": [
+            "key"
+          ],
+          "min": 0,
+          "max": 106
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to add, remove, and contains.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "key": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "design-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= index, val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "index"
+          ],
+          "min": 0,
+          "max": 1000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= index, val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": 0,
+          "max": 1000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.",
+          "confidence": "high",
+          "max": 2000
+        }
+      ],
+      "unresolved": [
+        "Please do not use the built-in LinkedList library."
+      ],
+      "parameterMapping": {
+        "index": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "val": {
+          "type": "Int",
+          "index": 1,
+          "role": "value"
+        }
+      }
+    },
+    "flatten-a-multilevel-doubly-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of Nodes will not exceed 1000.",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "flatten-binary-tree-to-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 2000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 2000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "insertion-sort-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [1, 5000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 5000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-5000 <= Node.val <= 5000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -5000,
+          "max": 5000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "intersection-of-two-linked-lists": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 3 * 104",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 3 * 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= skipA <= m",
+          "confidence": "high",
+          "variables": [
+            "skipA"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_ref": "m"
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= skipB <= n",
+          "confidence": "high",
+          "variables": [
+            "skipB"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes of listA is in the m.",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes of listB is in the n.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [
+        "intersectVal is 0 if listA and listB do not intersect.",
+        "intersectVal == listA[skipA] == listB[skipB] if listA and listB intersect."
+      ],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "skipA": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "skipB": {
+          "type": "Unknown",
+          "index": 4
+        }
+      }
+    },
+    "linked-list-components": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= nums[i] < n",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the linked list is n.",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values Node.val are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the values of nums are unique.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [
+        "0 <= Node.val < n",
+        "1 <= nums.length <= n"
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "nums": {
+          "type": "[Int]",
+          "index": 1,
+          "role": "array"
+        }
+      }
+    },
+    "linked-list-cycle": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of the nodes in the list is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        },
+        {
+          "kind": "charset",
+          "raw": "pos is -1 or a valid index in the linked-list.",
+          "confidence": "medium",
+          "variables": [
+            "pos"
+          ],
+          "charset": "-1 or a valid index in the linked-list"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "pos": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "linked-list-cycle-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of the nodes in the list is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        },
+        {
+          "kind": "charset",
+          "raw": "pos is -1 or a valid index in the linked-list.",
+          "confidence": "medium",
+          "variables": [
+            "pos"
+          ],
+          "charset": "-1 or a valid index in the linked-list"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "pos": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "linked-list-random-node": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the linked list will be in the range [1, 104].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to getRandom.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "lru-cache": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= capacity <= 3000",
+          "confidence": "high",
+          "variables": [
+            "capacity"
+          ],
+          "min": 1,
+          "max": 3000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= key <= 104",
+          "confidence": "high",
+          "variables": [
+            "key"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= value <= 105",
+          "confidence": "high",
+          "variables": [
+            "value"
+          ],
+          "min": 0,
+          "max": 105
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 2 * 105 calls will be made to get and put.",
+          "confidence": "high"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "capacity": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "key": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "value": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "merge-two-sorted-lists": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in both lists is in the range [0, 50].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "sorted",
+          "raw": "Both list1 and list2 are sorted in non-decreasing order.",
+          "confidence": "medium",
+          "variables": [
+            "list2"
+          ],
+          "property": "sorted"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "list2": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "middle-of-the-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [1, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "next-greater-node-in-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 109",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 109
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the list is n.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "odd-even-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-106 <= Node.val <= 106",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -106,
+          "max": 106
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the linked list is in the range [0, 104].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "palindrome-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [1, 105].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 9",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "partition-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 200].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 200,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-200 <= x <= 200",
+          "confidence": "high",
+          "variables": [
+            "x"
+          ],
+          "min": -200,
+          "max": 200
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "x": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "populating-next-right-pointers-in-each-node": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 212 - 1].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "populating-next-right-pointers-in-each-node-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 6000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 6000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "remove-duplicates-from-sorted-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 300].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 300,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "guarantee",
+          "raw": "The list is guaranteed to be sorted in ascending order.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "remove-duplicates-from-sorted-list-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 300].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 300,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "guarantee",
+          "raw": "The list is guaranteed to be sorted in ascending order.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "remove-linked-list-elements": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 50",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 50
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= val <= 50",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": 0,
+          "max": 50
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "val": {
+          "type": "Int",
+          "index": 2,
+          "role": "value"
+        }
+      }
+    },
+    "remove-nth-node-from-end-of-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= sz <= 30",
+          "confidence": "high",
+          "variables": [
+            "sz"
+          ],
+          "min": 1,
+          "max": 30
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= sz",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "metadata": {
+            "upper_ref": "sz"
+          }
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the list is sz.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "sz": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "n": {
+          "type": "Int",
+          "index": 2,
+          "role": "integer"
+        }
+      }
+    },
+    "reorder-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [1, 5 * 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "reverse-linked-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-5000 <= Node.val <= 5000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -5000,
+          "max": 5000
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the list is the range [0, 5000].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "reverse-linked-list-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 500",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-500 <= Node.val <= 500",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -500,
+          "max": 500
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= left <= right <= n",
+          "confidence": "high",
+          "variables": [
+            "left",
+            "right"
+          ],
+          "min": 1,
+          "metadata": {
+            "triple_inequality": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the list is n.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "left": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "right": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "rotate-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 500].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 500,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= 2 * 109",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "k": {
+          "type": "Int",
+          "index": 2,
+          "role": "integer"
+        }
+      }
+    },
+    "sort-list": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 5 * 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "split-linked-list-in-parts": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the list is in the range [0, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 50",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 50
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "k": {
+          "type": "Int",
+          "index": 2,
+          "role": "integer"
+        }
+      }
+    },
+    "swap-nodes-in-pairs": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the\u00a0list\u00a0is in the range [0, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "design-circular-queue": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 1000",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= value <= 1000",
+          "confidence": "high",
+          "variables": [
+            "value"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 3000 calls will be made to\u00a0enQueue, deQueue,\u00a0Front,\u00a0Rear,\u00a0isEmpty, and\u00a0isFull.",
+          "confidence": "high",
+          "max": 3000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "value": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    }
+  }
+}

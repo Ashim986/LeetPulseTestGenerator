@@ -1,0 +1,1429 @@
+{
+  "topic": "misc",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "alien-dictionary": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "binary-tree-maximum-path-sum": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 3 * 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "bus-routes": {
+      "constraints": [
+        {
+          "kind": "nested_length",
+          "raw": "1 <= routes[i].length <= 105",
+          "confidence": "high",
+          "variables": [
+            "routes"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values of routes[i] are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "multiplication",
+          "raw": "sum(routes[i].length) <= 105",
+          "confidence": "high",
+          "variables": [
+            "routes"
+          ],
+          "max": 105,
+          "metadata": {
+            "sum_expression": "routes[i].length"
+          }
+        }
+      ],
+      "unresolved": [
+        "1 <= routes.length <= 500.",
+        "0 <= routes[i][j] < 106",
+        "0 <= source, target < 106"
+      ],
+      "parameterMapping": {
+        "routes": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "count-and-say": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 30",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 30
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "detect-capital": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= word.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "word"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "charset",
+          "raw": "word consists of lowercase and uppercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "word"
+          ],
+          "charset": "uppercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "word": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "find-minimum-in-rotated-sorted-array-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 5000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 5000
+        },
+        {
+          "kind": "element_range",
+          "raw": "-5000 <= nums[i] <= 5000",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -5000,
+          "max": 5000
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        },
+        {
+          "kind": "charset",
+          "raw": "nums is sorted and rotated between 1 and n times.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "charset": "sorted and rotated between 1 and n times"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "nums": {
+          "type": "[Int]",
+          "index": 1,
+          "role": "array"
+        }
+      }
+    },
+    "graph-valid-tree": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "length-of-last-word": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of only English letters and spaces ' '.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "english_letters"
+        }
+      ],
+      "unresolved": [
+        "There will be at least one word in s."
+      ],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "license-key-formatting": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of English letters, digits, and dashes '-'.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "english_letters"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "longest-uncommon-subsequence-i": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= a.length, b.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "a"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= a.length, b.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "b"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "a and b consist of lower-case English letters.",
+          "confidence": "medium",
+          "variables": [
+            "a",
+            "b"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "a": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "b": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "masking-personal-information": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "8 <= s.length <= 40",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 10,
+          "max": 20,
+          "metadata": {
+            "merged_from": [
+              "8 <= s.length <= 40",
+              "10 <= s.length <= 20"
+            ]
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "s is either a valid email or a phone number.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "either_a valid email or a phone number"
+        },
+        {
+          "kind": "charset",
+          "raw": "If s is an email:\n\t\n8 <= s.length <= 40\ns consists of uppercase and lowercase English letters and exactly one '@' symbol and '.' symbol.",
+          "confidence": "medium",
+          "variables": [
+            "If"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of uppercase and lowercase English letters and exactly one '@' symbol and '.' symbol.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "charset",
+          "raw": "If s is a phone number:\n\t\n10 <= s.length <= 20\ns consists of digits, spaces, and the symbols '(', ')', '-', and '+'.",
+          "confidence": "medium",
+          "variables": [
+            "If"
+          ],
+          "charset": "digits"
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of digits, spaces, and the symbols '(', ')', '-', and '+'.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "digits"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "If": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "maximal-rectangle": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= row, cols <= 200",
+          "confidence": "high",
+          "variables": [
+            "row"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= row, cols <= 200",
+          "confidence": "high",
+          "variables": [
+            "cols"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "rows == matrix.length",
+          "confidence": "high",
+          "variables": [
+            "rows"
+          ],
+          "property": "matrix.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "cols == matrix[i].length",
+          "confidence": "high",
+          "variables": [
+            "cols"
+          ],
+          "property": "matrix[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "matrix[i][j] is '0' or '1'.",
+          "confidence": "medium",
+          "variables": [
+            "matrix"
+          ],
+          "charset": "'0' or '1'"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "row": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "cols": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "rows": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "matrix": {
+          "type": "[[Int]]",
+          "index": 3,
+          "role": "matrix"
+        }
+      }
+    },
+    "merge-k-sorted-lists": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "nested_length",
+          "raw": "0 <= lists[i].length <= 500",
+          "confidence": "high",
+          "variables": [
+            "lists"
+          ],
+          "min": 0,
+          "max": 500
+        },
+        {
+          "kind": "element_range",
+          "raw": "-104 <= lists[i][j] <= 104",
+          "confidence": "high",
+          "variables": [
+            "lists"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "dimensions": 2
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "k == lists.length",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "property": "lists.length"
+        },
+        {
+          "kind": "charset",
+          "raw": "lists[i] is sorted in ascending order.",
+          "confidence": "medium",
+          "variables": [
+            "lists"
+          ],
+          "charset": "sorted in ascending order"
+        },
+        {
+          "kind": "integer_range",
+          "raw": "The sum of lists[i].length will not exceed 104.",
+          "confidence": "medium",
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "lists": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "number-of-connected-components-in-an-undirected-graph": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "number-of-recent-calls": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= t <= 109",
+          "confidence": "high",
+          "variables": [
+            "t"
+          ],
+          "min": 1,
+          "max": 109
+        },
+        {
+          "kind": "prose",
+          "raw": "Each test case will call ping with strictly increasing values of t.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to ping.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "t": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "number-of-segments-in-a-string": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "0 <= s.length <= 300",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 0,
+          "max": 300
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of lowercase and uppercase English letters, digits, or one of the following characters \"!@#$%^&*()_+-=',.:\".",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "uppercase_english"
+        }
+      ],
+      "unresolved": [
+        "The only space character in s is ' '."
+      ],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "positions-of-large-groups": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "charset",
+          "raw": "s contains lowercase English letters only.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "pow-x-n": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "reconstruct-itinerary": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= tickets.length <= 300",
+          "confidence": "high",
+          "variables": [
+            "tickets"
+          ],
+          "min": 1,
+          "max": 300
+        },
+        {
+          "kind": "exact_length",
+          "raw": "tickets[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "tickets"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "fromi.length == 3",
+          "confidence": "high",
+          "variables": [
+            "fromi"
+          ],
+          "min": 3,
+          "max": 3
+        },
+        {
+          "kind": "exact_length",
+          "raw": "toi.length == 3",
+          "confidence": "high",
+          "variables": [
+            "toi"
+          ],
+          "min": 3,
+          "max": 3
+        },
+        {
+          "kind": "charset",
+          "raw": "fromi and toi consist of uppercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "fromi",
+            "toi"
+          ],
+          "charset": "uppercase_english"
+        },
+        {
+          "kind": "prose",
+          "raw": "fromi != toi",
+          "confidence": "medium",
+          "variables": [
+            "fromi",
+            "toi"
+          ],
+          "property": "inequality_!="
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "tickets": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "fromi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "toi": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "repeated-string-match": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= a.length, b.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "a"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= a.length, b.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "b"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "a and b consist of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "a",
+            "b"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "a": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "b": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "repeated-substring-pattern": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "reverse-nodes-in-k-group": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= n <= 5000",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 5000,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= n <= 5000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 5000,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the list is n.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "robot-return-to-origin": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= moves.length <= 2 * 104",
+          "confidence": "high",
+          "variables": [
+            "moves"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [
+        "moves only contains the characters 'U', 'D', 'L' and 'R'."
+      ],
+      "parameterMapping": {
+        "moves": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "rotate-string": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length, goal.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length, goal.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "goal"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "s and goal consist of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "s",
+            "goal"
+          ],
+          "charset": "lowercase_english"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "goal": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "serialize-and-deserialize-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "string-to-integer-atoi": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "0 <= s.length <= 200",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 0,
+          "max": 200
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', and '.'.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "english_letters"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "student-attendance-record-i": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "charset",
+          "raw": "s[i] is either 'A', 'L', or 'P'.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "either_'A', 'L', or 'P'"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "swim-in-rising-water": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 50",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 50
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid[i].length"
+        },
+        {
+          "kind": "prose",
+          "raw": "Each value grid[i][j] is unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "0 <= grid[i][j] <\u00a0n2"
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "to-lower-case": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of printable ASCII characters.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "ascii"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "validate-ip-address": {
+      "constraints": [
+        {
+          "kind": "charset",
+          "raw": "queryIP consists only of English letters, digits and the characters '.' and ':'.",
+          "confidence": "medium",
+          "variables": [
+            "queryIP"
+          ],
+          "charset": "english_letters"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "queryIP": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "walls-and-gates": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "word-ladder": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= beginWord.length <= 10",
+          "confidence": "high",
+          "variables": [
+            "beginWord"
+          ],
+          "min": 1,
+          "max": 10
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= wordList.length <= 5000",
+          "confidence": "high",
+          "variables": [
+            "wordList"
+          ],
+          "min": 1,
+          "max": 5000
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "endWord.length == beginWord.length",
+          "confidence": "high",
+          "variables": [
+            "endWord",
+            "beginWord"
+          ],
+          "property": "equal_length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "wordList[i].length == beginWord.length",
+          "confidence": "high",
+          "variables": [
+            "wordList"
+          ],
+          "property": "beginWord.length"
+        },
+        {
+          "kind": "charset",
+          "raw": "beginWord, endWord, and wordList[i] consist of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "beginWord"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "prose",
+          "raw": "beginWord != endWord",
+          "confidence": "medium",
+          "variables": [
+            "beginWord",
+            "endWord"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the words in wordList are unique.",
+          "confidence": "medium",
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "beginWord": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "wordList": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "endWord": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "word-ladder-ii": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= beginWord.length <= 5",
+          "confidence": "high",
+          "variables": [
+            "beginWord"
+          ],
+          "min": 1,
+          "max": 5
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= wordList.length <= 500",
+          "confidence": "high",
+          "variables": [
+            "wordList"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "endWord.length == beginWord.length",
+          "confidence": "high",
+          "variables": [
+            "endWord",
+            "beginWord"
+          ],
+          "property": "equal_length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "wordList[i].length == beginWord.length",
+          "confidence": "high",
+          "variables": [
+            "wordList"
+          ],
+          "property": "beginWord.length"
+        },
+        {
+          "kind": "charset",
+          "raw": "beginWord, endWord, and wordList[i] consist of lowercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "beginWord"
+          ],
+          "charset": "lowercase_english"
+        },
+        {
+          "kind": "prose",
+          "raw": "beginWord != endWord",
+          "confidence": "medium",
+          "variables": [
+            "beginWord",
+            "endWord"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the words in wordList are unique.",
+          "confidence": "medium",
+          "property": "unique"
+        },
+        {
+          "kind": "integer_range",
+          "raw": "The sum of all shortest transformation sequences does not exceed 105.",
+          "confidence": "medium",
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "beginWord": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "wordList": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "endWord": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "zigzag-conversion": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= numRows <= 1000",
+          "confidence": "high",
+          "variables": [
+            "numRows"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "charset",
+          "raw": "s consists of English letters (lower-case and upper-case), ',' and '.'.",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "english_letters"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        },
+        "numRows": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "goat-latin": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= sentence.length <= 150",
+          "confidence": "high",
+          "variables": [
+            "sentence"
+          ],
+          "min": 1,
+          "max": 150
+        },
+        {
+          "kind": "charset",
+          "raw": "sentence consists of English letters and spaces.",
+          "confidence": "medium",
+          "variables": [
+            "sentence"
+          ],
+          "charset": "english_letters"
+        },
+        {
+          "kind": "prose",
+          "raw": "All the words in sentence are separated by a single space.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "sentence has no leading or trailing spaces."
+      ],
+      "parameterMapping": {
+        "sentence": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    }
+  }
+}

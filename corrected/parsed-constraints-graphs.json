@@ -1,0 +1,1552 @@
+{
+  "topic": "graphs",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "accounts-merge": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= accounts.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "accounts"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "nested_length",
+          "raw": "2 <= accounts[i].length <= 10",
+          "confidence": "high",
+          "variables": [
+            "accounts"
+          ],
+          "min": 2,
+          "max": 10
+        },
+        {
+          "kind": "charset",
+          "raw": "accounts[i][0] consists of English letters.",
+          "confidence": "medium",
+          "variables": [
+            "accounts"
+          ],
+          "charset": "english_letters"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "accounts[i][j] (for j > 0) is a valid email.",
+          "confidence": "low",
+          "property": "valid"
+        }
+      ],
+      "unresolved": [
+        "1 <= accounts[i][j].length <= 30"
+      ],
+      "parameterMapping": {
+        "accounts": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "clone-graph": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the graph is in the range [0, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "charset",
+          "raw": "Node.val is unique for each node.",
+          "confidence": "medium",
+          "variables": [
+            "Node.val"
+          ],
+          "charset": "unique for each node"
+        },
+        {
+          "kind": "graph_property",
+          "raw": "There are no repeated edges and no self-loops in the graph.",
+          "confidence": "medium",
+          "property": "no_parallel"
+        }
+      ],
+      "unresolved": [
+        "The Graph is connected and all nodes can be visited starting from the given node."
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "course-schedule": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= numCourses <= 2000",
+          "confidence": "high",
+          "variables": [
+            "numCourses"
+          ],
+          "min": 1,
+          "max": 2000
+        },
+        {
+          "kind": "array_length",
+          "raw": "0 <= prerequisites.length <= 5000",
+          "confidence": "high",
+          "variables": [
+            "prerequisites"
+          ],
+          "min": 0,
+          "max": 5000
+        },
+        {
+          "kind": "exact_length",
+          "raw": "prerequisites[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "prerequisites"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the pairs prerequisites[i] are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "0 <= ai, bi < numCourses"
+      ],
+      "parameterMapping": {
+        "numCourses": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "prerequisites": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "course-schedule-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= numCourses <= 2000",
+          "confidence": "high",
+          "variables": [
+            "numCourses"
+          ],
+          "min": 1,
+          "max": 2000
+        },
+        {
+          "kind": "exact_length",
+          "raw": "prerequisites[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "prerequisites"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "ai != bi",
+          "confidence": "medium",
+          "variables": [
+            "ai",
+            "bi"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "prose",
+          "raw": "All the pairs [ai, bi] are distinct.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "0 <= prerequisites.length <= numCourses * (numCourses - 1)",
+        "0 <= ai, bi < numCourses"
+      ],
+      "parameterMapping": {
+        "numCourses": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "prerequisites": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "ai": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "bi": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "evaluate-division": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= equations.length <= 20",
+          "confidence": "high",
+          "variables": [
+            "equations"
+          ],
+          "min": 1,
+          "max": 20
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= Ai.length, Bi.length <= 5",
+          "confidence": "high",
+          "variables": [
+            "Ai"
+          ],
+          "min": 1,
+          "max": 5,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= Ai.length, Bi.length <= 5",
+          "confidence": "high",
+          "variables": [
+            "Bi"
+          ],
+          "min": 1,
+          "max": 5,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= queries.length <= 20",
+          "confidence": "high",
+          "variables": [
+            "queries"
+          ],
+          "min": 1,
+          "max": 20
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= Cj.length, Dj.length <= 5",
+          "confidence": "high",
+          "variables": [
+            "Cj"
+          ],
+          "min": 1,
+          "max": 5,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= Cj.length, Dj.length <= 5",
+          "confidence": "high",
+          "variables": [
+            "Dj"
+          ],
+          "min": 1,
+          "max": 5,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "equations[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "equations"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "values.length == equations.length",
+          "confidence": "high",
+          "variables": [
+            "values",
+            "equations"
+          ],
+          "property": "equal_length"
+        },
+        {
+          "kind": "exact_length",
+          "raw": "queries[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "queries"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "Ai, Bi, Cj, Dj consist of lower case English letters and digits.",
+          "confidence": "medium",
+          "variables": [
+            "Ai"
+          ],
+          "charset": "alphanumeric"
+        }
+      ],
+      "unresolved": [
+        "0.0 < values[i] <= 20.0"
+      ],
+      "parameterMapping": {
+        "equations": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Ai": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "Bi": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "queries": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "Cj": {
+          "type": "Unknown",
+          "index": 4
+        },
+        "Dj": {
+          "type": "Unknown",
+          "index": 5
+        },
+        "values": {
+          "type": "Unknown",
+          "index": 6
+        }
+      }
+    },
+    "find-eventual-safe-states": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == graph.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "graph.length"
+        },
+        {
+          "kind": "charset",
+          "raw": "graph[i] is sorted in a strictly increasing order.",
+          "confidence": "medium",
+          "variables": [
+            "graph"
+          ],
+          "charset": "sorted in a strictly increasing order"
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of edges in the graph will be in the range [1, 4 * 104].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [
+        "0 <= graph[i].length <= n",
+        "0 <= graph[i][j] <= n - 1",
+        "The graph may contain self-loops."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "graph": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "flood-fill": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 50",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 50",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= sr < m",
+          "confidence": "high",
+          "variables": [
+            "sr"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "m"
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= sc < n",
+          "confidence": "high",
+          "variables": [
+            "sc"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == image.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "image.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == image[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "image[i].length"
+        }
+      ],
+      "unresolved": [
+        "0 <= image[i][j], color < 216"
+      ],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "sr": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "sc": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "is-graph-bipartite": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 100",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "graph.length == n",
+          "confidence": "high",
+          "variables": [
+            "graph.length"
+          ],
+          "property": "n"
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values of graph[u] are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "0 <= graph[u].length < n",
+        "0 <= graph[u][i] <= n - 1",
+        "graph[u]\u00a0does not contain\u00a0u.",
+        "If graph[u] contains v, then graph[v] contains u."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "graph.length": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "keys-and-rooms": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "2 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 2,
+          "max": 1000
+        },
+        {
+          "kind": "nested_length",
+          "raw": "0 <= rooms[i].length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "rooms"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == rooms.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "rooms.length"
+        },
+        {
+          "kind": "multiplication",
+          "raw": "1 <= sum(rooms[i].length) <= 3000",
+          "confidence": "high",
+          "variables": [
+            "rooms"
+          ],
+          "min": 1,
+          "max": 3000,
+          "metadata": {
+            "sum_expression": "rooms[i].length"
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values of rooms[i] are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "0 <= rooms[i][j] < n"
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "rooms": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "loud-and-rich": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 500",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= quiet[i] < n",
+          "confidence": "high",
+          "variables": [
+            "quiet"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == quiet.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "quiet.length"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the values of quiet are unique.",
+          "confidence": "medium",
+          "variables": [
+            "quiet"
+          ],
+          "property": "unique"
+        },
+        {
+          "kind": "prose",
+          "raw": "ai != bi",
+          "confidence": "medium",
+          "variables": [
+            "ai",
+            "bi"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the pairs of richer are unique.",
+          "confidence": "medium",
+          "variables": [
+            "richer"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [
+        "0 <= richer.length <= n * (n - 1) / 2",
+        "0 <= ai, bi < n",
+        "The observations in richer are all logically consistent."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "quiet": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "ai": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "bi": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "richer": {
+          "type": "Unknown",
+          "index": 4
+        }
+      }
+    },
+    "max-area-of-island": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 50",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 50",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == grid.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "grid.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "grid[i][j] is either 0 or 1.",
+          "confidence": "medium",
+          "variables": [
+            "grid"
+          ],
+          "charset": "either_0 or 1"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "grid": {
+          "type": "[[Character]]",
+          "index": 2,
+          "role": "grid"
+        }
+      }
+    },
+    "minimum-genetic-mutation": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "0 <= bank.length <= 10",
+          "confidence": "high",
+          "variables": [
+            "bank"
+          ],
+          "min": 0,
+          "max": 10
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "startGene.length == endGene.length == bank[i].length == 8",
+          "confidence": "high",
+          "variables": [
+            "startGene.length"
+          ],
+          "property": "endGene.length == bank[i].length == 8"
+        }
+      ],
+      "unresolved": [
+        "startGene, endGene, and bank[i] consist of only the characters ['A', 'C', 'G', 'T']."
+      ],
+      "parameterMapping": {
+        "bank": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "startGene.length": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "minimum-height-trees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 2 * 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "edges.length == n - 1",
+          "confidence": "high",
+          "variables": [
+            "edges.length"
+          ],
+          "property": "n - 1"
+        },
+        {
+          "kind": "prose",
+          "raw": "ai != bi",
+          "confidence": "medium",
+          "variables": [
+            "ai",
+            "bi"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "prose",
+          "raw": "All the pairs (ai, bi) are distinct.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "The given input is guaranteed to be a tree and there will be no repeated edges.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [
+        "0 <= ai, bi < n"
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "edges.length": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "ai": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "bi": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "number-of-islands": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 300",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 300,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 300",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 300,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == grid.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "grid.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "grid[i][j] is '0' or '1'.",
+          "confidence": "medium",
+          "variables": [
+            "grid"
+          ],
+          "charset": "'0' or '1'"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "grid": {
+          "type": "[[Character]]",
+          "index": 2,
+          "role": "grid"
+        }
+      }
+    },
+    "number-of-provinces": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 200",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 200
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == isConnected.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "isConnected.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == isConnected[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "isConnected[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "isConnected[i][j] is 1 or 0.",
+          "confidence": "medium",
+          "variables": [
+            "isConnected"
+          ],
+          "charset": "1 or 0"
+        }
+      ],
+      "unresolved": [
+        "isConnected[i][i] == 1",
+        "isConnected[i][j] == isConnected[j][i]"
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "isConnected": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "pacific-atlantic-water-flow": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 200",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 200",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= heights[r][c] <= 105",
+          "confidence": "high",
+          "variables": [
+            "heights"
+          ],
+          "min": 0,
+          "max": 105,
+          "metadata": {
+            "dimensions": 2
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == heights.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "heights.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == heights[r].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "heights[r].length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "heights": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "path-with-maximum-probability": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "2 <= n <= 10^4",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 2,
+          "max": 10000
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= succProb[i] <= 1",
+          "confidence": "high",
+          "variables": [
+            "succProb"
+          ],
+          "min": 0,
+          "max": 1
+        },
+        {
+          "kind": "prose",
+          "raw": "start != end",
+          "confidence": "medium",
+          "variables": [
+            "start",
+            "end"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "prose",
+          "raw": "a != b",
+          "confidence": "medium",
+          "variables": [
+            "a",
+            "b"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "0 <= succProb.length == edges.length <= 2*10^4",
+          "confidence": "high",
+          "variables": [
+            "0 <= succProb.length"
+          ],
+          "property": "edges.length <= 2*10^4"
+        }
+      ],
+      "unresolved": [
+        "0 <= start, end < n",
+        "0 <= a, b < n",
+        "There is at most one edge between every two nodes."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "succProb": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "start": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "end": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "a": {
+          "type": "Unknown",
+          "index": 4
+        },
+        "b": {
+          "type": "Unknown",
+          "index": 5
+        },
+        "0 <= succProb.length": {
+          "type": "Unknown",
+          "index": 6
+        }
+      }
+    },
+    "possible-bipartition": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 2000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 2000
+        },
+        {
+          "kind": "array_length",
+          "raw": "0 <= dislikes.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "dislikes"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "exact_length",
+          "raw": "dislikes[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "dislikes"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the pairs of dislikes are unique.",
+          "confidence": "medium",
+          "variables": [
+            "dislikes"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [
+        "1 <= ai < bi <= n"
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "dislikes": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "redundant-connection": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "3 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 3,
+          "max": 1000
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == edges.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "edges.length"
+        },
+        {
+          "kind": "exact_length",
+          "raw": "edges[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "edges"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "graph_property",
+          "raw": "1 <= ai < bi <= edges.length",
+          "confidence": "medium",
+          "property": "edge_count"
+        },
+        {
+          "kind": "prose",
+          "raw": "ai != bi",
+          "confidence": "medium",
+          "variables": [
+            "ai",
+            "bi"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "graph_property",
+          "raw": "There are no repeated edges.",
+          "confidence": "medium",
+          "property": "no_parallel"
+        }
+      ],
+      "unresolved": [
+        "The given graph is connected."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "edges": {
+          "type": "[[Int]]",
+          "index": 1,
+          "role": "edge_list"
+        },
+        "ai": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "bi": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "rotting-oranges": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 10",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 10,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 10",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 10,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == grid.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "grid.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "grid[i][j] is 0, 1, or 2.",
+          "confidence": "medium",
+          "variables": [
+            "grid"
+          ],
+          "charset": "0, 1, or 2"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "grid": {
+          "type": "[[Character]]",
+          "index": 2,
+          "role": "grid"
+        }
+      }
+    },
+    "snakes-and-ladders": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "2 <= n <= 20",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 2,
+          "max": 20
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == board.length == board[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "board.length == board[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "board[i][j] is either -1 or in the range [1, n2].",
+          "confidence": "medium",
+          "variables": [
+            "board"
+          ],
+          "charset": "either_-1 or in the range [1, n2]"
+        }
+      ],
+      "unresolved": [
+        "The squares labeled 1 and n2 are not the starting points of any snake or ladder."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "board": {
+          "type": "[[Character]]",
+          "index": 1,
+          "role": "grid"
+        }
+      }
+    },
+    "surrounded-regions": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 200",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 200",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "m == board.length",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "property": "board.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == board[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "board[i].length"
+        },
+        {
+          "kind": "charset",
+          "raw": "board[i][j] is 'X' or 'O'.",
+          "confidence": "medium",
+          "variables": [
+            "board"
+          ],
+          "charset": "'X' or 'O'"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "board": {
+          "type": "[[Character]]",
+          "index": 2,
+          "role": "grid"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4307 @@
+{
+  "topic": "math-geometry",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "2-keys-keyboard": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "add-binary": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= a.length, b.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "a"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= a.length, b.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "b"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "a and b consist\u00a0only of '0' or '1' characters.",
+          "confidence": "medium",
+          "variables": [
+            "a",
+            "b"
+          ],
+          "charset": "of '0' or '1' characters"
+        },
+        {
+          "kind": "prose",
+          "raw": "Each string does not contain leading zeros except for the zero itself.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "a": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "b": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "add-digits": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= num <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 0
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "add-strings": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= num1.length, num2.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "num1"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= num1.length, num2.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "num2"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "num1 and num2 consist of only digits.",
+          "confidence": "medium",
+          "variables": [
+            "num1",
+            "num2"
+          ],
+          "charset": "digits"
+        }
+      ],
+      "unresolved": [
+        "num1 and num2 don't have any leading zeros except for the zero itself."
+      ],
+      "parameterMapping": {
+        "num1": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "num2": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "add-to-array-form-of-integer": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= num.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= num[i] <= 9",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 0,
+          "max": 9
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "prose",
+          "raw": "num does not contain any leading zeros except for the zero itself.",
+          "confidence": "medium",
+          "variables": [
+            "num"
+          ],
+          "property": "exclusion"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "arranging-coins": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "base-7": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-107 <= num <= 107",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": -107,
+          "max": 107
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "beautiful-arrangement-ii": {
+      "constraints": [],
+      "unresolved": [
+        "1 <= k < n <= 104"
+      ],
+      "parameterMapping": {}
+    },
+    "beautiful-array": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "broken-calculator": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= startValue, target <= 109",
+          "confidence": "high",
+          "variables": [
+            "startValue"
+          ],
+          "min": 1,
+          "max": 109,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= startValue, target <= 109",
+          "confidence": "high",
+          "variables": [
+            "target"
+          ],
+          "min": 1,
+          "max": 109,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "startValue": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "target": {
+          "type": "Int",
+          "index": 1,
+          "role": "target"
+        }
+      }
+    },
+    "bulb-switcher": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "bulb-switcher-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= presses <= 1000",
+          "confidence": "high",
+          "variables": [
+            "presses"
+          ],
+          "min": 0,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "presses": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "can-i-win": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= maxChoosableInteger <= 20",
+          "confidence": "high",
+          "variables": [
+            "maxChoosableInteger"
+          ],
+          "min": 1,
+          "max": 20
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= desiredTotal <= 300",
+          "confidence": "high",
+          "variables": [
+            "desiredTotal"
+          ],
+          "min": 0,
+          "max": 300
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "maxChoosableInteger": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "desiredTotal": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "clumsy-factorial": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "complex-number-multiplication": {
+      "constraints": [
+        {
+          "kind": "charset",
+          "raw": "num1 and num2 are valid complex numbers.",
+          "confidence": "medium",
+          "variables": [
+            "num1",
+            "num2"
+          ],
+          "charset": "valid complex numbers"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num1": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "num2": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "construct-the-rectangle": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= area <= 107",
+          "confidence": "high",
+          "variables": [
+            "area"
+          ],
+          "min": 1,
+          "max": 107
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "area": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "continuous-subarray-sum": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= nums[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "max": 109
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "multiplication",
+          "raw": "0 <= sum(nums[i]) <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "metadata": {
+            "sum_expression": "nums[i]"
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "convert-a-number-to-hexadecimal": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= num <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "convert-to-base-2": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "count-numbers-with-unique-digits": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 8",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 8
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "count-primes": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 5 * 106",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "different-ways-to-add-parentheses": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= expression.length <= 20",
+          "confidence": "high",
+          "variables": [
+            "expression"
+          ],
+          "min": 1,
+          "max": 20
+        },
+        {
+          "kind": "integer_range",
+          "raw": "All the integer values in the input expression are in the range [0, 99].",
+          "confidence": "medium",
+          "variables": [
+            "are"
+          ],
+          "min": 0,
+          "max": 99
+        },
+        {
+          "kind": "charset",
+          "raw": "expression consists of digits and the operator '+', '-', and '*'.",
+          "confidence": "medium",
+          "variables": [
+            "expression"
+          ],
+          "charset": "digits"
+        }
+      ],
+      "unresolved": [
+        "The integer values in the input expression do not have a leading '-' or '+' denoting the sign."
+      ],
+      "parameterMapping": {
+        "expression": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "are": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "divide-two-integers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= dividend, divisor <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "dividend"
+          ],
+          "min": -231,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= dividend, divisor <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "divisor"
+          ],
+          "min": -231,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "divisor != 0",
+          "confidence": "medium",
+          "variables": [
+            "divisor",
+            "0"
+          ],
+          "property": "inequality_!="
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "dividend": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "divisor": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "0": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "divisor-game": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 1000",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "elimination-game": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "escape-the-ghosts": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= ghosts.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "ghosts"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xi, yi <= 104",
+          "confidence": "high",
+          "variables": [
+            "xi"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xi, yi <= 104",
+          "confidence": "high",
+          "variables": [
+            "yi"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xtarget, ytarget <= 104",
+          "confidence": "high",
+          "variables": [
+            "xtarget"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xtarget, ytarget <= 104",
+          "confidence": "high",
+          "variables": [
+            "ytarget"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "ghosts[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "ghosts"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "target.length == 2",
+          "confidence": "high",
+          "variables": [
+            "target"
+          ],
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "unresolved": [
+        "There can be multiple ghosts in the same location."
+      ],
+      "parameterMapping": {
+        "ghosts": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "xi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "yi": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "xtarget": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "ytarget": {
+          "type": "Unknown",
+          "index": 4
+        },
+        "target": {
+          "type": "Int",
+          "index": 5,
+          "role": "target"
+        }
+      }
+    },
+    "excel-sheet-column-number": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= columnTitle.length <= 7",
+          "confidence": "high",
+          "variables": [
+            "columnTitle"
+          ],
+          "min": 1,
+          "max": 7
+        },
+        {
+          "kind": "charset",
+          "raw": "columnTitle consists only of uppercase English letters.",
+          "confidence": "medium",
+          "variables": [
+            "columnTitle"
+          ],
+          "charset": "uppercase_english"
+        }
+      ],
+      "unresolved": [
+        "columnTitle is in the range [\"A\", \"FXSHRXW\"]."
+      ],
+      "parameterMapping": {
+        "columnTitle": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "excel-sheet-column-title": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= columnNumber <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "columnNumber"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "columnNumber": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "factorial-trailing-zeroes": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "fibonacci-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 30",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 30
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "fizz-buzz": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "fraction-addition-and-subtraction": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The input only contains valid irreducible fractions, where the numerator and denominator of each fraction will always be in the range [1, 10]. If the denominator is 1, it means this fraction is actually an integer in a fraction format defined above.",
+          "confidence": "medium",
+          "variables": [
+            "be"
+          ],
+          "min": 1,
+          "max": 10,
+          "metadata": {
+            "merged_from": [
+              "The input only contains valid irreducible fractions, where the numerator and denominator of each fraction will always be in the range [1, 10]. If the denominator is 1, it means this fraction is actually an integer in a fraction format defined above.",
+              "The number of given fractions will be in the range [1, 10]."
+            ]
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "Each fraction (input and output) has the format \u00b1numerator/denominator. If the first input fraction or the output is positive, then '+' will be omitted.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "The numerator and denominator of the final result are guaranteed to be valid and in the range of 32-bit int.",
+          "confidence": "medium",
+          "property": "valid_answer"
+        }
+      ],
+      "unresolved": [
+        "The input string only contains '0' to '9', '/', '+' and '-'. So does the output."
+      ],
+      "parameterMapping": {
+        "be": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "fraction-to-recurring-decimal": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <=\u00a0numerator, denominator <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "numerator"
+          ],
+          "min": -231,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-231 <=\u00a0numerator, denominator <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "denominator"
+          ],
+          "min": -231,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "denominator != 0",
+          "confidence": "medium",
+          "variables": [
+            "denominator",
+            "0"
+          ],
+          "property": "inequality_!="
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "numerator": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "denominator": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "0": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "generate-random-point-in-a-circle": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <\u00a0radius <= 108",
+          "confidence": "high",
+          "variables": [
+            "radius"
+          ],
+          "min": 0,
+          "max": 108,
+          "metadata": {
+            "lower_exclusive": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-107 <= x_center, y_center <= 107",
+          "confidence": "high",
+          "variables": [
+            "x_center"
+          ],
+          "min": -107,
+          "max": 107,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-107 <= x_center, y_center <= 107",
+          "confidence": "high",
+          "variables": [
+            "y_center"
+          ],
+          "min": -107,
+          "max": 107,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 3 * 104 calls will be made to randPoint.",
+          "confidence": "high"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "radius": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "x_center": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "y_center": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "global-and-local-inversions": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= nums[i] < n",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the integers of nums are unique.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "property": "unique"
+        },
+        {
+          "kind": "prose",
+          "raw": "nums is a permutation of all the numbers in the range [0, n - 1].",
+          "confidence": "low",
+          "property": "permutation"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "nums": {
+          "type": "[Int]",
+          "index": 1,
+          "role": "array"
+        }
+      }
+    },
+    "gray-code": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 16",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "guess-number-higher-or-lower-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 200",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 200
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "happy-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "implement-rand10-using-rand7": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "insert-delete-getrandom-o1": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": -231
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 2 *\u00a0105 calls will be made to insert, remove, and getRandom.",
+          "confidence": "high"
+        }
+      ],
+      "unresolved": [
+        "There will be at least one element in the data structure when getRandom is called."
+      ],
+      "parameterMapping": {
+        "val": {
+          "type": "Int",
+          "index": 0,
+          "role": "value"
+        }
+      }
+    },
+    "integer-break": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "2 <= n <= 58",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 2,
+          "max": 58
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "integer-to-roman": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= num <= 3999",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 1,
+          "max": 3999
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "k-th-symbol-in-grammar": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 30",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 30
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 2n - 1",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "metadata": {
+            "upper_ref": "2n - 1"
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "largest-divisible-subset": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "element_range",
+          "raw": "1 <= nums[i] <= 2 * 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the integers in nums are unique.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "largest-perimeter-triangle": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "3 <= nums.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 3,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "1 <= nums[i] <= 106",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 106
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "largest-triangle-area": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "3 <= points.length <= 50",
+          "confidence": "high",
+          "variables": [
+            "points"
+          ],
+          "min": 3,
+          "max": 50
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-50 <= xi, yi <= 50",
+          "confidence": "high",
+          "variables": [
+            "xi"
+          ],
+          "min": -50,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-50 <= xi, yi <= 50",
+          "confidence": "high",
+          "variables": [
+            "yi"
+          ],
+          "min": -50,
+          "max": 50,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the given points are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "points": {
+          "type": "[[Int]]",
+          "index": 0,
+          "role": "points"
+        },
+        "xi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "yi": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "magic-squares-in-grid": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= row, col <= 10",
+          "confidence": "high",
+          "variables": [
+            "row"
+          ],
+          "min": 1,
+          "max": 10,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= row, col <= 10",
+          "confidence": "high",
+          "variables": [
+            "col"
+          ],
+          "min": 1,
+          "max": 10,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= grid[i][j] <= 15",
+          "confidence": "high",
+          "variables": [
+            "grid"
+          ],
+          "min": 0,
+          "max": 15,
+          "metadata": {
+            "dimensions": 2
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "row == grid.length",
+          "confidence": "high",
+          "variables": [
+            "row"
+          ],
+          "property": "grid.length"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "col == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "col"
+          ],
+          "property": "grid[i].length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "row": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "col": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "grid": {
+          "type": "[[Character]]",
+          "index": 2,
+          "role": "grid"
+        }
+      }
+    },
+    "maximum-product-of-three-numbers": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "3 <= nums.length <=\u00a0104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 3,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "-1000 <= nums[i] <= 1000",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "maximum-swap": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= num <= 108",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 0,
+          "max": 108
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "minimum-area-rectangle": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= points.length <= 500",
+          "confidence": "high",
+          "variables": [
+            "points"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= xi, yi <= 4 * 104",
+          "confidence": "high",
+          "variables": [
+            "xi"
+          ],
+          "min": 0,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= xi, yi <= 4 * 104",
+          "confidence": "high",
+          "variables": [
+            "yi"
+          ],
+          "min": 0,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "points[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "points"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the given points are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "points": {
+          "type": "[[Int]]",
+          "index": 0,
+          "role": "points"
+        },
+        "xi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "yi": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "minimum-area-rectangle-ii": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= points.length <= 50",
+          "confidence": "high",
+          "variables": [
+            "points"
+          ],
+          "min": 1,
+          "max": 50
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= xi, yi <= 4 * 104",
+          "confidence": "high",
+          "variables": [
+            "xi"
+          ],
+          "min": 0,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= xi, yi <= 4 * 104",
+          "confidence": "high",
+          "variables": [
+            "yi"
+          ],
+          "min": 0,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "points[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "points"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the given points are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "points": {
+          "type": "[[Int]]",
+          "index": 0,
+          "role": "points"
+        },
+        "xi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "yi": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "minimum-moves-to-equal-array-elements": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "element_range",
+          "raw": "-109 <= nums[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "The answer is guaranteed to fit in a 32-bit integer.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "minimum-moves-to-equal-array-elements-ii": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "element_range",
+          "raw": "-109 <= nums[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "minimum-time-difference": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "2 <= timePoints.length <= 2 * 104",
+          "confidence": "high",
+          "variables": [
+            "timePoints"
+          ],
+          "min": 2
+        },
+        {
+          "kind": "charset",
+          "raw": "timePoints[i] is in the format \"HH:MM\".",
+          "confidence": "medium",
+          "variables": [
+            "timePoints"
+          ],
+          "charset": "in the format \"HH:MM\""
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "timePoints": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "mirror-reflection": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= q <= p <= 1000",
+          "confidence": "high",
+          "variables": [
+            "q"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= q <= p <= 1000",
+          "confidence": "high",
+          "variables": [
+            "p"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "chained_inequality": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "q": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "p": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "missing-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= nums[i] <= n",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the numbers of nums are unique.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "nums": {
+          "type": "[Int]",
+          "index": 1,
+          "role": "array"
+        }
+      }
+    },
+    "monotone-increasing-digits": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "multiply-strings": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= num1.length, num2.length <= 200",
+          "confidence": "high",
+          "variables": [
+            "num1"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= num1.length, num2.length <= 200",
+          "confidence": "high",
+          "variables": [
+            "num2"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "num1 and num2 consist of digits only.",
+          "confidence": "medium",
+          "variables": [
+            "num1",
+            "num2"
+          ],
+          "charset": "digits"
+        },
+        {
+          "kind": "prose",
+          "raw": "Both num1 and num2\u00a0do not contain any leading zero, except the number 0 itself.",
+          "confidence": "low",
+          "property": "joint_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num1": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "num2": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "new-21-game": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= maxPts <= 104",
+          "confidence": "high",
+          "variables": [
+            "maxPts"
+          ],
+          "min": 1,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "maxPts": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "next-greater-element-iii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "nim-game": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "nth-digit": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "number-of-boomerangs": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 500",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xi, yi <= 104",
+          "confidence": "high",
+          "variables": [
+            "xi"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xi, yi <= 104",
+          "confidence": "high",
+          "variables": [
+            "yi"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == points.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "points.length"
+        },
+        {
+          "kind": "exact_length",
+          "raw": "points[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "points"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the points are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "xi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "yi": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "points": {
+          "type": "[[Int]]",
+          "index": 3,
+          "role": "points"
+        }
+      }
+    },
+    "smallest-range-ii": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= nums[i] <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    },
+    "solve-the-equation": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "3 <= equation.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "equation"
+          ],
+          "min": 3,
+          "max": 1000
+        },
+        {
+          "kind": "charset",
+          "raw": "equation consists of integers with an absolute value in the range [0, 100] without any leading zeros, and the variable 'x'.",
+          "confidence": "medium",
+          "variables": [
+            "equation"
+          ],
+          "charset": "integers with an absolute value in the range [0, 100] without any leading zeros, and the variable 'x'"
+        }
+      ],
+      "unresolved": [
+        "equation has exactly one '='.",
+        "The input is generated that if there is a single solution, it will be an integer."
+      ],
+      "parameterMapping": {
+        "equation": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "soup-servings": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 0,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "sqrtx": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= x <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "x"
+          ],
+          "min": 0
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "x": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "stone-game": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "2 <= piles.length <= 500",
+          "confidence": "high",
+          "variables": [
+            "piles"
+          ],
+          "min": 2,
+          "max": 500
+        },
+        {
+          "kind": "element_range",
+          "raw": "1 <= piles[i] <= 500",
+          "confidence": "high",
+          "variables": [
+            "piles"
+          ],
+          "min": 1,
+          "max": 500
+        },
+        {
+          "kind": "prose",
+          "raw": "piles.length is even.",
+          "confidence": "medium",
+          "variables": [
+            "piles"
+          ],
+          "property": "even"
+        }
+      ],
+      "unresolved": [
+        "sum(piles[i]) is odd."
+      ],
+      "parameterMapping": {
+        "piles": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "sum-of-square-numbers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= c <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "c"
+          ],
+          "min": 0
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "c": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "sum-of-two-integers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= a, b <= 1000",
+          "confidence": "high",
+          "variables": [
+            "a"
+          ],
+          "min": -1000,
+          "max": 1000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= a, b <= 1000",
+          "confidence": "high",
+          "variables": [
+            "b"
+          ],
+          "min": -1000,
+          "max": 1000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "a": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "b": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "super-pow": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= a <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "a"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= b.length <= 2000",
+          "confidence": "high",
+          "variables": [
+            "b"
+          ],
+          "min": 1,
+          "max": 2000
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= b[i] <= 9",
+          "confidence": "high",
+          "variables": [
+            "b"
+          ],
+          "min": 0,
+          "max": 9
+        },
+        {
+          "kind": "prose",
+          "raw": "b does not contain leading zeros.",
+          "confidence": "medium",
+          "variables": [
+            "b"
+          ],
+          "property": "exclusion"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "a": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "b": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "super-ugly-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "array_length",
+          "raw": "1 <= primes.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "primes"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "element_range",
+          "raw": "2 <= primes[i] <= 1000",
+          "confidence": "high",
+          "variables": [
+            "primes"
+          ],
+          "min": 2,
+          "max": 1000
+        },
+        {
+          "kind": "guarantee",
+          "raw": "primes[i] is guaranteed to be a prime number.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the values of primes are unique and sorted in ascending order.",
+          "confidence": "medium",
+          "variables": [
+            "primes"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "primes": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "surface-area-of-3d-shapes": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 50",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 50
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= grid[i][j] <= 50",
+          "confidence": "high",
+          "variables": [
+            "grid"
+          ],
+          "min": 0,
+          "max": 50,
+          "metadata": {
+            "dimensions": 2
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid.length == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid.length == grid[i].length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "grid": {
+          "type": "[[Character]]",
+          "index": 1,
+          "role": "grid"
+        }
+      }
+    },
+    "total-hamming-distance": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= nums[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "max": 109
+        }
+      ],
+      "unresolved": [
+        "The answer for the given input will fit in a 32-bit integer."
+      ],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "ugly-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "ugly-number-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 1690",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 1690
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "unique-binary-search-trees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 19",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 19
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "valid-perfect-square": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= num <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "valid-square": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xi, yi <= 104",
+          "confidence": "high",
+          "variables": [
+            "xi"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xi, yi <= 104",
+          "confidence": "high",
+          "variables": [
+            "yi"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "p1.length == p2.length == p3.length == p4.length == 2",
+          "confidence": "high",
+          "variables": [
+            "p1.length"
+          ],
+          "property": "p2.length == p3.length == p4.length == 2"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "xi": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "yi": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "p1.length": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "water-and-jug-problem": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= x, y, target\u00a0<= 103",
+          "confidence": "high",
+          "variables": [
+            "x"
+          ],
+          "min": 1,
+          "max": 103,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= x, y, target\u00a0<= 103",
+          "confidence": "high",
+          "variables": [
+            "y"
+          ],
+          "min": 1,
+          "max": 103,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= x, y, target\u00a0<= 103",
+          "confidence": "high",
+          "variables": [
+            "target"
+          ],
+          "min": 1,
+          "max": 103,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "x": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "y": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "target": {
+          "type": "Int",
+          "index": 2,
+          "role": "target"
+        }
+      }
+    },
+    "x-of-a-kind-in-a-deck-of-cards": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= deck.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "deck"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= deck[i] < 104",
+          "confidence": "high",
+          "variables": [
+            "deck"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "upper_exclusive": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "deck": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "optimal-division": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 10",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 10
+        },
+        {
+          "kind": "element_range",
+          "raw": "2 <= nums[i] <= 1000",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 2,
+          "max": 1000
+        },
+        {
+          "kind": "charset",
+          "raw": "There is only one optimal division for the given input.",
+          "confidence": "medium",
+          "variables": [
+            "There"
+          ],
+          "charset": "only one optimal division for the given input"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "There": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "palindrome-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231\u00a0<= x <= 231\u00a0- 1",
+          "confidence": "high",
+          "variables": [
+            "x"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "x": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "perfect-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= num <= 108",
+          "confidence": "high",
+          "variables": [
+            "num"
+          ],
+          "min": 1,
+          "max": 108
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "num": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "plus-one": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= digits.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "digits"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= digits[i] <= 9",
+          "confidence": "high",
+          "variables": [
+            "digits"
+          ],
+          "min": 0,
+          "max": 9
+        },
+        {
+          "kind": "charset",
+          "raw": "digits does not contain any leading 0's.",
+          "confidence": "medium",
+          "variables": [
+            "digits"
+          ],
+          "charset": "digits"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "digits": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "power-of-four": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "power-of-three": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "power-of-two": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= n <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "powerful-integers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= x, y <= 100",
+          "confidence": "high",
+          "variables": [
+            "x"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= x, y <= 100",
+          "confidence": "high",
+          "variables": [
+            "y"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= bound <= 106",
+          "confidence": "high",
+          "variables": [
+            "bound"
+          ],
+          "min": 0,
+          "max": 106
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "x": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "y": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "bound": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "powx-n": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= n <= 231-1",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": -231
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= xn <= 104",
+          "confidence": "high",
+          "variables": [
+            "xn"
+          ],
+          "min": -104,
+          "max": 104
+        }
+      ],
+      "unresolved": [
+        "-100.0 < x < 100.0",
+        "n is an integer.",
+        "Either x is not zero or n > 0."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "xn": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "predict-the-winner": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 20",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 20
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= nums[i] <= 107",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "max": 107
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "prime-number-of-set-bits-in-binary-representation": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= left <= right <= 106",
+          "confidence": "high",
+          "variables": [
+            "left"
+          ],
+          "min": 1,
+          "max": 106,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= left <= right <= 106",
+          "confidence": "high",
+          "variables": [
+            "right"
+          ],
+          "min": 1,
+          "max": 106,
+          "metadata": {
+            "chained_inequality": true
+          }
+        }
+      ],
+      "unresolved": [
+        "0 <= right - left <= 104"
+      ],
+      "parameterMapping": {
+        "left": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "right": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "prime-palindrome": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 108",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 108
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "prison-cells-after-n-days": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 109
+        },
+        {
+          "kind": "exact_length",
+          "raw": "cells.length == 8",
+          "confidence": "high",
+          "variables": [
+            "cells"
+          ],
+          "min": 8,
+          "max": 8
+        },
+        {
+          "kind": "charset",
+          "raw": "cells[i]\u00a0is either 0 or 1.",
+          "confidence": "medium",
+          "variables": [
+            "cells"
+          ],
+          "charset": "either_0 or 1"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "cells": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "projection-area-of-3d-shapes": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 50",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 50
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= grid[i][j] <= 50",
+          "confidence": "high",
+          "variables": [
+            "grid"
+          ],
+          "min": 0,
+          "max": 50,
+          "metadata": {
+            "dimensions": 2
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid.length == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid.length == grid[i].length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "grid": {
+          "type": "[[Character]]",
+          "index": 1,
+          "role": "grid"
+        }
+      }
+    },
+    "rabbits-in-forest": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= answers.length <= 1000",
+          "confidence": "high",
+          "variables": [
+            "answers"
+          ],
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= answers[i] < 1000",
+          "confidence": "high",
+          "variables": [
+            "answers"
+          ],
+          "min": 0,
+          "max": 1000,
+          "metadata": {
+            "upper_exclusive": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "answers": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "random-pick-index": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 2 * 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1
+        },
+        {
+          "kind": "element_range",
+          "raw": "-231 <= nums[i] <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -231
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to pick.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [
+        "target is an integer from nums."
+      ],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "random-pick-with-weight": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= w.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "w"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "1 <= w[i] <= 105",
+          "confidence": "high",
+          "variables": [
+            "w"
+          ],
+          "min": 1,
+          "max": 105
+        }
+      ],
+      "unresolved": [
+        "pickIndex will be called at most 104 times."
+      ],
+      "parameterMapping": {
+        "w": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "random-point-in-non-overlapping-rectangles": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= rects.length <= 100",
+          "confidence": "high",
+          "variables": [
+            "rects"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "exact_length",
+          "raw": "rects[i].length == 4",
+          "confidence": "high",
+          "variables": [
+            "rects"
+          ],
+          "min": 4,
+          "max": 4,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All the rectangles do not overlap.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to pick.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [
+        "-109 <= ai < xi <= 109",
+        "-109 <= bi < yi <= 109",
+        "xi - ai <= 2000",
+        "yi - bi <= 2000"
+      ],
+      "parameterMapping": {
+        "rects": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "range-addition-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 4 * 104",
+          "confidence": "high",
+          "variables": [
+            "m"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= m, n <= 4 * 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "array_length",
+          "raw": "0 <= ops.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "ops"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= ai <= m",
+          "confidence": "high",
+          "variables": [
+            "ai"
+          ],
+          "min": 1,
+          "metadata": {
+            "upper_ref": "m"
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= bi <= n",
+          "confidence": "high",
+          "variables": [
+            "bi"
+          ],
+          "min": 1,
+          "metadata": {
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "ops[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "ops"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "m": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "ops": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "ai": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "bi": {
+          "type": "Unknown",
+          "index": 4
+        }
+      }
+    },
+    "reach-a-number": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-109 <= target <= 109",
+          "confidence": "high",
+          "variables": [
+            "target"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "prose",
+          "raw": "target != 0",
+          "confidence": "medium",
+          "variables": [
+            "target",
+            "0"
+          ],
+          "property": "inequality_!="
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "target": {
+          "type": "Int",
+          "index": 0,
+          "role": "target"
+        },
+        "0": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "reconstruct-original-digits-from-english": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "guarantee",
+          "raw": "s is guaranteed to be valid.",
+          "confidence": "medium",
+          "property": "valid_answer"
+        }
+      ],
+      "unresolved": [
+        "s[i] is one of the characters [\"e\",\"g\",\"f\",\"i\",\"h\",\"o\",\"n\",\"s\",\"r\",\"u\",\"t\",\"w\",\"v\",\"x\",\"z\"]."
+      ],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "rectangle-area": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= ax1 <= ax2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "ax1"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= ax1 <= ax2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "ax2"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= ay1 <= ay2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "ay1"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= ay1 <= ay2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "ay2"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= bx1 <= bx2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "bx1"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= bx1 <= bx2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "bx2"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= by1 <= by2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "by1"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= by1 <= by2 <= 104",
+          "confidence": "high",
+          "variables": [
+            "by2"
+          ],
+          "min": -104,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "ax1": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "ax2": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "ay1": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "ay2": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "bx1": {
+          "type": "Unknown",
+          "index": 4
+        },
+        "bx2": {
+          "type": "Unknown",
+          "index": 5
+        },
+        "by1": {
+          "type": "Unknown",
+          "index": 6
+        },
+        "by2": {
+          "type": "Unknown",
+          "index": 7
+        }
+      }
+    },
+    "rectangle-overlap": {
+      "constraints": [
+        {
+          "kind": "element_range",
+          "raw": "-109 <= rec1[i], rec2[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "rec1"
+          ],
+          "min": -109,
+          "max": 109,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "-109 <= rec1[i], rec2[i] <= 109",
+          "confidence": "high",
+          "variables": [
+            "rec2"
+          ],
+          "min": -109,
+          "max": 109,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "rec1.length == 4",
+          "confidence": "high",
+          "variables": [
+            "rec1"
+          ],
+          "min": 4,
+          "max": 4
+        },
+        {
+          "kind": "exact_length",
+          "raw": "rec2.length == 4",
+          "confidence": "high",
+          "variables": [
+            "rec2"
+          ],
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "unresolved": [
+        "rec1 and rec2 represent a valid rectangle with a non-zero area."
+      ],
+      "parameterMapping": {
+        "rec1": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "rec2": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "reordered-power-of-2": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 109",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 109
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "reverse-integer": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= x <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "x"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "x": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "roman-to-integer": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= s.length <= 15",
+          "confidence": "high",
+          "variables": [
+            "s"
+          ],
+          "min": 1,
+          "max": 15
+        },
+        {
+          "kind": "charset",
+          "raw": "s contains only\u00a0the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').",
+          "confidence": "medium",
+          "variables": [
+            "s"
+          ],
+          "charset": "the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M')"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "It is guaranteed\u00a0that s is a valid roman numeral in the range [1, 3999].",
+          "confidence": "medium",
+          "property": "valid_answer"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "s": {
+          "type": "String",
+          "index": 0,
+          "role": "string"
+        }
+      }
+    },
+    "rotate-function": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "element_range",
+          "raw": "-100 <= nums[i] <= 100",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == nums.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "nums.length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "nums": {
+          "type": "[Int]",
+          "index": 1,
+          "role": "array"
+        }
+      }
+    },
+    "rotated-digits": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "self-dividing-numbers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= left <= right <= 104",
+          "confidence": "high",
+          "variables": [
+            "left"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= left <= right <= 104",
+          "confidence": "high",
+          "variables": [
+            "right"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "left": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "right": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "shuffle-an-array": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 50",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 50
+        },
+        {
+          "kind": "element_range",
+          "raw": "-106 <= nums[i] <= 106",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -106,
+          "max": 106
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the elements of nums are unique.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [
+        "At most 104 calls in total will be made to reset and shuffle."
+      ],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "smallest-integer-divisible-by-k": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= 105",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "smallest-range-i": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= nums[i] <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        },
+        "k": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        }
+      }
+    }
+  }
+}

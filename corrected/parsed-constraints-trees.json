@@ -1,0 +1,3197 @@
+{
+  "topic": "trees",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "add-one-row-to-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= val <= 105",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": -105,
+          "max": 105
+        },
+        {
+          "kind": "tree_property",
+          "raw": "The depth of the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [
+        "1 <= depth <= the depth of tree + 1"
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "val": {
+          "type": "Int",
+          "index": 2,
+          "role": "value"
+        }
+      }
+    },
+    "all-nodes-distance-k-in-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 500].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 500,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 500",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 500
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= k <= 1000",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values Node.val are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "target is the value of one of the nodes in the tree."
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "k": {
+          "type": "Int",
+          "index": 2,
+          "role": "integer"
+        }
+      }
+    },
+    "average-of-levels-in-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= Node.val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "balanced-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 5000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 5000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -104,
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "binary-tree-level-order-traversal": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 2000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 2000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "binary-tree-level-order-traversal-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 2000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 2000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "binary-tree-pruning": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 200].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 200,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "Node.val is either 0 or 1.",
+          "confidence": "medium",
+          "variables": [
+            "Node.val"
+          ],
+          "charset": "0 or 1"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "binary-tree-right-side-view": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "binary-tree-tilt": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "binary-tree-zigzag-level-order-traversal": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 2000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 2000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "check-completeness-of-a-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "complete-binary-tree-inserter": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 5000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 5000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= val <= 5000",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": 0,
+          "max": 5000
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the tree will be in the range [1, 1000].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "tree_property",
+          "raw": "root is a complete binary tree.",
+          "confidence": "medium",
+          "property": "tree"
+        },
+        {
+          "kind": "method_calls",
+          "raw": "At most 104 calls will be made to insert and get_root.",
+          "confidence": "high",
+          "max": 104
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "val": {
+          "type": "Int",
+          "index": 1,
+          "role": "value"
+        }
+      }
+    },
+    "construct-binary-tree-from-inorder-and-postorder-traversal": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= inorder.length <= 3000",
+          "confidence": "high",
+          "variables": [
+            "inorder"
+          ],
+          "min": 1,
+          "max": 3000
+        },
+        {
+          "kind": "element_range",
+          "raw": "-3000 <= inorder[i], postorder[i] <= 3000",
+          "confidence": "high",
+          "variables": [
+            "inorder"
+          ],
+          "min": -3000,
+          "max": 3000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "-3000 <= inorder[i], postorder[i] <= 3000",
+          "confidence": "high",
+          "variables": [
+            "postorder"
+          ],
+          "min": -3000,
+          "max": 3000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "postorder.length == inorder.length",
+          "confidence": "high",
+          "variables": [
+            "postorder",
+            "inorder"
+          ],
+          "property": "equal_length"
+        },
+        {
+          "kind": "charset",
+          "raw": "inorder and postorder consist of unique values.",
+          "confidence": "medium",
+          "variables": [
+            "inorder",
+            "postorder"
+          ],
+          "charset": "unique values"
+        },
+        {
+          "kind": "prose",
+          "raw": "Each value of postorder also appears in inorder.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "charset",
+          "raw": "inorder is guaranteed to be the inorder traversal of the tree.",
+          "confidence": "medium",
+          "variables": [
+            "inorder"
+          ],
+          "charset": "guaranteed to be the inorder traversal of the tree"
+        },
+        {
+          "kind": "charset",
+          "raw": "postorder is guaranteed to be the postorder traversal of the tree.",
+          "confidence": "medium",
+          "variables": [
+            "postorder"
+          ],
+          "charset": "guaranteed to be the postorder traversal of the tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "inorder": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "postorder": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "construct-binary-tree-from-preorder-and-inorder-traversal": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= preorder.length <= 3000",
+          "confidence": "high",
+          "variables": [
+            "preorder"
+          ],
+          "min": 1,
+          "max": 3000
+        },
+        {
+          "kind": "element_range",
+          "raw": "-3000 <= preorder[i], inorder[i] <= 3000",
+          "confidence": "high",
+          "variables": [
+            "preorder"
+          ],
+          "min": -3000,
+          "max": 3000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "-3000 <= preorder[i], inorder[i] <= 3000",
+          "confidence": "high",
+          "variables": [
+            "inorder"
+          ],
+          "min": -3000,
+          "max": 3000,
+          "metadata": {
+            "expanded_from_multi_var": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "inorder.length == preorder.length",
+          "confidence": "high",
+          "variables": [
+            "inorder",
+            "preorder"
+          ],
+          "property": "equal_length"
+        },
+        {
+          "kind": "charset",
+          "raw": "preorder and inorder consist of unique values.",
+          "confidence": "medium",
+          "variables": [
+            "preorder",
+            "inorder"
+          ],
+          "charset": "unique values"
+        },
+        {
+          "kind": "prose",
+          "raw": "Each value of inorder also appears in preorder.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "charset",
+          "raw": "preorder is guaranteed to be the preorder traversal of the tree.",
+          "confidence": "medium",
+          "variables": [
+            "preorder"
+          ],
+          "charset": "guaranteed to be the preorder traversal of the tree"
+        },
+        {
+          "kind": "charset",
+          "raw": "inorder is guaranteed to be the inorder traversal of the tree.",
+          "confidence": "medium",
+          "variables": [
+            "inorder"
+          ],
+          "charset": "guaranteed to be the inorder traversal of the tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "preorder": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "inorder": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "construct-binary-tree-from-preorder-and-postorder-traversal": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= preorder.length <= 30",
+          "confidence": "high",
+          "variables": [
+            "preorder"
+          ],
+          "min": 1,
+          "max": 30
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the values of preorder are unique.",
+          "confidence": "medium",
+          "variables": [
+            "preorder"
+          ],
+          "property": "unique"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "postorder.length == preorder.length",
+          "confidence": "high",
+          "variables": [
+            "postorder",
+            "preorder"
+          ],
+          "property": "equal_length"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the values of postorder are unique.",
+          "confidence": "medium",
+          "variables": [
+            "postorder"
+          ],
+          "property": "unique"
+        },
+        {
+          "kind": "charset",
+          "raw": "It is guaranteed that preorder and postorder are the preorder traversal and postorder traversal of the same binary tree.",
+          "confidence": "medium",
+          "variables": [
+            "It"
+          ],
+          "charset": "guaranteed that preorder and postorder are the preorder traversal and postorder traversal of the same binary tree"
+        }
+      ],
+      "unresolved": [
+        "1 <= preorder[i] <= preorder.length",
+        "1 <= postorder[i] <= postorder.length"
+      ],
+      "parameterMapping": {
+        "preorder": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "postorder": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "It": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "construct-quad-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "n == 2x where 0 <= x <= 6",
+          "confidence": "medium",
+          "variables": [
+            "n"
+          ],
+          "metadata": {
+            "where_clause": true
+          }
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == grid.length == grid[i].length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "grid.length == grid[i].length"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "construct-string-from-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "convert-bst-to-greater-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values in the tree are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "root is guaranteed to be a valid binary search tree.",
+          "confidence": "medium",
+          "property": "valid_answer"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "convert-sorted-array-to-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= nums.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "element_range",
+          "raw": "-104 <= nums[i] <= 104",
+          "confidence": "high",
+          "variables": [
+            "nums"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "charset",
+          "raw": "nums is sorted in a strictly increasing order.",
+          "confidence": "medium",
+          "variables": [
+            "nums"
+          ],
+          "charset": "sorted in a strictly increasing order"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nums": {
+          "type": "[Int]",
+          "index": 0,
+          "role": "array"
+        }
+      }
+    },
+    "count-good-nodes-in-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the binary tree is in the range\u00a0[1, 10^5].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 100000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "Each node's value is between [-10^4, 10^4].",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "cousins-in-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "prose",
+          "raw": "Each node has a unique value.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "prose",
+          "raw": "x != y",
+          "confidence": "medium",
+          "variables": [
+            "x",
+            "y"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "charset",
+          "raw": "x and y are exist in the tree.",
+          "confidence": "medium",
+          "variables": [
+            "x",
+            "y"
+          ],
+          "charset": "exist in the tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "x": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "y": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "delete-node-in-a-bst": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= key <= 105",
+          "confidence": "high",
+          "variables": [
+            "key"
+          ],
+          "min": -105,
+          "max": 105
+        },
+        {
+          "kind": "prose",
+          "raw": "Each node has a unique value.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "tree_property",
+          "raw": "root is a valid binary search tree.",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "key": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "diameter-of-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "distribute-coins-in-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 100",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the tree is n.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [
+        "0 <= Node.val <= n",
+        "The sum of all Node.val is n."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        }
+      }
+    },
+    "employee-importance": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= employees.length <= 2000",
+          "confidence": "high",
+          "variables": [
+            "employees"
+          ],
+          "min": 1,
+          "max": 2000
+        },
+        {
+          "kind": "prose",
+          "raw": "All employees[i].id are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [
+        "1 <= employees[i].id <= 2000",
+        "-100 <= employees[i].importance <= 100",
+        "One employee has at most one direct leader and may have several subordinates.",
+        "The IDs in employees[i].subordinates are valid IDs."
+      ],
+      "parameterMapping": {
+        "employees": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "find-bottom-left-tree-value": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= Node.val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "find-duplicate-subtrees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of the nodes in the tree will be in the range [1, 5000]",
+          "confidence": "medium",
+          "variables": [
+            "be"
+          ],
+          "min": 1,
+          "max": 5000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-200 <= Node.val <= 200",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -200,
+          "max": 200
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "be": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "find-largest-value-in-each-tree-row": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= Node.val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -231
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the tree will be in the range [0, 104].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "find-mode-in-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "flip-binary-tree-to-match-preorder-traversal": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 100",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val, voyage[i] <= n",
+          "confidence": "high",
+          "variables": [
+            "Node"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "1 <= Node.val, voyage[i] <= n",
+          "confidence": "high",
+          "variables": [
+            "voyage"
+          ],
+          "min": 1,
+          "metadata": {
+            "expanded_from_multi_var": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the tree is n.",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "n == voyage.length",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "property": "voyage.length"
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values in the tree are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "All the values in voyage are unique.",
+          "confidence": "medium",
+          "variables": [
+            "voyage"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "Node": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "voyage": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "flip-equivalent-binary-trees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in each tree is in the range [0, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "uniqueness",
+          "raw": "Each tree will have unique node values in the range [0, 99].",
+          "confidence": "medium",
+          "variables": [
+            "will"
+          ],
+          "property": "unique"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "will": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "insert-into-a-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-108 <= Node.val <= 108",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -108,
+          "max": 108
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-108 <= val <= 108",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": -108,
+          "max": 108
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in\u00a0the tree will be in the range [0,\u00a0104].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values Node.val are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "guarantee",
+          "raw": "It's guaranteed that val does not exist in the original BST.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "val": {
+          "type": "Int",
+          "index": 1,
+          "role": "value"
+        }
+      }
+    },
+    "invert-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "kth-smallest-element-in-a-bst": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "k"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= k <= n <= 104",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the tree is n.",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "k": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "n": {
+          "type": "Int",
+          "index": 1,
+          "role": "integer"
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "leaf-similar-trees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "Both of the given trees will have values in the range [0, 200].",
+          "confidence": "medium",
+          "variables": [
+            "values"
+          ],
+          "min": 0,
+          "max": 200
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in each tree will be in the range [1, 200].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "values": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "logical-or-of-two-binary-grids-represented-as-quad-trees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "n == 2x where 0 <= x <= 9.",
+          "confidence": "medium",
+          "variables": [
+            "n"
+          ],
+          "metadata": {
+            "where_clause": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "quadTree1 and quadTree2 are both valid Quad-Trees each representing a n * n grid.",
+          "confidence": "medium",
+          "variables": [
+            "quadTree1",
+            "quadTree2"
+          ],
+          "charset": "both valid Quad-Trees each representing a n * n grid"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "quadTree1": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "quadTree2": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "longest-univalue-path": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        },
+        {
+          "kind": "tree_property",
+          "raw": "The depth of the tree will not exceed 1000.",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "lowest-common-ancestor-of-a-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 105].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 105,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-109 <= Node.val <= 109",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "prose",
+          "raw": "All Node.val are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "prose",
+          "raw": "p != q",
+          "confidence": "medium",
+          "variables": [
+            "p",
+            "q"
+          ],
+          "property": "inequality_!="
+        },
+        {
+          "kind": "tree_property",
+          "raw": "p and q will exist in the BST.",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "p": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "q": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "lowest-common-ancestor-of-a-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 105].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 105,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-109 <= Node.val <= 109",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "prose",
+          "raw": "All Node.val are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        },
+        {
+          "kind": "prose",
+          "raw": "p != q",
+          "confidence": "medium",
+          "variables": [
+            "p",
+            "q"
+          ],
+          "property": "inequality_!="
+        }
+      ],
+      "unresolved": [
+        "p and q will exist in the tree."
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "p": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "q": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "maximum-binary-tree-ii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= val <= 100",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": 1,
+          "max": 100
+        },
+        {
+          "kind": "prose",
+          "raw": "All the values of the tree are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "val": {
+          "type": "Int",
+          "index": 2,
+          "role": "value"
+        }
+      }
+    },
+    "maximum-depth-of-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "maximum-depth-of-n-ary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The total number of nodes is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodes"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "tree_property",
+          "raw": "The depth of the n-ary tree is less than or equal to 1000.",
+          "confidence": "medium",
+          "max": 1000,
+          "property": "max_depth"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodes": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "maximum-difference-between-node-and-ancestor": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 5000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 5000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "maximum-width-of-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 3000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 3000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "merge-two-binary-trees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in both trees is in the range [0, 2000].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "minimum-absolute-difference-in-bst": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "minimum-depth-of-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 105].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 105,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "minimum-distance-between-bst-nodes": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "most-frequent-subtree-sum": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-105 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -105,
+          "max": 105
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "n-ary-tree-level-order-traversal": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The total number of nodes is between [0, 104]",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "tree_property",
+          "raw": "The height of the n-ary tree is less than or equal to 1000",
+          "confidence": "medium",
+          "max": 1000,
+          "property": "max_depth"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "path-sum": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 5000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 5000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= targetSum <= 1000",
+          "confidence": "high",
+          "variables": [
+            "targetSum"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "targetSum": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "path-sum-iii": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-109 <= Node.val <= 109",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -109,
+          "max": 109
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= targetSum <= 1000",
+          "confidence": "high",
+          "variables": [
+            "targetSum"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "targetSum": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "print-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 210].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 210,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-99 <= Node.val <= 99",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -99,
+          "max": 99
+        },
+        {
+          "kind": "tree_property",
+          "raw": "The depth of the tree will be in the range [1, 10].",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "range-sum-of-bst": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 2 * 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 105",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= low <= high <= 105",
+          "confidence": "high",
+          "variables": [
+            "low"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= low <= high <= 105",
+          "confidence": "high",
+          "variables": [
+            "high"
+          ],
+          "min": 1,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "prose",
+          "raw": "All Node.val are unique.",
+          "confidence": "low",
+          "property": "prose_constraint"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "low": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "high": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "recover-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [2, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 2,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= Node.val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "same-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in both trees is in the range [0, 100].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "search-in-a-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 5000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 5000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 107",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1,
+          "max": 107
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= val <= 107",
+          "confidence": "high",
+          "variables": [
+            "val"
+          ],
+          "min": 1,
+          "max": 107
+        },
+        {
+          "kind": "tree_property",
+          "raw": "root is a binary search tree.",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "val": {
+          "type": "Int",
+          "index": 2,
+          "role": "value"
+        }
+      }
+    },
+    "second-minimum-node-in-a-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 25].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 25,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "1 <= Node.val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 1
+        }
+      ],
+      "unresolved": [
+        "root.val == min(root.left.val, root.right.val)\u00a0for each internal node of the tree."
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "serialize-and-deserialize-bst": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [0, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "guarantee",
+          "raw": "The input tree is guaranteed to be a binary search tree.",
+          "confidence": "medium",
+          "property": "guaranteed"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "smallest-subtree-with-all-the-deepest-nodes": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 500",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 500
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the tree will be in the range [1, 500].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [
+        "The values of the nodes in the tree are unique."
+      ],
+      "parameterMapping": {
+        "Node.val": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "subtree-of-another-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= root.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "root.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-104 <= subRoot.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "subRoot.val"
+          ],
+          "min": -104,
+          "max": 104
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the root tree is in the range [1, 2000].",
+          "confidence": "medium",
+          "property": "count"
+        },
+        {
+          "kind": "graph_property",
+          "raw": "The number of nodes in the subRoot tree is in the range [1, 1000].",
+          "confidence": "medium",
+          "property": "count"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "root.val": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "subRoot.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "sum-of-left-leaves": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-1000 <= Node.val <= 1000",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -1000,
+          "max": 1000
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "sum-of-root-to-leaf-binary-numbers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "Node.val is 0 or 1.",
+          "confidence": "medium",
+          "variables": [
+            "Node.val"
+          ],
+          "charset": "0 or 1"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "sum-root-to-leaf-numbers": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 9",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 9
+        },
+        {
+          "kind": "tree_property",
+          "raw": "The depth of the tree will not exceed 10.",
+          "confidence": "medium",
+          "property": "tree"
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "symmetric-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 1000].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 1000,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-100 <= Node.val <= 100",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -100,
+          "max": 100
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    },
+    "time-needed-to-inform-all-employees": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "1 <= n <= 105",
+          "confidence": "high",
+          "variables": [
+            "n"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= headID < n",
+          "confidence": "high",
+          "variables": [
+            "headID"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= manager[i] < n",
+          "confidence": "high",
+          "variables": [
+            "manager"
+          ],
+          "min": 0,
+          "metadata": {
+            "upper_exclusive": true,
+            "upper_ref": "n"
+          }
+        },
+        {
+          "kind": "element_range",
+          "raw": "0 <= informTime[i] <= 1000",
+          "confidence": "high",
+          "variables": [
+            "informTime"
+          ],
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "manager.length == n",
+          "confidence": "high",
+          "variables": [
+            "manager.length"
+          ],
+          "property": "n"
+        },
+        {
+          "kind": "variable_equality",
+          "raw": "informTime.length == n",
+          "confidence": "high",
+          "variables": [
+            "informTime.length"
+          ],
+          "property": "n"
+        },
+        {
+          "kind": "charset",
+          "raw": "It is guaranteed that all the employees can be informed.",
+          "confidence": "medium",
+          "variables": [
+            "It"
+          ],
+          "charset": "guaranteed that all the employees can be informed"
+        }
+      ],
+      "unresolved": [
+        "manager[headID] == -1",
+        "informTime[i] == 0 if employee i has no subordinates."
+      ],
+      "parameterMapping": {
+        "n": {
+          "type": "Int",
+          "index": 0,
+          "role": "integer"
+        },
+        "headID": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "manager": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "informTime": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "manager.length": {
+          "type": "Unknown",
+          "index": 4
+        },
+        "informTime.length": {
+          "type": "Unknown",
+          "index": 5
+        },
+        "It": {
+          "type": "Unknown",
+          "index": 6
+        }
+      }
+    },
+    "trim-a-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= Node.val <= 104",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= low <= high <= 104",
+          "confidence": "high",
+          "variables": [
+            "low"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= low <= high <= 104",
+          "confidence": "high",
+          "variables": [
+            "high"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "guarantee",
+          "raw": "root is guaranteed to be a valid binary search tree.",
+          "confidence": "medium",
+          "property": "valid_answer"
+        }
+      ],
+      "unresolved": [
+        "The value of each node in the tree is unique."
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "low": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "high": {
+          "type": "Unknown",
+          "index": 3
+        }
+      }
+    },
+    "univalued-binary-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 100].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 100,
+          "metadata": {
+            "node_count": true
+          }
+        }
+      ],
+      "unresolved": [
+        "0 <= Node.val < 100"
+      ],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        }
+      }
+    },
+    "validate-binary-search-tree": {
+      "constraints": [
+        {
+          "kind": "integer_range",
+          "raw": "The number of nodes in the tree is in the range [1, 104].",
+          "confidence": "medium",
+          "variables": [
+            "nodeCount"
+          ],
+          "min": 1,
+          "max": 104,
+          "metadata": {
+            "node_count": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "-231 <= Node.val <= 231 - 1",
+          "confidence": "high",
+          "variables": [
+            "Node.val"
+          ],
+          "min": -231
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "nodeCount": {
+          "type": "Unknown",
+          "index": 0
+        },
+        "Node.val": {
+          "type": "Unknown",
+          "index": 1
+        }
+      }
+    }
+  }
+}

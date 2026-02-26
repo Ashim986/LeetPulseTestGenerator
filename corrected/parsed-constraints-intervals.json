@@ -1,0 +1,248 @@
+{
+  "topic": "intervals",
+  "generatedAt": "2026-02-26T16:12:30Z",
+  "problems": {
+    "insert-interval": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "0 <= intervals.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "intervals"
+          ],
+          "min": 0,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= starti <= endi <= 105",
+          "confidence": "high",
+          "variables": [
+            "starti"
+          ],
+          "min": 0,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= starti <= endi <= 105",
+          "confidence": "high",
+          "variables": [
+            "endi"
+          ],
+          "min": 0,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= start <= end <= 105",
+          "confidence": "high",
+          "variables": [
+            "start"
+          ],
+          "min": 0,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= start <= end <= 105",
+          "confidence": "high",
+          "variables": [
+            "end"
+          ],
+          "min": 0,
+          "max": 105,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "intervals[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "intervals"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        },
+        {
+          "kind": "charset",
+          "raw": "intervals is sorted by starti in ascending order.",
+          "confidence": "medium",
+          "variables": [
+            "intervals"
+          ],
+          "charset": "sorted by starti in ascending order"
+        },
+        {
+          "kind": "exact_length",
+          "raw": "newInterval.length == 2",
+          "confidence": "high",
+          "variables": [
+            "newInterval"
+          ],
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "intervals": {
+          "type": "[[Int]]",
+          "index": 0,
+          "role": "intervals"
+        },
+        "starti": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "endi": {
+          "type": "Unknown",
+          "index": 2
+        },
+        "start": {
+          "type": "Unknown",
+          "index": 3
+        },
+        "end": {
+          "type": "Unknown",
+          "index": 4
+        },
+        "newInterval": {
+          "type": "Unknown",
+          "index": 5
+        }
+      }
+    },
+    "meeting-rooms": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "meeting-rooms-ii": {
+      "constraints": [],
+      "unresolved": [],
+      "parameterMapping": {}
+    },
+    "merge-intervals": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= intervals.length <= 104",
+          "confidence": "high",
+          "variables": [
+            "intervals"
+          ],
+          "min": 1,
+          "max": 104
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= starti <= endi <= 104",
+          "confidence": "high",
+          "variables": [
+            "starti"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "integer_range",
+          "raw": "0 <= starti <= endi <= 104",
+          "confidence": "high",
+          "variables": [
+            "endi"
+          ],
+          "min": 0,
+          "max": 104,
+          "metadata": {
+            "chained_inequality": true
+          }
+        },
+        {
+          "kind": "exact_length",
+          "raw": "intervals[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "intervals"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        }
+      ],
+      "unresolved": [],
+      "parameterMapping": {
+        "intervals": {
+          "type": "[[Int]]",
+          "index": 0,
+          "role": "intervals"
+        },
+        "starti": {
+          "type": "Unknown",
+          "index": 1
+        },
+        "endi": {
+          "type": "Unknown",
+          "index": 2
+        }
+      }
+    },
+    "non-overlapping-intervals": {
+      "constraints": [
+        {
+          "kind": "array_length",
+          "raw": "1 <= intervals.length <= 105",
+          "confidence": "high",
+          "variables": [
+            "intervals"
+          ],
+          "min": 1,
+          "max": 105
+        },
+        {
+          "kind": "exact_length",
+          "raw": "intervals[i].length == 2",
+          "confidence": "high",
+          "variables": [
+            "intervals"
+          ],
+          "min": 2,
+          "max": 2,
+          "metadata": {
+            "nested": true
+          }
+        }
+      ],
+      "unresolved": [
+        "-5 * 104 <= starti < endi <= 5 * 104"
+      ],
+      "parameterMapping": {
+        "intervals": {
+          "type": "[[Int]]",
+          "index": 0,
+          "role": "intervals"
+        }
+      }
+    }
+  }
+}
