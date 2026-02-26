@@ -50,7 +50,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -124,7 +124,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -198,7 +198,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -272,7 +272,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -346,7 +346,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -420,7 +420,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -494,7 +494,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -568,7 +568,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -642,7 +642,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -716,7 +716,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -790,7 +790,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -864,7 +864,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -938,7 +938,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1012,7 +1012,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1086,7 +1086,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1160,7 +1160,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1234,7 +1234,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1308,7 +1308,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1382,7 +1382,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1456,7 +1456,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1530,7 +1530,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1604,7 +1604,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1678,7 +1678,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1752,7 +1752,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {
@@ -1826,7 +1826,7 @@ private class Solution {
             return
         }
         guard p_candidates.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: candidates array too large (\(p_candidates.count))")
             return
         }
         guard let p_target = InputParser.parseInt(params[1]) else {

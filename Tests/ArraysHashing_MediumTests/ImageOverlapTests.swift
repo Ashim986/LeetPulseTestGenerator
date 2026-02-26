@@ -59,7 +59,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -67,7 +67,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -106,7 +106,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -114,7 +114,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -153,7 +153,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -161,7 +161,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -200,7 +200,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -208,7 +208,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -247,7 +247,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -255,7 +255,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -294,7 +294,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -302,7 +302,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -341,7 +341,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -349,7 +349,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -388,7 +388,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -396,7 +396,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -435,7 +435,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -443,7 +443,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -482,7 +482,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -490,7 +490,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -529,7 +529,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -537,7 +537,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -576,7 +576,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -584,7 +584,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -623,7 +623,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -631,7 +631,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -670,7 +670,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -678,7 +678,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -717,7 +717,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -725,7 +725,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -764,7 +764,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -772,7 +772,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -811,7 +811,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -819,7 +819,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -858,7 +858,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -866,7 +866,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -905,7 +905,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -913,7 +913,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -952,7 +952,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -960,7 +960,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -999,7 +999,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -1007,7 +1007,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -1046,7 +1046,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -1054,7 +1054,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -1093,7 +1093,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -1101,7 +1101,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -1140,7 +1140,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -1148,7 +1148,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 
@@ -1187,7 +1187,7 @@ private class Solution {
             return
         }
         guard p_img1.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img1 2D array too large (\(p_img1.count))")
             return
         }
         guard let p_img2 = InputParser.parse2DIntArray(params[1]) else {
@@ -1195,7 +1195,7 @@ private class Solution {
             return
         }
         guard p_img2.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: img2 2D array too large (\(p_img2.count))")
             return
         }
 

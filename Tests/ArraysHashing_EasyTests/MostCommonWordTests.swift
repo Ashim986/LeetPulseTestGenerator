@@ -38,7 +38,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -46,7 +46,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -102,7 +102,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -110,7 +110,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -166,7 +166,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -174,7 +174,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -230,7 +230,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -238,7 +238,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -294,7 +294,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -302,7 +302,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -358,7 +358,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -366,7 +366,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -422,7 +422,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -430,7 +430,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -486,7 +486,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -494,7 +494,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -550,7 +550,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -558,7 +558,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -614,7 +614,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -622,7 +622,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -678,7 +678,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -686,7 +686,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -742,7 +742,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -750,7 +750,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -806,7 +806,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -814,7 +814,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -870,7 +870,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -878,7 +878,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -934,7 +934,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -942,7 +942,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -998,7 +998,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1006,7 +1006,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1062,7 +1062,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1070,7 +1070,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1126,7 +1126,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1134,7 +1134,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1190,7 +1190,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1198,7 +1198,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1254,7 +1254,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1262,7 +1262,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1318,7 +1318,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1326,7 +1326,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1382,7 +1382,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1390,7 +1390,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1446,7 +1446,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1454,7 +1454,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1510,7 +1510,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1518,7 +1518,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 
@@ -1574,7 +1574,7 @@ private class Solution {
 
         let p_paragraph = InputParser.parseString(params[0])
         guard p_paragraph.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: paragraph string too long (\(p_paragraph.count))")
             return
         }
         guard let p_banned = InputParser.parseStringArray(params[1]) else {
@@ -1582,7 +1582,7 @@ private class Solution {
             return
         }
         guard p_banned.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: banned array too large (\(p_banned.count))")
             return
         }
 

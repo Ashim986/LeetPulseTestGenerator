@@ -54,7 +54,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -62,7 +62,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -70,7 +70,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -146,7 +146,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -154,7 +154,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -162,7 +162,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -238,7 +238,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -246,7 +246,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -254,7 +254,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -330,7 +330,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -338,7 +338,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -346,7 +346,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -422,7 +422,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -430,7 +430,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -438,7 +438,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -514,7 +514,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -522,7 +522,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -530,7 +530,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -606,7 +606,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -614,7 +614,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -622,7 +622,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -698,7 +698,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -706,7 +706,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -714,7 +714,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -790,7 +790,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -798,7 +798,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -806,7 +806,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -882,7 +882,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -890,7 +890,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -898,7 +898,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -974,7 +974,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -982,7 +982,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -990,7 +990,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1066,7 +1066,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1074,7 +1074,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1082,7 +1082,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1158,7 +1158,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1166,7 +1166,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1174,7 +1174,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1250,7 +1250,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1258,7 +1258,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1266,7 +1266,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1342,7 +1342,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1350,7 +1350,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1358,7 +1358,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1434,7 +1434,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1442,7 +1442,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1450,7 +1450,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1526,7 +1526,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1534,7 +1534,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1542,7 +1542,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1618,7 +1618,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1626,7 +1626,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1634,7 +1634,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1710,7 +1710,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1718,7 +1718,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1726,7 +1726,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1802,7 +1802,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1810,7 +1810,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1818,7 +1818,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1894,7 +1894,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1902,7 +1902,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -1910,7 +1910,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -1986,7 +1986,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -1994,7 +1994,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -2002,7 +2002,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -2078,7 +2078,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -2086,7 +2086,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -2094,7 +2094,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -2170,7 +2170,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -2178,7 +2178,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -2186,7 +2186,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
@@ -2262,7 +2262,7 @@ private class Solution {
             return
         }
         guard p_equations.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: equations 2D array too large (\(p_equations.count))")
             return
         }
         guard let p_values = InputParser.parseDoubleArray(params[1]) else {
@@ -2270,7 +2270,7 @@ private class Solution {
             return
         }
         guard p_values.count <= 100_000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: values array too large (\(p_values.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: values array too large (\(p_values.count))")
             return
         }
         guard let p_queries = InputParser.parse2DStringArray(params[2]) else {
@@ -2278,7 +2278,7 @@ private class Solution {
             return
         }
         guard p_queries.count <= 1000 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters,errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, status: "parse_error", orderMatters: orderMatters, errorMessage: "Constraint violation: queries 2D array too large (\(p_queries.count))")
             return
         }
 
