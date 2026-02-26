@@ -1,0 +1,10 @@
+{
+  "slug": "verifying-an-alien-dictionary",
+  "constraints": [
+    "1 <= words.length <= 100",
+    "1 <= words[i].length <= 20",
+    "order.length == 26",
+    "All characters in words[i] and order are English lowercase letters."
+  ],
+  "fetched_at": "2026-02-26T15:53:33Z"
+}

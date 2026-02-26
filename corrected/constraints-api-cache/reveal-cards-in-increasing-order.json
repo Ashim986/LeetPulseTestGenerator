@@ -1,0 +1,9 @@
+{
+  "slug": "reveal-cards-in-increasing-order",
+  "constraints": [
+    "1 <= deck.length <= 1000",
+    "1 <= deck[i] <= 10^6",
+    "All the values of deck are unique."
+  ],
+  "fetched_at": "2026-02-26T15:52:35Z"
+}

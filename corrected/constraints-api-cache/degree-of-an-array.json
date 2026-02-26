@@ -1,0 +1,8 @@
+{
+  "slug": "degree-of-an-array",
+  "constraints": [
+    "nums.length will be between 1 and 50,000.",
+    "nums[i] will be an integer between 0 and 49,999."
+  ],
+  "fetched_at": "2026-02-26T15:50:26Z"
+}

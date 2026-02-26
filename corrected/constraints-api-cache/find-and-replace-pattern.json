@@ -1,0 +1,10 @@
+{
+  "slug": "find-and-replace-pattern",
+  "constraints": [
+    "1 <= pattern.length <= 20",
+    "1 <= words.length <= 50",
+    "words[i].length == pattern.length",
+    "pattern and words[i] are lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:50:45Z"
+}

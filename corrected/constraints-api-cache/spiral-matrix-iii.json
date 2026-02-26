@@ -1,0 +1,9 @@
+{
+  "slug": "spiral-matrix-iii",
+  "constraints": [
+    "1 <= rows, cols <= 100",
+    "0 <= rStart < rows",
+    "0 <= cStart < cols"
+  ],
+  "fetched_at": "2026-02-26T15:52:57Z"
+}

@@ -1,0 +1,8 @@
+{
+  "slug": "pairs-of-songs-with-total-durations-divisible-by-60",
+  "constraints": [
+    "1 <= time.length <= 6 * 10^4",
+    "1 <= time[i] <= 500"
+  ],
+  "fetched_at": "2026-02-26T15:52:10Z"
+}

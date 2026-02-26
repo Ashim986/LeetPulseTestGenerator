@@ -1,0 +1,13 @@
+{
+  "slug": "find-and-replace-in-string",
+  "constraints": [
+    "1 <= s.length <= 1000",
+    "k == indices.length == sources.length == targets.length",
+    "1 <= k <= 100",
+    "0 <= indexes[i] < s.length",
+    "1 <= sources[i].length, targets[i].length <= 50",
+    "s consists of only lowercase English letters.",
+    "sources[i] and targets[i] consist of only lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:50:43Z"
+}

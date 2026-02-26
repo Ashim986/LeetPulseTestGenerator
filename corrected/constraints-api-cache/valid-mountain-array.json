@@ -1,0 +1,8 @@
+{
+  "slug": "valid-mountain-array",
+  "constraints": [
+    "1 <= arr.length <= 10^4",
+    "0 <= arr[i] <= 10^4"
+  ],
+  "fetched_at": "2026-02-26T15:53:25Z"
+}

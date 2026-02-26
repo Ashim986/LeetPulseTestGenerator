@@ -1,0 +1,10 @@
+{
+  "slug": "peeking-iterator",
+  "constraints": [
+    "1 <= nums.length <= 1000",
+    "1 <= nums[i] <= 1000",
+    "All the calls to next and peek are valid.",
+    "At most 1000 calls will be made to next, hasNext, and peek."
+  ],
+  "fetched_at": "2026-02-26T15:52:15Z"
+}

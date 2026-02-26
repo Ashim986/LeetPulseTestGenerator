@@ -1,0 +1,14 @@
+{
+  "slug": "minesweeper",
+  "constraints": [
+    "m == board.length",
+    "n == board[i].length",
+    "1 <= m, n <= 50",
+    "board[i][j] is either 'M', 'E', 'B', or a digit from '1' to '8'.",
+    "click.length == 2",
+    "0 <= click_r < m",
+    "0 <= click_c < n",
+    "board[click_r][click_c] is either 'M' or 'E'."
+  ],
+  "fetched_at": "2026-02-26T15:51:47Z"
+}

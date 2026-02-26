@@ -1,0 +1,10 @@
+{
+  "slug": "game-of-life",
+  "constraints": [
+    "m == board.length",
+    "n == board[i].length",
+    "1 <= m, n <= 25",
+    "board[i][j] is 0 or 1."
+  ],
+  "fetched_at": "2026-02-26T15:51:01Z"
+}

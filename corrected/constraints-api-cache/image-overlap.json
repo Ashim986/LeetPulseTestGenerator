@@ -1,0 +1,11 @@
+{
+  "slug": "image-overlap",
+  "constraints": [
+    "n == img1.length == img1[i].length",
+    "n == img2.length == img2[i].length",
+    "1 <= n <= 30",
+    "img1[i][j] is either 0 or 1.",
+    "img2[i][j] is either 0 or 1."
+  ],
+  "fetched_at": "2026-02-26T15:51:10Z"
+}

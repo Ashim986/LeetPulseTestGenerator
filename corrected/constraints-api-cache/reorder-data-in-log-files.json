@@ -1,0 +1,10 @@
+{
+  "slug": "reorder-data-in-log-files",
+  "constraints": [
+    "1 <= logs.length <= 100",
+    "3 <= logs[i].length <= 100",
+    "All the tokens of logs[i] are separated by a single space.",
+    "logs[i] is guaranteed to have an identifier and at least one word after the identifier."
+  ],
+  "fetched_at": "2026-02-26T15:53:46Z"
+}

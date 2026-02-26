@@ -1,0 +1,11 @@
+{
+  "slug": "most-common-word",
+  "constraints": [
+    "1 <= paragraph.length <= 1000",
+    "paragraph consists of English letters, space ' ', or one of the symbols: \"!?',;.\".",
+    "0 <= banned.length <= 100",
+    "1 <= banned[i].length <= 10",
+    "banned[i] consists of only lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:51:54Z"
+}

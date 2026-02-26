@@ -1,0 +1,10 @@
+{
+  "slug": "custom-sort-string",
+  "constraints": [
+    "1 <= order.length <= 26",
+    "1 <= s.length <= 200",
+    "order and s consist of lowercase English letters.",
+    "All the characters of order are unique."
+  ],
+  "fetched_at": "2026-02-26T15:50:23Z"
+}

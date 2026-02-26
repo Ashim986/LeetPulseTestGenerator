@@ -1,0 +1,8 @@
+{
+  "slug": "longest-consecutive-sequence",
+  "constraints": [
+    "0 <= nums.length <= 10^5",
+    "-10^9 <= nums[i] <= 10^9"
+  ],
+  "fetched_at": "2026-02-26T15:51:30Z"
+}

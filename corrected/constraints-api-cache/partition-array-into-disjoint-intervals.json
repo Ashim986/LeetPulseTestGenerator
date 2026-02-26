@@ -1,0 +1,9 @@
+{
+  "slug": "partition-array-into-disjoint-intervals",
+  "constraints": [
+    "2 <= nums.length <= 10^5",
+    "0 <= nums[i] <= 10^6",
+    "There is at least one valid answer for the given input."
+  ],
+  "fetched_at": "2026-02-26T15:52:13Z"
+}

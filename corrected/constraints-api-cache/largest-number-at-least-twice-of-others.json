@@ -1,0 +1,9 @@
+{
+  "slug": "largest-number-at-least-twice-of-others",
+  "constraints": [
+    "2 <= nums.length <= 50",
+    "0 <= nums[i] <= 100",
+    "The largest element in nums is unique."
+  ],
+  "fetched_at": "2026-02-26T15:51:25Z"
+}

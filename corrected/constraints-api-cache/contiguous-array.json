@@ -1,0 +1,8 @@
+{
+  "slug": "contiguous-array",
+  "constraints": [
+    "1 <= nums.length <= 10^5",
+    "nums[i] is either 0 or 1."
+  ],
+  "fetched_at": "2026-02-26T15:50:21Z"
+}

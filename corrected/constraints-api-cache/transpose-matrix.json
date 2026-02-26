@@ -1,0 +1,11 @@
+{
+  "slug": "transpose-matrix",
+  "constraints": [
+    "m == matrix.length",
+    "n == matrix[i].length",
+    "1 <= m, n <= 1000",
+    "1 <= m * n <= 10^5",
+    "-10^9 <= matrix[i][j] <= 10^9"
+  ],
+  "fetched_at": "2026-02-26T15:53:18Z"
+}

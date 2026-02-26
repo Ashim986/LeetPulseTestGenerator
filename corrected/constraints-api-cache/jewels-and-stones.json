@@ -1,0 +1,9 @@
+{
+  "slug": "jewels-and-stones",
+  "constraints": [
+    "1 <=\u00a0jewels.length, stones.length <= 50",
+    "jewels and stones consist of only English letters.",
+    "All the characters of\u00a0jewels are unique."
+  ],
+  "fetched_at": "2026-02-26T15:51:20Z"
+}

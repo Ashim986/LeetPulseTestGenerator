@@ -1,0 +1,10 @@
+{
+  "slug": "spiral-matrix",
+  "constraints": [
+    "m == matrix.length",
+    "n == matrix[i].length",
+    "1 <= m, n <= 10",
+    "-100 <= matrix[i][j] <= 100"
+  ],
+  "fetched_at": "2026-02-26T15:52:53Z"
+}

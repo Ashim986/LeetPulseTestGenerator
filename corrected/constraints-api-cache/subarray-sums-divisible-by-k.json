@@ -1,0 +1,9 @@
+{
+  "slug": "subarray-sums-divisible-by-k",
+  "constraints": [
+    "1 <= nums.length <= 3 * 10^4",
+    "-10^4 <= nums[i] <= 10^4",
+    "2 <= k <= 10^4"
+  ],
+  "fetched_at": "2026-02-26T15:53:02Z"
+}

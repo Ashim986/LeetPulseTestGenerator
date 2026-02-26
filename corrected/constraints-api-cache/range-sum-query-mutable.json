@@ -1,0 +1,12 @@
+{
+  "slug": "range-sum-query-mutable",
+  "constraints": [
+    "1 <= nums.length <= 3 * 10^4",
+    "-100 <= nums[i] <= 100",
+    "0 <= index < nums.length",
+    "-100 <= val <= 100",
+    "0 <= left <= right < nums.length",
+    "At most 3 * 10^4 calls will be made to update and sumRange."
+  ],
+  "fetched_at": "2026-02-26T15:52:23Z"
+}

@@ -1,0 +1,10 @@
+{
+  "slug": "n-repeated-element-in-size-2n-array",
+  "constraints": [
+    "2 <= n <= 5000",
+    "nums.length == 2 * n",
+    "0 <= nums[i] <= 10^4",
+    "nums contains n + 1 unique elements and one of them is repeated exactly n times."
+  ],
+  "fetched_at": "2026-02-26T15:51:59Z"
+}

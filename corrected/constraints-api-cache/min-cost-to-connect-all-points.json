@@ -1,0 +1,9 @@
+{
+  "slug": "min-cost-to-connect-all-points",
+  "constraints": [
+    "1 <= points.length <= 1000",
+    "-10^6 <= x_i, y_i <= 10^6",
+    "All pairs (x_i, y_i) are distinct."
+  ],
+  "fetched_at": "2026-02-26T15:51:45Z"
+}

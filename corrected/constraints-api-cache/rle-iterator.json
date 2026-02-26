@@ -1,0 +1,11 @@
+{
+  "slug": "rle-iterator",
+  "constraints": [
+    "2 <= encoding.length <= 1000",
+    "encoding.length is even.",
+    "0 <= encoding[i] <= 10^9",
+    "1 <= n <= 10^9",
+    "At most 1000 calls will be made to next."
+  ],
+  "fetched_at": "2026-02-26T15:52:37Z"
+}

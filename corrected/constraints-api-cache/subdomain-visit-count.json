@@ -1,0 +1,11 @@
+{
+  "slug": "subdomain-visit-count",
+  "constraints": [
+    "1 <= cpdomain.length <= 100",
+    "1 <= cpdomain[i].length <= 100",
+    "cpdomain[i] follows either the \"rep_i d1_i.d2_i.d3_i\" format or the \"rep_i d1_i.d2_i\" format.",
+    "rep_i is an integer in the range [1, 10^4].",
+    "d1_i, d2_i, and d3_i consist of lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:53:04Z"
+}

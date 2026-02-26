@@ -1,0 +1,11 @@
+{
+  "slug": "diagonal-traverse",
+  "constraints": [
+    "m == mat.length",
+    "n == mat[i].length",
+    "1 <= m, n <= 10^4",
+    "1 <= m * n <= 10^4",
+    "-10^5 <= mat[i][j] <= 10^5"
+  ],
+  "fetched_at": "2026-02-26T15:50:31Z"
+}

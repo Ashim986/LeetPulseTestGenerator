@@ -1,0 +1,8 @@
+{
+  "slug": "encode-and-decode-tinyurl",
+  "constraints": [
+    "1 <= url.length <= 10^4",
+    "url is guranteed to be a valid URL."
+  ],
+  "fetched_at": "2026-02-26T15:50:36Z"
+}

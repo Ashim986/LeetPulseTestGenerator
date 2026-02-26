@@ -1,0 +1,9 @@
+{
+  "slug": "find-common-characters",
+  "constraints": [
+    "1 <= words.length <= 100",
+    "1 <= words[i].length <= 100",
+    "words[i] consists of lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:50:47Z"
+}

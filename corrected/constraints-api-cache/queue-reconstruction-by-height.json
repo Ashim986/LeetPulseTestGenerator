@@ -1,0 +1,10 @@
+{
+  "slug": "queue-reconstruction-by-height",
+  "constraints": [
+    "1 <= people.length <= 2000",
+    "0 <= h_i <= 10^6",
+    "0 <= k_i < people.length",
+    "It is guaranteed that the queue can be reconstructed."
+  ],
+  "fetched_at": "2026-02-26T15:52:21Z"
+}

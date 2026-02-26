@@ -1,0 +1,10 @@
+{
+  "slug": "word-subsets",
+  "constraints": [
+    "1 <= words1.length, words2.length <= 10^4",
+    "1 <= words1[i].length, words2[i].length <= 10",
+    "words1[i] and words2[i] consist only of lowercase English letters.",
+    "All the strings of words1 are unique."
+  ],
+  "fetched_at": "2026-02-26T15:53:42Z"
+}

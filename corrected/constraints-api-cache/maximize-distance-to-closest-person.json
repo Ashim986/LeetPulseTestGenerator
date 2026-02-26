@@ -1,0 +1,10 @@
+{
+  "slug": "maximize-distance-to-closest-person",
+  "constraints": [
+    "2 <= seats.length <= 2 * 10^4",
+    "seats[i]\u00a0is 0 or\u00a01.",
+    "At least one seat is empty.",
+    "At least one seat is occupied."
+  ],
+  "fetched_at": "2026-02-26T15:51:41Z"
+}

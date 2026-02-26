@@ -1,0 +1,10 @@
+{
+  "slug": "delete-columns-to-make-sorted",
+  "constraints": [
+    "n == strs.length",
+    "1 <= n <= 100",
+    "1 <= strs[i].length <= 1000",
+    "strs[i] consists of lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:50:28Z"
+}

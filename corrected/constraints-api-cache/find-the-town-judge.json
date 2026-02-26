@@ -1,0 +1,12 @@
+{
+  "slug": "find-the-town-judge",
+  "constraints": [
+    "1 <= n <= 1000",
+    "0 <= trust.length <= 10^4",
+    "trust[i].length == 2",
+    "All the pairs of trust are unique.",
+    "a_i != b_i",
+    "1 <= a_i, b_i <= n"
+  ],
+  "fetched_at": "2026-02-26T15:50:54Z"
+}

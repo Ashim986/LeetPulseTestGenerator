@@ -1,0 +1,10 @@
+{
+  "slug": "battleships-in-a-board",
+  "constraints": [
+    "m == board.length",
+    "n == board[i].length",
+    "1 <= m, n <= 200",
+    "board[i][j] is either '.' or 'X'."
+  ],
+  "fetched_at": "2026-02-26T15:50:08Z"
+}

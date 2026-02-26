@@ -1,0 +1,9 @@
+{
+  "slug": "bulls-and-cows",
+  "constraints": [
+    "1 <= secret.length, guess.length <= 1000",
+    "secret.length == guess.length",
+    "secret and guess consist of digits only."
+  ],
+  "fetched_at": "2026-02-26T15:50:16Z"
+}

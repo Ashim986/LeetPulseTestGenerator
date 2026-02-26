@@ -1,0 +1,11 @@
+{
+  "slug": "reshape-the-matrix",
+  "constraints": [
+    "m == mat.length",
+    "n == mat[i].length",
+    "1 <= m, n <= 100",
+    "-1000 <= mat[i][j] <= 1000",
+    "1 <= r, c <= 300"
+  ],
+  "fetched_at": "2026-02-26T15:52:32Z"
+}

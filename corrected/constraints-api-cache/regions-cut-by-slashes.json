@@ -1,0 +1,9 @@
+{
+  "slug": "regions-cut-by-slashes",
+  "constraints": [
+    "n == grid.length == grid[i].length",
+    "1 <= n <= 30",
+    "grid[i][j] is either '/', '\\', or ' '."
+  ],
+  "fetched_at": "2026-02-26T15:52:28Z"
+}

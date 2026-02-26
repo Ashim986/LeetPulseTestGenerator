@@ -1,0 +1,8 @@
+{
+  "slug": "first-unique-character-in-a-string",
+  "constraints": [
+    "1 <= s.length <= 10^5",
+    "s consists of only lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:50:58Z"
+}

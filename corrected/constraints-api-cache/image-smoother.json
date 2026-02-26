@@ -1,0 +1,10 @@
+{
+  "slug": "image-smoother",
+  "constraints": [
+    "m == img.length",
+    "n == img[i].length",
+    "1 <= m, n <= 200",
+    "0 <= img[i][j] <= 255"
+  ],
+  "fetched_at": "2026-02-26T15:51:13Z"
+}

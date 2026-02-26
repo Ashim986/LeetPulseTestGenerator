@@ -1,0 +1,10 @@
+{
+  "slug": "set-matrix-zeroes",
+  "constraints": [
+    "m == matrix.length",
+    "n == matrix[0].length",
+    "1 <= m, n <= 200",
+    "-2^31 <= matrix[i][j] <= 2^31 - 1"
+  ],
+  "fetched_at": "2026-02-26T15:52:44Z"
+}

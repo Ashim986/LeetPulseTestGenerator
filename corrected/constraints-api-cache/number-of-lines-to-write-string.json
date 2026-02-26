@@ -1,0 +1,10 @@
+{
+  "slug": "number-of-lines-to-write-string",
+  "constraints": [
+    "widths.length == 26",
+    "2 <= widths[i] <= 10",
+    "1 <= s.length <= 1000",
+    "s contains only lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:52:06Z"
+}

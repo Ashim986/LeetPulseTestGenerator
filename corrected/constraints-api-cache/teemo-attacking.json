@@ -1,0 +1,9 @@
+{
+  "slug": "teemo-attacking",
+  "constraints": [
+    "1 <= timeSeries.length <= 10^4",
+    "0 <= timeSeries[i], duration <= 10^7",
+    "timeSeries is sorted in non-decreasing order."
+  ],
+  "fetched_at": "2026-02-26T15:53:11Z"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "vowel-spellchecker",
+  "constraints": [
+    "1 <= wordlist.length, queries.length <= 5000",
+    "1 <= wordlist[i].length, queries[i].length <= 7",
+    "wordlist[i] and queries[i] consist only of only English letters."
+  ],
+  "fetched_at": "2026-02-26T15:53:35Z"
+}

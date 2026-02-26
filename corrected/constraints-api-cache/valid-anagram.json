@@ -1,0 +1,8 @@
+{
+  "slug": "valid-anagram",
+  "constraints": [
+    "1 <= s.length, t.length <= 5 * 10^4",
+    "s and t consist of lowercase English letters."
+  ],
+  "fetched_at": "2026-02-26T15:49:46Z"
+}

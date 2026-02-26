@@ -1,0 +1,8 @@
+{
+  "slug": "buddy-strings",
+  "constraints": [
+    "1 <= s.length, goal.length <= 2 * 10^4",
+    "s and goal consist of lowercase letters."
+  ],
+  "fetched_at": "2026-02-26T15:50:13Z"
+}

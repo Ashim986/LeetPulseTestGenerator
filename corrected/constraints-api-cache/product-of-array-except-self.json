@@ -1,0 +1,9 @@
+{
+  "slug": "product-of-array-except-self",
+  "constraints": [
+    "2 <= nums.length <= 10^5",
+    "-30 <= nums[i] <= 30",
+    "The input is generated such that answer[i] is guaranteed to fit in a 32-bit integer."
+  ],
+  "fetched_at": "2026-02-26T15:52:17Z"
+}

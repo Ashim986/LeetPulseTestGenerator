@@ -1,0 +1,10 @@
+{
+  "slug": "available-captures-for-rook",
+  "constraints": [
+    "board.length == 8",
+    "board[i].length == 8",
+    "board[i][j] is either 'R', '.', 'B', or 'p'",
+    "There is exactly one cell with board[i][j] == 'R'"
+  ],
+  "fetched_at": "2026-02-26T15:50:06Z"
+}

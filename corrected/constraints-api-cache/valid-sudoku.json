@@ -1,0 +1,9 @@
+{
+  "slug": "valid-sudoku",
+  "constraints": [
+    "board.length == 9",
+    "board[i].length == 9",
+    "board[i][j] is a digit 1-9 or '.'."
+  ],
+  "fetched_at": "2026-02-26T15:53:27Z"
+}

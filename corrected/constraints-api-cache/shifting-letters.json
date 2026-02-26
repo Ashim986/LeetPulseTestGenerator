@@ -1,0 +1,10 @@
+{
+  "slug": "shifting-letters",
+  "constraints": [
+    "1 <= s.length <= 10^5",
+    "s consists of lowercase English letters.",
+    "shifts.length == s.length",
+    "0 <= shifts[i] <= 10^9"
+  ],
+  "fetched_at": "2026-02-26T15:52:46Z"
+}

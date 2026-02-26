@@ -1,0 +1,14 @@
+{
+  "slug": "unique-email-addresses",
+  "constraints": [
+    "1 <= emails.length <= 100",
+    "1 <= emails[i].length <= 100",
+    "emails[i] consist of lowercase English letters, '+', '.' and '@'.",
+    "Each emails[i] contains exactly one '@' character.",
+    "All local and domain names are non-empty.",
+    "Local names do not start with a '+' character.",
+    "Domain names end with the \".com\" suffix.",
+    "Domain names must contain at least one character before \".com\" suffix."
+  ],
+  "fetched_at": "2026-02-26T15:53:44Z"
+}

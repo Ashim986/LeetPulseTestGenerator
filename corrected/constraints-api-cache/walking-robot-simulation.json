@@ -1,0 +1,11 @@
+{
+  "slug": "walking-robot-simulation",
+  "constraints": [
+    "1 <= commands.length <= 10^4",
+    "commands[i] is either -2, -1, or an integer in the range [1, 9].",
+    "0 <= obstacles.length <= 10^4",
+    "-3 * 10^4 <= x_i, y_i <= 3 * 10^4",
+    "The answer is guaranteed to be less than 2^31."
+  ],
+  "fetched_at": "2026-02-26T15:53:37Z"
+}

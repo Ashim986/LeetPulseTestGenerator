@@ -1,0 +1,9 @@
+{
+  "slug": "rotate-image",
+  "constraints": [
+    "n == matrix.length == matrix[i].length",
+    "1 <= n <= 20",
+    "-1000 <= matrix[i][j] <= 1000"
+  ],
+  "fetched_at": "2026-02-26T15:52:39Z"
+}

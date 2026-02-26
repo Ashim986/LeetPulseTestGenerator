@@ -1,0 +1,9 @@
+{
+  "slug": "valid-tic-tac-toe-state",
+  "constraints": [
+    "board.length == 3",
+    "board[i].length == 3",
+    "board[i][j] is either 'X', 'O', or ' '."
+  ],
+  "fetched_at": "2026-02-26T15:53:30Z"
+}
