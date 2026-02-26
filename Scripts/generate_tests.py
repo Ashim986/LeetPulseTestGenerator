@@ -18,11 +18,69 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+# ─── Quarantine and non-Swift detection ──────────────────────────────────────
+
+def load_quarantine() -> set:
+    """Load quarantined problem slugs from quarantine.json.
+    Returns set of slugs to skip during generation."""
+    quarantine_file = Path(__file__).resolve().parent.parent / "corrected" / "quarantine.json"
+    if not quarantine_file.exists():
+        print("WARNING: quarantine.json not found, falling back to SQL_SLUGS", file=sys.stderr)
+        return None  # Signal to use fallback
+    try:
+        with open(quarantine_file) as f:
+            data = json.load(f)
+        return {p["slug"] for p in data.get("quarantinedProblems", [])}
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"WARNING: Failed to parse quarantine.json: {e}, falling back to SQL_SLUGS", file=sys.stderr)
+        return None
+
+
+def is_swift_eligible(problem: dict) -> bool:
+    """Check if a problem supports Swift based on metadata.
+
+    Returns False for:
+    - Problems with no code_snippets at all
+    - Problems without 'swift' in code_snippets
+    - Problems with Database/Shell as primary category
+    - Problems with Database/Shell in topics
+    """
+    EXCLUDED_CATEGORIES = {"Database", "Shell"}
+    snippets = problem.get("code_snippets", {})
+    topics = problem.get("topics", [])
+    category = problem.get("categoryTitle", "")
+
+    if not snippets:
+        return False
+    if "swift" not in snippets:
+        return False
+    if category in EXCLUDED_CATEGORIES:
+        return False
+    if any(t in EXCLUDED_CATEGORIES for t in topics):
+        return False
+    return True
+
+
+def load_problem_metadata() -> Dict[str, dict]:
+    """Load problem metadata from neenza dataset for non-Swift detection."""
+    dataset_path = Path("/tmp/leetcode_all.json")
+    if not dataset_path.exists():
+        return {}
+    try:
+        with open(dataset_path) as f:
+            data = json.load(f)
+        problems = data.get("questions", data) if isinstance(data, dict) else data
+        return {p.get("problem_slug", ""): p for p in problems if p.get("problem_slug")}
+    except (json.JSONDecodeError, KeyError):
+        return {}
+
+
 # ─── Constraint loading ──────────────────────────────────────────────────────
 
 def load_constraints(topic: str) -> Dict[str, List[str]]:
-    """Load constraint text for each problem slug from constraints JSON.
-    Returns {slug: [constraint_strings]}."""
+    """Load raw constraint text for each problem slug from constraints JSON.
+    Returns {slug: [constraint_strings]}.
+    Used as fallback when parsed constraint files are not available."""
     constraints_file = Path(__file__).resolve().parent.parent / "corrected" / f"constraints-{topic}.json"
     if not constraints_file.exists():
         return {}
@@ -32,6 +90,183 @@ def load_constraints(topic: str) -> Dict[str, List[str]]:
     for slug, info in data.get("problems", {}).items():
         result[slug] = info.get("constraints", [])
     return result
+
+
+def load_parsed_constraints(topic: str) -> Optional[dict]:
+    """Load structured parsed constraint data for a topic from parsed-constraints-{topic}.json.
+
+    Returns the full parsed data dict with structure:
+    {
+        "topic": "...",
+        "generatedAt": "...",
+        "problems": {
+            "slug": {
+                "constraints": [{"kind": "...", "variables": [...], "min": N, "max": N, ...}],
+                "unresolved": ["..."],
+                "parameterMapping": {"var": {"type": "...", "index": N}}
+            }
+        }
+    }
+    Returns None if file not found (triggers fallback to raw constraints).
+    """
+    parsed_file = Path(__file__).resolve().parent.parent / "corrected" / f"parsed-constraints-{topic}.json"
+    if not parsed_file.exists():
+        return None
+    try:
+        with open(parsed_file) as f:
+            return json.load(f)
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"WARNING: Failed to parse {parsed_file.name}: {e}", file=sys.stderr)
+        return None
+
+
+def generate_constraint_guards_from_parsed(
+    slug: str,
+    parsed_problem: dict,
+    param_vars: List[Tuple[str, str, str]],
+) -> List[str]:
+    """Generate Swift guard lines from structured parsed constraint data.
+
+    Reads the parsed constraint objects and emits Swift guard code:
+    - array_length: guard p_var.count >= min && p_var.count <= max
+    - element_range: guard p_var.allSatisfy({ $0 >= min && $0 <= max })
+    - integer_range: guard p_var >= min && p_var <= max
+    - string_length: guard p_var.count >= min && p_var.count <= max
+    - Other kinds (charset, uniqueness, sorted, guarantee, prose, unresolved): skip
+
+    Uses parameterMapping from parsed constraints to match constraint variables to Swift parameter names.
+    """
+    constraints = parsed_problem.get("constraints", [])
+    param_mapping = parsed_problem.get("parameterMapping", {})
+
+    # Build lookup: original_param_name -> (swift_var_name, swift_type)
+    param_lookup = {}
+    for var_name, swift_type, label in param_vars:
+        orig_name = var_name[2:] if var_name.startswith("p_") else var_name
+        param_lookup[orig_name] = (var_name, swift_type)
+
+    guards = []
+    for c in constraints:
+        kind = c.get("kind", "")
+        variables = c.get("variables", [])
+        min_val = c.get("min")
+        max_val = c.get("max")
+        raw = c.get("raw", "")
+
+        # Skip kinds that don't produce guard code
+        if kind in ("charset", "uniqueness", "sorted", "guarantee", "prose", "unresolved",
+                     "variable_equality", "graph_property", "tree_property", "multiplication"):
+            continue
+
+        # Need at least one bound to generate a guard
+        if min_val is None and max_val is None:
+            continue
+
+        # Need at least one variable to map to a parameter
+        if not variables:
+            continue
+
+        for var in variables:
+            # Try to find the matching Swift parameter
+            swift_var, swift_type = None, None
+
+            # Direct match
+            if var in param_lookup:
+                swift_var, swift_type = param_lookup[var]
+            else:
+                # Try stripping subscript notation (e.g., nums_i -> nums)
+                base_var = re.sub(r"_[ij]$", "", var)
+                if base_var in param_lookup:
+                    swift_var, swift_type = param_lookup[base_var]
+                else:
+                    # Try variable heuristic from parameterMapping
+                    mapped = param_mapping.get(var, {})
+                    mapped_idx = mapped.get("index")
+                    if mapped_idx is not None and mapped_idx < len(param_vars):
+                        swift_var = param_vars[mapped_idx][0]
+                        swift_type = param_vars[mapped_idx][1]
+
+            if not swift_var:
+                continue
+
+            condition = None
+
+            if kind == "array_length":
+                # guard p_var.count >= min && p_var.count <= max
+                parts = []
+                if min_val is not None:
+                    parts.append(f"{swift_var}.count >= {min_val}")
+                if max_val is not None:
+                    parts.append(f"{swift_var}.count <= {max_val}")
+                if parts:
+                    condition = " && ".join(parts)
+
+            elif kind == "element_range":
+                # guard p_var.allSatisfy({ $0 >= min && $0 <= max })
+                if swift_type in ("[Int]", "inout [Int]", "[Double]"):
+                    parts = []
+                    if min_val is not None:
+                        parts.append(f"$0 >= {min_val}")
+                    if max_val is not None:
+                        parts.append(f"$0 <= {max_val}")
+                    if parts:
+                        condition = f"{swift_var}.allSatisfy({{ {' && '.join(parts)} }})"
+
+            elif kind == "integer_range":
+                # guard p_var >= min && p_var <= max
+                if swift_type in ("Int", "Double"):
+                    parts = []
+                    if min_val is not None:
+                        parts.append(f"{swift_var} >= {min_val}")
+                    if max_val is not None:
+                        parts.append(f"{swift_var} <= {max_val}")
+                    if parts:
+                        condition = " && ".join(parts)
+
+            elif kind == "string_length":
+                # guard p_var.count >= min && p_var.count <= max
+                if swift_type == "String":
+                    parts = []
+                    if min_val is not None:
+                        parts.append(f"{swift_var}.count >= {min_val}")
+                    if max_val is not None:
+                        parts.append(f"{swift_var}.count <= {max_val}")
+                    if parts:
+                        condition = " && ".join(parts)
+
+            elif kind == "nested_length":
+                # For nested arrays like words[i].length - skip if not array type
+                if swift_type in ("[String]", "inout [String]", "[Int]"):
+                    parts = []
+                    if min_val is not None:
+                        parts.append(f"$0.count >= {min_val}")
+                    if max_val is not None:
+                        parts.append(f"$0.count <= {max_val}")
+                    if parts:
+                        condition = f"{swift_var}.allSatisfy({{ {' && '.join(parts)} }})"
+
+            elif kind == "exact_length":
+                # guard p_var.count == val
+                if min_val is not None:
+                    condition = f"{swift_var}.count == {min_val}"
+
+            elif kind == "method_calls":
+                # Skip - not useful as a runtime guard
+                continue
+
+            if condition:
+                guard = (
+                    f'        guard {condition} else {{\n'
+                    f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
+                    f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
+                    f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
+                    f'errorMessage: "Constraint violation: {_escape_swift(raw)}")\n'
+                    f'            return\n'
+                    f'        }}'
+                )
+                guards.append(guard)
+
+    return guards
 
 
 def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, str, str]]) -> Optional[str]:
@@ -1048,6 +1283,7 @@ def generate_test_file(
     test_cases: List[dict],
     sig: dict,
     constraints: Optional[List[str]] = None,
+    parsed_constraints: Optional[dict] = None,
     dry_run: bool = False,
 ) -> str:
     """Generate a Swift Testing file for one problem.
@@ -1055,6 +1291,9 @@ def generate_test_file(
     When dry_run=True, generated tests parse all inputs but skip solution execution.
     Records status='matched' with computedOutput='DRY_RUN' for successful parses.
     Surfaces all parse failures quickly without waiting for solution execution.
+
+    If parsed_constraints is provided, uses structured data for guard generation.
+    Falls back to raw constraints if parsed_constraints is None.
     """
 
     class_name = slug_to_class_name(slug)
@@ -1161,13 +1400,17 @@ def generate_test_file(
 
         if not parse_failed:
             # All params parsed successfully -- add constraint guards
-            if constraints:
+            # Prefer parsed constraints over raw constraints
+            constraint_guards = []
+            if parsed_constraints:
+                constraint_guards = generate_constraint_guards_from_parsed(slug, parsed_constraints, param_vars)
+            elif constraints:
                 constraint_guards = generate_constraint_guards(slug, constraints, param_vars)
-                if constraint_guards:
-                    lines.append(f"")
-                    lines.append(f"        // Constraint precondition checks")
-                    for guard_code in constraint_guards:
-                        lines.append(guard_code)
+            if constraint_guards:
+                lines.append(f"")
+                lines.append(f"        // Constraint precondition checks")
+                for guard_code in constraint_guards:
+                    lines.append(guard_code)
 
             lines.append(f"")
 
@@ -1621,9 +1864,25 @@ def main():
     if dry_run:
         print("DRY-RUN MODE: Generated tests will parse inputs but skip solution execution")
 
+    # Load quarantine list (replaces SQL_SLUGS)
+    quarantine_slugs = load_quarantine()
+    use_quarantine = quarantine_slugs is not None
+    if use_quarantine:
+        print(f"Quarantine loaded: {len(quarantine_slugs)} slugs to skip")
+    else:
+        print("WARNING: Using fallback SQL_SLUGS set (quarantine.json not available)")
+        quarantine_slugs = set()  # Will use SQL_SLUGS below
+
+    # Load metadata for non-Swift detection (replaces hardcoded SQL_SLUGS)
+    problem_metadata = load_problem_metadata()
+    if problem_metadata:
+        print(f"Metadata loaded: {len(problem_metadata)} problems for non-Swift detection")
+
     stats = {
         "generated": 0,
-        "skipped_sql": 0,
+        "skipped_quarantine": 0,
+        "skipped_non_swift": 0,
+        "skipped_sql_fallback": 0,
         "generated_design": 0,
         "skipped_no_solution": 0,
         "skipped_no_tests": 0,
@@ -1631,6 +1890,8 @@ def main():
         "skipped_unsupported_type": 0,
         "skipped_broken": 0,
         "total_test_methods": 0,
+        "used_parsed_constraints": 0,
+        "used_raw_constraints": 0,
     }
 
     for topic, test_target in sorted(TOPIC_TO_TEST_TARGET.items()):
@@ -1640,7 +1901,16 @@ def main():
 
         solutions = load_solutions(topic)
         test_cases = load_test_cases(topic)
-        topic_constraints = load_constraints(topic)
+
+        # Try to load structured parsed constraints first
+        parsed_data = load_parsed_constraints(topic)
+        if parsed_data:
+            print(f"  Using parsed constraints from parsed-constraints-{topic}.json")
+        else:
+            print(f"  WARNING: parsed-constraints-{topic}.json not found, using raw constraints", file=sys.stderr)
+
+        # Also load raw constraints as fallback
+        raw_topic_constraints = load_constraints(topic)
 
         target_dir = TESTS_DIR / test_target
         target_dir.mkdir(parents=True, exist_ok=True)
@@ -1654,9 +1924,23 @@ def main():
         # Iterate over all problems with test cases
         all_slugs = set(solutions.keys()) | set(test_cases.keys())
         for slug in sorted(all_slugs):
-            if slug in SQL_SLUGS:
-                stats["skipped_sql"] += 1
-                continue
+            # Skip quarantined problems (replaces SQL_SLUGS check)
+            if use_quarantine:
+                if slug in quarantine_slugs:
+                    stats["skipped_quarantine"] += 1
+                    continue
+                # Metadata-based non-Swift detection
+                if problem_metadata:
+                    prob_meta = problem_metadata.get(slug, {})
+                    if prob_meta and not is_swift_eligible(prob_meta):
+                        stats["skipped_non_swift"] += 1
+                        continue
+            else:
+                # Fallback to old SQL_SLUGS behavior
+                if slug in SQL_SLUGS:
+                    stats["skipped_sql_fallback"] += 1
+                    continue
+
             if slug in BROKEN_SOLUTION_SLUGS:
                 stats["skipped_broken"] += 1
                 continue
@@ -1677,7 +1961,7 @@ def main():
 
             # Handle class design problems
             if is_class_design_problem(slug, code, tcs):
-                slug_constraints = topic_constraints.get(slug, [])
+                slug_constraints = raw_topic_constraints.get(slug, [])
                 swift_code = generate_class_design_test_file(slug, topic, code, tcs, constraints=slug_constraints, dry_run=dry_run)
                 file_name = slug_to_class_name(slug)
                 file_path = target_dir / f"{file_name}.swift"
@@ -1726,9 +2010,28 @@ def main():
             if unsupported:
                 continue
 
+            # Determine constraint source: prefer parsed, fall back to raw
+            slug_constraints = None
+            parsed_problem = None
+            if parsed_data:
+                parsed_problems = parsed_data.get("problems", {})
+                if slug in parsed_problems:
+                    parsed_problem = parsed_problems[slug]
+                    stats["used_parsed_constraints"] += 1
+
+            if parsed_problem is None:
+                # Fallback to raw constraints
+                slug_constraints = raw_topic_constraints.get(slug, [])
+                if slug_constraints:
+                    stats["used_raw_constraints"] += 1
+
             # Generate test file
-            slug_constraints = topic_constraints.get(slug, [])
-            swift_code = generate_test_file(slug, topic, code, tcs, sig, constraints=slug_constraints, dry_run=dry_run)
+            swift_code = generate_test_file(
+                slug, topic, code, tcs, sig,
+                constraints=slug_constraints,
+                parsed_constraints=parsed_problem,
+                dry_run=dry_run,
+            )
             class_name = slug_to_class_name(slug)
             file_path = target_dir / f"{class_name}.swift"
             with open(file_path, "w") as f:
@@ -1746,13 +2049,19 @@ def main():
     print(f"{'='*60}")
     print(f"  Generated:              {stats['generated']} problems")
     print(f"  Total test methods:     {stats['total_test_methods']}")
-    print(f"  Skipped (SQL):          {stats['skipped_sql']}")
+    if use_quarantine:
+        print(f"  Skipped (quarantine):   {stats['skipped_quarantine']}")
+        print(f"  Skipped (non-Swift):    {stats['skipped_non_swift']}")
+    else:
+        print(f"  Skipped (SQL fallback): {stats['skipped_sql_fallback']}")
     print(f"  Generated (class design): {stats['generated_design']}")
     print(f"  Skipped (no solution):  {stats['skipped_no_solution']}")
     print(f"  Skipped (no tests):     {stats['skipped_no_tests']}")
     print(f"  Skipped (parse fail):   {stats['skipped_parse_fail']}")
     print(f"  Skipped (unsup. type):  {stats['skipped_unsupported_type']}")
     print(f"  Skipped (broken code):  {stats['skipped_broken']}")
+    print(f"  Constraints (parsed):   {stats['used_parsed_constraints']}")
+    print(f"  Constraints (raw):      {stats['used_raw_constraints']}")
 
 
 if __name__ == "__main__":
