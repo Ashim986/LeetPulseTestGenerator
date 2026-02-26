@@ -1022,7 +1022,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
             f'        guard {parsed_var}.count <= 100_000 else {{\n'
             f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-            f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+            f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
             f'errorMessage: "Constraint violation: {param_name} array too large (\\({parsed_var}.count))")\n'
             f'            return\n'
             f'        }}'
@@ -1033,7 +1033,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
             f'        guard {parsed_var}.count <= 1000 else {{\n'
             f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-            f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+            f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
             f'errorMessage: "Constraint violation: {param_name} 2D array too large (\\({parsed_var}.count))")\n'
             f'            return\n'
             f'        }}'
@@ -1043,7 +1043,7 @@ def constraint_check(swift_type: str, parsed_var: str, param_name: str) -> Optio
             f'        guard {parsed_var}.count <= 100_000 else {{\n'
             f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
             f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-            f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+            f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
             f'errorMessage: "Constraint violation: {param_name} string too long (\\({parsed_var}.count))")\n'
             f'            return\n'
             f'        }}'
@@ -1678,7 +1678,7 @@ def generate_class_design_test_file(
         lines.append(f"        guard inputLines.count >= 2 else {{")
         lines.append(f'            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, '
                       f'input: rawInput, originalExpected: expectedOutput, computedOutput: "", '
-                      f'isValid: false, status: "parse_error", orderMatters: orderMatters,'
+                      f'isValid: false, status: "parse_error", orderMatters: orderMatters, '
                       f'errorMessage: "Invalid class design input format")')
         lines.append(f"            return")
         lines.append(f"        }}")
