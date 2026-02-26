@@ -55,7 +55,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -91,7 +91,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -127,7 +127,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -163,7 +163,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -199,7 +199,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -235,7 +235,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -271,7 +271,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -307,7 +307,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -343,7 +343,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -379,7 +379,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -415,7 +415,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -451,7 +451,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -487,7 +487,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -523,7 +523,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -559,7 +559,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -595,7 +595,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -631,7 +631,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -667,7 +667,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -703,7 +703,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -739,7 +739,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -775,7 +775,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -811,7 +811,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -847,7 +847,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -883,7 +883,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }
@@ -919,7 +919,7 @@ private class Solution {
         }
 
         // Constraint precondition checks
-        guard p_height.allSatisfy { $0 >= 0 && $0 <= 105 } else {
+        guard p_height.allSatisfy({ $0 >= 0 && $0 <= 105 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= height[i] <= 105")
             return
         }

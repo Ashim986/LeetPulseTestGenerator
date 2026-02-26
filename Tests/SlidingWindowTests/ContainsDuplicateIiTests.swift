@@ -3,13 +3,17 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+    func containsNearbyDuplicate(_ nums: [Int], _ k: Int, trace: Trace) -> Bool {
         var lastIndex: [Int: Int] = [:]
         for (i, num) in nums.enumerated() {
+            let lastIndexSnapshot = lastIndex.reduce(into: [String: Int]()) { $0[String($1.key)] = $1.value }
             if let last = lastIndex[num], i - last <= k {
+                trace.step("found duplicate: num=\(num) at i=\(i), last=\(last)", ["i": i, "num": num, "lastSeen": last, "distance": i - last, "k": k, "lastIndex": lastIndexSnapshot, "result": true])
                 return true
             }
             lastIndex[num] = i
+            let updatedSnapshot = lastIndex.reduce(into: [String: Int]()) { $0[String($1.key)] = $1.value }
+            trace.step("scan i=\(i), num=\(num)", ["i": i, "num": num, "windowLeft": max(0, i - k), "right": i, "lastIndex": updatedSnapshot, "result": false])
         }
         return false
     }
@@ -45,7 +49,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -55,11 +59,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -90,7 +95,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -100,11 +105,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -135,7 +141,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -145,11 +151,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -180,7 +187,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -190,11 +197,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -225,7 +233,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -235,11 +243,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -270,7 +279,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -280,11 +289,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -315,7 +325,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -325,11 +335,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -360,7 +371,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -370,11 +381,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -405,7 +417,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -415,11 +427,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -450,7 +463,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -460,11 +473,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -495,7 +509,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -505,11 +519,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -540,7 +555,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -550,11 +565,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -585,7 +601,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -595,11 +611,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -630,7 +647,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -640,11 +657,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -675,7 +693,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -685,11 +703,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -720,7 +739,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -730,11 +749,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -765,7 +785,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -775,11 +795,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -810,7 +831,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -820,11 +841,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -855,7 +877,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -865,11 +887,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -900,7 +923,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -910,11 +933,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -945,7 +969,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -955,11 +979,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -990,7 +1015,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -1000,11 +1025,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -1035,7 +1061,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -1045,11 +1071,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -1080,7 +1107,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -1090,11 +1117,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -1125,7 +1153,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 105")
             return
         }
-        guard p_nums.allSatisfy { $0 >= -109 && $0 <= 109 } else {
+        guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -109 <= nums[i] <= 109")
             return
         }
@@ -1135,11 +1163,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.containsNearbyDuplicate(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.containsNearbyDuplicate(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

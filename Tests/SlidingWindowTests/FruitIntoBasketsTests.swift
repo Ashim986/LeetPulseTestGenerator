@@ -3,13 +3,15 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    func totalFruit(_ fruits: [Int]) -> Int {
+    func totalFruit(_ fruits: [Int], trace: Trace) -> Int {
         var maxFruits = 0
         var left = 0
         var fruitCount = [Int: Int]()
         for right in 0..<fruits.count {
             fruitCount[fruits[right], default: 0] += 1
             while fruitCount.keys.count > 2 {
+                let countSnap = fruitCount.reduce(into: [String: Int]()) { $0[String($1.key)] = $1.value }
+                trace.step("contract window: >2 fruit types", ["left": left, "right": right, "removedFruit": fruits[left], "fruitCount": countSnap, "maxFruits": maxFruits])
                 fruitCount[fruits[left], default: 0] -= 1
                 if fruitCount[fruits[left]] == 0 {
                     fruitCount.removeValue(forKey: fruits[left])
@@ -17,6 +19,8 @@ private class Solution {
                 left += 1
             }
             maxFruits = max(maxFruits, right - left + 1)
+            let countSnap = fruitCount.reduce(into: [String: Int]()) { $0[String($1.key)] = $1.value }
+            trace.step("expand window: right=\(right), fruit=\(fruits[right])", ["left": left, "right": right, "fruit": fruits[right], "windowSize": right - left + 1, "fruitCount": countSnap, "maxFruits": maxFruits])
         }
         return maxFruits
     }
@@ -51,17 +55,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -91,17 +96,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -131,17 +137,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -171,17 +178,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -211,17 +219,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -251,17 +260,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -291,17 +301,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -331,17 +342,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -371,17 +383,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -411,17 +424,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -451,17 +465,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -491,17 +506,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -531,17 +547,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -571,17 +588,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -611,17 +629,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -651,17 +670,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -691,17 +711,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -731,17 +752,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -771,17 +793,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -811,17 +834,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -851,17 +875,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -891,17 +916,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -931,17 +957,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -971,17 +998,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -1011,17 +1039,18 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= fruits.length <= 105")
             return
         }
-        guard p_fruits.allSatisfy { $0 >= 0 && $0 < p_fruits.count } else {
+        guard p_fruits.allSatisfy({ $0 >= 0 && $0 < p_fruits.count }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 0 <= fruits[i] < fruits.length")
             return
         }
 
         let solution = Solution()
-        let result = solution.totalFruit(p_fruits)
+        let trace = Trace()
+        let result = solution.totalFruit(p_fruits, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

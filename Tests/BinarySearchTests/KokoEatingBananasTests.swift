@@ -59,7 +59,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -100,7 +100,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -141,7 +141,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -182,7 +182,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -223,7 +223,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -264,7 +264,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -305,7 +305,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -346,7 +346,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -387,7 +387,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -428,7 +428,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -469,7 +469,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -510,7 +510,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -551,7 +551,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -592,7 +592,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -633,7 +633,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -674,7 +674,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -715,7 +715,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -756,7 +756,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -797,7 +797,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -838,7 +838,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -879,7 +879,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -920,7 +920,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -961,7 +961,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -1002,7 +1002,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }
@@ -1043,7 +1043,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles.length <= 104")
             return
         }
-        guard p_piles.allSatisfy { $0 >= 1 && $0 <= 109 } else {
+        guard p_piles.allSatisfy({ $0 >= 1 && $0 <= 109 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= piles[i] <= 109")
             return
         }

@@ -58,7 +58,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -97,7 +97,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -136,7 +136,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -175,7 +175,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -214,7 +214,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -253,7 +253,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -292,7 +292,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -331,7 +331,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -370,7 +370,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -409,7 +409,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -448,7 +448,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -487,7 +487,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -526,7 +526,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -565,7 +565,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -604,7 +604,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -643,7 +643,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -682,7 +682,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -721,7 +721,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -760,7 +760,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -799,7 +799,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -838,7 +838,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -877,7 +877,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -916,7 +916,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -955,7 +955,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -994,7 +994,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 1 else { return }
-        let obj = RandomPickWithWeight(InputParser.parseIntArray(initArgs[0]))
+        var obj = Solution(InputParser.parseIntArray(initArgs[0]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {

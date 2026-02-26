@@ -3,7 +3,7 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    func insert(_ intervals: [[Int]], _ newInterval: [Int]) -> [[Int]] {
+    func insert(_ intervals: [[Int]], _ newInterval: [Int], trace: Trace) -> [[Int]] {
         if intervals.isEmpty {
             return [newInterval]
         }
@@ -28,6 +28,7 @@ private class Solution {
                 merged[0] = min(merged[0], interval[0])
                 merged[1] = max(merged[1], interval[1])
             }
+            trace.step("process \(interval)", ["current": interval, "merged": merged, "inserted": inserted, "result": result])
         }
 
         if !inserted {
@@ -78,11 +79,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -123,11 +125,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -168,11 +171,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -213,11 +217,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -258,11 +263,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -303,11 +309,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -348,11 +355,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -393,11 +401,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -438,11 +447,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -483,11 +493,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -528,11 +539,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -573,11 +585,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -618,11 +631,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -663,11 +677,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -708,11 +723,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -753,11 +769,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -798,11 +815,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -843,11 +861,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -888,11 +907,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -933,11 +953,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -978,11 +999,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -1023,11 +1045,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.insert(p_intervals, p_newInterval)
+        let trace = Trace()
+        let result = solution.insert(p_intervals, p_newInterval, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

@@ -27,11 +27,11 @@ public enum OutputSerializer {
     }
 
     public static func serialize(_ value: String) -> String {
-        "\"\(value)\""
+        value
     }
 
     public static func serialize(_ value: Character) -> String {
-        "\"\(value)\""
+        String(value)
     }
 
     // MARK: - Optional

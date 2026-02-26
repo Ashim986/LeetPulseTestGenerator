@@ -3,15 +3,20 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    func numSubarraysWithSum(_ nums: [Int], _ goal: Int) -> Int {
+    func numSubarraysWithSum(_ nums: [Int], _ goal: Int, trace: Trace) -> Int {
       var count = 0
       var prefixSum = 0
       var sumCount: [Int: Int] = [0: 1]
 
-      for num in nums {
+      for (i, num) in nums.enumerated() {
         prefixSum += num
         if let val = sumCount[prefixSum - goal] {
           count += val
+          let sumSnap = sumCount.reduce(into: [String: Int]()) { $0[String($1.key)] = $1.value }
+          trace.step("found \(val) subarray(s) ending at i=\(i)", ["i": i, "num": num, "prefixSum": prefixSum, "target": prefixSum - goal, "matchCount": val, "count": count, "sumCount": sumSnap])
+        } else {
+          let sumSnap = sumCount.reduce(into: [String: Int]()) { $0[String($1.key)] = $1.value }
+          trace.step("scan i=\(i), num=\(num)", ["i": i, "num": num, "prefixSum": prefixSum, "count": count, "sumCount": sumSnap])
         }
         sumCount[prefixSum, default: 0] += 1
       }
@@ -51,11 +56,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -88,11 +94,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -125,11 +132,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -162,11 +170,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -199,11 +208,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -236,11 +246,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -273,11 +284,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -310,11 +322,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -347,11 +360,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -384,11 +398,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -421,11 +436,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -458,11 +474,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -495,11 +512,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -532,11 +550,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -569,11 +588,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -606,11 +626,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -643,11 +664,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -680,11 +702,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -717,11 +740,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -754,11 +778,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -791,11 +816,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -828,11 +854,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -865,11 +892,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -902,11 +930,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -939,11 +968,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.numSubarraysWithSum(p_nums, p_goal)
+        let trace = Trace()
+        let result = solution.numSubarraysWithSum(p_nums, p_goal, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

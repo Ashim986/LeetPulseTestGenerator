@@ -62,7 +62,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -99,7 +99,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -136,7 +136,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -173,7 +173,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -210,7 +210,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -247,7 +247,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -284,7 +284,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -321,7 +321,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -358,7 +358,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -395,7 +395,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -432,7 +432,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -469,7 +469,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -506,7 +506,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -543,7 +543,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -580,7 +580,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -617,7 +617,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -654,7 +654,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -691,7 +691,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -728,7 +728,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -765,7 +765,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -802,7 +802,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -839,7 +839,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -876,7 +876,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -913,7 +913,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }
@@ -950,7 +950,7 @@ private class Solution {
         let p_D = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_weights.allSatisfy { $0 >= 1 && $0 <= 500 } else {
+        guard p_weights.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= weights[i] <= 500")
             return
         }

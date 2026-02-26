@@ -53,7 +53,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -61,7 +61,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -106,7 +106,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -114,7 +114,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -159,7 +159,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -167,7 +167,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -212,7 +212,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -220,7 +220,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -265,7 +265,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -273,7 +273,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -318,7 +318,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -326,7 +326,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -371,7 +371,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -379,7 +379,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -424,7 +424,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -432,7 +432,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -477,7 +477,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -485,7 +485,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -530,7 +530,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -538,7 +538,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -583,7 +583,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -591,7 +591,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -636,7 +636,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -644,7 +644,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -689,7 +689,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -697,7 +697,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -742,7 +742,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -750,7 +750,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -795,7 +795,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -803,7 +803,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -848,7 +848,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -856,7 +856,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -901,7 +901,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -909,7 +909,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -954,7 +954,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -962,7 +962,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1007,7 +1007,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1015,7 +1015,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1060,7 +1060,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1068,7 +1068,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1113,7 +1113,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1121,7 +1121,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1166,7 +1166,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1174,7 +1174,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1219,7 +1219,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1227,7 +1227,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1272,7 +1272,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1280,7 +1280,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }
@@ -1325,7 +1325,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days.length <= 365")
             return
         }
-        guard p_days.allSatisfy { $0 >= 1 && $0 <= 365 } else {
+        guard p_days.allSatisfy({ $0 >= 1 && $0 <= 365 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= days[i] <= 365")
             return
         }
@@ -1333,7 +1333,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: costs.length == 3")
             return
         }
-        guard p_costs.allSatisfy { $0 >= 1 && $0 <= 1000 } else {
+        guard p_costs.allSatisfy({ $0 >= 1 && $0 <= 1000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= costs[i] <= 1000")
             return
         }

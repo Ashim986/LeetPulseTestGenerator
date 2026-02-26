@@ -3,9 +3,10 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+    func findKthLargest(_ nums: [Int], _ k: Int, trace: Trace) -> Int {
         var nums = nums
         let target = nums.count - k
+        trace.step("input", ["nums": nums, "k": k, "target": target])
 
         func partition(_ left: Int, _ right: Int) -> Int {
             let pivot = nums[right]
@@ -23,6 +24,7 @@ private class Solution {
         var left = 0, right = nums.count - 1
         while true {
             let p = partition(left, right)
+            trace.step("partition done", ["pivotIndex": p, "target": target, "left": left, "right": right, "nums": nums])
             if p == target { return nums[p] }
             if p < target { left = p + 1 }
             else { right = p - 1 }
@@ -56,17 +58,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -93,17 +96,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -130,17 +134,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -167,17 +172,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -204,17 +210,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -241,17 +248,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -278,17 +286,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -315,17 +324,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -352,17 +362,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -389,17 +400,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -426,17 +438,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -463,17 +476,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -500,17 +514,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -537,17 +552,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -574,17 +590,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -611,17 +628,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -648,17 +666,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -685,17 +704,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -722,17 +742,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -759,17 +780,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -796,17 +818,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -833,17 +856,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -870,17 +894,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -907,17 +932,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -944,17 +970,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findKthLargest(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findKthLargest(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

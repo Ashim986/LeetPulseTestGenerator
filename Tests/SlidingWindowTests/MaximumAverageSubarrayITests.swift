@@ -3,15 +3,18 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    func findMaxAverage(_ nums: [Int], _ k: Int) -> Double {
+    func findMaxAverage(_ nums: [Int], _ k: Int, trace: Trace) -> Double {
         var windowSum = 0
         for i in 0..<k {
             windowSum += nums[i]
         }
         var maxAverage = Double(windowSum) / Double(k)
+        trace.step("initial window [0..\(k-1)]", ["left": 0, "right": k - 1, "windowSum": windowSum, "maxAverage": maxAverage])
         for i in k..<nums.count {
             windowSum = windowSum - nums[i - k] + nums[i]
-            maxAverage = max(maxAverage, Double(windowSum) / Double(k))
+            let currentAvg = Double(windowSum) / Double(k)
+            maxAverage = max(maxAverage, currentAvg)
+            trace.step("slide window: right=\(i)", ["left": i - k + 1, "right": i, "removed": nums[i - k], "added": nums[i], "windowSum": windowSum, "maxAverage": maxAverage])
         }
         return maxAverage
     }
@@ -43,17 +46,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -80,17 +84,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -117,17 +122,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -154,17 +160,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -191,17 +198,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -228,17 +236,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -265,17 +274,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -302,17 +312,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -339,17 +350,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -376,17 +388,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -413,17 +426,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -450,17 +464,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -487,17 +502,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -524,17 +540,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -561,17 +578,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -598,17 +616,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -635,17 +654,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -672,17 +692,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -709,17 +730,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -746,17 +768,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -783,17 +806,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -820,17 +844,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -857,17 +882,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -894,17 +920,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -931,17 +958,18 @@ private class Solution {
         let p_k = InputParser.parseInt(params[1])
 
         // Constraint precondition checks
-        guard p_nums.allSatisfy { $0 >= -104 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= -104 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: -104 <= nums[i] <= 104")
             return
         }
 
         let solution = Solution()
-        let result = solution.findMaxAverage(p_nums, p_k)
+        let trace = Trace()
+        let result = solution.findMaxAverage(p_nums, p_k, trace: trace)
         let computedOutput = OutputSerializer.serialize(result)
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

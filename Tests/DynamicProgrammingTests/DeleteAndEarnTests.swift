@@ -47,7 +47,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -87,7 +87,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -127,7 +127,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -167,7 +167,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -207,7 +207,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -247,7 +247,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -287,7 +287,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -327,7 +327,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -367,7 +367,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -407,7 +407,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -447,7 +447,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -487,7 +487,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -527,7 +527,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -567,7 +567,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -607,7 +607,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -647,7 +647,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -687,7 +687,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -727,7 +727,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -767,7 +767,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -807,7 +807,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -847,7 +847,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -887,7 +887,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -927,7 +927,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -967,7 +967,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }
@@ -1007,7 +1007,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums.length <= 2 * 104")
             return
         }
-        guard p_nums.allSatisfy { $0 >= 1 && $0 <= 104 } else {
+        guard p_nums.allSatisfy({ $0 >= 1 && $0 <= 104 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= nums[i] <= 104")
             return
         }

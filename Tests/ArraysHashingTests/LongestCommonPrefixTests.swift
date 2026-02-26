@@ -30,31 +30,29 @@ private class Solution {
         let expectedOutput = "fl"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -68,31 +66,29 @@ private class Solution {
         let expectedOutput = "apple"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -106,31 +102,29 @@ private class Solution {
         let expectedOutput = "abc"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -144,31 +138,29 @@ private class Solution {
         let expectedOutput = "ab"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -182,31 +174,29 @@ private class Solution {
         let expectedOutput = "inter"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -220,31 +210,29 @@ private class Solution {
         let expectedOutput = "ab"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -258,31 +246,29 @@ private class Solution {
         let expectedOutput = "flower"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -296,31 +282,29 @@ private class Solution {
         let expectedOutput = "c"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -334,31 +318,29 @@ private class Solution {
         let expectedOutput = "ab"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -372,31 +354,29 @@ private class Solution {
         let expectedOutput = "a"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -410,31 +390,29 @@ private class Solution {
         let expectedOutput = "abc"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -448,31 +426,29 @@ private class Solution {
         let expectedOutput = "a"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -486,31 +462,29 @@ private class Solution {
         let expectedOutput = "fl"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -524,31 +498,29 @@ private class Solution {
         let expectedOutput = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -562,31 +534,29 @@ private class Solution {
         let expectedOutput = "abc"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -600,31 +570,29 @@ private class Solution {
         let expectedOutput = "a"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -638,31 +606,29 @@ private class Solution {
         let expectedOutput = "ab"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -676,31 +642,29 @@ private class Solution {
         let expectedOutput = "abc"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -714,31 +678,29 @@ private class Solution {
         let expectedOutput = "appl"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -752,31 +714,29 @@ private class Solution {
         let expectedOutput = "hello"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -790,31 +750,29 @@ private class Solution {
         let expectedOutput = "x"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -828,31 +786,29 @@ private class Solution {
         let expectedOutput = "a"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -866,31 +822,29 @@ private class Solution {
         let expectedOutput = "q"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -904,31 +858,29 @@ private class Solution {
         let expectedOutput = "123"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
@@ -942,31 +894,29 @@ private class Solution {
         let expectedOutput = "a"
         let orderMatters = true
 
-        let inputLines = rawInput.components(separatedBy: "\n")
-        guard inputLines.count >= 2 else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Invalid class design input format")
+        let params = InputParser.stripParamNames(rawInput)
+
+        guard params.count >= 1 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Wrong number of params: expected 1, got \(params.count)")
             return
         }
 
-        let methodNames = InputParser.parseStringArray(inputLines[0])
-        let argsList = InputParser.parseRawArgsList(inputLines[1])
-        guard methodNames.count == argsList.count, !methodNames.isEmpty else {
-            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Methods/args count mismatch")
+        let p_strs = InputParser.parseStringArray(params[0])
+        guard p_strs.count <= 100_000 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: strs array too large (\(p_strs.count))")
             return
         }
 
-        // Init
-        let initArgs = argsList[0]
-        let obj = LongestCommonPrefix()
-
-        var results: [String] = []
-        for i in 1..<methodNames.count {
-            let m = methodNames[i]
-            let a = argsList[i]
-            results.append("null")
+        // Constraint precondition checks
+        guard p_strs.count >= 1 && p_strs.count <= 200 else {
+            await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= strs.length <= 200")
+            return
         }
 
-        let computedOutput = "[" + results.joined(separator: ",") + "]"
+        let solution = Solution()
+        let result = solution.longestCommonPrefix(p_strs)
+        let computedOutput = OutputSerializer.serialize(result)
+
         let matches = computedOutput == expectedOutput
         await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")

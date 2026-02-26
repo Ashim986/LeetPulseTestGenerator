@@ -66,7 +66,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -116,7 +116,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -166,7 +166,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -216,7 +216,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -266,7 +266,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -316,7 +316,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -366,7 +366,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -416,7 +416,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -466,7 +466,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -516,7 +516,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -566,7 +566,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -616,7 +616,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -666,7 +666,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -716,7 +716,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -766,7 +766,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -816,7 +816,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -866,7 +866,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -916,7 +916,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -966,7 +966,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1016,7 +1016,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1066,7 +1066,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1116,7 +1116,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1166,7 +1166,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1216,7 +1216,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1266,7 +1266,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = WordDictionary()
+        var obj = Solution.WordDictionary()
 
         var results: [String] = []
         for i in 1..<methodNames.count {

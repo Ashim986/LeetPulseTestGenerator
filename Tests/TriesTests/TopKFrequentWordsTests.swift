@@ -3,14 +3,19 @@ import Testing
 @testable import LeetCodeHelpers
 
 private class Solution {
-    let topKFrequent = { (words: [String], k: Int) -> [String] in
+    func topKFrequent(_ words: [String], _ k: Int, trace: Trace) -> [String] {
         let wordCount = Dictionary(grouping: words, by: { $0 }).mapValues { $0.count }
+        trace.step("frequency count", ["wordCount": wordCount, "uniqueWords": wordCount.count, "totalWords": words.count])
         var heap = [(word: String, count: Int)]()
         for (word, count) in wordCount {
             heap.append((word, count))
         }
         heap.sort { $0.count > $1.count || ($0.count == $1.count && $0.word < $1.word) }
-        return Array(heap.prefix(k)).map { $0.word }
+        let sortedWords = heap.map { $0.word }
+        trace.step("sorted by frequency", ["sortedWords": sortedWords, "k": k])
+        let result = Array(heap.prefix(k)).map { $0.word }
+        trace.step("top k result", ["result": result, "k": k])
+        return result
     }
 }
 
@@ -46,11 +51,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -83,11 +89,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -120,11 +127,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -157,11 +165,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -194,11 +203,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -231,11 +241,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -268,11 +279,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -305,11 +317,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -342,11 +355,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -379,11 +393,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -416,11 +431,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -453,11 +469,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -490,11 +507,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -527,11 +545,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -564,11 +583,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -601,11 +621,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -638,11 +659,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -675,11 +697,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -712,11 +735,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -749,11 +773,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -786,11 +811,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -823,11 +849,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -860,11 +887,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -897,11 +925,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 
@@ -934,11 +963,12 @@ private class Solution {
         }
 
         let solution = Solution()
-        let result = solution.topKFrequent(p_words, p_k)
+        let trace = Trace()
+        let result = solution.topKFrequent(p_words, p_k, trace: trace)
         let computedOutput = "\(result)"
 
         let matches = computedOutput == expectedOutput
-        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters)
+        await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput, isValid: true, outputMatches: matches, orderMatters: orderMatters, traceSteps: trace.serializedSteps())
         #expect(computedOutput == expectedOutput, "Test \(testId): input=\(rawInput)")
     }
 

@@ -57,7 +57,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -107,7 +107,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -157,7 +157,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -207,7 +207,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -257,7 +257,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -307,7 +307,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -357,7 +357,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -407,7 +407,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -457,7 +457,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -507,7 +507,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -557,7 +557,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -607,7 +607,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -657,7 +657,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -707,7 +707,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -757,7 +757,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -807,7 +807,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -857,7 +857,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -907,7 +907,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -957,7 +957,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1007,7 +1007,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1057,7 +1057,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1107,7 +1107,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1157,7 +1157,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1207,7 +1207,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1257,7 +1257,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = RandomizedSet()
+        var obj = Solution.RandomizedSet()
 
         var results: [String] = []
         for i in 1..<methodNames.count {

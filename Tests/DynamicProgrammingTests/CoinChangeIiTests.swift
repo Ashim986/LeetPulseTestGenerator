@@ -46,7 +46,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -91,7 +91,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -136,7 +136,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -181,7 +181,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -226,7 +226,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -271,7 +271,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -316,7 +316,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -361,7 +361,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -406,7 +406,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -451,7 +451,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -496,7 +496,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -541,7 +541,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -586,7 +586,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -631,7 +631,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -676,7 +676,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -721,7 +721,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -766,7 +766,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -811,7 +811,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -856,7 +856,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -901,7 +901,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -946,7 +946,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -991,7 +991,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -1036,7 +1036,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -1081,7 +1081,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }
@@ -1126,7 +1126,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins.length <= 300")
             return
         }
-        guard p_coins.allSatisfy { $0 >= 1 && $0 <= 5000 } else {
+        guard p_coins.allSatisfy({ $0 >= 1 && $0 <= 5000 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= coins[i] <= 5000")
             return
         }

@@ -67,7 +67,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -107,7 +107,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -147,7 +147,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -187,7 +187,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -227,7 +227,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -267,7 +267,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -307,7 +307,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -347,7 +347,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -387,7 +387,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -427,7 +427,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -467,7 +467,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -507,7 +507,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -547,7 +547,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -587,7 +587,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -627,7 +627,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -667,7 +667,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -707,7 +707,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -747,7 +747,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -787,7 +787,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -827,7 +827,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -867,7 +867,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -907,7 +907,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -947,7 +947,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -987,7 +987,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }
@@ -1027,7 +1027,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks.length <= 15")
             return
         }
-        guard p_matchsticks.allSatisfy { $0 >= 1 && $0 <= 108 } else {
+        guard p_matchsticks.allSatisfy({ $0 >= 1 && $0 <= 108 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= matchsticks[i] <= 108")
             return
         }

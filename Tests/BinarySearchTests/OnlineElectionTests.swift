@@ -77,7 +77,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -125,7 +125,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -173,7 +173,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -221,7 +221,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -269,7 +269,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -317,7 +317,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -365,7 +365,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -413,7 +413,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -461,7 +461,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -509,7 +509,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -557,7 +557,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -605,7 +605,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -653,7 +653,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -701,7 +701,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -749,7 +749,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -797,7 +797,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -845,7 +845,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -893,7 +893,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -941,7 +941,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -989,7 +989,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1037,7 +1037,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1085,7 +1085,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1133,7 +1133,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1181,7 +1181,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -1229,7 +1229,7 @@ private class Solution {
         // Init
         let initArgs = argsList[0]
         guard initArgs.count >= 2 else { return }
-        let obj = TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
+        var obj = Solution.TopVotedCandidate(InputParser.parseIntArray(initArgs[0]), InputParser.parseIntArray(initArgs[1]))
 
         var results: [String] = []
         for i in 1..<methodNames.count {

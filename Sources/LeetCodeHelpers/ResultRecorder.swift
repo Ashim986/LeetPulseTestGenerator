@@ -22,7 +22,8 @@ public actor ResultRecorderActor {
         isValid: Bool,
         outputMatches: Bool,
         orderMatters: Bool,
-        errorMessage: String? = nil
+        errorMessage: String? = nil,
+        traceSteps: [[String: Any]]? = nil
     ) {
         var entry: [String: Any] = [
             "slug": slug,
@@ -37,6 +38,9 @@ public actor ResultRecorderActor {
         ]
         if let err = errorMessage {
             entry["error_message"] = err
+        }
+        if let steps = traceSteps, !steps.isEmpty {
+            entry["trace_steps"] = steps
         }
         results.append(entry)
 

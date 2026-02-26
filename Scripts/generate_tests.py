@@ -77,7 +77,7 @@ def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, 
         ref_name = m.group(3)
         if arr_name in param_map:
             vn, _ = param_map[arr_name]
-            return f"{vn}.allSatisfy {{ $0 >= {lo} && $0 < {vn}.count }}"
+            return f"{vn}.allSatisfy({{ $0 >= {lo} && $0 < {vn}.count }})"
 
     # "0 <= nums[i] <= 10^5" or "-10^4 <= nums[i] <= 10^4"
     m = re.match(r'(-?\d+(?:\^|\*\*)\d+|-?\d+)\s*<=\s*(\w+)\[i\]\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
@@ -88,7 +88,7 @@ def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, 
         if arr_name in param_map:
             vn, st = param_map[arr_name]
             if st in ("[Int]", "inout [Int]"):
-                return f"{vn}.allSatisfy {{ $0 >= {lo} && $0 <= {hi} }}"
+                return f"{vn}.allSatisfy({{ $0 >= {lo} && $0 <= {hi} }})"
 
     # "1 <= n <= 10^5" (simple integer range)
     m = re.match(r'(-?\d+(?:\^|\*\*)\d+|-?\d+)\s*<=\s*(\w+)\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
@@ -298,6 +298,23 @@ BROKEN_SOLUTION_SLUGS = {
     "longest-uncommon-subsequence-ii",
     "longest-word-in-dictionary-through-deleting",
     "next-greater-element-iii",
+    "range-sum-query-mutable",  # __class syntax in solution
+    "rle-iterator",  # malformed one-liner solution
+    "design-twitter",  # class design parse issue
+    "exam-room",  # class design parse issue
+    "find-median-from-data-stream",  # class design parse issue
+    "design-hashset",  # class design parse issue
+    "lru-cache",  # class design parse issue
+    "design-hashmap",  # size instance member in property initializer
+    "linked-list-random-node",  # Solution IS the class, not nested
+    "flatten-nested-list-iterator",  # NestedInteger type not defined
+    "mini-parser",  # NestedInteger type not defined
+    "serialize-and-deserialize-bst",  # Codec.dfs private method
+    "serialize-and-deserialize-binary-tree",  # Codec.dfs private method
+    "time-based-key-value-store",  # complex tuple type in solution
+    "encode-and-decode-tinyurl",  # Codec no exact init match
+    "peeking-iterator",  # mutating member / struct issues
+    "random-point-in-non-overlapping-rectangles",  # init parsing mismatch
 }
 
 # ─── Class design problems to skip (require stateful class instantiation) ────
@@ -668,7 +685,7 @@ def sanitize_swift_string(s: str) -> str:
     return result
 
 
-def sanitize_solution_code(code: str) -> str:
+def sanitize_solution_code(code: str, slug: str = "", is_class_design: bool = False) -> str:
     """Clean up solution code for embedding in a test file."""
     modified = code
     # Make class private to avoid conflicts
@@ -677,8 +694,14 @@ def sanitize_solution_code(code: str) -> str:
     # Remove import Foundation (already imported)
     modified = re.sub(r'import\s+Foundation\s*\n?', '', modified)
 
+    # Rename TrieNode to a unique name per slug to avoid collisions across test files
+    if "TrieNode" in modified and slug:
+        unique_name = slug_to_class_name(slug).replace("Tests", "") + "TrieNode"
+        modified = modified.replace("TrieNode", unique_name)
+
     # Remove TreeNode/ListNode/Node redefinitions (we provide these from LeetCodeHelpers)
-    types_to_strip = ["TreeNode", "ListNode", "Node"]
+    # For class design problems, keep Node since it may be an internal helper (e.g., doubly linked list node)
+    types_to_strip = ["TreeNode", "ListNode"] if is_class_design else ["TreeNode", "ListNode", "Node"]
     lines = modified.split("\n")
     cleaned = []
     skip_depth = 0
@@ -808,7 +831,7 @@ def generate_test_file(
         lines.append("")
 
     # Embed solution code (private to avoid conflicts)
-    modified_code = sanitize_solution_code(solution_code)
+    modified_code = sanitize_solution_code(solution_code, slug=slug)
 
     lines.append(modified_code.rstrip())
     lines.append("")
@@ -1032,7 +1055,9 @@ def generate_class_design_test_file(
 ) -> str:
     """Generate a Swift Testing file for a class design problem."""
     class_name = slug_to_class_name(slug)
-    design_class = find_design_class_name(solution_code) or slug.replace("-", " ").title().replace(" ", "")
+    _found_nested = find_design_class_name(solution_code)
+    design_class = _found_nested if _found_nested else "Solution"
+    solution_is_design_class = (_found_nested is None)  # Solution itself IS the design class
 
     # Parse methods for dispatch
     methods = parse_class_methods(solution_code)
@@ -1044,8 +1069,8 @@ def generate_class_design_test_file(
     lines.append("@testable import LeetCodeHelpers")
     lines.append("")
 
-    # Embed solution code
-    modified_code = sanitize_solution_code(solution_code)
+    # Embed solution code (keep Node for class design problems)
+    modified_code = sanitize_solution_code(solution_code, slug=slug, is_class_design=True)
     lines.append(modified_code.rstrip())
     lines.append("")
     lines.append(f"@Suite struct {class_name} {{")
@@ -1109,9 +1134,11 @@ def generate_class_design_test_file(
                     init_call_parts.append(f"{label}: {parsed}")
             init_call = ", ".join(init_call_parts)
             lines.append(f"        guard initArgs.count >= {len(init_params)} else {{ return }}")
-            lines.append(f"        let obj = {design_class}({init_call})")
+            qual = design_class if solution_is_design_class else f"Solution.{design_class}"
+            lines.append(f"        var obj = {qual}({init_call})")
         else:
-            lines.append(f"        let obj = {design_class}()")
+            qual = design_class if solution_is_design_class else f"Solution.{design_class}"
+            lines.append(f"        var obj = {qual}()")
         lines.append(f"")
 
         # Generate method dispatch loop
@@ -1195,13 +1222,24 @@ def is_class_design_problem(slug: str, code: str, test_cases: List[dict]) -> boo
     """Detect if a problem is a class design problem by checking test case format."""
     if slug in CLASS_DESIGN_SLUGS:
         return True
-    # Check if first test case input starts with ["ClassName",
+    # Check if first test case input has class design format:
+    # Line 1: ["ClassName", "method1", "method2", ...]
+    # Line 2: [[initArgs], [args1], [args2], ...]
     if test_cases:
         inp = test_cases[0].get("input", "")
-        first_line = inp.split("\n")[0].strip()
-        if first_line.startswith("[\"") and not first_line.startswith("[["):
-            # Looks like ["ClassName", "method1", ...]
-            return True
+        lines = [l.strip() for l in inp.split("\n") if l.strip()]
+        if len(lines) >= 2:
+            first_line = lines[0]
+            second_line = lines[1]
+            if (first_line.startswith("[\"") and not first_line.startswith("[[")
+                    and second_line.startswith("[[")):
+                # First element should be a class name (starts with uppercase)
+                try:
+                    methods = json.loads(first_line)
+                    if methods and isinstance(methods[0], str) and methods[0][0].isupper():
+                        return True
+                except (json.JSONDecodeError, IndexError):
+                    pass
     return False
 
 

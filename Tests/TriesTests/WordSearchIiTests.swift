@@ -4,17 +4,17 @@ import Testing
 
 private class Solution {
     func findWords(_ board: [[Character]], _ words: [String]) -> [String] {
-        class TrieNode {
-            var children: [TrieNode?] = Array(repeating: nil, count: 26)
+        class WordSearchIiTrieNode {
+            var children: [WordSearchIiTrieNode?] = Array(repeating: nil, count: 26)
             var word: String? = nil
         }
 
-        let root = TrieNode()
+        let root = WordSearchIiTrieNode()
         for word in words {
             var node = root
             for char in word {
                 let index = Int(char.asciiValue! - Character("a").asciiValue!)
-                if node.children[index] == nil { node.children[index] = TrieNode() }
+                if node.children[index] == nil { node.children[index] = WordSearchIiTrieNode() }
                 node = node.children[index]!
             }
             node.word = word
@@ -26,7 +26,7 @@ private class Solution {
         var results: [String] = []
         let dirs = [(1,0),(-1,0),(0,1),(0,-1)]
 
-        func dfs(_ r: Int, _ c: Int, _ node: TrieNode) {
+        func dfs(_ r: Int, _ c: Int, _ node: WordSearchIiTrieNode) {
             let char = board[r][c]
             let index = Int(char.asciiValue! - Character("a").asciiValue!)
             guard let next = node.children[index] else { return }
@@ -82,7 +82,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -120,7 +120,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -158,7 +158,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -196,7 +196,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -234,7 +234,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -272,7 +272,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -310,7 +310,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -348,7 +348,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -386,7 +386,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -424,7 +424,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -462,7 +462,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -500,7 +500,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -538,7 +538,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -576,7 +576,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -614,7 +614,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -652,7 +652,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -690,7 +690,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -728,7 +728,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -766,7 +766,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -804,7 +804,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -842,7 +842,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -880,7 +880,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -918,7 +918,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -956,7 +956,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {
@@ -994,7 +994,7 @@ private class Solution {
 
         // Init
         let initArgs = argsList[0]
-        let obj = TrieNode()
+        var obj = Solution.TrieNode()
 
         var results: [String] = []
         for i in 1..<methodNames.count {

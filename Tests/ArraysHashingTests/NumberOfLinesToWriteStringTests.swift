@@ -57,7 +57,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -106,7 +106,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -155,7 +155,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -204,7 +204,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -253,7 +253,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -302,7 +302,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -351,7 +351,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -400,7 +400,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -449,7 +449,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -498,7 +498,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -547,7 +547,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -596,7 +596,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -645,7 +645,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -694,7 +694,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -743,7 +743,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -792,7 +792,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -841,7 +841,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -890,7 +890,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -939,7 +939,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -988,7 +988,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -1037,7 +1037,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -1086,7 +1086,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -1135,7 +1135,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -1184,7 +1184,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }
@@ -1233,7 +1233,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: widths.length == 26")
             return
         }
-        guard p_widths.allSatisfy { $0 >= 2 && $0 <= 10 } else {
+        guard p_widths.allSatisfy({ $0 >= 2 && $0 <= 10 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 2 <= widths[i] <= 10")
             return
         }

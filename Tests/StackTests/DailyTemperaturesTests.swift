@@ -48,7 +48,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -88,7 +88,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -128,7 +128,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -168,7 +168,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -208,7 +208,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -248,7 +248,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -288,7 +288,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -328,7 +328,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -368,7 +368,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -408,7 +408,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -448,7 +448,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -488,7 +488,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -528,7 +528,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -568,7 +568,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -608,7 +608,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -648,7 +648,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -688,7 +688,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -728,7 +728,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -768,7 +768,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -808,7 +808,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -848,7 +848,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -888,7 +888,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -928,7 +928,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -968,7 +968,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
@@ -1008,7 +1008,7 @@ private class Solution {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 1 <= temperatures.length <= 105")
             return
         }
-        guard p_temperatures.allSatisfy { $0 >= 30 && $0 <= 100 } else {
+        guard p_temperatures.allSatisfy({ $0 >= 30 && $0 <= 100 }) else {
             await ResultRecorderActor.shared.record(slug: slug, topic: topic, testId: testId, input: rawInput, originalExpected: expectedOutput, computedOutput: "", isValid: false, outputMatches: false, orderMatters: orderMatters, errorMessage: "Constraint violation: 30 <= temperatures[i] <= 100")
             return
         }
