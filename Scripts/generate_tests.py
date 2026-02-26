@@ -1199,6 +1199,71 @@ def slug_to_func_safe(slug: str) -> str:
     return parts[0] + "".join(p.capitalize() for p in parts[1:])
 
 
+def slug_to_enum_name(slug: str) -> str:
+    """Convert 'two-sum' to 'LC_two_sum' for namespace enum.
+    Replaces hyphens with underscores, prefixes with LC_."""
+    return "LC_" + slug.replace("-", "_")
+
+
+def wrap_in_namespace(output: str, slug: str) -> str:
+    """Wrap generated Swift code in enum LC_{slug} { ... } namespace.
+
+    Import statements stay outside the enum. Everything else (typealias, Solution class,
+    @Suite struct, etc.) is indented by 4 spaces inside the enum.
+    The @Test functions become static since they're inside an enum.
+    """
+    enum_name = slug_to_enum_name(slug)
+    lines = output.split("\n")
+    import_lines = []
+    body_lines = []
+
+    # Separate import lines from body
+    in_imports = True
+    for line in lines:
+        stripped = line.strip()
+        if in_imports and (stripped.startswith("import ") or stripped.startswith("@testable import ") or stripped == ""):
+            import_lines.append(line)
+            # Stop import section after first non-import non-blank line
+            if stripped == "" and body_lines:
+                in_imports = False
+        else:
+            in_imports = False
+            body_lines.append(line)
+
+    # Remove trailing empty lines from imports (we'll add our own spacing)
+    while import_lines and import_lines[-1].strip() == "":
+        import_lines.pop()
+
+    # Indent body lines by 4 spaces inside the enum
+    indented_body = []
+    for line in body_lines:
+        if line.strip() == "":
+            indented_body.append("")
+        else:
+            indented_body.append("    " + line)
+
+    # Make @Test functions static inside the enum namespace
+    # Replace "@Test func" with "@Test static func" in the indented body
+    for i, line in enumerate(indented_body):
+        if "@Test func" in line and "static" not in line:
+            indented_body[i] = line.replace("@Test func", "@Test static func")
+
+    # Build final output
+    result_lines = import_lines
+    result_lines.append("")
+    result_lines.append(f"enum {enum_name} {{")
+    result_lines.extend(indented_body)
+    # Ensure proper closing
+    if result_lines and result_lines[-1].strip() == "":
+        result_lines.append("}")
+    else:
+        result_lines.append("")
+        result_lines.append("}")
+    result_lines.append("")
+
+    return "\n".join(result_lines)
+
+
 def sanitize_swift_string(s: str) -> str:
     """Escape a string for inclusion in Swift source. Handle all control chars."""
     result = s.replace("\\", "\\\\").replace('"', '\\"')
@@ -1537,7 +1602,9 @@ def generate_test_file(
 
     lines.append("}")
     lines.append("")
-    return "\n".join(lines)
+    raw_output = "\n".join(lines)
+    # Wrap in namespace enum for isolation (QUAL-01)
+    return wrap_in_namespace(raw_output, slug)
 
 
 # ─── Class design test generation ─────────────────────────────────────────────
@@ -1853,7 +1920,9 @@ def generate_class_design_test_file(
 
     lines.append("}")
     lines.append("")
-    return "\n".join(lines)
+    raw_output = "\n".join(lines)
+    # Wrap in namespace enum for isolation (QUAL-01)
+    return wrap_in_namespace(raw_output, slug)
 
 
 def is_class_design_problem(slug: str, code: str, test_cases: List[dict]) -> bool:

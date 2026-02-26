@@ -6,6 +6,7 @@ Covers:
 - Edge case tests for parsing, naming, and utility functions
 - Guard-let closure parenthesization tests (Bug 1 prevention)
 - Class-design generation correctness tests (Bug 2-4 prevention)
+- Namespace isolation tests (QUAL-01: enum LC_{slug} wrapping)
 """
 
 import os
@@ -25,6 +26,7 @@ from generate_tests import (
     sanitize_solution_code,
     sanitize_swift_string,
     slug_to_class_name,
+    slug_to_enum_name,
     _parse_number,
 )
 
@@ -452,3 +454,162 @@ class Node {
         assert "(InputParser.parseInt(initArgs[0]))!" in output, (
             "Expected force-unwrap of parseInt in init args"
         )
+
+
+# ─── Namespace Isolation Tests (QUAL-01) ─────────────────────────────────────
+
+
+class TestNamespaceIsolation:
+    """Tests for enum LC_{slug} namespace wrapping (QUAL-01).
+
+    All generated test files must wrap Solution class and test struct
+    inside an enum namespace to prevent type collisions across targets.
+    """
+
+    # Shared fixtures
+    _standard_code = """
+class Solution {
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+        return []
+    }
+}
+"""
+    _standard_tcs = [
+        {
+            "id": "tc_0",
+            "input": "[2,7,11,15]\n9",
+            "expectedOutput": "[0,1]",
+            "orderMatters": False,
+        }
+    ]
+
+    _class_design_code = """class Solution {
+    class MyStack {
+        var stack: [Int] = []
+        init() {}
+        func push(_ x: Int) { stack.append(x) }
+        func pop() -> Int { return stack.removeLast() }
+        func top() -> Int { return stack.last! }
+        func empty() -> Bool { return stack.isEmpty }
+    }
+}"""
+    _class_design_tcs = [
+        {
+            "id": "tc_0",
+            "input": '["MyStack","push","push","top","pop","empty"]\n[[],[1],[2],[],[],[]]',
+            "expectedOutput": "[null,null,null,2,2,false]",
+            "orderMatters": True,
+        }
+    ]
+
+    def test_generated_output_wrapped_in_enum(self):
+        """Generated test file for a known slug must contain enum LC_{slug} {."""
+        sig = parse_func_signature(self._standard_code)
+        output = generate_test_file(
+            slug="two-sum", topic="arrays-hashing",
+            solution_code=self._standard_code,
+            test_cases=self._standard_tcs, sig=sig,
+        )
+        assert "enum LC_two_sum {" in output, (
+            "Output must contain 'enum LC_two_sum {'"
+        )
+
+    def test_namespace_enum_name_format(self):
+        """slug_to_enum_name must replace hyphens with underscores and add LC_ prefix."""
+        assert slug_to_enum_name("two-sum") == "LC_two_sum"
+        assert slug_to_enum_name("sort-list") == "LC_sort_list"
+        assert slug_to_enum_name("3sum") == "LC_3sum"
+        assert slug_to_enum_name("design-add-and-search-words-data-structure") == (
+            "LC_design_add_and_search_words_data_structure"
+        )
+        assert slug_to_enum_name("longest-substring-without-repeating-characters") == (
+            "LC_longest_substring_without_repeating_characters"
+        )
+
+    def test_solution_class_inside_enum(self):
+        """Solution class must be indented inside the enum namespace."""
+        sig = parse_func_signature(self._standard_code)
+        output = generate_test_file(
+            slug="two-sum", topic="arrays-hashing",
+            solution_code=self._standard_code,
+            test_cases=self._standard_tcs, sig=sig,
+        )
+        lines = output.split("\n")
+        in_enum = False
+        found_solution = False
+        for line in lines:
+            if "enum LC_two_sum {" in line:
+                in_enum = True
+                continue
+            if in_enum and "class Solution" in line:
+                found_solution = True
+                assert line.startswith("    "), (
+                    f"Solution class must be indented inside enum: {repr(line)}"
+                )
+                break
+        assert found_solution, "Solution class not found inside enum"
+
+    def test_test_function_is_static(self):
+        """@Test function inside enum must be static."""
+        sig = parse_func_signature(self._standard_code)
+        output = generate_test_file(
+            slug="two-sum", topic="arrays-hashing",
+            solution_code=self._standard_code,
+            test_cases=self._standard_tcs, sig=sig,
+        )
+        assert "@Test static func" in output, (
+            "Test function inside enum must use '@Test static func'"
+        )
+        # Ensure no non-static @Test func remains
+        lines = output.split("\n")
+        in_enum = False
+        for line in lines:
+            if "enum LC_" in line:
+                in_enum = True
+            if in_enum and "@Test func" in line and "static" not in line:
+                assert False, f"Found non-static @Test func inside enum: {repr(line)}"
+
+    def test_class_design_namespaced(self):
+        """Class-design output must also use namespace wrapping."""
+        output = generate_class_design_test_file(
+            slug="implement-stack-using-queues", topic="stack",
+            solution_code=self._class_design_code,
+            test_cases=self._class_design_tcs,
+        )
+        assert "enum LC_implement_stack_using_queues {" in output, (
+            "Class-design output must have namespace enum"
+        )
+        assert "@Test static func" in output, (
+            "Class-design test function must be static inside enum"
+        )
+
+    def test_imports_outside_enum(self):
+        """Import statements must appear before the enum, not inside it."""
+        sig = parse_func_signature(self._standard_code)
+        output = generate_test_file(
+            slug="two-sum", topic="arrays-hashing",
+            solution_code=self._standard_code,
+            test_cases=self._standard_tcs, sig=sig,
+        )
+        lines = output.split("\n")
+        enum_line_idx = None
+        for i, line in enumerate(lines):
+            if "enum LC_" in line:
+                enum_line_idx = i
+                break
+        assert enum_line_idx is not None, "enum LC_ not found in output"
+
+        # All import lines must come before the enum
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if stripped.startswith("import ") or stripped.startswith("@testable import"):
+                assert i < enum_line_idx, (
+                    f"Import on line {i} appears after enum on line {enum_line_idx}: {repr(line)}"
+                )
+        # No import inside enum
+        for i in range(enum_line_idx, len(lines)):
+            stripped = lines[i].strip()
+            if stripped.startswith("import ") or stripped.startswith("@testable import"):
+                assert False, (
+                    f"Import found inside enum on line {i}: {repr(lines[i])}"
+                )
