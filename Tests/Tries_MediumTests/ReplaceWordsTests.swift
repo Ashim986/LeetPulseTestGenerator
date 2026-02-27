@@ -140,10 +140,8 @@ enum LCReplaceWords {
             guard params.count == 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 2, got \(params.count)"
                 )
                 return
@@ -152,10 +150,8 @@ enum LCReplaceWords {
             guard let p_dictionary = InputParser.parseStringArray(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as [String]"
                 )
                 return
@@ -163,10 +159,8 @@ enum LCReplaceWords {
             guard p_dictionary.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: dictionary array too large (\(p_dictionary.count))"
                 )
                 return
@@ -175,10 +169,8 @@ enum LCReplaceWords {
             guard p_sentence.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: sentence string too long (\(p_sentence.count))"
                 )
                 return
@@ -188,10 +180,8 @@ enum LCReplaceWords {
             guard p_dictionary.count >= 1 && p_dictionary.count <= 1000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= dictionary.length <= 1000"
                 )
                 return
@@ -199,10 +189,8 @@ enum LCReplaceWords {
             guard p_dictionary.allSatisfy({ $0.count >= 1 && $0.count <= 100 }) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= dictionary[i].length <= 100"
                 )
                 return
@@ -210,17 +198,27 @@ enum LCReplaceWords {
             guard p_sentence.count >= 1 && p_sentence.count <= 106 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= sentence.length <= 106"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.replaceWords(p_dictionary, p_sentence)
+            var resultHolder: String?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.replaceWords(p_dictionary, p_sentence)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Normalize: strip outer quotes from both sides (QUAL-03)
@@ -232,10 +230,8 @@ enum LCReplaceWords {
             let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

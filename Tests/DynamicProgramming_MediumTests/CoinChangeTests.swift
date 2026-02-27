@@ -117,10 +117,8 @@ enum LCCoinChange {
             guard params.count == 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 2, got \(params.count)"
                 )
                 return
@@ -129,10 +127,8 @@ enum LCCoinChange {
             guard let p_coins = InputParser.parseIntArray(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as [Int]"
                 )
                 return
@@ -140,10 +136,8 @@ enum LCCoinChange {
             guard p_coins.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: coins array too large (\(p_coins.count))"
                 )
                 return
@@ -151,10 +145,8 @@ enum LCCoinChange {
             guard let p_amount = InputParser.parseInt(params[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 1 as Int"
                 )
                 return
@@ -164,10 +156,8 @@ enum LCCoinChange {
             guard p_coins.count >= 1 && p_coins.count <= 12 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= coins.length <= 12"
                 )
                 return
@@ -175,10 +165,8 @@ enum LCCoinChange {
             guard p_coins.allSatisfy({ $0 >= 1 }) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= coins[i] <= 231 - 1"
                 )
                 return
@@ -186,26 +174,34 @@ enum LCCoinChange {
             guard p_amount >= 0 && p_amount <= 104 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 0 <= amount <= 104"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.coinChange(p_coins, p_amount)
+            var resultHolder: Int?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.coinChange(p_coins, p_amount)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             let matches = computedOutput == expectedOutput
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

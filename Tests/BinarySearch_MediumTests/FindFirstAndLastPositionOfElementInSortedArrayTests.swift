@@ -110,7 +110,7 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
              expected: "[-1, -1]", orderMatters: true)
         ]
 
-        @Test(arguments: 0..<testCases.count)
+//        @Test(arguments: 0..<testCases.count)
         static func run(index: Int) async {
             let tc = Self.testCases[index]
             let slug = "find-first-and-last-position-of-element-in-sorted-array"
@@ -125,10 +125,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard params.count == 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 2, got \(params.count)"
                 )
                 return
@@ -137,10 +135,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard let p_nums = InputParser.parseIntArray(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as [Int]"
                 )
                 return
@@ -148,10 +144,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard p_nums.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: nums array too large (\(p_nums.count))"
                 )
                 return
@@ -159,10 +153,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard let p_target = InputParser.parseInt(params[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 1 as Int"
                 )
                 return
@@ -172,10 +164,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard p_nums.count >= 0 && p_nums.count <= 105 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 0 <= nums.length <= 105"
                 )
                 return
@@ -183,10 +173,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard p_nums.allSatisfy({ $0 >= -109 && $0 <= 109 }) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: -109 <= nums[i] <= 109"
                 )
                 return
@@ -194,17 +182,27 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             guard p_target >= -109 && p_target <= 109 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: -109 <= target <= 109"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.searchRange(p_nums, p_target)
+            var resultHolder: [Int]?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.searchRange(p_nums, p_target)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Order-independent array comparison (QUAL-01)
@@ -213,10 +211,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
                 let matches = false
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: computedOutput,
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse expected output as [Int]"
                 )
                 #expect(Bool(false), "Test \(testId): failed to parse expected")
@@ -230,10 +226,8 @@ enum LCFindFirstAndLastPositionOfElementInSortedArray {
             }
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

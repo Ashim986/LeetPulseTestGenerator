@@ -123,10 +123,8 @@ enum LCBinaryTreeLevelOrderTraversal {
             guard params.count == 1 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 1, got \(params.count)"
                 )
                 return
@@ -135,17 +133,27 @@ enum LCBinaryTreeLevelOrderTraversal {
             guard let p_root = InputParser.parseNullableIntArray(params[0]).map({ buildTree($0) }) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as TreeNode?"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.levelOrder(p_root)
+            var resultHolder: [[Int]]?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.levelOrder(p_root)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Nested order-independent comparison (QUAL-01)
@@ -153,10 +161,8 @@ enum LCBinaryTreeLevelOrderTraversal {
             guard let expectedArrays = InputParser.parse2DIntArray(expectedOutput) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: computedOutput,
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse expected output as [[Int]]"
                 )
                 #expect(Bool(false), "Test \(testId): failed to parse expected")
@@ -175,10 +181,8 @@ enum LCBinaryTreeLevelOrderTraversal {
             }
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

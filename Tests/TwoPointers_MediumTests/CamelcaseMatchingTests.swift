@@ -118,10 +118,8 @@ enum LCCamelcaseMatching {
             guard params.count == 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 2, got \(params.count)"
                 )
                 return
@@ -131,10 +129,8 @@ enum LCCamelcaseMatching {
             guard p_query.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: query string too long (\(p_query.count))"
                 )
                 return
@@ -143,10 +139,8 @@ enum LCCamelcaseMatching {
             guard p_pattern.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: pattern string too long (\(p_pattern.count))"
                 )
                 return
@@ -156,10 +150,8 @@ enum LCCamelcaseMatching {
             guard p_pattern.count >= 1 && p_pattern.count <= 100 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= pattern.length, queries.length <= 100"
                 )
                 return
@@ -167,17 +159,27 @@ enum LCCamelcaseMatching {
             guard p_pattern.count >= 1 && p_pattern.count <= 100 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= pattern.length, queries.length <= 100"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.camelMatch(query: p_query, pattern: p_pattern)
+            var resultHolder: Bool?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.camelMatch(query: p_query, pattern: p_pattern)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Normalize: parse expected to Bool (handles true/True/TRUE/1)
@@ -186,10 +188,8 @@ enum LCCamelcaseMatching {
             let matches = result == expectedBool
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

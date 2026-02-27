@@ -115,10 +115,8 @@ enum LCPairsOfSongsWithTotalDurationsDivisibleBy60 {
             guard params.count == 1 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 1, got \(params.count)"
                 )
                 return
@@ -127,10 +125,8 @@ enum LCPairsOfSongsWithTotalDurationsDivisibleBy60 {
             guard let p_time = InputParser.parseIntArray(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as [Int]"
                 )
                 return
@@ -138,10 +134,8 @@ enum LCPairsOfSongsWithTotalDurationsDivisibleBy60 {
             guard p_time.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: time array too large (\(p_time.count))"
                 )
                 return
@@ -151,10 +145,8 @@ enum LCPairsOfSongsWithTotalDurationsDivisibleBy60 {
             guard p_time.count >= 1 && p_time.count <= 60000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= time.length <= 6 * 10^4"
                 )
                 return
@@ -162,26 +154,34 @@ enum LCPairsOfSongsWithTotalDurationsDivisibleBy60 {
             guard p_time.allSatisfy({ $0 >= 1 && $0 <= 500 }) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= time[i] <= 500"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.numPairsDivisibleBy60(p_time)
+            var resultHolder: Int?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.numPairsDivisibleBy60(p_time)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             let matches = computedOutput == expectedOutput
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

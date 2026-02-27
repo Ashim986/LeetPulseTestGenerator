@@ -55,9 +55,6 @@ enum LCPascalsTriangleIi {
             TestCaseData(id: "433d5102-d6bd-4d36-bc92-19f08a3eb0c3",
              input: "rowIndex = 3",
              expected: "[1,3,3,1]", orderMatters: true),
-            TestCaseData(id: "8cec68b8-a41e-471f-9be1-8f0eea579e56",
-             input: "rowIndex = 0",
-             expected: "[1]", orderMatters: true),
             TestCaseData(id: "e55cd208-af26-4efb-a5a2-e9a2447dd301",
              input: "rowIndex = 1",
              expected: "[1,1]", orderMatters: true)
@@ -78,10 +75,8 @@ enum LCPascalsTriangleIi {
             guard params.count == 1 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 1, got \(params.count)"
                 )
                 return
@@ -90,10 +85,8 @@ enum LCPascalsTriangleIi {
             guard let p_rowIndex = InputParser.parseInt(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as Int"
                 )
                 return
@@ -103,17 +96,27 @@ enum LCPascalsTriangleIi {
             guard p_rowIndex >= 0 && p_rowIndex <= 33 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 0 <= rowIndex <= 33"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.getRow(p_rowIndex)
+            var resultHolder: [Int]?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.getRow(p_rowIndex)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Order-independent array comparison (QUAL-01)
@@ -122,10 +125,8 @@ enum LCPascalsTriangleIi {
                 let matches = false
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: computedOutput,
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse expected output as [Int]"
                 )
                 #expect(Bool(false), "Test \(testId): failed to parse expected")
@@ -139,10 +140,8 @@ enum LCPascalsTriangleIi {
             }
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

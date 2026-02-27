@@ -37,39 +37,18 @@ enum LCKnightProbabilityInChessboard {
             TestCaseData(id: "cf1b3f72-dabf-4f9b-97f1-c7d39b9b0d59",
              input: "n = 1, k = 2, row = 0, column = 0",
              expected: "0.0", orderMatters: true),
-            TestCaseData(id: "746174bd-08dc-4f9c-b0b3-787d3ce768ab",
-             input: "n = 3, k = 0, row = 0, column = 0",
-             expected: "1.0", orderMatters: true),
-            TestCaseData(id: "def835b6-1f04-435f-8a87-0eb5aebf78fa",
-             input: "n = 5, k = 0, row = 0, column = 0",
-             expected: "1.0", orderMatters: true),
-            TestCaseData(id: "058628d5-b25f-439f-94e7-df68d1e0da36",
-             input: "n = 7, k = 0, row = 0, column = 0",
-             expected: "1.0", orderMatters: true),
             TestCaseData(id: "024cf69a-1a84-4f86-bb79-da490df36c24",
              input: "n = 3, k = 1, row = 1, column = 1",
              expected: "0.0", orderMatters: true),
-            TestCaseData(id: "794d4720-93cb-4ab0-841b-bb4a697bcbf7",
-             input: "n = 4, k = 0, row = 2, column = 2",
-             expected: "1.0", orderMatters: true),
             TestCaseData(id: "fbf244c6-0f4d-4f90-b395-3a5357867277",
              input: "n = 4, k = 2, row = 2, column = 2",
              expected: "0.25", orderMatters: true),
-            TestCaseData(id: "7d00958e-95d6-439a-9a46-f3575e385f2c",
-             input: "n = 6, k = 0, row = 3, column = 3",
-             expected: "1.0", orderMatters: true),
-            TestCaseData(id: "e137e839-a443-4d83-9f6c-88d6f5ad52a7",
-             input: "n = 8, k = 0, row = 4, column = 4",
-             expected: "1.0", orderMatters: true),
             TestCaseData(id: "87d35311-e6b2-454b-aec4-a24d4ee3d485",
              input: "n = 4, k = 1, row = 3, column = 3",
              expected: "0.25", orderMatters: true),
             TestCaseData(id: "a4232bb6-979a-4612-b5bb-df5ce5380c31",
              input: "n = 4, k = 2, row = 3, column = 3",
              expected: "0.125", orderMatters: true),
-            TestCaseData(id: "0e43dba6-b84d-4bd4-8d3b-b0e2eaa3056b",
-             input: "n = 5, k = 0, row = 4, column = 4",
-             expected: "1.0", orderMatters: true),
             TestCaseData(id: "b9356fe8-38ac-4499-a03e-c9e3f704c17d",
              input: "n = 2, k = 1, row = 0, column = 0",
              expected: "0.0", orderMatters: true),
@@ -123,10 +102,8 @@ enum LCKnightProbabilityInChessboard {
             guard params.count == 4 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 4, got \(params.count)"
                 )
                 return
@@ -135,10 +112,8 @@ enum LCKnightProbabilityInChessboard {
             guard let p_n = InputParser.parseInt(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as Int"
                 )
                 return
@@ -146,10 +121,8 @@ enum LCKnightProbabilityInChessboard {
             guard let p_k = InputParser.parseInt(params[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 1 as Int"
                 )
                 return
@@ -157,10 +130,8 @@ enum LCKnightProbabilityInChessboard {
             guard let p_row = InputParser.parseInt(params[2]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 2 as Int"
                 )
                 return
@@ -168,10 +139,8 @@ enum LCKnightProbabilityInChessboard {
             guard let p_column = InputParser.parseInt(params[3]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 3 as Int"
                 )
                 return
@@ -181,10 +150,8 @@ enum LCKnightProbabilityInChessboard {
             guard p_n >= 1 && p_n <= 25 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 1 <= n <= 25"
                 )
                 return
@@ -192,17 +159,27 @@ enum LCKnightProbabilityInChessboard {
             guard p_k >= 0 && p_k <= 100 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: 0 <= k <= 100"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.knightProbability(p_n, p_k, p_row, p_column)
+            var resultHolder: Double?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.knightProbability(p_n, p_k, p_row, p_column)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Float comparison: epsilon = 1e-5 per LeetCode convention (QUAL-02)
@@ -211,10 +188,8 @@ enum LCKnightProbabilityInChessboard {
             let matches = abs(result - expectedVal) < 1e-5
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

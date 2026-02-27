@@ -166,7 +166,7 @@ public func serializeRandomList(_ head: RandomNode?) -> String {
         nodes.append(node)
         current = node.next
     }
-    let indexMap = Dictionary(uniqueKeysWithValues: nodes.enumerated().map { ($1.val, $0) })
+    let _ = Dictionary(uniqueKeysWithValues: nodes.enumerated().map { ($1.val, $0) })
     var result: [String] = []
     for node in nodes {
         let randomIdx: String

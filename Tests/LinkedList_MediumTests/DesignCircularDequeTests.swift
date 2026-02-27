@@ -197,10 +197,8 @@ enum LCDesignCircularDeque {
             guard inputLines.count >= 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Invalid class design input format"
                 )
                 return
@@ -209,10 +207,8 @@ enum LCDesignCircularDeque {
             guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse method names"
                 )
                 return
@@ -220,10 +216,8 @@ enum LCDesignCircularDeque {
             guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse args list"
                 )
                 return
@@ -231,10 +225,8 @@ enum LCDesignCircularDeque {
             guard methodNames.count == argsList.count, !methodNames.isEmpty else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Methods/args count mismatch"
                 )
                 return
@@ -245,10 +237,8 @@ enum LCDesignCircularDeque {
             guard initArgs.count >= 1 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Init args count too small"
                 )
                 return
@@ -256,17 +246,28 @@ enum LCDesignCircularDeque {
             guard let initP_0 = InputParser.parseInt(initArgs[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse init param 0 as Int"
                 )
                 return
             }
-            var obj = Solution.MyCircularDeque(initP_0)
+            var objHolder: Solution.MyCircularDeque?
+            let initDidCrash = withCrashGuard {
+                objHolder = Solution.MyCircularDeque(initP_0)
+            }
+            guard !initDidCrash, var obj = objHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution init crashed at runtime"
+                )
+                return
+            }
 
             var results: [String] = []
+            let loopDidCrash = withCrashGuard {
             for idx in 1..<methodNames.count {
                 let methodName = methodNames[idx]
                 let args = argsList[idx]
@@ -301,6 +302,16 @@ enum LCDesignCircularDeque {
                     results.append("null")
                 }
             }
+            }
+            guard !loopDidCrash else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution method crashed at runtime"
+                )
+                return
+            }
 
             let computedOutput = "[" + results.joined(separator: ",") + "]"
             // Class-design comparison: normalize null representations and whitespace
@@ -314,10 +325,8 @@ enum LCDesignCircularDeque {
             let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

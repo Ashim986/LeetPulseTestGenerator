@@ -145,6 +145,15 @@ def generate_constraint_guards_from_parsed(
         orig_name = var_name[2:] if var_name.startswith("p_") else var_name
         param_lookup[orig_name] = (var_name, swift_type)
 
+    # Pre-scan: resolve "n == arr.length" aliases from variable_equality constraints
+    alias_map = {}  # alias_var -> base_param_name
+    for c in constraints:
+        if c.get("kind") == "variable_equality":
+            raw_text = c.get("raw", "")
+            m = re.match(r'(\w+)\s*==\s*(\w+)\.length', raw_text)
+            if m:
+                alias_map[m.group(1)] = m.group(2)
+
     guards = []
     for c in constraints:
         kind = c.get("kind", "")
@@ -169,11 +178,20 @@ def generate_constraint_guards_from_parsed(
         for var in variables:
             # Try to find the matching Swift parameter
             swift_var, swift_type = None, None
+            resolved_via_alias = False
+
+            # Alias resolution first: e.g., n -> strs via "n == strs.length"
+            if var in alias_map:
+                base = alias_map[var]
+                if base in param_lookup:
+                    swift_var, swift_type = param_lookup[base]
+                    resolved_via_alias = True
 
             # Direct match
-            if var in param_lookup:
+            if not swift_var and var in param_lookup:
                 swift_var, swift_type = param_lookup[var]
-            else:
+
+            if not swift_var:
                 # Try stripping subscript notation (e.g., nums_i -> nums)
                 base_var = re.sub(r"_[ij]$", "", var)
                 if base_var in param_lookup:
@@ -191,7 +209,17 @@ def generate_constraint_guards_from_parsed(
 
             condition = None
 
-            if kind == "array_length":
+            # Aliased variable: always emit .count constraint
+            if resolved_via_alias:
+                parts = []
+                if min_val is not None:
+                    parts.append(f"{swift_var}.count >= {min_val}")
+                if max_val is not None:
+                    parts.append(f"{swift_var}.count <= {max_val}")
+                if parts:
+                    condition = " && ".join(parts)
+
+            elif kind == "array_length":
                 # guard p_var.count >= min && p_var.count <= max
                 parts = []
                 if min_val is not None:
@@ -268,12 +296,19 @@ def generate_constraint_guards_from_parsed(
     return guards
 
 
-def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, str, str]]) -> Optional[str]:
+def parse_constraint_to_guard(
+    constraint_text: str,
+    param_vars: List[Tuple[str, str, str]],
+    alias_map: Optional[Dict[str, str]] = None,
+) -> Optional[str]:
     """Parse a single constraint string into a Swift guard condition.
     param_vars is [(var_name, swift_type, label)].
+    alias_map maps aliased variables to base param names (e.g., n -> strs).
     Returns a Swift boolean expression or None if can't parse."""
 
     text = constraint_text.strip()
+    if alias_map is None:
+        alias_map = {}
 
     # Build a lookup: param_name -> (var_name, swift_type)
     param_map = {}
@@ -335,6 +370,12 @@ def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, 
             vn, st = param_map[name]
             if st == "Int":
                 return f"{vn} >= {lo} && {vn} <= {hi}"
+        # Alias resolution: n -> strs via "n == strs.length"
+        if name not in param_map and name in alias_map:
+            base = alias_map[name]
+            if base in param_map:
+                vn, _ = param_map[base]
+                return f"{vn}.count >= {lo} && {vn}.count <= {hi}"
 
     # "s.length <= 10^5"
     m = re.match(r'(\w+)\.length\s*<=\s*(\d+(?:\^|\*\*)\d+|\d+)', text)
@@ -354,6 +395,12 @@ def parse_constraint_to_guard(constraint_text: str, param_vars: List[Tuple[str, 
             vn, st = param_map[name]
             if st == "Int":
                 return f"{vn} >= {val}"
+        # Alias resolution: n -> strs via "n == strs.length"
+        if name not in param_map and name in alias_map:
+            base = alias_map[name]
+            if base in param_map:
+                vn, _ = param_map[base]
+                return f"{vn}.count >= {val}"
 
     return None
 
@@ -377,9 +424,16 @@ def generate_constraint_guards(
 ) -> List[str]:
     """Generate Swift guard lines from constraint text list.
     Returns lines of Swift code to insert before the solution call."""
+    # Pre-scan: resolve "n == arr.length" aliases
+    alias_map = {}
+    for c_text in constraints:
+        m = re.match(r'(\w+)\s*==\s*(\w+)\.length', c_text.strip())
+        if m:
+            alias_map[m.group(1)] = m.group(2)
+
     guards = []
     for c_text in constraints:
-        condition = parse_constraint_to_guard(c_text, param_vars)
+        condition = parse_constraint_to_guard(c_text, param_vars, alias_map)
         if condition:
             record_lines = _emit_record_call(
                 "            ",
@@ -405,22 +459,16 @@ def _emit_record_call(
     status: str = '"parse_error"',
     error_message: str = None,
 ) -> List[str]:
-    """Generate multiline ResultRecorderActor.shared.record() call lines.
-
-    Breaks the long record() call into multiple lines to satisfy SwiftLint
-    line_length rule (max 160 chars). Each parameter on its own line.
-    """
+    """Generate compact ResultRecorderActor.shared.record() call lines."""
     lines = []
     lines.append(f"{indent}await ResultRecorderActor.shared.record(")
     lines.append(f"{indent}    slug: slug, topic: topic, testId: testId,")
-    lines.append(f"{indent}    input: rawInput, originalExpected: expectedOutput,")
-    lines.append(f"{indent}    computedOutput: {computed_output},")
-    lines.append(f"{indent}    isValid: {is_valid},")
+    lines.append(f"{indent}    input: rawInput, originalExpected: expectedOutput, computedOutput: {computed_output},")
     if error_message:
-        lines.append(f"{indent}    status: {status}, orderMatters: orderMatters,")
+        lines.append(f"{indent}    isValid: {is_valid}, status: {status}, orderMatters: orderMatters,")
         lines.append(f"{indent}    errorMessage: {error_message}")
     else:
-        lines.append(f"{indent}    status: {status}, orderMatters: orderMatters")
+        lines.append(f"{indent}    isValid: {is_valid}, status: {status}, orderMatters: orderMatters")
     lines.append(f"{indent})")
     return lines
 
@@ -1539,6 +1587,77 @@ def sanitize_solution_code(code: str, slug: str = "", is_class_design: bool = Fa
     return modified
 
 
+def _fix_dict_subscript_mutations(line: str) -> str:
+    """Fix dict[key]! mutation patterns that can't use .unsafelyUnwrapped.
+
+    Handles nested brackets in key expressions (e.g., dict[arr[i]]! += 1).
+    Replaces with dict[key, default: <zero>] for mutation contexts.
+    """
+    result = []
+    i = 0
+    while i < len(line):
+        # Look for word[
+        if i < len(line) and line[i:i+1].isalpha() or (i < len(line) and line[i] == '_'):
+            # Try to match identifier followed by [
+            start = i
+            while i < len(line) and (line[i].isalnum() or line[i] == '_'):
+                i += 1
+            if i < len(line) and line[i] == '[':
+                name = line[start:i]
+                # Find matching ]
+                bracket_start = i
+                depth = 1
+                i += 1
+                while i < len(line) and depth > 0:
+                    if line[i] == '[':
+                        depth += 1
+                    elif line[i] == ']':
+                        depth -= 1
+                    i += 1
+                # i now points to char after ]
+                key_expr = line[bracket_start + 1:i - 1]
+                # Check if followed by ! and a mutation operator
+                if i < len(line) and line[i] == '!':
+                    rest = line[i + 1:].lstrip()
+                    if rest.startswith('+='):
+                        result.append(f"{name}[{key_expr}, default: 0] +=")
+                        i += 1  # skip !
+                        # skip whitespace and +=
+                        while i < len(line) and line[i] in ' \t':
+                            i += 1
+                        i += 2  # skip +=
+                        continue
+                    elif rest.startswith('-='):
+                        result.append(f"{name}[{key_expr}, default: 0] -=")
+                        i += 1
+                        while i < len(line) and line[i] in ' \t':
+                            i += 1
+                        i += 2
+                        continue
+                    elif rest.startswith('.append(') or rest.startswith('.insert('):
+                        result.append(f"{name}[{key_expr}, default: []]")
+                        i += 1  # skip !
+                        continue
+                    elif rest.startswith('.removeLast') or rest.startswith('.removeFirst') or rest.startswith('.remove('):
+                        result.append(f"{name}[{key_expr}, default: []]")
+                        i += 1
+                        continue
+                    else:
+                        # Not a mutation pattern, keep as-is (general replacement will handle)
+                        result.append(f"{name}[{key_expr}]")
+                        continue
+                else:
+                    result.append(f"{name}[{key_expr}]")
+                    continue
+            else:
+                result.append(line[start:i])
+                continue
+        else:
+            result.append(line[i])
+            i += 1
+    return "".join(result)
+
+
 def remove_force_unwraps(code: str) -> str:
     """Remove all force-unwrap operators (!) from solution code.
 
@@ -1579,17 +1698,9 @@ def remove_force_unwraps(code: str) -> str:
                     modified
                 )
 
-                # dict[key]!.append(x) -> dict[key, default: []].append(x)
-                # dict[key]!.insert(x) -> dict[key, default: Set()].insert(x)
-                # (mutation through subscript — unsafelyUnwrapped won't work)
-                modified = re.sub(
-                    r'(\w+\[[^\]]+\])!\.append\(',
-                    r'\1.unsafelyUnwrapped.append(',
-                    modified
-                )
-                # Actually, dict[key]! for mutation needs special handling:
-                # dict[key]!.method() -> unsafelyUnwrapped won't compile for mutation
-                # Use a different approach: leave dict[key]! mutations and handle below
+                # Handle dict[key]! mutation patterns before general replacement.
+                # Use a function to find the matching ] bracket (supports nested brackets)
+                modified = _fix_dict_subscript_mutations(modified)
 
                 # Replace all remaining force unwraps with .unsafelyUnwrapped
                 # Pattern: expr! where ! is preceded by ) ] } or word char
@@ -1663,9 +1774,60 @@ def _break_long_solution_lines(code: str, max_len: int = 195) -> str:
                 result.extend(broken_lines)
                 continue
 
-        # If still too long, keep as-is (swiftlint line_length threshold is generous)
+        # Try splitting at top-level commas (dict/array literals)
+        indent = line[:len(line) - len(line.lstrip())]
+        comma_parts = _split_at_top_level_commas(line.strip())
+        if len(comma_parts) > 1:
+            broken = []
+            for j, part in enumerate(comma_parts):
+                suffix = "," if j < len(comma_parts) - 1 else ""
+                broken.append(f"{indent}    {part.strip()}{suffix}")
+            # First part keeps original indent
+            broken[0] = f"{indent}{comma_parts[0].strip()},"
+            if all(len(bl) <= max_len for bl in broken):
+                result.extend(broken)
+                continue
+
+        # If still too long, keep as-is
         result.append(line)
     return "\n".join(result)
+
+
+def _split_at_top_level_commas(s: str) -> list:
+    """Split a string at commas that are not inside brackets/parens/braces."""
+    parts = []
+    depth = 0
+    current = []
+    in_string = False
+    escape_next = False
+    for ch in s:
+        if escape_next:
+            current.append(ch)
+            escape_next = False
+            continue
+        if ch == '\\':
+            current.append(ch)
+            escape_next = True
+            continue
+        if ch == '"' and not escape_next:
+            in_string = not in_string
+            current.append(ch)
+            continue
+        if in_string:
+            current.append(ch)
+            continue
+        if ch in '([{':
+            depth += 1
+        elif ch in ')]}':
+            depth -= 1
+        if ch == ',' and depth == 0:
+            parts.append("".join(current))
+            current = []
+        else:
+            current.append(ch)
+    if current:
+        parts.append("".join(current))
+    return parts
 
 
 def extract_solution_code(code: str) -> str:
@@ -1881,7 +2043,17 @@ def generate_test_file(
             call_str = ", ".join(call_args)
 
             if return_type == "Void":
-                lines.append(f"        solution.{func_name}({call_str})")
+                lines.append(f"        let didCrash = withCrashGuard {{")
+                lines.append(f"            solution.{func_name}({call_str})")
+                lines.append(f"        }}")
+                lines.append(f"        guard !didCrash else {{")
+                for rl in _emit_record_call(
+                    "            ", status='"runtime_error"',
+                    error_message='"Solution crashed at runtime"',
+                ):
+                    lines.append(rl)
+                lines.append(f"            return")
+                lines.append(f"        }}")
                 inout_var = None
                 inout_type = None
                 for var_name, ptype, label in param_vars:
@@ -1895,7 +2067,19 @@ def generate_test_file(
                 else:
                     lines.append(f'        let computedOutput = OutputSerializer.serializeVoid()')
             else:
-                lines.append(f"        let result = solution.{func_name}({call_str})")
+                opt_type = return_type if return_type.endswith("?") else f"{return_type}?"
+                lines.append(f"        var resultHolder: {opt_type}")
+                lines.append(f"        let didCrash = withCrashGuard {{")
+                lines.append(f"            resultHolder = solution.{func_name}({call_str})")
+                lines.append(f"        }}")
+                lines.append(f"        guard !didCrash, let result = resultHolder else {{")
+                for rl in _emit_record_call(
+                    "            ", status='"runtime_error"',
+                    error_message='"Solution crashed at runtime"',
+                ):
+                    lines.append(rl)
+                lines.append(f"            return")
+                lines.append(f"        }}")
                 ser = output_serializer(return_type, "result")
                 lines.append(f"        let computedOutput = {ser}")
 
@@ -2181,14 +2365,37 @@ def generate_class_design_test_file(
                     init_call_parts.append(f"{label}: {vn}")
             init_call = ", ".join(init_call_parts)
             qual = design_class if solution_is_design_class else f"Solution.{design_class}"
-            lines.append(f"        var obj = {qual}({init_call})")
+            lines.append(f"        var objHolder: {qual}?")
+            lines.append(f"        let initDidCrash = withCrashGuard {{")
+            lines.append(f"            objHolder = {qual}({init_call})")
+            lines.append(f"        }}")
+            lines.append(f"        guard !initDidCrash, var obj = objHolder else {{")
+            for rl in _emit_record_call(
+                "            ", status='"runtime_error"',
+                error_message='"Solution init crashed at runtime"',
+            ):
+                lines.append(rl)
+            lines.append(f"            return")
+            lines.append(f"        }}")
         else:
             qual = design_class if solution_is_design_class else f"Solution.{design_class}"
-            lines.append(f"        var obj = {qual}()")
+            lines.append(f"        var objHolder: {qual}?")
+            lines.append(f"        let initDidCrash = withCrashGuard {{")
+            lines.append(f"            objHolder = {qual}()")
+            lines.append(f"        }}")
+            lines.append(f"        guard !initDidCrash, var obj = objHolder else {{")
+            for rl in _emit_record_call(
+                "            ", status='"runtime_error"',
+                error_message='"Solution init crashed at runtime"',
+            ):
+                lines.append(rl)
+            lines.append(f"            return")
+            lines.append(f"        }}")
         lines.append(f"")
 
-        # Generate method dispatch loop
+        # Generate method dispatch loop (wrapped in crash guard)
         lines.append(f"        var results: [String] = []")
+        lines.append(f"        let loopDidCrash = withCrashGuard {{")
         lines.append(f"        for idx in 1..<methodNames.count {{")
         lines.append(f"            let methodName = methodNames[idx]")
         lines.append(f"            let args = argsList[idx]")
@@ -2266,6 +2473,15 @@ def generate_class_design_test_file(
         else:
             lines.append(f'            results.append("null")')
 
+        lines.append(f"        }}")
+        lines.append(f"        }}")  # close withCrashGuard
+        lines.append(f"        guard !loopDidCrash else {{")
+        for rl in _emit_record_call(
+            "            ", status='"runtime_error"',
+            error_message='"Solution method crashed at runtime"',
+        ):
+            lines.append(rl)
+        lines.append(f"            return")
         lines.append(f"        }}")
         lines.append(f"")
         lines.append(f'        let computedOutput = "[" + results.joined(separator: ",") + "]"')

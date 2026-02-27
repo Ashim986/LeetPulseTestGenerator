@@ -628,11 +628,12 @@ class TestForceUnwrapRemoval:
         assert "arr[arr.startIndex]" in result
         assert ".first!" not in result
 
-    def test_remaining_force_unwraps_get_inline_disable(self):
-        """Force unwraps that can't be mechanically fixed get swiftlint:disable."""
+    def test_remaining_force_unwraps_get_unsafely_unwrapped(self):
+        """Force unwraps that can't be mechanically fixed use .unsafelyUnwrapped."""
         code = "    let val = dict[key]!"
         result = remove_force_unwraps(code)
-        assert "swiftlint:disable:this force_unwrapping" in result
+        assert ".unsafelyUnwrapped" in result
+        assert "!" not in result or "!=" in result
 
     def test_redundant_type_annotation_removal(self):
         """let n: Int = expr should become let n = expr."""

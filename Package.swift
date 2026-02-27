@@ -11,7 +11,12 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "CrashGuard",
+            path: "Sources/CrashGuard"
+        ),
+        .target(
             name: "LeetCodeHelpers",
+            dependencies: ["CrashGuard"],
             path: "Sources/LeetCodeHelpers"
         ),
         .target(

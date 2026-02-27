@@ -29,8 +29,8 @@ enum LCAlienDictionary {
                 for j in 0..<min(w1.count, w2.count) {
                     if w1[j] != w2[j] {
                         if !graph[w1[j]].unsafelyUnwrapped.contains(w2[j]) {
-                            graph[w1[j]].unsafelyUnwrapped.insert(w2[j])
-                            inDegree[w2[j]].unsafelyUnwrapped += 1
+                            graph[w1[j], default: []].insert(w2[j])
+                            inDegree[w2[j], default: 0] += 1
                         }
                         break
                     }
@@ -46,7 +46,7 @@ enum LCAlienDictionary {
                 result.append(c)
 
                 for next in graph[c].unsafelyUnwrapped {
-                    inDegree[next].unsafelyUnwrapped -= 1
+                    inDegree[next, default: 0] -= 1
                     if inDegree[next] == 0 {
                         queue.append(next)
                     }
@@ -115,10 +115,8 @@ enum LCAlienDictionary {
             guard params.count == 1 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 1, got \(params.count)"
                 )
                 return
@@ -127,10 +125,8 @@ enum LCAlienDictionary {
             guard let p_words = InputParser.parseStringArray(params[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as [String]"
                 )
                 return
@@ -138,17 +134,27 @@ enum LCAlienDictionary {
             guard p_words.count <= 100_000 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Constraint violation: words array too large (\(p_words.count))"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.alienOrder(p_words)
+            var resultHolder: String?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.alienOrder(p_words)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = OutputSerializer.serialize(result)
 
             // Normalize: strip outer quotes from both sides (QUAL-03)
@@ -160,10 +166,8 @@ enum LCAlienDictionary {
             let matches = stripQuotes(computedOutput) == stripQuotes(expectedOutput)
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

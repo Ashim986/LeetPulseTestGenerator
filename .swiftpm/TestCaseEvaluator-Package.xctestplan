@@ -1,0 +1,367 @@
+{
+  "configurations" : [
+    {
+      "id" : "D384CFBA-3288-4247-B514-5583EF35DF45",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ArraysHashing_EasyTests",
+        "name" : "ArraysHashing_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ArraysHashing_HardTests",
+        "name" : "ArraysHashing_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "ArraysHashing_MediumTests",
+        "name" : "ArraysHashing_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Backtracking_EasyTests",
+        "name" : "Backtracking_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Backtracking_HardTests",
+        "name" : "Backtracking_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Backtracking_MediumTests",
+        "name" : "Backtracking_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BinarySearch_EasyTests",
+        "name" : "BinarySearch_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BinarySearch_HardTests",
+        "name" : "BinarySearch_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BinarySearch_MediumTests",
+        "name" : "BinarySearch_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BitManipulation_EasyTests",
+        "name" : "BitManipulation_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BitManipulation_HardTests",
+        "name" : "BitManipulation_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "BitManipulation_MediumTests",
+        "name" : "BitManipulation_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "DynamicProgramming_EasyTests",
+        "name" : "DynamicProgramming_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "DynamicProgramming_HardTests",
+        "name" : "DynamicProgramming_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "DynamicProgramming_MediumTests",
+        "name" : "DynamicProgramming_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Graphs_EasyTests",
+        "name" : "Graphs_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Graphs_HardTests",
+        "name" : "Graphs_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Graphs_MediumTests",
+        "name" : "Graphs_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Greedy_EasyTests",
+        "name" : "Greedy_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Greedy_HardTests",
+        "name" : "Greedy_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Greedy_MediumTests",
+        "name" : "Greedy_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "HeapPriorityQueue_EasyTests",
+        "name" : "HeapPriorityQueue_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "HeapPriorityQueue_HardTests",
+        "name" : "HeapPriorityQueue_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "HeapPriorityQueue_MediumTests",
+        "name" : "HeapPriorityQueue_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Intervals_HardTests",
+        "name" : "Intervals_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Intervals_MediumTests",
+        "name" : "Intervals_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "LinkedList_EasyTests",
+        "name" : "LinkedList_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "LinkedList_HardTests",
+        "name" : "LinkedList_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "LinkedList_MediumTests",
+        "name" : "LinkedList_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MathGeometry_EasyTests",
+        "name" : "MathGeometry_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MathGeometry_HardTests",
+        "name" : "MathGeometry_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MathGeometry_MediumTests",
+        "name" : "MathGeometry_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Misc_EasyTests",
+        "name" : "Misc_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Misc_HardTests",
+        "name" : "Misc_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Misc_MediumTests",
+        "name" : "Misc_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SlidingWindow_EasyTests",
+        "name" : "SlidingWindow_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SlidingWindow_HardTests",
+        "name" : "SlidingWindow_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SlidingWindow_MediumTests",
+        "name" : "SlidingWindow_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Stack_EasyTests",
+        "name" : "Stack_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Stack_HardTests",
+        "name" : "Stack_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Stack_MediumTests",
+        "name" : "Stack_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Trees_EasyTests",
+        "name" : "Trees_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Trees_HardTests",
+        "name" : "Trees_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Trees_MediumTests",
+        "name" : "Trees_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Tries_EasyTests",
+        "name" : "Tries_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Tries_HardTests",
+        "name" : "Tries_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "Tries_MediumTests",
+        "name" : "Tries_MediumTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TwoPointers_EasyTests",
+        "name" : "TwoPointers_EasyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TwoPointers_HardTests",
+        "name" : "TwoPointers_HardTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TwoPointers_MediumTests",
+        "name" : "TwoPointers_MediumTests"
+      }
+    }
+  ],
+  "version" : 1
+}

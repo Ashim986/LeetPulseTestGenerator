@@ -137,10 +137,8 @@ enum LCImplementTriePrefixTree {
             guard inputLines.count >= 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Invalid class design input format"
                 )
                 return
@@ -149,10 +147,8 @@ enum LCImplementTriePrefixTree {
             guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse method names"
                 )
                 return
@@ -160,10 +156,8 @@ enum LCImplementTriePrefixTree {
             guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse args list"
                 )
                 return
@@ -171,10 +165,8 @@ enum LCImplementTriePrefixTree {
             guard methodNames.count == argsList.count, !methodNames.isEmpty else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Methods/args count mismatch"
                 )
                 return
@@ -182,9 +174,22 @@ enum LCImplementTriePrefixTree {
 
             // Init
             let initArgs = argsList[0]
-            var obj = Solution.Trie()
+            var objHolder: Solution.Trie?
+            let initDidCrash = withCrashGuard {
+                objHolder = Solution.Trie()
+            }
+            guard !initDidCrash, var obj = objHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution init crashed at runtime"
+                )
+                return
+            }
 
             var results: [String] = []
+            let loopDidCrash = withCrashGuard {
             for idx in 1..<methodNames.count {
                 let methodName = methodNames[idx]
                 let args = argsList[idx]
@@ -205,6 +210,16 @@ enum LCImplementTriePrefixTree {
                     results.append("null")
                 }
             }
+            }
+            guard !loopDidCrash else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution method crashed at runtime"
+                )
+                return
+            }
 
             let computedOutput = "[" + results.joined(separator: ",") + "]"
             // Class-design comparison: normalize null representations and whitespace
@@ -218,10 +233,8 @@ enum LCImplementTriePrefixTree {
             let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

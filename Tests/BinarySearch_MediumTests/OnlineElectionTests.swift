@@ -146,10 +146,8 @@ enum LCOnlineElection {
             guard inputLines.count >= 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Invalid class design input format"
                 )
                 return
@@ -158,10 +156,8 @@ enum LCOnlineElection {
             guard let methodNames = InputParser.parseStringArray(inputLines[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse method names"
                 )
                 return
@@ -169,10 +165,8 @@ enum LCOnlineElection {
             guard let argsList = InputParser.parseRawArgsList(inputLines[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse args list"
                 )
                 return
@@ -180,10 +174,8 @@ enum LCOnlineElection {
             guard methodNames.count == argsList.count, !methodNames.isEmpty else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Methods/args count mismatch"
                 )
                 return
@@ -194,10 +186,8 @@ enum LCOnlineElection {
             guard initArgs.count >= 2 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Init args count too small"
                 )
                 return
@@ -205,10 +195,8 @@ enum LCOnlineElection {
             guard let initP_0 = InputParser.parseIntArray(initArgs[0]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse init param 0 as [Int]"
                 )
                 return
@@ -216,17 +204,28 @@ enum LCOnlineElection {
             guard let initP_1 = InputParser.parseIntArray(initArgs[1]) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse init param 1 as [Int]"
                 )
                 return
             }
-            var obj = Solution.TopVotedCandidate(initP_0, initP_1)
+            var objHolder: Solution.TopVotedCandidate?
+            let initDidCrash = withCrashGuard {
+                objHolder = Solution.TopVotedCandidate(initP_0, initP_1)
+            }
+            guard !initDidCrash, var obj = objHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution init crashed at runtime"
+                )
+                return
+            }
 
             var results: [String] = []
+            let loopDidCrash = withCrashGuard {
             for idx in 1..<methodNames.count {
                 let methodName = methodNames[idx]
                 let args = argsList[idx]
@@ -243,6 +242,16 @@ enum LCOnlineElection {
                     results.append("null")
                 }
             }
+            }
+            guard !loopDidCrash else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution method crashed at runtime"
+                )
+                return
+            }
 
             let computedOutput = "[" + results.joined(separator: ",") + "]"
             // Class-design comparison: normalize null representations and whitespace
@@ -256,10 +265,8 @@ enum LCOnlineElection {
             let matches = normalizeClassOutput(computedOutput) == normalizeClassOutput(expectedOutput)
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }

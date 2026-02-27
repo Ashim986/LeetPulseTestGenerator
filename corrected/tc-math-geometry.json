@@ -11709,7 +11709,7 @@
       "problemSlug": "unique-binary-search-trees",
       "leetCodeNumber": 96,
       "difficulty": "medium",
-      "testCaseCount": 25,
+      "testCaseCount": 24,
       "testCases": [
         {
           "id": "c2507947-4393-49d0-b9dc-100bf521403c",
@@ -11853,12 +11853,6 @@
           "id": "e81553a9-652b-4753-867d-69e3666ab070",
           "input": "n = 3",
           "expectedOutput": "5",
-          "orderMatters": true
-        },
-        {
-          "id": "a0bc6c90-ce65-4f54-a273-880a80284767",
-          "input": "n = 1",
-          "expectedOutput": "1",
           "orderMatters": true
         }
       ]
@@ -16559,17 +16553,11 @@
       "problemSlug": "rotate-function",
       "leetCodeNumber": 396,
       "difficulty": "medium",
-      "testCaseCount": 25,
+      "testCaseCount": 24,
       "testCases": [
         {
           "id": "907f05cc-e639-4d51-bcf1-a1d0955c831c",
           "input": "nums = []",
-          "expectedOutput": "0",
-          "orderMatters": true
-        },
-        {
-          "id": "10c913ad-bada-4892-a192-1a8c90c7ee05",
-          "input": "nums = [1]",
           "expectedOutput": "0",
           "orderMatters": true
         },

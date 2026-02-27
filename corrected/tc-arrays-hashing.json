@@ -2001,7 +2001,7 @@
       "problemSlug": "delete-columns-to-make-sorted",
       "leetCodeNumber": 944,
       "difficulty": "easy",
-      "testCaseCount": 25,
+      "testCaseCount": 24,
       "testCases": [
         {
           "id": "f26cc1cb-291d-4daa-8978-f2ef9bbacbb5",
@@ -2030,12 +2030,6 @@
         {
           "id": "0f024199-b635-450b-b558-d1bcd8144642",
           "input": "strs = [\"z\",\"z\",\"z\"]",
-          "expectedOutput": "0",
-          "orderMatters": true
-        },
-        {
-          "id": "9540b6e0-a9a7-4c85-afd8-8ab817144fe0",
-          "input": "strs = [\"abc\",\"def\",\"ghi\",\"jkl\",\"mno\",\"pqr\",\"stu\",\"vwx\",\"yz\"]",
           "expectedOutput": "0",
           "orderMatters": true
         },

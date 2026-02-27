@@ -362,9 +362,19 @@ public enum InputParser {
             if let data = trimmed.data(using: .utf8),
                let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
                 return obj.sorted(by: { $0.key < $1.key }).map { _, v in
-                    if let data = try? JSONSerialization.data(withJSONObject: v),
+                    if JSONSerialization.isValidJSONObject(v),
+                       let data = try? JSONSerialization.data(withJSONObject: v),
                        let str = String(data: data, encoding: .utf8) {
                         return str
+                    }
+                    // Scalar values (Int, Bool, String, etc.) aren't valid
+                    // top-level JSON objects — serialize them directly.
+                    if let n = v as? NSNumber {
+                        // Distinguish Bool from other NSNumber
+                        if CFGetTypeID(n) == CFBooleanGetTypeID() {
+                            return n.boolValue ? "true" : "false"
+                        }
+                        return n.stringValue
                     }
                     return "\(v)"
                 }

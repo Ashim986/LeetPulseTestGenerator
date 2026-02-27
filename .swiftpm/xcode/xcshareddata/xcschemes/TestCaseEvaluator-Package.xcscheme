@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "2600"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "LeetCodeHelpers"
+               BuildableName = "LeetCodeHelpers"
+               BlueprintName = "LeetCodeHelpers"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TestResultsBundle"
+               BuildableName = "TestResultsBundle"
+               BlueprintName = "TestResultsBundle"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:.swiftpm/TestCaseEvaluator-Package.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ArraysHashing_EasyTests"
+               BuildableName = "ArraysHashing_EasyTests"
+               BlueprintName = "ArraysHashing_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ArraysHashing_HardTests"
+               BuildableName = "ArraysHashing_HardTests"
+               BlueprintName = "ArraysHashing_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ArraysHashing_MediumTests"
+               BuildableName = "ArraysHashing_MediumTests"
+               BlueprintName = "ArraysHashing_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Backtracking_EasyTests"
+               BuildableName = "Backtracking_EasyTests"
+               BlueprintName = "Backtracking_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Backtracking_HardTests"
+               BuildableName = "Backtracking_HardTests"
+               BlueprintName = "Backtracking_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Backtracking_MediumTests"
+               BuildableName = "Backtracking_MediumTests"
+               BlueprintName = "Backtracking_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BinarySearch_EasyTests"
+               BuildableName = "BinarySearch_EasyTests"
+               BlueprintName = "BinarySearch_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BinarySearch_HardTests"
+               BuildableName = "BinarySearch_HardTests"
+               BlueprintName = "BinarySearch_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BinarySearch_MediumTests"
+               BuildableName = "BinarySearch_MediumTests"
+               BlueprintName = "BinarySearch_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BitManipulation_EasyTests"
+               BuildableName = "BitManipulation_EasyTests"
+               BlueprintName = "BitManipulation_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BitManipulation_HardTests"
+               BuildableName = "BitManipulation_HardTests"
+               BlueprintName = "BitManipulation_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BitManipulation_MediumTests"
+               BuildableName = "BitManipulation_MediumTests"
+               BlueprintName = "BitManipulation_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DynamicProgramming_EasyTests"
+               BuildableName = "DynamicProgramming_EasyTests"
+               BlueprintName = "DynamicProgramming_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DynamicProgramming_HardTests"
+               BuildableName = "DynamicProgramming_HardTests"
+               BlueprintName = "DynamicProgramming_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DynamicProgramming_MediumTests"
+               BuildableName = "DynamicProgramming_MediumTests"
+               BlueprintName = "DynamicProgramming_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Graphs_EasyTests"
+               BuildableName = "Graphs_EasyTests"
+               BlueprintName = "Graphs_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Graphs_HardTests"
+               BuildableName = "Graphs_HardTests"
+               BlueprintName = "Graphs_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Graphs_MediumTests"
+               BuildableName = "Graphs_MediumTests"
+               BlueprintName = "Graphs_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Greedy_EasyTests"
+               BuildableName = "Greedy_EasyTests"
+               BlueprintName = "Greedy_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Greedy_HardTests"
+               BuildableName = "Greedy_HardTests"
+               BlueprintName = "Greedy_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Greedy_MediumTests"
+               BuildableName = "Greedy_MediumTests"
+               BlueprintName = "Greedy_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "HeapPriorityQueue_EasyTests"
+               BuildableName = "HeapPriorityQueue_EasyTests"
+               BlueprintName = "HeapPriorityQueue_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "HeapPriorityQueue_HardTests"
+               BuildableName = "HeapPriorityQueue_HardTests"
+               BlueprintName = "HeapPriorityQueue_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "HeapPriorityQueue_MediumTests"
+               BuildableName = "HeapPriorityQueue_MediumTests"
+               BlueprintName = "HeapPriorityQueue_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Intervals_HardTests"
+               BuildableName = "Intervals_HardTests"
+               BlueprintName = "Intervals_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Intervals_MediumTests"
+               BuildableName = "Intervals_MediumTests"
+               BlueprintName = "Intervals_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "LinkedList_EasyTests"
+               BuildableName = "LinkedList_EasyTests"
+               BlueprintName = "LinkedList_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "LinkedList_HardTests"
+               BuildableName = "LinkedList_HardTests"
+               BlueprintName = "LinkedList_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "LinkedList_MediumTests"
+               BuildableName = "LinkedList_MediumTests"
+               BlueprintName = "LinkedList_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "MathGeometry_EasyTests"
+               BuildableName = "MathGeometry_EasyTests"
+               BlueprintName = "MathGeometry_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "MathGeometry_HardTests"
+               BuildableName = "MathGeometry_HardTests"
+               BlueprintName = "MathGeometry_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "MathGeometry_MediumTests"
+               BuildableName = "MathGeometry_MediumTests"
+               BlueprintName = "MathGeometry_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Misc_EasyTests"
+               BuildableName = "Misc_EasyTests"
+               BlueprintName = "Misc_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Misc_HardTests"
+               BuildableName = "Misc_HardTests"
+               BlueprintName = "Misc_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Misc_MediumTests"
+               BuildableName = "Misc_MediumTests"
+               BlueprintName = "Misc_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SlidingWindow_EasyTests"
+               BuildableName = "SlidingWindow_EasyTests"
+               BlueprintName = "SlidingWindow_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SlidingWindow_HardTests"
+               BuildableName = "SlidingWindow_HardTests"
+               BlueprintName = "SlidingWindow_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SlidingWindow_MediumTests"
+               BuildableName = "SlidingWindow_MediumTests"
+               BlueprintName = "SlidingWindow_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Stack_EasyTests"
+               BuildableName = "Stack_EasyTests"
+               BlueprintName = "Stack_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Stack_HardTests"
+               BuildableName = "Stack_HardTests"
+               BlueprintName = "Stack_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Stack_MediumTests"
+               BuildableName = "Stack_MediumTests"
+               BlueprintName = "Stack_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Trees_EasyTests"
+               BuildableName = "Trees_EasyTests"
+               BlueprintName = "Trees_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Trees_HardTests"
+               BuildableName = "Trees_HardTests"
+               BlueprintName = "Trees_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Trees_MediumTests"
+               BuildableName = "Trees_MediumTests"
+               BlueprintName = "Trees_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Tries_EasyTests"
+               BuildableName = "Tries_EasyTests"
+               BlueprintName = "Tries_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Tries_HardTests"
+               BuildableName = "Tries_HardTests"
+               BlueprintName = "Tries_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Tries_MediumTests"
+               BuildableName = "Tries_MediumTests"
+               BlueprintName = "Tries_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TwoPointers_EasyTests"
+               BuildableName = "TwoPointers_EasyTests"
+               BlueprintName = "TwoPointers_EasyTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TwoPointers_HardTests"
+               BuildableName = "TwoPointers_HardTests"
+               BlueprintName = "TwoPointers_HardTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TwoPointers_MediumTests"
+               BuildableName = "TwoPointers_MediumTests"
+               BlueprintName = "TwoPointers_MediumTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "LeetCodeHelpers"
+            BuildableName = "LeetCodeHelpers"
+            BlueprintName = "LeetCodeHelpers"
+            ReferencedContainer = "container:">
+         </BuildableReference>
+      </MacroExpansion>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>

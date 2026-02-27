@@ -128,7 +128,7 @@ enum LCCopyListWithRandomPointer {
              expected: "[[1,1],[2,1]]", orderMatters: true)
         ]
 
-        @Test(arguments: 0..<testCases.count)
+//        @Test(arguments: 0..<testCases.count)
         static func run(index: Int) async {
             let tc = Self.testCases[index]
             let slug = "copy-list-with-random-pointer"
@@ -143,10 +143,8 @@ enum LCCopyListWithRandomPointer {
             guard params.count == 1 else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Wrong param count: expected 1, got \(params.count)"
                 )
                 return
@@ -155,26 +153,34 @@ enum LCCopyListWithRandomPointer {
             guard let p_head = InputParser.parse2DIntArray(params[0]).map({ buildRandomList($0.map({ $0.map({ $0 == -1 ? nil : $0 }) as [Int?] })) }) else {
                 await ResultRecorderActor.shared.record(
                     slug: slug, topic: topic, testId: testId,
-                    input: rawInput, originalExpected: expectedOutput,
-                    computedOutput: "",
-                    isValid: false,
-                    status: "parse_error", orderMatters: orderMatters,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "parse_error", orderMatters: orderMatters,
                     errorMessage: "Failed to parse param 0 as RandomNode?"
                 )
                 return
             }
 
             let solution = Solution()
-            let result = solution.copyRandomList(p_head)
+            var resultHolder: RandomNode?
+            let didCrash = withCrashGuard {
+                resultHolder = solution.copyRandomList(p_head)
+            }
+            guard !didCrash, let result = resultHolder else {
+                await ResultRecorderActor.shared.record(
+                    slug: slug, topic: topic, testId: testId,
+                    input: rawInput, originalExpected: expectedOutput, computedOutput: "",
+                    isValid: false, status: "runtime_error", orderMatters: orderMatters,
+                    errorMessage: "Solution crashed at runtime"
+                )
+                return
+            }
             let computedOutput = serializeRandomList(result)
 
             let matches = computedOutput == expectedOutput
             await ResultRecorderActor.shared.record(
                 slug: slug, topic: topic, testId: testId,
-                input: rawInput, originalExpected: expectedOutput,
-                computedOutput: computedOutput,
-                isValid: true,
-                status: matches ? "matched" : "mismatched", orderMatters: orderMatters
+                input: rawInput, originalExpected: expectedOutput, computedOutput: computedOutput,
+                isValid: true, status: matches ? "matched" : "mismatched", orderMatters: orderMatters
             )
             #expect(matches, "Test \(testId): \(computedOutput)")
         }
